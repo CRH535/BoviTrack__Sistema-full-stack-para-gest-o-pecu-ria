@@ -12,9 +12,39 @@ const pool = new Pool({
   port: 5432,
 });
 
+app.delete("/propriedades/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const resultado = await pool.query(
+      `DELETE FROM propriedades
+             WHERE id = $1
+             RETURNING *`,
+      [id],
+    );
+
+    if (resultado.rows.length === 0) {
+      return res.status(404).json({
+        mensagem: "Propriedade não encontrada",
+      });
+    }
+
+    res.json({
+      mensagem: "Propriedade excluída com sucesso!",
+      propriedade: resultado.rows[0],
+    });
+  } catch (erro) {
+    console.error(erro);
+
+    res.status(500).json({
+      mensagem: "Erro ao excluir propriedade",
+    });
+  }
+});
+
 app.get("/propriedades/:id", async (req, res) => {
   try {
-    const id = req.params.id;
+    const { id } = req.params;
     const resultado = await pool.query(
       `SELECT * FROM propriedades WHERE id = $1`,
       [id],
