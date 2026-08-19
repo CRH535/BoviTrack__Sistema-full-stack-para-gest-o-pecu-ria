@@ -42,6 +42,58 @@ app.delete("/propriedades/:id", async (req, res) => {
   }
 });
 
+app.get("/animais", async (req, res) => {
+  try {
+    const resultado = await pool.query("SELECT * FROM animais");
+
+    res.json(resultado.rows);
+  } catch (erro) {
+    console.error(erro);
+
+    res.status(500).json({
+      mensagem: "Erro ao buscar animais",
+    });
+  }
+});
+
+app.post("/animais", async (req, res) => {
+  try {
+    const { nome, especie, raca, sexo, peso, propriedade_id } = req.body;
+    if (!nome || !especie || !sexo || !propriedade_id) {
+      return res.status(400).json({
+        mensagem: "Nome, espécie, sexo e propriedade são obrigatórios",
+      });
+    }
+    const propriedadeExiste = await pool.query(
+      "SELECT id FROM propriedades WHERE id = $1",
+      [propriedade_id],
+    );
+    if (propriedadeExiste.rows.length === 0) {
+      return res.status(400).json({
+        mensagem: "Propriedade não encontrada",
+      });
+    }
+    const resultado = await pool.query(
+      `INSERT INTO animais
+       (nome, especie, raca, sexo, peso, propriedade_id)
+        VALUES ($1, $2, $3, $4, $5, $6)
+        RETURNING *`,
+      [nome, especie, raca, sexo.toUpperCase(), peso, propriedade_id],
+    );
+
+    res.status(201).json({
+      mensagem: "Animal cadastrado com sucesso!",
+      animal: resultado.rows[0],
+    });
+  } catch (erro) {
+    console.error(erro);
+
+    res.status(500).json({
+      mensagem: "Erro ao cadastrar animal",
+    });
+  }
+});
+
 app.get("/propriedades/:id", async (req, res) => {
   try {
     const { id } = req.params;
