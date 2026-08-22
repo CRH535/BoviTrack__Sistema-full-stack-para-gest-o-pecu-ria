@@ -12,6 +12,183 @@ const pool = new Pool({
   port: 5432,
 });
 
+app.post("/lotes", async (req, res) => {
+    try {
+        const {
+            nome,
+            descricao,
+            propriedade_id
+        } = req.body;
+
+        if (!nome || !propriedade_id) {
+            return res.status(400).json({
+                mensagem: "Nome e propriedade são obrigatórios"
+            });
+        }
+
+        const propriedadeExiste = await pool.query(
+            "SELECT * FROM propriedades WHERE id = $1",
+            [propriedade_id]
+        );
+
+        if (propriedadeExiste.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Propriedade não encontrada"
+            });
+        }
+
+        const resultado = await pool.query(
+            `INSERT INTO lotes
+             (nome, descricao, propriedade_id)
+             VALUES ($1, $2, $3)
+             RETURNING *`,
+            [nome, descricao, propriedade_id]
+        );
+
+        res.status(201).json({
+            mensagem: "Lote cadastrado com sucesso!",
+            lote: resultado.rows[0]
+        });
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao cadastrar lote"
+        });
+    }
+});
+
+app.get('/lotes/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const resultado = await pool.query(
+      'SELECT * FROM lotes WHERE id = $1;',
+      [id]
+    );
+
+    if (resultado.rows.length === 0) {
+      return res.status(404).json({
+        mensagem: 'Lote não encontrado'
+      });
+    }
+
+    res.status(200).json(resultado.rows[0]);
+  } catch (erro) {
+    console.error('Erro ao buscar lote:', erro);
+
+    res.status(500).json({
+      mensagem: 'Erro interno do servidor'
+    });
+  }
+});
+
+app.delete("/lotes/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const resultado = await pool.query(
+            `DELETE FROM lotes
+             WHERE id = $1
+             RETURNING *`,
+            [id]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Lote não encontrado"
+            });
+        }
+
+        res.json({
+            mensagem: "Lote excluído com sucesso!",
+            lote: resultado.rows[0]
+        });
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao excluir lote"
+        });
+    }
+});
+
+app.get("/lotes", async (req, res) => {
+    try {
+        const resultado = await pool.query(
+            "SELECT * FROM lotes"
+        );
+
+        res.json(resultado.rows);
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao buscar lotes"
+        });
+    }
+});
+
+app.put("/lotes/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const {
+            nome,
+            descricao,
+            propriedade_id
+        } = req.body;
+
+        if (!nome || !propriedade_id) {
+            return res.status(400).json({
+                mensagem: "Nome e propriedade são obrigatórios"
+            });
+        }
+
+        const propriedadeExiste = await pool.query(
+            "SELECT * FROM propriedades WHERE id = $1",
+            [propriedade_id]
+        );
+
+        if (propriedadeExiste.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Propriedade não encontrada"
+            });
+        }
+
+        const resultado = await pool.query(
+            `UPDATE lotes
+             SET nome = $1,
+                 descricao = $2,
+                 propriedade_id = $3
+             WHERE id = $4
+             RETURNING *`,
+            [nome, descricao, propriedade_id, id]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Lote não encontrado"
+            });
+        }
+
+        res.json({
+            mensagem: "Lote atualizado com sucesso!",
+            lote: resultado.rows[0]
+        });
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao atualizar lote"
+        });
+    }
+});
+
 app.delete("/propriedades/:id", async (req, res) => {
   try {
     const { id } = req.params;
