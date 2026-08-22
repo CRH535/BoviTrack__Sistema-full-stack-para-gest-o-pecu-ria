@@ -42,6 +42,165 @@ app.delete("/propriedades/:id", async (req, res) => {
   }
 });
 
+app.get("/propriedades/:id/animais", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const propriedadeExiste = await pool.query(
+            "SELECT * FROM propriedades WHERE id = $1",
+            [id]
+        );
+
+        if (propriedadeExiste.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Propriedade não encontrada"
+            });
+        }
+
+        const resultado = await pool.query(
+            "SELECT * FROM animais WHERE propriedade_id = $1",
+            [id]
+        );
+
+        res.json(resultado.rows);
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao buscar animais da propriedade"
+        });
+    }
+});
+
+app.get("/animais/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const resultado = await pool.query(
+            "SELECT * FROM animais WHERE id = $1",
+            [id]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Animal não encontrado"
+            });
+        }
+
+        res.json(resultado.rows[0]);
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao buscar animal"
+        });
+    }
+});
+
+app.put("/animais/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const {
+            nome,
+            especie,
+            raca,
+            sexo,
+            peso,
+            propriedade_id
+        } = req.body;
+
+        if (!nome || !especie || !sexo || !propriedade_id) {
+            return res.status(400).json({
+                mensagem: "Nome, espécie, sexo e propriedade são obrigatórios"
+            });
+        }
+
+        const propriedadeExiste = await pool.query(
+            "SELECT * FROM propriedades WHERE id = $1",
+            [propriedade_id]
+        );
+
+        if (propriedadeExiste.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Propriedade não encontrada"
+            });
+        }
+
+        const resultado = await pool.query(
+            `UPDATE animais
+             SET nome = $1,
+                 especie = $2,
+                 raca = $3,
+                 sexo = $4,
+                 peso = $5,
+                 propriedade_id = $6
+             WHERE id = $7
+             RETURNING *`,
+            [
+                nome,
+                especie,
+                raca,
+                sexo.toUpperCase(),
+                peso,
+                propriedade_id,
+                id
+            ]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Animal não encontrado"
+            });
+        }
+
+        res.json({
+            mensagem: "Animal atualizado com sucesso!",
+            animal: resultado.rows[0]
+        });
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao atualizar animal"
+        });
+    }
+});
+
+app.delete("/animais/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const resultado = await pool.query(
+            `DELETE FROM animais
+             WHERE id = $1
+             RETURNING *`,
+            [id]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Animal não encontrado"
+            });
+        }
+
+        res.json({
+            mensagem: "Animal excluído com sucesso!",
+            animal: resultado.rows[0]
+        });
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao excluir animal"
+        });
+    }
+});
+
 app.get("/animais", async (req, res) => {
   try {
     const resultado = await pool.query("SELECT * FROM animais");
@@ -114,6 +273,8 @@ app.get("/propriedades/:id", async (req, res) => {
     });
   }
 });
+
+
 
 app.post("/propriedades", async (req, res) => {
   try {
