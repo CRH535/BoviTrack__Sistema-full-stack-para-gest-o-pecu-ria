@@ -3460,3 +3460,1627 @@ Ainda não iniciado.
 ```
 
 # FIM DA ATUALIZAÇÃO DE 22/08/2026
+
+---
+
+# ATUALIZAÇÃO DA MEMÓRIA — CONTINUAÇÃO DA CONVERSA DE 23/08/2026
+
+> Esta seção registra o desenvolvimento realizado após o ponto salvo anteriormente, principalmente o módulo de despesas e os conceitos financeiros associados.
+
+# 58. Correção ao criar a tabela despesas
+
+Ao tentar executar `CREATE TABLE despesas`, ocorreu o erro:
+
+```text
+ERRO: relação "propriedades" não existe
+```
+
+Foi identificado que o `psql` estava conectado ao banco padrão:
+
+```text
+postgres=#
+```
+
+em vez do banco do projeto:
+
+```text
+agrocontrol=#
+```
+
+Correção:
+
+```sql
+\c agrocontrol
+```
+
+Depois, conferir as tabelas:
+
+```sql
+\dt
+```
+
+E então criar a tabela `despesas` dentro do banco correto.
+
+---
+
+# 59. Regra definida para o valor da despesa
+
+Decisão tomada:
+
+```text
+valor > 0
+```
+
+Portanto:
+- `valor = 0` é inválido no cadastro;
+- valor negativo é inválido no cadastro;
+- apenas valores maiores que zero são aceitos.
+
+Validação definida:
+
+```javascript
+if (valor <= 0) {
+    return res.status(400).json({
+        mensagem: "O valor da despesa deve ser maior que zero"
+    });
+}
+```
+
+---
+
+# 60. Estrutura definitiva da tabela despesas
+
+```sql
+CREATE TABLE despesas (
+    id SERIAL PRIMARY KEY,
+    descricao VARCHAR(150) NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
+    valor DECIMAL(10,2) NOT NULL,
+    data DATE NOT NULL,
+    propriedade_id INTEGER NOT NULL,
+
+    FOREIGN KEY (propriedade_id)
+        REFERENCES propriedades(id)
+);
+```
+
+Campos:
+
+```text
+id             → chave primária
+descricao      → descrição da despesa
+categoria      → texto livre
+valor          → valor monetário da despesa
+data           → data da despesa
+propriedade_id → propriedade à qual a despesa pertence
+```
+
+---
+
+# 61. POST /despesas
+
+Fluxo definido:
+
+```text
+recebe req.body
+↓
+valida campos obrigatórios
+↓
+valida valor > 0
+↓
+verifica se propriedade existe
+↓
+INSERT
+↓
+RETURNING *
+↓
+201 Created
+```
+
+Código consolidado:
+
+```javascript
+app.post("/despesas", async (req, res) => {
+    try {
+        const {
+            descricao,
+            categoria,
+            valor,
+            data,
+            propriedade_id
+        } = req.body;
+
+        if (!descricao || !categoria || !valor || !data || !propriedade_id) {
+            return res.status(400).json({
+                mensagem: "Todos os campos são obrigatórios"
+            });
+        }
+
+        if (valor <= 0) {
+            return res.status(400).json({
+                mensagem: "O valor da despesa deve ser maior que zero"
+            });
+        }
+
+        const propriedadeExiste = await pool.query(
+            "SELECT * FROM propriedades WHERE id = $1",
+            [propriedade_id]
+        );
+
+        if (propriedadeExiste.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Propriedade não encontrada"
+            });
+        }
+
+        const resultado = await pool.query(
+            `INSERT INTO despesas
+            (descricao, categoria, valor, data, propriedade_id)
+            VALUES ($1, $2, $3, $4, $5)
+            RETURNING *`,
+            [
+                descricao,
+                categoria,
+                valor,
+                data,
+                propriedade_id
+            ]
+        );
+
+        res.status(201).json({
+            mensagem: "Despesa cadastrada com sucesso!",
+            despesa: resultado.rows[0]
+        });
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao cadastrar despesa"
+        });
+    }
+});
+```
+
+Conceitos reforçados:
+- `req.body` contém os dados do cadastro;
+- `201` é usado quando um novo recurso é criado;
+- `400` é usado para dados inválidos;
+- `404` é usado quando a propriedade relacionada não existe;
+- `resultado.rows[0]` retorna o único registro criado.
+
+---
+
+# 62. GET /despesas com JOIN
+
+Decisão:
+- retornar `propriedade_id`;
+- retornar também o nome da propriedade usando `JOIN`.
+
+Código:
+
+```javascript
+app.get("/despesas", async (req, res) => {
+    try {
+        const resultado = await pool.query(`
+            SELECT
+                despesas.id,
+                despesas.descricao,
+                despesas.categoria,
+                despesas.valor,
+                despesas.data,
+                despesas.propriedade_id,
+                propriedades.nome AS propriedade
+            FROM despesas
+            JOIN propriedades
+                ON despesas.propriedade_id = propriedades.id
+            ORDER BY despesas.data DESC
+        `);
+
+        res.json(resultado.rows);
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao buscar despesas"
+        });
+    }
+});
+```
+
+Regra de listagem reforçada:
+
+```text
+nenhum registro encontrado → 200 com []
+```
+
+---
+
+# 63. GET /despesas/:id
+
+Código:
+
+```javascript
+app.get("/despesas/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const resultado = await pool.query(`
+            SELECT
+                despesas.id,
+                despesas.descricao,
+                despesas.categoria,
+                despesas.valor,
+                despesas.data,
+                despesas.propriedade_id,
+                propriedades.nome AS propriedade
+            FROM despesas
+            JOIN propriedades
+                ON despesas.propriedade_id = propriedades.id
+            WHERE despesas.id = $1
+        `, [id]);
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Despesa não encontrada"
+            });
+        }
+
+        res.json(resultado.rows[0]);
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao buscar despesa"
+        });
+    }
+});
+```
+
+Regra reforçada:
+
+```text
+buscar lista → resultado.rows
+buscar um registro → resultado.rows[0]
+```
+
+---
+
+# 64. PUT /despesas/:id
+
+Código consolidado:
+
+```javascript
+app.put("/despesas/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const {
+            descricao,
+            categoria,
+            valor,
+            data,
+            propriedade_id
+        } = req.body;
+
+        if (!descricao || !categoria || !valor || !data || !propriedade_id) {
+            return res.status(400).json({
+                mensagem: "Todos os campos são obrigatórios"
+            });
+        }
+
+        if (valor <= 0) {
+            return res.status(400).json({
+                mensagem: "O valor da despesa deve ser maior que zero"
+            });
+        }
+
+        const propriedadeExiste = await pool.query(
+            "SELECT * FROM propriedades WHERE id = $1",
+            [propriedade_id]
+        );
+
+        if (propriedadeExiste.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Propriedade não encontrada"
+            });
+        }
+
+        const resultado = await pool.query(
+            `UPDATE despesas
+             SET descricao = $1,
+                 categoria = $2,
+                 valor = $3,
+                 data = $4,
+                 propriedade_id = $5
+             WHERE id = $6
+             RETURNING *`,
+            [
+                descricao,
+                categoria,
+                valor,
+                data,
+                propriedade_id,
+                id
+            ]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Despesa não encontrada"
+            });
+        }
+
+        res.json({
+            mensagem: "Despesa atualizada com sucesso!",
+            despesa: resultado.rows[0]
+        });
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao atualizar despesa"
+        });
+    }
+});
+```
+
+Status usado em atualização bem-sucedida:
+
+```text
+200
+```
+
+---
+
+# 65. DELETE /despesas/:id
+
+Consulta correta:
+
+```sql
+DELETE FROM despesas
+WHERE id = $1
+RETURNING *;
+```
+
+Código:
+
+```javascript
+app.delete("/despesas/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const resultado = await pool.query(
+            `DELETE FROM despesas
+             WHERE id = $1
+             RETURNING *`,
+            [id]
+        );
+
+        if (resultado.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Despesa não encontrada"
+            });
+        }
+
+        res.json({
+            mensagem: "Despesa excluída com sucesso!",
+            despesa: resultado.rows[0]
+        });
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao excluir despesa"
+        });
+    }
+});
+```
+
+Status em exclusão bem-sucedida:
+
+```text
+200
+```
+
+---
+
+# 66. CRUD de despesas concluído conceitualmente
+
+```text
+POST   /despesas      → criar
+GET    /despesas      → listar
+GET    /despesas/:id  → buscar uma
+PUT    /despesas/:id  → atualizar
+DELETE /despesas/:id  → excluir
+```
+
+---
+
+# 67. GET /propriedades/:id/despesas
+
+Objetivo:
+- listar as despesas pertencentes a uma propriedade específica.
+
+Regra importante:
+
+```text
+propriedade não existe → 404
+propriedade existe, mas não tem despesas → 200 com []
+```
+
+Estrutura inicial:
+
+```javascript
+app.get("/propriedades/:id/despesas", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const propriedadeExiste = await pool.query(
+            "SELECT * FROM propriedades WHERE id = $1",
+            [id]
+        );
+
+        if (propriedadeExiste.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Propriedade não encontrada"
+            });
+        }
+
+        const resultado = await pool.query(
+            `SELECT * FROM despesas
+             WHERE propriedade_id = $1
+             ORDER BY data DESC`,
+            [id]
+        );
+
+        res.json(resultado.rows);
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao buscar despesas da propriedade"
+        });
+    }
+});
+```
+
+---
+
+# 68. Totais financeiros com SUM e COALESCE
+
+Função aprendida:
+
+```sql
+SUM(valor)
+```
+
+Serve para somar os valores das despesas.
+
+Exemplo:
+
+```sql
+SELECT SUM(valor) AS total
+FROM despesas
+WHERE propriedade_id = $1;
+```
+
+Como `SUM` pode retornar `NULL` quando não existem registros, foi introduzido:
+
+```sql
+COALESCE(SUM(valor), 0)
+```
+
+Exemplo:
+
+```sql
+SELECT COALESCE(SUM(valor), 0) AS total
+FROM despesas
+WHERE propriedade_id = $1;
+```
+
+Conceito:
+
+```text
+COALESCE(valor, 0)
+→ se valor não for NULL, retorna valor
+→ se valor for NULL, retorna 0
+```
+
+---
+
+# 69. GROUP BY categoria
+
+Objetivo:
+- descobrir quanto foi gasto em cada categoria.
+
+Consulta:
+
+```sql
+SELECT
+    categoria,
+    SUM(valor) AS total
+FROM despesas
+WHERE propriedade_id = $1
+GROUP BY categoria
+ORDER BY total DESC;
+```
+
+Conceito aprendido:
+
+```text
+GROUP BY categoria
+→ reúne despesas que possuem a mesma categoria
+→ permite que SUM calcule o total de cada grupo
+```
+
+---
+
+# 70. Funções de agregação aprendidas
+
+Foram estudadas as seguintes funções SQL:
+
+```text
+SUM(valor)   → soma dos valores
+COUNT(*)     → quantidade de registros
+AVG(valor)   → média dos valores
+MAX(valor)   → maior valor
+MIN(valor)   → menor valor
+```
+
+Consulta de resumo:
+
+```sql
+SELECT
+    COALESCE(SUM(valor), 0) AS total,
+    COALESCE(AVG(valor), 0) AS media,
+    COALESCE(MAX(valor), 0) AS maior,
+    COALESCE(MIN(valor), 0) AS menor,
+    COUNT(*) AS quantidade
+FROM despesas
+WHERE propriedade_id = $1;
+```
+
+Quando não há despesas:
+
+```text
+SUM → NULL sem COALESCE
+AVG → NULL sem COALESCE
+MAX → NULL sem COALESCE
+MIN → NULL sem COALESCE
+COUNT(*) → 0
+```
+
+---
+
+# 71. Resumo por categoria mais completo
+
+Consulta estudada:
+
+```sql
+SELECT
+    categoria,
+    SUM(valor) AS total,
+    COUNT(*) AS quantidade,
+    AVG(valor) AS media
+FROM despesas
+WHERE propriedade_id = $1
+GROUP BY categoria
+ORDER BY total DESC;
+```
+
+Retorna por categoria:
+- total gasto;
+- quantidade de despesas;
+- valor médio das despesas.
+
+---
+
+# 72. Filtro de período com req.query
+
+Rota exemplo:
+
+```text
+GET /propriedades/3/despesas?periodo=mes
+```
+
+Interpretação:
+
+```text
+3   → req.params
+mes → req.query
+```
+
+Código:
+
+```javascript
+const { id } = req.params;
+const { periodo = "todos" } = req.query;
+```
+
+Períodos definidos:
+
+```text
+hoje
+semana
+mes
+todos
+```
+
+Validação:
+
+```javascript
+if (!["hoje", "semana", "mes", "todos"].includes(periodo)) {
+    return res.status(400).json({
+        mensagem: "Período inválido. Use hoje, semana, mes ou todos"
+    });
+}
+```
+
+Filtro de hoje:
+
+```sql
+data = CURRENT_DATE
+```
+
+Filtro de semana para despesas já ocorridas:
+
+```sql
+data BETWEEN CURRENT_DATE - INTERVAL '7 days'
+AND CURRENT_DATE
+```
+
+Filtro do mês atual:
+
+```sql
+data BETWEEN DATE_TRUNC('month', CURRENT_DATE)
+AND CURRENT_DATE
+```
+
+Todos:
+
+```text
+nenhuma condição adicional de data
+```
+
+---
+
+# 73. Separação entre lista e resumo financeiro
+
+Decisão tomada:
+
+```text
+GET /propriedades/:id/despesas
+→ lista de despesas
+
+GET /propriedades/:id/despesas/resumo
+→ total e dados agregados
+```
+
+Foi preferido separar a listagem do resumo para deixar a API mais organizada.
+
+---
+
+# 74. GET /propriedades/:id/despesas/resumo
+
+Objetivo:
+- verificar a propriedade;
+- validar período;
+- aplicar filtros;
+- calcular total;
+- calcular categorias;
+- futuramente retornar média, maior, menor e quantidade.
+
+Versão estudada:
+
+```javascript
+app.get("/propriedades/:id/despesas/resumo", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { periodo = "todos" } = req.query;
+
+        const propriedadeExiste = await pool.query(
+            "SELECT * FROM propriedades WHERE id = $1",
+            [id]
+        );
+
+        if (propriedadeExiste.rows.length === 0) {
+            return res.status(404).json({
+                mensagem: "Propriedade não encontrada"
+            });
+        }
+
+        if (!["hoje", "semana", "mes", "todos"].includes(periodo)) {
+            return res.status(400).json({
+                mensagem: "Período inválido. Use hoje, semana, mes ou todos"
+            });
+        }
+
+        let filtro = "";
+
+        if (periodo === "hoje") {
+            filtro = "AND data = CURRENT_DATE";
+        }
+
+        if (periodo === "semana") {
+            filtro = `AND data BETWEEN CURRENT_DATE - INTERVAL '7 days'
+                      AND CURRENT_DATE`;
+        }
+
+        if (periodo === "mes") {
+            filtro = `AND data BETWEEN DATE_TRUNC('month', CURRENT_DATE)
+                      AND CURRENT_DATE`;
+        }
+
+        const totalResultado = await pool.query(
+            `SELECT COALESCE(SUM(valor), 0) AS total
+             FROM despesas
+             WHERE propriedade_id = $1
+             ${filtro}`,
+            [id]
+        );
+
+        const categoriasResultado = await pool.query(
+            `SELECT
+                categoria,
+                SUM(valor) AS total
+             FROM despesas
+             WHERE propriedade_id = $1
+             ${filtro}
+             GROUP BY categoria
+             ORDER BY total DESC`,
+            [id]
+        );
+
+        res.json({
+            periodo,
+            total: totalResultado.rows[0].total,
+            categorias: categoriasResultado.rows
+        });
+
+    } catch (erro) {
+        console.error(erro);
+
+        res.status(500).json({
+            mensagem: "Erro ao buscar resumo de despesas"
+        });
+    }
+});
+```
+
+---
+
+# 75. Filtros opcionais de despesas
+
+Foram planejados filtros adicionais por `req.query`:
+
+```text
+categoria
+valor_minimo
+valor_maximo
+data_inicio
+data_fim
+```
+
+Exemplo:
+
+```text
+GET /propriedades/3/despesas?categoria=Ração&valor_minimo=500
+```
+
+Todos os valores depois de `?` vêm de `req.query`.
+
+---
+
+# 76. req.query retorna strings
+
+Conceito reforçado:
+
+```text
+?valor_minimo=500
+```
+
+chega no Node como algo equivalente a:
+
+```javascript
+valor_minimo === "500"
+```
+
+Por isso, para comparações numéricas foi usado:
+
+```javascript
+Number(valor_minimo)
+```
+
+---
+
+# 77. Validação de valor_minimo e valor_maximo
+
+Validar se são numéricos:
+
+```javascript
+if (valor_minimo && isNaN(Number(valor_minimo))) {
+    return res.status(400).json({
+        mensagem: "Valor mínimo inválido"
+    });
+}
+
+if (valor_maximo && isNaN(Number(valor_maximo))) {
+    return res.status(400).json({
+        mensagem: "Valor máximo inválido"
+    });
+}
+```
+
+Validar negativos:
+
+```javascript
+if (valor_minimo && Number(valor_minimo) < 0) {
+    return res.status(400).json({
+        mensagem: "O valor mínimo não pode ser negativo"
+    });
+}
+
+if (valor_maximo && Number(valor_maximo) < 0) {
+    return res.status(400).json({
+        mensagem: "O valor máximo não pode ser negativo"
+    });
+}
+```
+
+Regra importante definida:
+
+```text
+valor = 0 no cadastro da despesa → inválido
+valor_minimo = 0 em filtro → válido
+valor_maximo = 0 em filtro → válido
+```
+
+Isso acontece porque filtros apenas restringem a pesquisa e não representam uma nova despesa sendo criada.
+
+Validação mínimo > máximo:
+
+```javascript
+if (
+    valor_minimo &&
+    valor_maximo &&
+    Number(valor_minimo) > Number(valor_maximo)
+) {
+    return res.status(400).json({
+        mensagem: "O valor mínimo não pode ser maior que o valor máximo"
+    });
+}
+```
+
+Se os dois forem iguais, o filtro é válido e busca exatamente aquele valor.
+
+---
+
+# 78. Parâmetros SQL dinâmicos
+
+Foi introduzida a ideia de montar filtros opcionais com um array de parâmetros.
+
+Base:
+
+```javascript
+const valores = [id];
+let filtro = "";
+```
+
+Categoria:
+
+```javascript
+if (categoria) {
+    const parametro = valores.length + 1;
+
+    filtro += ` AND categoria = $${parametro}`;
+    valores.push(categoria);
+}
+```
+
+Valor mínimo:
+
+```javascript
+if (valor_minimo) {
+    const parametro = valores.length + 1;
+
+    filtro += ` AND valor >= $${parametro}`;
+    valores.push(Number(valor_minimo));
+}
+```
+
+Valor máximo:
+
+```javascript
+if (valor_maximo) {
+    const parametro = valores.length + 1;
+
+    filtro += ` AND valor <= $${parametro}`;
+    valores.push(Number(valor_maximo));
+}
+```
+
+Exemplo:
+
+```javascript
+valores = [3, "Ração", 500, 2000];
+```
+
+Significa:
+
+```text
+$1 → 3
+$2 → "Ração"
+$3 → 500
+$4 → 2000
+```
+
+Conceito aprendido:
+- não assumir que categoria será sempre `$2`;
+- o número do parâmetro pode ser calculado por `valores.length + 1`;
+- `filtro` e `valores` devem ser montados na mesma sequência.
+
+---
+
+# 79. Filtros por data_inicio e data_fim
+
+Exemplo:
+
+```text
+/propriedades/3/despesas?data_inicio=2026-08-01&data_fim=2026-08-23
+```
+
+Ambos vêm de:
+
+```javascript
+req.query
+```
+
+Filtro de data inicial:
+
+```javascript
+if (data_inicio) {
+    const parametro = valores.length + 1;
+
+    filtro += ` AND data >= $${parametro}`;
+    valores.push(data_inicio);
+}
+```
+
+Filtro de data final:
+
+```javascript
+if (data_fim) {
+    const parametro = valores.length + 1;
+
+    filtro += ` AND data <= $${parametro}`;
+    valores.push(data_fim);
+}
+```
+
+Regra:
+
+```text
+data_inicio → data >= início
+data_fim    → data <= fim
+```
+
+Pode ser enviado apenas `data_inicio` ou apenas `data_fim`.
+
+---
+
+# 80. Validação de datas
+
+Data inválida deve retornar `400`.
+
+Exemplo:
+
+```javascript
+if (data_inicio && isNaN(Date.parse(data_inicio))) {
+    return res.status(400).json({
+        mensagem: "Data inicial inválida"
+    });
+}
+
+if (data_fim && isNaN(Date.parse(data_fim))) {
+    return res.status(400).json({
+        mensagem: "Data final inválida"
+    });
+}
+```
+
+Validação da ordem:
+
+```javascript
+if (
+    data_inicio &&
+    data_fim &&
+    new Date(data_inicio) > new Date(data_fim)
+) {
+    return res.status(400).json({
+        mensagem: "A data inicial não pode ser posterior à data final"
+    });
+}
+```
+
+---
+
+# 81. Conflito entre periodo e intervalo personalizado
+
+Decisão:
+- se `periodo` for diferente de `todos` e também forem enviadas datas personalizadas, retornar `400`.
+
+Exemplo de conflito:
+
+```text
+?periodo=mes&data_inicio=2026-08-01&data_fim=2026-08-23
+```
+
+Validação:
+
+```javascript
+if (
+    periodo !== "todos" &&
+    (data_inicio || data_fim)
+) {
+    return res.status(400).json({
+        mensagem: "Use periodo ou intervalo de datas, não os dois ao mesmo tempo"
+    });
+}
+```
+
+---
+
+# 82. Ordenação aprendida
+
+Mais recente para mais antiga:
+
+```sql
+ORDER BY data DESC
+```
+
+Mais antiga para mais recente:
+
+```sql
+ORDER BY data ASC
+```
+
+Mais recente primeiro e, em empate de data, maior valor primeiro:
+
+```sql
+ORDER BY data DESC, valor DESC
+```
+
+Categoria com maior gasto total primeiro:
+
+```sql
+ORDER BY total DESC
+```
+
+Categoria com menor gasto total primeiro:
+
+```sql
+ORDER BY total ASC
+```
+
+---
+
+# 83. Reutilização de filtro e valores
+
+Decisão:
+- montar `filtro` e `valores` apenas uma vez;
+- reutilizar em consultas diferentes.
+
+Exemplo:
+
+```javascript
+const despesasResultado = await pool.query(
+    `SELECT *
+     FROM despesas
+     WHERE propriedade_id = $1
+     ${filtro}
+     ORDER BY data DESC`,
+    valores
+);
+
+const resumoResultado = await pool.query(
+    `SELECT
+        COALESCE(SUM(valor), 0) AS total,
+        COALESCE(AVG(valor), 0) AS media,
+        COALESCE(MAX(valor), 0) AS maior,
+        COALESCE(MIN(valor), 0) AS menor,
+        COUNT(*) AS quantidade
+     FROM despesas
+     WHERE propriedade_id = $1
+     ${filtro}`,
+    valores
+);
+```
+
+Regra importante:
+- se o SQL contém `$1`, `$2`, `$3`, o array passado ao `pool.query` precisa conter valores correspondentes para todos esses parâmetros.
+
+---
+
+# 84. Possível função montarFiltrosDespesas
+
+Foi introduzida como refatoração futura a ideia de separar a lógica de filtros em uma função.
+
+Exemplo:
+
+```javascript
+function montarFiltrosDespesas({
+    id,
+    categoria,
+    valor_minimo,
+    valor_maximo,
+    data_inicio,
+    data_fim
+}) {
+    const valores = [id];
+    let filtro = "";
+
+    if (categoria) {
+        const parametro = valores.length + 1;
+        filtro += ` AND categoria = $${parametro}`;
+        valores.push(categoria);
+    }
+
+    if (valor_minimo) {
+        const parametro = valores.length + 1;
+        filtro += ` AND valor >= $${parametro}`;
+        valores.push(Number(valor_minimo));
+    }
+
+    if (valor_maximo) {
+        const parametro = valores.length + 1;
+        filtro += ` AND valor <= $${parametro}`;
+        valores.push(Number(valor_maximo));
+    }
+
+    if (data_inicio) {
+        const parametro = valores.length + 1;
+        filtro += ` AND data >= $${parametro}`;
+        valores.push(data_inicio);
+    }
+
+    if (data_fim) {
+        const parametro = valores.length + 1;
+        filtro += ` AND data <= $${parametro}`;
+        valores.push(data_fim);
+    }
+
+    return {
+        filtro,
+        valores
+    };
+}
+```
+
+A ideia é futura; por enquanto o projeto continua propositalmente simples para aprendizado.
+
+---
+
+# 85. Desestruturação de objetos reforçada
+
+Exemplo:
+
+```javascript
+const { filtro, valores } = montarFiltrosDespesas(...);
+```
+
+Isso é desestruturação de objeto.
+
+Se uma função retornar:
+
+```javascript
+{
+    filtro: "AND valor >= $2",
+    valores: [3, 500]
+}
+```
+
+então:
+
+```javascript
+const { filtro, valores } = resultado;
+```
+
+gera:
+
+```text
+filtro  → "AND valor >= $2"
+valores → [3, 500]
+```
+
+Também foi reforçado que é possível pegar apenas uma propriedade:
+
+```javascript
+const { filtro } = resultado;
+```
+
+---
+
+# 86. pool.query(sql, valores)
+
+Conceito reforçado:
+
+```javascript
+const resultado = await pool.query(sql, valores);
+```
+
+Significado:
+
+```text
+sql      → string da consulta SQL
+valores  → array que preenche $1, $2, $3...
+resultado.rows → linhas retornadas pelo PostgreSQL
+```
+
+Exemplo:
+
+```javascript
+valores = [3, "Ração", 500];
+```
+
+```text
+$1 → 3
+$2 → "Ração"
+$3 → 500
+```
+
+---
+
+# 87. resultado.rows x resultado.rows[0]
+
+Regra reforçada várias vezes:
+
+```text
+resultado.rows
+→ array de registros
+→ usado em listagens
+
+resultado.rows[0]
+→ primeiro objeto do array
+→ usado quando se espera um único registro
+```
+
+Aplicação no CRUD de despesas:
+
+```text
+POST /despesas       → resultado.rows[0]
+GET /despesas        → resultado.rows
+GET /despesas/:id    → resultado.rows[0]
+PUT /despesas/:id    → resultado.rows[0]
+DELETE /despesas/:id → resultado.rows[0]
+```
+
+---
+
+# 88. Regras de status HTTP consolidadas para despesas
+
+```text
+200 → busca, atualização ou exclusão bem-sucedida
+201 → despesa criada com sucesso
+400 → campo inválido, filtro inválido ou regra de negócio inválida
+404 → despesa/propriedade específica não encontrada
+500 → erro interno do servidor
+```
+
+Exemplos:
+
+```text
+POST sem categoria → 400
+POST com valor = 0 → 400
+POST com valor negativo → 400
+POST válido → 201
+propriedade_id inexistente → 404
+GET /despesas vazio → 200 com []
+GET /despesas/:id inexistente → 404
+PUT inexistente → 404
+DELETE inexistente → 404
+valor_minimo=abc → 400
+propriedade inexistente em listagem relacionada → 404
+propriedade existe mas não há despesas → 200 com []
+```
+
+---
+
+# 89. RETURNING * revisado
+
+Foi reforçado que `RETURNING *` é útil em:
+
+```text
+INSERT
+UPDATE
+DELETE
+```
+
+Porque devolve o registro afetado.
+
+Exemplos:
+
+```text
+POST   → devolve a despesa criada
+PUT    → devolve a despesa atualizada
+DELETE → devolve a despesa removida
+```
+
+`SELECT` não precisa de `RETURNING *`, porque ele já retorna os registros buscados.
+
+---
+
+# 90. req.body, req.params e req.query revisados
+
+## req.body
+
+Usado para dados enviados no corpo da requisição.
+
+Exemplo:
+
+```text
+POST /despesas
+```
+
+Campos:
+
+```text
+descricao
+categoria
+valor
+data
+propriedade_id
+```
+
+## req.params
+
+Usado para valores presentes no caminho da URL.
+
+Exemplo:
+
+```text
+GET /despesas/5
+```
+
+```text
+5 → req.params.id
+```
+
+Outro exemplo:
+
+```text
+GET /propriedades/3/despesas
+```
+
+```text
+3 → req.params.id
+```
+
+## req.query
+
+Usado para filtros depois de `?`.
+
+Exemplo:
+
+```text
+GET /propriedades/3/despesas?periodo=mes&categoria=Ração&valor_minimo=500
+```
+
+```text
+mes    → req.query.periodo
+Ração  → req.query.categoria
+500    → req.query.valor_minimo
+```
+
+---
+
+# 91. Reutilização do resultado da propriedade
+
+Depois de verificar:
+
+```javascript
+const propriedadeExiste = await pool.query(
+    "SELECT * FROM propriedades WHERE id = $1",
+    [id]
+);
+```
+
+foi introduzida a forma:
+
+```javascript
+const propriedade = propriedadeExiste.rows[0];
+```
+
+Depois é possível acessar diretamente:
+
+```javascript
+propriedade.id
+propriedade.nome
+propriedade.cidade
+propriedade.estado
+propriedade.area
+```
+
+Também foi planejado montar:
+
+```javascript
+const dadosPropriedade = {
+    id: propriedade.id,
+    nome: propriedade.nome,
+    cidade: propriedade.cidade,
+    estado: propriedade.estado,
+    area: propriedade.area
+};
+```
+
+para deixar a resposta do resumo financeiro mais organizada.
+
+---
+
+# 92. Estrutura de resposta planejada para resumo financeiro
+
+Exemplo:
+
+```json
+{
+  "propriedade": {
+    "id": 3,
+    "nome": "Fazenda Esperança",
+    "cidade": "Uberaba",
+    "estado": "MG",
+    "area": "450.00"
+  },
+  "resumo": {
+    "total": "5400.00",
+    "media": "1080.00",
+    "maior": "2000.00",
+    "menor": "300.00",
+    "quantidade": "5"
+  },
+  "categorias": []
+}
+```
+
+Acesso aos campos do resumo:
+
+```javascript
+resumoResultado.rows[0].total
+resumoResultado.rows[0].media
+resumoResultado.rows[0].maior
+resumoResultado.rows[0].menor
+resumoResultado.rows[0].quantidade
+```
+
+Lista de categorias:
+
+```javascript
+categoriasResultado.rows
+```
+
+---
+
+# 93. Status atual do aprendizado após 23/08/2026
+
+Além dos conceitos anteriores, agora foram estudados/praticados:
+
+- módulo de despesas;
+- CRUD de despesas;
+- JOIN despesas + propriedades;
+- filtros por propriedade;
+- `SUM`;
+- `COUNT`;
+- `AVG`;
+- `MAX`;
+- `MIN`;
+- `GROUP BY`;
+- `ORDER BY ASC`;
+- `ORDER BY DESC`;
+- `COALESCE`;
+- filtros financeiros por período;
+- filtros opcionais por categoria;
+- filtros por valor mínimo e máximo;
+- filtros por data inicial e final;
+- validação de `req.query`;
+- conversão com `Number()`;
+- validação com `isNaN()`;
+- validação de datas com `Date.parse()`;
+- parâmetros SQL dinâmicos;
+- arrays dinâmicos de valores;
+- `valores.length + 1` para calcular `$2`, `$3`, etc.;
+- reutilização de filtros entre consultas;
+- desestruturação de objetos;
+- função auxiliar futura para montar filtros;
+- diferença entre lista vazia e recurso inexistente;
+- resposta estruturada para resumo financeiro.
+
+---
+
+# 94. Estado atual do projeto após esta atualização
+
+## Propriedades
+CRUD completo.
+
+## Animais
+CRUD completo + listagem por propriedade.
+
+## Lotes
+CRUD completo.
+
+## Animais ↔ Lotes
+Relacionamento N:N implementado conceitualmente e com rotas.
+
+## Vacinas
+CRUD completo.
+
+## Vacinações
+CRUD completo + JOINs + histórico por animal.
+
+## Alertas de vacinação
+Filtros implementados conceitualmente por `req.query`.
+
+## Despesas
+Agora possui conceitualmente:
+- tabela definida;
+- regra `valor > 0`;
+- POST;
+- GET;
+- GET por ID;
+- PUT;
+- DELETE;
+- listagem por propriedade;
+- JOIN com propriedade;
+- filtros por período;
+- filtros opcionais por categoria;
+- filtros por valor;
+- filtros por datas;
+- total financeiro;
+- total por categoria;
+- quantidade por categoria;
+- média por categoria;
+- maior despesa;
+- menor despesa;
+- resumo financeiro;
+- uso de `COALESCE` para valores vazios.
+
+## Frontend
+Ainda não iniciado.
+
+---
+
+# 95. Próximo ponto exato para continuar
+
+A última pergunta da aula foi:
+
+```text
+Se quisermos pegar a lista de categorias retornada por:
+
+const categoriasResultado = await pool.query(...);
+
+qual expressão usamos?
+
+A) categoriasResultado.rows
+B) categoriasResultado.rows[0]
+C) categoriasResultado.categorias
+```
+
+A continuação deve começar a partir dessa pergunta.
+
+Depois disso, próximos passos recomendados:
+
+```text
+1. concluir a rota de resumo financeiro com resposta estruturada
+2. revisar o módulo de despesas completo
+3. atualizar o server.js consolidado com despesas
+4. testar as rotas no Postman
+5. revisar backend inteiro
+6. organizar backend em arquivos separados
+7. mover credenciais para .env
+8. iniciar frontend React
+```
+
+# FIM DA ATUALIZAÇÃO DE 23/08/2026
