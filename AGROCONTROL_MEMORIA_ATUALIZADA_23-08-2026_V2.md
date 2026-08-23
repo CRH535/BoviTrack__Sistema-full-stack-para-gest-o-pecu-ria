@@ -5084,3 +5084,1728 @@ Depois disso, próximos passos recomendados:
 ```
 
 # FIM DA ATUALIZAÇÃO DE 23/08/2026
+
+---
+
+# ATUALIZAÇÃO DA MEMÓRIA — CONTINUAÇÃO DA CONVERSA DE 23/08/2026 — FRONTEND E INTEGRAÇÃO
+
+> Esta seção registra o desenvolvimento realizado após o ponto anterior da memória. A partir deste momento, foi decidido encerrar as perguntas/quiz e acelerar a finalização prática do AgroControl.
+
+# 96. Mudança de estratégia de desenvolvimento
+
+Decisão tomada:
+- interromper perguntas de revisão;
+- priorizar finalização rápida do projeto;
+- concluir primeiro o backend essencial;
+- iniciar imediatamente o frontend React;
+- evitar novas funcionalidades não essenciais antes da entrega.
+
+Ordem prática adotada:
+
+```text
+1. concluir backend funcional
+2. mover credenciais para .env
+3. configurar CORS
+4. iniciar frontend React
+5. integrar frontend + backend
+6. criar CRUDs principais no frontend
+7. criar Vacinações
+8. criar Dashboard
+9. depois focar em CSS, revisão e entrega
+```
+
+---
+
+# 97. Instalação e configuração do dotenv
+
+Foi instalado no backend:
+
+```bash
+npm install dotenv
+```
+
+Resultado registrado:
+
+```text
+added 1 package
+found 0 vulnerabilities
+```
+
+Foi criado o arquivo:
+
+```text
+.env
+```
+
+Estrutura usada:
+
+```env
+DB_USER=postgres
+DB_HOST=localhost
+DB_NAME=agrocontrol
+DB_PASSWORD=SUA_SENHA_DO_POSTGRES
+DB_PORT=5432
+PORT=3000
+```
+
+No topo do `server.js` foi adicionado:
+
+```javascript
+require("dotenv").config();
+```
+
+O `Pool` passou a usar variáveis de ambiente:
+
+```javascript
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASSWORD,
+    port: process.env.DB_PORT,
+});
+```
+
+A porta do servidor passou a ser carregada do `.env`:
+
+```javascript
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Servidor esta em http://localhost:${PORT}`);
+});
+```
+
+Teste executado:
+
+```bash
+node server.js
+```
+
+Resultado:
+
+```text
+Servidor esta em http://localhost:3000
+```
+
+Conclusão:
+- `.env` funcionando;
+- credenciais retiradas do código principal;
+- backend iniciando corretamente.
+
+---
+
+# 98. .gitignore
+
+Foi orientada a criação de:
+
+```text
+.gitignore
+```
+
+Conteúdo:
+
+```text
+node_modules/
+.env
+```
+
+Objetivo:
+- impedir envio de dependências;
+- impedir exposição da senha do PostgreSQL no GitHub.
+
+---
+
+# 99. Início do frontend React
+
+Foi criado o frontend usando Vite + React.
+
+Comandos utilizados:
+
+```bash
+npm create vite@latest frontend -- --template react
+cd frontend
+npm install
+npm install axios react-router-dom
+npm run dev
+```
+
+O Vite iniciou inicialmente na porta:
+
+```text
+http://localhost:5174
+```
+
+porque a porta 5173 estava ocupada.
+
+Posteriormente a porta padrão ficou novamente disponível e o frontend passou a executar em:
+
+```text
+http://localhost:5173
+```
+
+Tecnologias efetivamente usadas nesta etapa:
+- React;
+- Vite;
+- Axios;
+- React Router DOM.
+
+---
+
+# 100. Configuração do Axios
+
+Foi criado:
+
+```text
+src/services/api.js
+```
+
+Conteúdo:
+
+```javascript
+import axios from "axios";
+
+const api = axios.create({
+    baseURL: "http://localhost:3000"
+});
+
+export default api;
+```
+
+Fluxo confirmado:
+
+```text
+React
+   ↓
+Axios
+   ↓
+Express :3000
+   ↓
+PostgreSQL
+```
+
+---
+
+# 101. Problema de CORS e correção
+
+Ao tentar buscar propriedades pelo React, ocorreu:
+
+```text
+Erro ao carregar propriedades
+```
+
+A causa provável foi diferença de origem entre:
+
+```text
+frontend → localhost:5173/5174
+backend  → localhost:3000
+```
+
+Foi instalado:
+
+```bash
+npm install cors
+```
+
+No `server.js` foi adicionado:
+
+```javascript
+const cors = require("cors");
+```
+
+E na configuração do Express:
+
+```javascript
+app.use(express.json());
+app.use(cors());
+```
+
+Após isso, a integração funcionou corretamente.
+
+---
+
+# 102. Estrutura inicial do frontend
+
+Estrutura adotada:
+
+```text
+frontend/
+└── src/
+    ├── components/
+    ├── pages/
+    │   ├── Dashboard.jsx
+    │   ├── Propriedades.jsx
+    │   ├── Animais.jsx
+    │   ├── Lotes.jsx
+    │   ├── Vacinas.jsx
+    │   ├── Vacinacoes.jsx
+    │   └── Despesas.jsx
+    ├── services/
+    │   └── api.js
+    ├── App.jsx
+    └── main.jsx
+```
+
+---
+
+# 103. Navegação com React Router
+
+Foi criado menu principal com rotas para:
+
+```text
+/
+/propriedades
+/animais
+/lotes
+/vacinas
+/vacinacoes
+/despesas
+```
+
+O `App.jsx` passou a usar:
+
+```javascript
+BrowserRouter
+Routes
+Route
+Link
+```
+
+As telas foram testadas e abriram corretamente.
+
+---
+
+# 104. Frontend — Propriedades
+
+Foi implementado CRUD completo de propriedades no React.
+
+Funcionalidades implementadas:
+- listar propriedades;
+- cadastrar;
+- editar;
+- cancelar edição;
+- excluir;
+- exibir mensagens retornadas pelo backend.
+
+Rotas usadas:
+
+```text
+GET    /propriedades
+POST   /propriedades
+PUT    /propriedades/:id
+DELETE /propriedades/:id
+```
+
+Estado usado no formulário:
+
+```text
+nome
+cidade
+estado
+area
+editandoId
+mensagem
+```
+
+Teste realizado:
+- cadastro funcionando;
+- edição funcionando;
+- cancelamento funcionando;
+- exclusão funcionando.
+
+---
+
+# 105. Frontend — Animais
+
+Foi implementado CRUD completo de animais no React.
+
+Funcionalidades:
+- listar animais;
+- cadastrar;
+- editar;
+- excluir;
+- escolher propriedade em `<select>`;
+- mostrar nome da propriedade quando disponível.
+
+Campos usados:
+
+```text
+nome
+especie
+raca
+sexo
+peso
+propriedade_id
+```
+
+Rotas usadas:
+
+```text
+GET    /animais
+POST   /animais
+PUT    /animais/:id
+DELETE /animais/:id
+GET    /propriedades
+```
+
+Teste realizado:
+- cadastro funcionando;
+- edição funcionando;
+- exclusão funcionando.
+
+---
+
+# 106. Frontend — Lotes
+
+Foi implementado CRUD de lotes no React.
+
+Campos:
+
+```text
+nome
+descricao
+propriedade_id
+```
+
+Rotas usadas:
+
+```text
+GET    /lotes
+POST   /lotes
+PUT    /lotes/:id
+DELETE /lotes/:id
+GET    /propriedades
+```
+
+Teste realizado:
+- cadastro funcionando;
+- edição funcionando;
+- exclusão funcionando.
+
+---
+
+# 107. Frontend — Vacinas
+
+Foi implementado CRUD de vacinas no React.
+
+Campos:
+
+```text
+nome
+descricao
+```
+
+Rotas usadas:
+
+```text
+GET    /vacinas
+POST   /vacinas
+PUT    /vacinas/:id
+DELETE /vacinas/:id
+```
+
+A tela passou a listar, cadastrar, editar e excluir vacinas.
+
+---
+
+# 108. Frontend — Despesas
+
+Foi implementado CRUD de despesas no React.
+
+Campos:
+
+```text
+descricao
+categoria
+valor
+data
+propriedade_id
+```
+
+Rotas usadas:
+
+```text
+GET    /despesas
+POST   /despesas
+PUT    /despesas/:id
+DELETE /despesas/:id
+GET    /propriedades
+```
+
+Detalhes:
+- `valor` é convertido usando `Number(valor)`;
+- data usa `<input type="date">`;
+- propriedade usa `<select>`;
+- valores são exibidos com `toFixed(2)`;
+- data é formatada com `toLocaleDateString("pt-BR")`.
+
+---
+
+# 109. Bug após excluir registros no frontend
+
+Problema observado:
+
+```text
+Após excluir algo de qualquer lista, não era mais possível digitar em nenhum campo.
+```
+
+Correções aplicadas:
+
+## Botões Editar/Excluir
+
+Todos passaram a usar explicitamente:
+
+```jsx
+<button type="button">...</button>
+```
+
+para evitar comportamento inesperado de `submit`.
+
+## Atualização local do estado após DELETE
+
+Em vez de sempre chamar novamente a listagem depois da exclusão, passou a ser usado `filter` no estado local.
+
+Exemplo em despesas:
+
+```javascript
+setDespesas((despesasAtuais) =>
+    despesasAtuais.filter((despesa) => despesa.id !== id)
+);
+```
+
+Mesma ideia aplicada em:
+- propriedades;
+- animais;
+- lotes;
+- vacinas;
+- vacinações.
+
+Após a correção, o comportamento voltou ao normal.
+
+---
+
+# 110. Frontend — Vacinações
+
+Foi criado:
+
+```text
+src/pages/Vacinacoes.jsx
+```
+
+Campos usados:
+
+```text
+animal_id
+vacina_id
+data_aplicacao
+proxima_dose
+observacao
+```
+
+A tela carrega também:
+- animais;
+- vacinas.
+
+Isso permite usar `<select>` para escolher animal e vacina.
+
+Rotas usadas:
+
+```text
+GET    /vacinacoes
+POST   /vacinacoes
+PUT    /vacinacoes/:id
+DELETE /vacinacoes/:id
+GET    /animais
+GET    /vacinas
+```
+
+Funcionalidades:
+- registrar vacinação;
+- editar vacinação;
+- excluir vacinação;
+- listar histórico;
+- mostrar nome do animal;
+- mostrar nome da vacina;
+- mostrar data da aplicação;
+- mostrar próxima dose;
+- mostrar observação.
+
+Teste realizado:
+- cadastro funcionando;
+- edição funcionando;
+- exclusão funcionando.
+
+---
+
+# 111. Rota de próximas vacinações disponível para o frontend
+
+O backend já possui:
+
+```text
+GET /vacinacoes/proximas?periodo=hoje
+GET /vacinacoes/proximas?periodo=semana
+GET /vacinacoes/proximas?periodo=futuro
+GET /vacinacoes/proximas?periodo=todos
+```
+
+No frontend, decidiu-se utilizar principalmente:
+
+```text
+/vacinacoes/proximas?periodo=semana
+```
+
+para alertas do Dashboard.
+
+---
+
+# 112. Dashboard funcional
+
+Foi criado/atualizado:
+
+```text
+src/pages/Dashboard.jsx
+```
+
+O Dashboard passou a buscar em paralelo:
+
+```text
+/propriedades
+/animais
+/lotes
+/vacinas
+/despesas
+/vacinacoes/proximas?periodo=semana
+```
+
+Foi usado:
+
+```javascript
+Promise.all([...])
+```
+
+Indicadores exibidos:
+- quantidade de propriedades;
+- quantidade de animais;
+- quantidade de lotes;
+- quantidade de vacinas;
+- total de despesas;
+- próximas vacinações da semana.
+
+O total de despesas no frontend é calculado com:
+
+```javascript
+const totalDespesas = despesas.reduce(
+    (total, despesa) => total + Number(despesa.valor),
+    0
+);
+```
+
+Os alertas de vacinação mostram:
+- animal;
+- vacina;
+- próxima dose.
+
+---
+
+# 113. Status atual do frontend
+
+Funcionando no navegador:
+
+```text
+Dashboard
+Propriedades
+Animais
+Lotes
+Vacinas
+Vacinações
+Despesas
+```
+
+Funcionalidades já testadas:
+- navegação entre páginas;
+- integração Axios + Express;
+- leitura do PostgreSQL;
+- cadastro;
+- edição;
+- exclusão;
+- selects com dados relacionados;
+- mensagens de erro/sucesso;
+- alertas de vacinação;
+- resumo básico no Dashboard.
+
+---
+
+# 114. Status atual do backend
+
+Backend continua em:
+
+```text
+http://localhost:3000
+```
+
+Possui atualmente, conceitualmente e/ou testado durante o desenvolvimento:
+
+```text
+Propriedades → CRUD completo
+Animais → CRUD completo
+Lotes → CRUD completo
+Animais ↔ Lotes → relação N:N
+Vacinas → CRUD completo
+Vacinações → CRUD completo
+Alertas de vacinação → filtros por req.query
+Despesas → CRUD completo
+Despesas por propriedade → implementado
+Resumo financeiro → implementado/testado
+Filtros financeiros → implementados conceitualmente
+```
+
+Configurações adicionais concluídas:
+- dotenv;
+- `.env`;
+- CORS;
+- `.gitignore` recomendado.
+
+---
+
+# 115. Observação sobre o resumo financeiro
+
+O resumo financeiro chegou a retornar corretamente HTTP 200.
+
+Exemplo real registrado na conversa:
+
+```json
+{
+  "propriedade": {
+    "id": 3,
+    "nome": "Fazenda do krl",
+    "cidade": "bahia",
+    "estado": "MG",
+    "area": "1000.00"
+  },
+  "resumo": {
+    "total": "850.00",
+    "media": "850.0000000000000000",
+    "maior": "850.00",
+    "menor": "850.00",
+    "quantidade": "1"
+  },
+  "categorias": [
+    {
+      "categoria": "Ração",
+      "total": "850.00",
+      "quantidade": "1",
+      "media": "850.0000000000000000"
+    }
+  ]
+}
+```
+
+Observação:
+- o número excessivo de casas decimais em `AVG` é comportamento de tipo numérico do PostgreSQL;
+- pode ser formatado posteriormente no backend ou no frontend;
+- não foi considerado bloqueador para a finalização do projeto.
+
+---
+
+# 116. Tecnologias efetivamente usadas até agora
+
+## Frontend
+
+```text
+React
+Vite
+Axios
+React Router DOM
+```
+
+## Backend
+
+```text
+Node.js
+Express
+pg
+cors
+dotenv
+```
+
+## Banco
+
+```text
+PostgreSQL 18.4
+```
+
+## Ferramentas
+
+```text
+VS Code
+Postman
+psql
+npm
+```
+
+---
+
+# 117. Estado geral atual do AgroControl
+
+O projeto deixou de ser apenas uma API testada no Postman e já possui uma interface web funcional integrada ao PostgreSQL.
+
+Fluxo atual:
+
+```text
+USUÁRIO
+   ↓
+REACT + VITE
+   ↓
+AXIOS
+   ↓
+API REST
+   ↓
+NODE.JS + EXPRESS
+   ↓
+pg
+   ↓
+POSTGRESQL
+```
+
+Principais módulos já utilizáveis pelo frontend:
+
+```text
+Propriedades
+Animais
+Lotes
+Vacinas
+Vacinações
+Despesas
+Dashboard
+```
+
+---
+
+# 118. Próximo ponto exato para continuar
+
+O projeto funcional principal está praticamente concluído.
+
+A partir daqui, NÃO priorizar novas funcionalidades complexas.
+
+Próximas etapas recomendadas:
+
+```text
+1. testar o Dashboard completamente
+2. revisar visualmente todas as telas
+3. criar CSS/layout profissional
+4. melhorar menu/sidebar
+5. melhorar cards e formulários
+6. exibir mensagens de sucesso/erro de forma visual
+7. revisar exclusões com chaves estrangeiras
+8. testar fluxo completo do usuário
+9. revisar server.js e remover código duplicado
+10. garantir .env fora do Git
+11. preparar README
+12. preparar dados de demonstração
+13. preparar apresentação/entrega
+```
+
+Se houver tempo extra, funcionalidades opcionais:
+
+```text
+- gráficos no Dashboard
+- filtros visuais de despesas
+- resumo financeiro dentro do frontend
+- tela específica de alertas
+- relação visual de animais por lote
+- clima/API externa
+- autenticação/login
+```
+
+Mas essas funcionalidades não devem atrasar a entrega principal.
+
+---
+
+# 119. Regra atual de prioridade
+
+> A prioridade agora é entregar um AgroControl funcional, estável, apresentável e fácil de explicar.
+
+Evitar:
+- adicionar bibliotecas sem necessidade;
+- refatorações grandes antes da entrega;
+- autenticação complexa se faltar tempo;
+- APIs externas que não sejam essenciais;
+- funcionalidades que não possam ser testadas antes da apresentação.
+
+Priorizar:
+- funcionamento;
+- estabilidade;
+- aparência;
+- clareza;
+- testes;
+- documentação;
+- apresentação.
+
+---
+
+# FIM DA ATUALIZAÇÃO — 23/08/2026 — FRONTEND FUNCIONAL
+
+---
+
+# ATUALIZAÇÃO DA MEMÓRIA — 23/08/2026 — AUTENTICAÇÃO, USUÁRIOS E ANIMAIS ↔ LOTES
+
+> Esta seção registra as decisões e os prompts preparados para o Codex após a versão anterior da memória.
+> Importante: diferenciar sempre **funcionalidade confirmada como implementada** de **prompt preparado, mas ainda sem confirmação de execução**.
+
+# 120. Nova direção do sistema — autenticação e isolamento por usuário
+
+Foi decidido implementar autenticação com dois níveis de acesso:
+
+```text
+ADMIN
+→ usuário exclusivo/principal
+→ pode visualizar todos os registros do sistema
+→ pode administrar dados de todos os usuários
+
+USUÁRIO COMUM
+→ visualiza apenas os próprios registros
+→ cadastra, edita e exclui apenas dados pertencentes à própria conta
+```
+
+Regra de segurança definida:
+
+> O isolamento não pode existir apenas no frontend. O backend deve filtrar e validar os dados com base no usuário autenticado.
+
+Arquitetura desejada:
+
+```text
+LOGIN
+  ↓
+JWT
+  ↓
+USUÁRIO AUTENTICADO
+  ↓
+┌─────────────────────────────┐
+│                             │
+ADMIN                       USUÁRIO
+│                             │
+↓                             ↓
+TODOS OS DADOS          SOMENTE SEUS DADOS
+│                             │
+└──────────────┬──────────────┘
+               ↓
+             API
+               ↓
+          PostgreSQL
+```
+
+## Status informado pelo usuário
+
+O usuário informou que o primeiro prompt de autenticação/permissões **fez perfeitamente o que ele queria**.
+
+Portanto, considerar como confirmado conceitualmente que o Codex implementou o sistema solicitado de login/permissões.
+
+Porém, como o código final produzido pelo Codex não foi anexado nesta conversa, uma próxima sessão que precise alterar essa implementação deve primeiro inspecionar os arquivos atuais do projeto em vez de assumir nomes exatos de arquivos, middlewares, rotas ou colunas.
+
+---
+
+# 121. Prompt usado — Login com dois níveis de permissão
+
+## Objetivo do prompt
+
+Implementar autenticação no AgroControl com:
+
+- JWT;
+- bcrypt/bcryptjs;
+- tabela de usuários;
+- administrador com acesso global;
+- usuários comuns limitados aos próprios dados;
+- proteção no backend;
+- adaptação do Dashboard;
+- rotas protegidas no React;
+- Axios enviando `Authorization: Bearer TOKEN`;
+- logout;
+- migração segura dos dados antigos para o administrador, se necessário.
+
+## Regras centrais enviadas ao Codex
+
+```text
+1. ADMIN visualiza todos os dados.
+2. USUÁRIO COMUM visualiza apenas os dados pertencentes à própria conta.
+3. A restrição deve existir no backend.
+4. Nunca confiar apenas em botões ocultos no React.
+5. Nunca aceitar usuario_id livremente vindo do frontend quando ele puder ser obtido do JWT.
+6. Nunca permitir criação livre de perfil admin.
+7. Não apagar/recriar o banco existente.
+8. Migrar registros antigos com segurança, preferencialmente atribuindo-os ao administrador inicial.
+```
+
+## Estrutura de usuário pedida
+
+```text
+id
+nome
+email
+senha
+perfil
+created_at (opcional)
+```
+
+Perfis:
+
+```text
+admin
+usuario
+```
+
+## Fluxo de autenticação solicitado
+
+```text
+Login
+↓
+email + senha
+↓
+backend procura usuário
+↓
+bcrypt compara senha
+↓
+credenciais corretas
+↓
+gera JWT
+↓
+frontend recebe token
+↓
+token é enviado nas próximas requisições
+↓
+backend identifica o usuário autenticado
+```
+
+Token conceitual:
+
+```javascript
+{
+    id: usuario.id,
+    perfil: usuario.perfil
+}
+```
+
+Rotas sugeridas:
+
+```text
+POST /auth/login
+POST /usuarios
+GET  /auth/me
+```
+
+## Proteção das rotas existentes
+
+Foi pedido revisar especialmente:
+
+```text
+/propriedades
+/animais
+/lotes
+/vacinas
+/vacinacoes
+/despesas
+/dashboard
+```
+
+Para usuário comum, as consultas devem possuir filtro por usuário ou por relacionamentos que garantam a propriedade dos dados.
+
+Também foi solicitado proteger GET por ID, PUT e DELETE contra manipulação manual de IDs.
+
+## Testes exigidos no prompt
+
+```text
+admin + senha correta → sucesso
+usuário + senha correta → sucesso
+senha errada → 401
+usuário inexistente → 401
+sem token → 401
+token inválido → 401
+```
+
+E:
+
+```text
+ADMIN → vê registros de A e B
+USUARIO_A → vê apenas registros de A
+USUARIO_B → vê apenas registros de B
+```
+
+Além de tentativas de GET/PUT/DELETE cruzadas entre usuários.
+
+## Resultado conhecido
+
+Status: **CONFIRMADO PELO USUÁRIO COMO IMPLEMENTADO SATISFATORIAMENTE PELO CODEX.**
+
+---
+
+# 122. Prompt preparado — Administrador criar novos usuários comuns
+
+Depois do login com níveis de permissão, foi preparado um segundo prompt para criar uma área administrativa de usuários.
+
+## Objetivo
+
+Adicionar uma página:
+
+```text
+Usuários
+```
+
+visível somente para o administrador.
+
+O administrador poderá principalmente:
+
+- listar usuários;
+- criar usuários comuns;
+- editar nome/email;
+- opcionalmente redefinir senha;
+- desativar usuários de forma segura.
+
+## Regra central
+
+Todo usuário criado nessa área deve receber automaticamente:
+
+```text
+perfil = usuario
+```
+
+Nunca permitir que o frontend ou uma requisição manual crie outro administrador por essa rota.
+
+## Rotas sugeridas
+
+```text
+GET  /usuarios
+POST /usuarios
+GET  /usuarios/:id
+PUT  /usuarios/:id
+```
+
+Opcional:
+
+```text
+PUT /usuarios/:id/senha
+```
+
+## Exclusão/desativação
+
+Foi recomendado preferir:
+
+```text
+ativo = true/false
+```
+
+em vez de excluir fisicamente usuários que já possuam propriedades, animais, despesas e outros registros associados.
+
+Exemplo de alteração possível:
+
+```sql
+ALTER TABLE usuarios
+ADD COLUMN ativo BOOLEAN NOT NULL DEFAULT TRUE;
+```
+
+Somente executar se a coluna ainda não existir e se fizer sentido na implementação atual.
+
+Usuário desativado:
+
+```text
+→ não consegue login
+→ mantém seus dados no banco
+→ administrador continua podendo visualizar os dados
+```
+
+## Proteção do administrador principal
+
+Foi pedido impedir:
+
+- autoexclusão acidental do admin;
+- autodesativação do único admin;
+- alteração do admin principal para perfil `usuario`.
+
+## Frontend solicitado
+
+Página conceitual:
+
+```text
+Usuários
+────────────────────────────
+
+[ + Novo usuário ]
+
+Nome          Email               Perfil
+João Silva    joao@email.com      Usuário
+Maria Souza   maria@email.com     Usuário
+```
+
+Formulário:
+
+```text
+Nome
+Email
+Senha
+Confirmar senha
+```
+
+Sem seletor de perfil.
+
+## Segurança
+
+Usuário comum tentando:
+
+```text
+GET /usuarios
+POST /usuarios
+PUT /usuarios/:id
+DELETE /usuarios/:id
+```
+
+deve receber bloqueio, preferencialmente `403 Forbidden`.
+
+## Status
+
+Status: **PROMPT PREPARADO. NÃO HÁ CONFIRMAÇÃO NESTA CONVERSA DE QUE O CODEX JÁ CONCLUIU ESSA IMPLEMENTAÇÃO.**
+
+---
+
+# 123. Mudança de requisito — cadastro público de produtores
+
+Depois foi decidido que o AgroControl será um **site público**, de fácil acesso para produtores rurais comuns.
+
+Por isso, não depender apenas do administrador para criar contas.
+
+Novo requisito:
+
+```text
+PÁGINA PÚBLICA
+      ↓
+    LOGIN
+      ↓
+┌───────────────────────┐
+│ Entrar                │
+│ Criar uma conta       │
+└───────────────────────┘
+```
+
+O visitante deve conseguir criar sua própria conta.
+
+---
+
+# 124. Prompt preparado — Cadastro público na tela de login
+
+## Objetivo
+
+Permitir que qualquer produtor crie conta no AgroControl sem precisar pedir ao administrador.
+
+Fluxo desejado:
+
+```text
+PRODUTOR
+   ↓
+ACESSA AGROCONTROL
+   ↓
+LOGIN
+   ↓
+Não possui conta?
+   ↓
+CRIAR CONTA
+   ↓
+Nome
+Email
+Senha
+Confirmar senha
+   ↓
+CADASTRAR
+   ↓
+BACKEND
+   ↓
+VALIDAÇÃO
+   ↓
+BCRYPT
+   ↓
+perfil = usuario
+   ↓
+POSTGRESQL
+   ↓
+CONTA CRIADA
+   ↓
+LOGIN
+   ↓
+DASHBOARD
+```
+
+## Rotas públicas desejadas no React
+
+```text
+/login
+/cadastro
+```
+
+Páginas internas continuam protegidas.
+
+## Rota pública de API sugerida
+
+```text
+POST /auth/cadastro
+```
+
+ou:
+
+```text
+POST /auth/register
+```
+
+A escolha deve seguir o padrão já adotado no projeto.
+
+## Campos mínimos
+
+```text
+nome
+email
+senha
+confirmar senha
+```
+
+O cadastro deve permanecer simples.
+
+Não tornar obrigatório neste momento:
+
+- CPF;
+- CNPJ;
+- telefone;
+- endereço;
+- outros dados burocráticos.
+
+## Segurança mais importante
+
+O cadastro público **NUNCA** pode criar administrador.
+
+O backend deve definir diretamente:
+
+```javascript
+const perfil = "usuario";
+```
+
+Não usar o valor de perfil vindo de `req.body` para decidir permissão.
+
+Tentativa:
+
+```json
+{
+    "nome": "Admin Fake",
+    "email": "fake@email.com",
+    "senha": "12345678",
+    "perfil": "admin"
+}
+```
+
+Resultado obrigatório:
+
+```text
+NÃO criar admin
+```
+
+## Email e senha
+
+- email deve ser único;
+- email duplicado → erro apropriado, preferencialmente 409;
+- senha deve continuar armazenada com bcrypt;
+- nunca retornar senha/hash.
+
+## Pós-cadastro
+
+Preferência definida:
+
+```text
+Conta criada com sucesso
+↓
+redirecionar para /login
+↓
+usuário entra normalmente
+```
+
+## Primeiro acesso
+
+Conta recém-criada deve funcionar normalmente com:
+
+```text
+0 propriedades
+0 animais
+0 lotes
+0 vacinações
+0 despesas
+```
+
+Dashboard não pode quebrar com listas vazias.
+
+## Associação automática ao usuário
+
+Quando o usuário cadastrar uma propriedade, o backend deve usar o usuário do JWT.
+
+Conceitualmente:
+
+```javascript
+const usuarioId = req.usuario.id;
+```
+
+Não permitir que o frontend escolha livremente `usuario_id`.
+
+## Dois fluxos de criação de usuário
+
+Se a área administrativa também existir, passam a existir:
+
+```text
+FLUXO PÚBLICO
+Visitante → Criar conta → usuario
+```
+
+E:
+
+```text
+FLUXO ADMIN
+Administrador → Usuários → Criar usuário → usuario
+```
+
+Ambos criam somente perfil comum.
+
+## Status
+
+Status: **PROMPT PREPARADO. NÃO HÁ CONFIRMAÇÃO NESTA CONVERSA DE QUE O CODEX JÁ CONCLUIU ESSA IMPLEMENTAÇÃO.**
+
+---
+
+# 125. Verificação da funcionalidade Animais ↔ Lotes
+
+Foi observado pelo usuário que a parte de vincular animais a lotes aparentemente ainda não estava disponível de forma utilizável.
+
+A memória antiga já continha a modelagem conceitual N:N:
+
+```text
+ANIMAL N:N LOTE
+```
+
+por meio de:
+
+```text
+animais_lotes
+```
+
+Também já haviam sido planejadas/registradas rotas conceituais para:
+
+```text
+POST   /lotes/:id/animais
+GET    /lotes/:id/animais
+DELETE /lotes/:id/animais/:animal_id
+GET    /animais/:id/lotes
+```
+
+Porém, não havia confirmação de que a funcionalidade estava integrada e utilizável no frontend atual.
+
+---
+
+# 126. Prompt preparado — Vincular animais aos lotes
+
+## Objetivo
+
+Concluir a funcionalidade visual e de backend para:
+
+- abrir um lote;
+- visualizar seus animais;
+- adicionar animais ao lote;
+- remover animais do lote;
+- manter o animal cadastrado ao remover apenas a associação;
+- respeitar propriedade e usuário.
+
+## Regra do relacionamento
+
+Manter relacionamento N:N usando tabela intermediária.
+
+Estrutura esperada conceitualmente:
+
+```sql
+CREATE TABLE animais_lotes (
+    animal_id INTEGER NOT NULL,
+    lote_id INTEGER NOT NULL,
+
+    PRIMARY KEY (animal_id, lote_id),
+
+    FOREIGN KEY (animal_id)
+        REFERENCES animais(id),
+
+    FOREIGN KEY (lote_id)
+        REFERENCES lotes(id)
+);
+```
+
+Antes de executar qualquer SQL, o Codex deve verificar se a tabela já existe.
+
+Nunca recriar ou apagar associações existentes desnecessariamente.
+
+## Regra de propriedade
+
+Animal só pode entrar em lote da mesma propriedade:
+
+```text
+animal.propriedade_id
+=
+lote.propriedade_id
+```
+
+Exemplo permitido:
+
+```text
+Animal Mimosa → propriedade 3
+Lote Bezerros → propriedade 3
+→ permitido
+```
+
+Exemplo proibido:
+
+```text
+Animal Mimosa → propriedade 3
+Lote B → propriedade 8
+→ bloqueado
+```
+
+Essa validação precisa existir no backend.
+
+## Regra de usuários
+
+Considerando o novo sistema de autenticação:
+
+```text
+ADMIN
+→ pode administrar dados globalmente
+
+USUÁRIO COMUM
+→ somente animais e lotes dentro dos próprios dados
+```
+
+Manipular IDs manualmente não pode permitir cruzar usuários.
+
+## Rotas a procurar/revisar
+
+```text
+POST   /lotes/:id/animais
+GET    /lotes/:id/animais
+DELETE /lotes/:id/animais/:animal_id
+GET    /animais/:id/lotes
+```
+
+Se já existirem, adaptar em vez de duplicar.
+
+## Validações para adicionar animal ao lote
+
+Antes do INSERT:
+
+```text
+1. usuário autenticado
+2. lote existe
+3. usuário possui acesso ao lote
+4. animal existe
+5. usuário possui acesso ao animal
+6. animal e lote pertencem à mesma propriedade
+7. associação ainda não existe
+```
+
+## Duplicação
+
+Não permitir a mesma combinação:
+
+```text
+animal_id + lote_id
+```
+
+mais de uma vez.
+
+Mensagem amigável desejada:
+
+```text
+Este animal já pertence a este lote
+```
+
+## Remoção
+
+Ao executar:
+
+```text
+DELETE /lotes/:id/animais/:animal_id
+```
+
+deve remover apenas a linha de `animais_lotes`.
+
+Não apagar animal.
+
+Não apagar lote.
+
+## Frontend desejado
+
+Na tela de lotes, adicionar ação semelhante a:
+
+```text
+Gerenciar animais
+```
+
+Interface conceitual:
+
+```text
+Lote: Bezerros
+Propriedade: Fazenda Boa Vista
+
+ANIMAIS DO LOTE
+
+Mimosa
+Nelore • F • 420 kg
+[ Remover ]
+
+Estrela
+Nelore • F • 390 kg
+[ Remover ]
+
+────────────────────────
+
+ADICIONAR ANIMAL
+
+[Selecione um animal ▼]
+
+[ Adicionar ao lote ]
+```
+
+## Select de animais
+
+O produtor não deve digitar `animal_id` manualmente.
+
+Usar seleção pelo nome.
+
+Preferencialmente mostrar apenas:
+
+- animais da mesma propriedade do lote;
+- animais ainda não associados ao lote.
+
+## Contagem opcional
+
+Se simples, mostrar:
+
+```text
+Animais: 3
+```
+
+na listagem de lotes.
+
+## Bug antigo a evitar
+
+Já existiu um bug em que, após DELETE, os campos do frontend deixavam de aceitar digitação.
+
+Manter:
+
+```jsx
+<button type="button">
+```
+
+para botões que não devem submeter formulários.
+
+Evitar `window.location.reload()`.
+
+## Exclusões e FKs
+
+Revisar o que ocorre quando:
+
+- um lote com relações é excluído;
+- um animal com relações é excluído.
+
+Não deixar erros inesperados de chave estrangeira.
+
+Não alterar `ON DELETE` cegamente; analisar o banco atual primeiro.
+
+## Testes exigidos
+
+```text
+1. adicionar Mimosa ao lote Bezerros
+2. confirmar sucesso
+3. listar animais de Bezerros
+4. confirmar Mimosa na lista
+5. tentar adicionar Mimosa novamente
+6. confirmar bloqueio de duplicação
+7. adicionar Estrela
+8. confirmar dois animais no lote
+9. remover Mimosa
+10. confirmar que Mimosa continua existindo em Animais
+11. confirmar que somente a relação foi removida
+```
+
+Também testar propriedades diferentes e usuários diferentes.
+
+## Status
+
+Status: **PROMPT PREPARADO. NÃO HÁ CONFIRMAÇÃO NESTA CONVERSA DE QUE O CODEX JÁ CONCLUIU ESSA IMPLEMENTAÇÃO.**
+
+---
+
+# 127. Estado atualizado das decisões de autenticação
+
+## Confirmado por relato do usuário
+
+```text
+Sistema de login com dois níveis de permissão
+→ Codex executou o primeiro prompt satisfatoriamente
+```
+
+Regra esperada como implementada:
+
+```text
+ADMIN → acesso global
+USUÁRIO → somente próprios dados
+```
+
+## Preparado, mas sem confirmação de conclusão
+
+```text
+1. área administrativa para criar usuários comuns
+2. cadastro público de produtores em /cadastro ou equivalente
+3. gerenciamento visual de animais dentro dos lotes
+```
+
+Uma próxima conversa deve confirmar no código quais desses itens já foram efetivamente executados pelo Codex antes de continuar.
+
+---
+
+# 128. Próximo procedimento recomendado ao retomar o projeto
+
+Antes de novas alterações:
+
+```text
+1. abrir o projeto atual produzido após os prompts do Codex
+2. localizar implementação de autenticação
+3. conferir tabela usuarios
+4. conferir colunas/relacionamentos de usuario_id
+5. conferir middleware JWT
+6. conferir middleware de admin
+7. conferir tela de login
+8. verificar se /cadastro já existe
+9. verificar se área /usuarios já existe
+10. verificar se animais_lotes está presente no PostgreSQL
+11. verificar se as rotas animais ↔ lotes estão no backend
+12. verificar se a tela Lotes possui gerenciamento de animais
+```
+
+Não assumir que um prompt foi executado apenas porque ele existe nesta memória.
+
+---
+
+# 129. Regra de continuidade para futuras sessões
+
+> Sempre distinguir **planejado**, **pedido ao Codex** e **confirmado funcionando**.
+
+Se o usuário trouxer o código atualizado ou um novo arquivo de memória após o Codex executar os prompts, atualizar esta seção com:
+
+- arquivos criados;
+- arquivos alterados;
+- SQL executado;
+- novas dependências;
+- rotas criadas;
+- middlewares;
+- estrutura atual da tabela `usuarios`;
+- funcionamento do cadastro público;
+- funcionamento da área administrativa;
+- funcionamento real de `animais_lotes` no frontend;
+- testes realizados e seus resultados.
+
+---
+
+# FIM DA ATUALIZAÇÃO — 23/08/2026 — PROMPTS CODEX E NOVOS REQUISITOS

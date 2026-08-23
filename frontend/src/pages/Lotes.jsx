@@ -1,0 +1,391 @@
+import { useEffect, useState } from "react";
+import api from "../services/api";
+
+function Lotes() {
+  const [lotes, setLotes] = useState([]);
+  const [propriedades, setPropriedades] = useState([]);
+  const [animais, setAnimais] = useState([]);
+  const [loteGerenciado, setLoteGerenciado] = useState(null);
+  const [animaisDoLote, setAnimaisDoLote] = useState([]);
+  const [animalSelecionado, setAnimalSelecionado] = useState("");
+  const [carregandoAnimais, setCarregandoAnimais] = useState(false);
+
+  const [nome, setNome] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [propriedadeId, setPropriedadeId] = useState("");
+
+  const [editandoId, setEditandoId] = useState(null);
+  const [mensagem, setMensagem] = useState("");
+
+  useEffect(() => {
+    carregarLotes();
+    carregarPropriedades();
+    carregarAnimais();
+  }, []);
+
+  async function carregarLotes() {
+    try {
+      const resposta = await api.get("/lotes");
+      setLotes(resposta.data);
+    } catch (erro) {
+      console.error(erro);
+      setMensagem("Erro ao carregar lotes");
+    }
+  }
+
+  async function carregarPropriedades() {
+    try {
+      const resposta = await api.get("/propriedades");
+      setPropriedades(resposta.data);
+    } catch (erro) {
+      console.error(erro);
+    }
+  }
+
+  async function carregarAnimais() {
+    try {
+      const resposta = await api.get("/animais");
+      setAnimais(resposta.data);
+    } catch (erro) {
+      console.error(erro);
+      setMensagem("Erro ao carregar animais disponíveis");
+    }
+  }
+
+  async function carregarAnimaisDoLote(loteId) {
+    setCarregandoAnimais(true);
+
+    try {
+      const resposta = await api.get(`/lotes/${loteId}/animais`);
+      const animaisVinculados = resposta.data;
+      const idNumerico = Number(loteId);
+
+      setAnimaisDoLote(animaisVinculados);
+      setLotes((lotesAtuais) =>
+        lotesAtuais.map((lote) =>
+          lote.id === idNumerico
+            ? { ...lote, quantidade_animais: animaisVinculados.length }
+            : lote,
+        ),
+      );
+      setLoteGerenciado((loteAtual) =>
+        loteAtual?.id === idNumerico
+          ? { ...loteAtual, quantidade_animais: animaisVinculados.length }
+          : loteAtual,
+      );
+    } catch (erro) {
+      console.error(erro);
+      setMensagem(
+        erro.response?.data?.mensagem || "Erro ao carregar animais do lote",
+      );
+    } finally {
+      setCarregandoAnimais(false);
+    }
+  }
+
+  async function gerenciarAnimais(lote) {
+    if (loteGerenciado?.id === lote.id) {
+      setLoteGerenciado(null);
+      setAnimaisDoLote([]);
+      setAnimalSelecionado("");
+      return;
+    }
+
+    setLoteGerenciado(lote);
+    setAnimalSelecionado("");
+    setMensagem("");
+    await carregarAnimaisDoLote(lote.id);
+  }
+
+  async function adicionarAnimalAoLote(evento) {
+    evento.preventDefault();
+
+    if (!loteGerenciado || !animalSelecionado) {
+      setMensagem("Selecione um animal para adicionar.");
+      return;
+    }
+
+    try {
+      const resposta = await api.post(
+        `/lotes/${loteGerenciado.id}/animais`,
+        { animal_id: Number(animalSelecionado) },
+      );
+
+      setMensagem(resposta.data.mensagem);
+      setAnimalSelecionado("");
+      await carregarAnimaisDoLote(loteGerenciado.id);
+    } catch (erro) {
+      console.error(erro);
+      setMensagem(
+        erro.response?.data?.mensagem ||
+          "Não foi possível adicionar o animal.",
+      );
+    }
+  }
+
+  async function removerAnimalDoLote(animal) {
+    if (!loteGerenciado) return;
+
+    const confirmar = window.confirm(
+      `Remover ${animal.nome} deste lote? O animal continuará cadastrado.`,
+    );
+
+    if (!confirmar) return;
+
+    try {
+      const resposta = await api.delete(
+        `/lotes/${loteGerenciado.id}/animais/${animal.id}`,
+      );
+
+      setMensagem(resposta.data.mensagem);
+      await carregarAnimaisDoLote(loteGerenciado.id);
+    } catch (erro) {
+      console.error(erro);
+      setMensagem(
+        erro.response?.data?.mensagem || "Não foi possível remover o animal.",
+      );
+    }
+  }
+
+  function limparFormulario() {
+    setNome("");
+    setDescricao("");
+    setPropriedadeId("");
+    setEditandoId(null);
+  }
+
+  async function salvarLote(evento) {
+    evento.preventDefault();
+
+    try {
+      const dados = {
+        nome,
+        descricao,
+        propriedade_id: Number(propriedadeId),
+      };
+
+      if (editandoId) {
+        await api.put(`/lotes/${editandoId}`, dados);
+        setMensagem("Lote atualizado com sucesso!");
+      } else {
+        await api.post("/lotes", dados);
+        setMensagem("Lote cadastrado com sucesso!");
+      }
+
+      limparFormulario();
+      carregarLotes();
+    } catch (erro) {
+      console.error(erro);
+
+      setMensagem(erro.response?.data?.mensagem || "Erro ao salvar lote");
+    }
+  }
+
+  function editarLote(lote) {
+    setLoteGerenciado(null);
+    setAnimaisDoLote([]);
+    setEditandoId(lote.id);
+    setNome(lote.nome);
+    setDescricao(lote.descricao || "");
+    setPropriedadeId(lote.propriedade_id);
+  }
+
+  async function excluirLote(id) {
+    const confirmar = window.confirm(
+      "Tem certeza que deseja excluir este lote?",
+    );
+
+    if (!confirmar) return;
+
+    try {
+      await api.delete(`/lotes/${id}`);
+
+      setLotes((lotesAtuais) => lotesAtuais.filter((lote) => lote.id !== id));
+
+      if (loteGerenciado?.id === id) {
+        setLoteGerenciado(null);
+        setAnimaisDoLote([]);
+        setAnimalSelecionado("");
+      }
+
+      setMensagem("Lote excluído com sucesso!");
+    } catch (erro) {
+      console.error(erro);
+
+      setMensagem(erro.response?.data?.mensagem || "Erro ao excluir lote");
+    }
+  }
+
+  return (
+    <div>
+      <h1>Lotes</h1>
+
+      {mensagem && <p>{mensagem}</p>}
+
+      <form onSubmit={salvarLote}>
+        <div>
+          <label>Nome</label>
+          <br />
+
+          <input
+            type="text"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label>Descrição</label>
+          <br />
+
+          <input
+            type="text"
+            value={descricao}
+            onChange={(e) => setDescricao(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label>Propriedade</label>
+          <br />
+
+          <select
+            value={propriedadeId}
+            onChange={(e) => setPropriedadeId(e.target.value)}
+          >
+            <option value="">Selecione</option>
+
+            {propriedades.map((propriedade) => (
+              <option key={propriedade.id} value={propriedade.id}>
+                {propriedade.nome}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <br />
+
+        <button type="submit">
+          {editandoId ? "Salvar alterações" : "Cadastrar"}
+        </button>
+
+        {editandoId && (
+          <button type="button" onClick={limparFormulario}>
+            Cancelar
+          </button>
+        )}
+      </form>
+
+      <hr />
+
+      <h2>Lotes cadastrados</h2>
+
+      {lotes.length === 0 && <p>Nenhum lote cadastrado.</p>}
+
+      {lotes.map((lote) => {
+        const animaisCompativeis = animais.filter(
+          (animal) =>
+            Number(animal.propriedade_id) === Number(lote.propriedade_id) &&
+            !animaisDoLote.some(
+              (animalVinculado) => animalVinculado.id === animal.id,
+            ),
+        );
+
+        return (
+        <div className="lot-card" key={lote.id}>
+          <h3>{lote.nome}</h3>
+
+          <p>{lote.descricao || "-"}</p>
+
+          <p>Propriedade: {lote.propriedade || lote.propriedade_id}</p>
+          <p>Animais: {lote.quantidade_animais || 0}</p>
+
+          <div className="lot-actions">
+            <button type="button" onClick={() => gerenciarAnimais(lote)}>
+              {loteGerenciado?.id === lote.id
+                ? "Fechar animais"
+                : "Gerenciar animais"}
+            </button>
+
+            <button type="button" onClick={() => editarLote(lote)}>
+              Editar
+            </button>
+
+            <button type="button" onClick={() => excluirLote(lote.id)}>
+              Excluir
+            </button>
+          </div>
+
+          {loteGerenciado?.id === lote.id && (
+            <section className="lot-animals-manager">
+              <h3>Animais do lote: {lote.nome}</h3>
+              <p>Propriedade: {lote.propriedade}</p>
+
+              {carregandoAnimais && <p>Carregando animais...</p>}
+
+              {!carregandoAnimais && animaisDoLote.length === 0 && (
+                <p>Nenhum animal vinculado a este lote.</p>
+              )}
+
+              {animaisDoLote.map((animal) => (
+                <div className="lot-animal" key={animal.id}>
+                  <div>
+                    <strong>{animal.nome}</strong>
+                    <p className="lot-animal-details">
+                      {animal.raca || animal.especie}
+                      {" • "}
+                      {animal.sexo || "-"}
+                      {" • "}
+                      {animal.peso ? `${animal.peso} kg` : "Peso não informado"}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => removerAnimalDoLote(animal)}
+                  >
+                    Remover
+                  </button>
+                </div>
+              ))}
+
+              <form className="lot-add-form" onSubmit={adicionarAnimalAoLote}>
+                <label htmlFor={`animal-lote-${lote.id}`}>Adicionar animal</label>
+                <select
+                  id={`animal-lote-${lote.id}`}
+                  value={animalSelecionado}
+                  onChange={(evento) => setAnimalSelecionado(evento.target.value)}
+                  disabled={animaisCompativeis.length === 0}
+                >
+                  <option value="">
+                    {animaisCompativeis.length === 0
+                      ? "Nenhum animal disponível"
+                      : "Selecione um animal"}
+                  </option>
+
+                  {animaisCompativeis.map((animal) => (
+                    <option key={animal.id} value={animal.id}>
+                      {animal.nome} — {animal.raca || animal.especie}
+                    </option>
+                  ))}
+                </select>
+
+                <button
+                  type="submit"
+                  disabled={!animalSelecionado || animaisCompativeis.length === 0}
+                >
+                  Adicionar ao lote
+                </button>
+              </form>
+            </section>
+          )}
+
+          <hr />
+        </div>
+        );
+      })}
+    </div>
+  );
+}
+
+export default Lotes;
