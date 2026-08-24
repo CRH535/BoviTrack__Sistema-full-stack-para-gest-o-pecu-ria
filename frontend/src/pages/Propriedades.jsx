@@ -99,12 +99,18 @@ function Propriedades() {
   }
 
   return (
-    <div>
-      <h1>Propriedades</h1>
+    <div className="page">
+      <header className="page-header">
+        <div>
+          <span className="eyebrow">Gestão territorial</span>
+          <h1>Propriedades</h1>
+          <p>Cadastre e acompanhe suas fazendas.</p>
+        </div>
+      </header>
 
-      {mensagem && <p>{mensagem}</p>}
+      {mensagem && <p className="notice">{mensagem}</p>}
 
-      <form onSubmit={salvarPropriedade}>
+      <form className="panel data-form" onSubmit={salvarPropriedade}>
         <div>
           <label>Nome</label>
           <br />
@@ -158,20 +164,26 @@ function Propriedades() {
         </button>
 
         {editandoId && (
-          <button type="button" onClick={limparFormulario}>
+          <button className="button-secondary" type="button" onClick={limparFormulario}>
             Cancelar
           </button>
         )}
       </form>
 
-      <hr />
+      <div className="section-heading">
+        <div>
+          <span className="eyebrow">Seus dados</span>
+          <h2>Propriedades cadastradas</h2>
+        </div>
+        <span className="count-badge">{propriedades.length}</span>
+      </div>
 
-      <h2>Propriedades cadastradas</h2>
+      {propriedades.length === 0 && <div className="empty-state"><p>Nenhuma propriedade cadastrada.</p></div>}
 
-      {propriedades.length === 0 && <p>Nenhuma propriedade cadastrada.</p>}
-
+      <div className="record-grid">
       {propriedades.map((propriedade) => (
-        <div key={propriedade.id}>
+        <article className="record-card" key={propriedade.id}>
+          <span className="record-icon" aria-hidden="true">⌂</span>
           <h3>{propriedade.nome}</h3>
 
           <p>
@@ -180,20 +192,22 @@ function Propriedades() {
 
           <p>Área: {propriedade.area} ha</p>
 
-          <button type="button" onClick={() => editarPropriedade(propriedade)}>
+          <div className="record-actions">
+          <button className="button-secondary" type="button" onClick={() => editarPropriedade(propriedade)}>
             Editar
           </button>
 
           <button
+            className="button-danger"
             type="button"
             onClick={() => excluirPropriedade(propriedade.id)}
           >
             Excluir
           </button>
-
-          <hr />
-        </div>
+          </div>
+        </article>
       ))}
+      </div>
     </div>
   );
 }

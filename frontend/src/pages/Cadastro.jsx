@@ -69,9 +69,23 @@ function Cadastro() {
 
   return (
     <main className="login-page">
-      <section className="login-card">
-        <h1>AgroControl</h1>
-        <p>Crie sua conta e comece a organizar sua propriedade.</p>
+      <section className="auth-visual" aria-hidden="true">
+        <div className="auth-visual-content">
+          <span className="auth-brand"><strong>AGRO</strong>CONTROL</span>
+          <div>
+            <span className="auth-kicker">Comece hoje</span>
+            <h1>Transforme a rotina da sua propriedade.</h1>
+            <p>Organize seu rebanho, suas vacinas e suas despesas com clareza.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="auth-panel">
+        <div className="login-card register-card">
+        <span className="auth-mobile-brand"><strong>AGRO</strong>CONTROL</span>
+        <span className="auth-kicker">Novo no AgroControl?</span>
+        <h1>Crie sua conta</h1>
+        <p>Cadastre-se e comece a organizar sua propriedade.</p>
 
         {mensagem && <p className="form-message">{mensagem}</p>}
 
@@ -128,6 +142,7 @@ function Cadastro() {
         <p className="auth-switch">
           Já possui uma conta? <Link to="/login">Entrar</Link>
         </p>
+        </div>
       </section>
     </main>
   );

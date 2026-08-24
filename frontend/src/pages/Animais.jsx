@@ -142,12 +142,18 @@ function Animais() {
   }
 
   return (
-    <div>
-      <h1>Animais</h1>
+    <div className="page">
+      <header className="page-header">
+        <div>
+          <span className="eyebrow">Gestão do rebanho</span>
+          <h1>Animais</h1>
+          <p>Controle a identificação e os dados do seu rebanho.</p>
+        </div>
+      </header>
 
-      {mensagem && <p>{mensagem}</p>}
+      {mensagem && <p className="notice">{mensagem}</p>}
 
-      <form onSubmit={salvarAnimal}>
+      <form className="panel data-form" onSubmit={salvarAnimal}>
         <div>
           <label>Nome</label>
           <br />
@@ -254,23 +260,33 @@ function Animais() {
         </button>
 
         {editandoId && (
-          <button type="button" onClick={limparFormulario}>
+          <button className="button-secondary" type="button" onClick={limparFormulario}>
             Cancelar
           </button>
         )}
       </form>
 
-      <hr />
+      <div className="section-heading">
+        <div>
+          <span className="eyebrow">Rebanho</span>
+          <h2>Animais cadastrados</h2>
+        </div>
+        <span className="count-badge">{animais.length}</span>
+      </div>
 
-      <h2>Animais cadastrados</h2>
+      {animais.length === 0 && <div className="empty-state"><p>Nenhum animal cadastrado.</p></div>}
 
-      {animais.length === 0 && <p>Nenhum animal cadastrado.</p>}
-
+      <div className="record-grid animal-grid">
       {animais.map((animal) => (
-        <div key={animal.id}>
-          <h3>{animal.nome}</h3>
+        <article className="record-card animal-card" key={animal.id}>
+          <div className="animal-card-heading">
+            <span className="animal-avatar" aria-hidden="true">●</span>
+            <div>
+              <h3>{animal.nome}</h3>
+              <span className="tag-badge">Brinco {animal.numero_brinco || "não informado"}</span>
+            </div>
+          </div>
 
-          <p>Brinco: {animal.numero_brinco || "Não informado"}</p>
           <p>Nascimento: {formatarDataSemFuso(animal.data_nascimento)}</p>
           <p>Espécie: {animal.especie}</p>
           <p>Raça: {animal.raca || "-"}</p>
@@ -284,17 +300,18 @@ function Animais() {
               : "Nenhum lote"}
           </p>
 
-          <button type="button" onClick={() => editarAnimal(animal)}>
+          <div className="record-actions">
+          <button className="button-secondary" type="button" onClick={() => editarAnimal(animal)}>
             Editar
           </button>
 
-          <button type="button" onClick={() => excluirAnimal(animal.id)}>
+          <button className="button-danger" type="button" onClick={() => excluirAnimal(animal.id)}>
             Excluir
           </button>
-
-          <hr />
-        </div>
+          </div>
+        </article>
       ))}
+      </div>
     </div>
   );
 }

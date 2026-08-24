@@ -36,9 +36,23 @@ function Login() {
 
   return (
     <main className="login-page">
-      <section className="login-card">
-        <h1>AgroControl</h1>
-        <p>Entre para acessar seus dados.</p>
+      <section className="auth-visual" aria-hidden="true">
+        <div className="auth-visual-content">
+          <span className="auth-brand"><strong>AGRO</strong>CONTROL</span>
+          <div>
+            <span className="auth-kicker">Gestão rural inteligente</span>
+            <h1>Gerencie sua fazenda de forma simples e eficiente.</h1>
+            <p>Seus animais, propriedades e finanças em um só lugar.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="auth-panel">
+        <div className="login-card">
+        <span className="auth-mobile-brand"><strong>AGRO</strong>CONTROL</span>
+        <span className="auth-kicker">Bem-vindo de volta</span>
+        <h1>Acesse sua conta</h1>
+        <p>Entre para acompanhar sua gestão rural.</p>
 
         {mensagem && (
           <p className={`form-message${mensagemSucesso ? " success-message" : ""}`}>
@@ -55,6 +69,7 @@ function Login() {
             onChange={(evento) => setEmail(evento.target.value)}
             autoComplete="email"
             required
+            placeholder="seu@email.com"
           />
 
           <label htmlFor="senha">Senha</label>
@@ -65,6 +80,7 @@ function Login() {
             onChange={(evento) => setSenha(evento.target.value)}
             autoComplete="current-password"
             required
+            placeholder="Digite sua senha"
           />
 
           <button type="submit" disabled={enviando}>
@@ -75,6 +91,7 @@ function Login() {
         <p className="auth-switch">
           Ainda não tem uma conta? <Link to="/cadastro">Criar conta</Link>
         </p>
+        </div>
       </section>
     </main>
   );

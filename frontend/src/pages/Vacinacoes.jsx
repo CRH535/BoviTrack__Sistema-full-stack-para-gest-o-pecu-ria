@@ -126,12 +126,18 @@ function Vacinacoes() {
   }
 
   return (
-    <div>
-      <h1>Vacinações</h1>
+    <div className="page">
+      <header className="page-header">
+        <div>
+          <span className="eyebrow">Agenda sanitária</span>
+          <h1>Vacinações</h1>
+          <p>Registre aplicações e acompanhe as próximas doses.</p>
+        </div>
+      </header>
 
-      {mensagem && <p>{mensagem}</p>}
+      {mensagem && <p className="notice">{mensagem}</p>}
 
-      <form onSubmit={salvarVacinacao}>
+      <form className="panel data-form" onSubmit={salvarVacinacao}>
         <div>
           <label>Animal</label>
           <br />
@@ -210,20 +216,23 @@ function Vacinacoes() {
         </button>
 
         {editandoId && (
-          <button type="button" onClick={limparFormulario}>
+          <button className="button-secondary" type="button" onClick={limparFormulario}>
             Cancelar
           </button>
         )}
       </form>
 
-      <hr />
+      <div className="section-heading">
+        <div><span className="eyebrow">Histórico</span><h2>Vacinações registradas</h2></div>
+        <span className="count-badge">{vacinacoes.length}</span>
+      </div>
 
-      <h2>Histórico de vacinações</h2>
+      {vacinacoes.length === 0 && <div className="empty-state"><p>Nenhuma vacinação registrada.</p></div>}
 
-      {vacinacoes.length === 0 && <p>Nenhuma vacinação registrada.</p>}
-
+      <div className="record-grid vaccination-grid">
       {vacinacoes.map((vacinacao) => (
-        <div key={vacinacao.id}>
+        <article className="record-card vaccination-card" key={vacinacao.id}>
+          <span className="record-icon" aria-hidden="true">+</span>
           <h3>{vacinacao.animal || `Animal ${vacinacao.animal_id}`}</h3>
 
           <p>Vacina: {vacinacao.vacina || vacinacao.vacina_id}</p>
@@ -244,17 +253,18 @@ function Vacinacoes() {
 
           <p>Observação: {vacinacao.observacao || "-"}</p>
 
-          <button type="button" onClick={() => editarVacinacao(vacinacao)}>
+          <div className="record-actions">
+          <button className="button-secondary" type="button" onClick={() => editarVacinacao(vacinacao)}>
             Editar
           </button>
 
-          <button type="button" onClick={() => excluirVacinacao(vacinacao.id)}>
+          <button className="button-danger" type="button" onClick={() => excluirVacinacao(vacinacao.id)}>
             Excluir
           </button>
-
-          <hr />
-        </div>
+          </div>
+        </article>
       ))}
+      </div>
     </div>
   );
 }

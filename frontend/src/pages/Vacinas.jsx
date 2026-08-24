@@ -85,12 +85,18 @@ function Vacinas() {
   }
 
   return (
-    <div>
-      <h1>Vacinas</h1>
+    <div className="page">
+      <header className="page-header">
+        <div>
+          <span className="eyebrow">Saúde animal</span>
+          <h1>Vacinas</h1>
+          <p>Mantenha organizado o catálogo sanitário.</p>
+        </div>
+      </header>
 
-      {mensagem && <p>{mensagem}</p>}
+      {mensagem && <p className="notice">{mensagem}</p>}
 
-      <form onSubmit={salvarVacina}>
+      <form className="panel data-form" onSubmit={salvarVacina}>
         <div>
           <label>Nome</label>
           <br />
@@ -120,34 +126,38 @@ function Vacinas() {
         </button>
 
         {editandoId && (
-          <button type="button" onClick={limparFormulario}>
+          <button className="button-secondary" type="button" onClick={limparFormulario}>
             Cancelar
           </button>
         )}
       </form>
 
-      <hr />
+      <div className="section-heading">
+        <div><span className="eyebrow">Catálogo</span><h2>Vacinas cadastradas</h2></div>
+        <span className="count-badge">{vacinas.length}</span>
+      </div>
 
-      <h2>Vacinas cadastradas</h2>
+      {vacinas.length === 0 && <div className="empty-state"><p>Nenhuma vacina cadastrada.</p></div>}
 
-      {vacinas.length === 0 && <p>Nenhuma vacina cadastrada.</p>}
-
+      <div className="record-grid">
       {vacinas.map((vacina) => (
-        <div key={vacina.id}>
+        <article className="record-card" key={vacina.id}>
+          <span className="record-icon" aria-hidden="true">+</span>
           <h3>{vacina.nome}</h3>
           <p>{vacina.descricao || "-"}</p>
 
-          <button type="button" onClick={() => editarVacina(vacina)}>
+          <div className="record-actions">
+          <button className="button-secondary" type="button" onClick={() => editarVacina(vacina)}>
             Editar
           </button>
 
-          <button type="button" onClick={() => excluirVacina(vacina.id)}>
+          <button className="button-danger" type="button" onClick={() => excluirVacina(vacina.id)}>
             Excluir
           </button>
-
-          <hr />
-        </div>
+          </div>
+        </article>
       ))}
+      </div>
     </div>
   );
 }

@@ -7,6 +7,7 @@
     "migrate:auth": "node scripts/migrate-auth.js",
     "migrate:animal-lots": "node scripts/migrate-animal-lots.js",
     "migrate:animals": "node scripts/migrate-animals.js",
+    "migrate:expenses": "node scripts/migrate-expenses.js",
     "migrate:users": "node scripts/migrate-users.js",
     "test": "node tests/auth-permissions.js",
     "start": "node server.js"

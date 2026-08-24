@@ -130,20 +130,25 @@ function Usuarios() {
   }
 
   return (
-    <div>
-      <h1>Usuários</h1>
-      <p>Gerencie as contas de usuários comuns do AgroControl.</p>
+    <div className="page">
+      <header className="page-header">
+        <div>
+          <span className="eyebrow">Administração</span>
+          <h1>Usuários</h1>
+          <p>Gerencie as contas de usuários comuns do AgroControl.</p>
+        </div>
 
-      {mensagem && <p className="form-message user-message">{mensagem}</p>}
-
-      {!modo && (
+        {!modo && (
         <button type="button" onClick={abrirNovoUsuario}>
           + Novo usuário
         </button>
       )}
+      </header>
+
+      {mensagem && <p className="notice user-message">{mensagem}</p>}
 
       {modo && (
-        <form className="user-form" onSubmit={salvarUsuario}>
+        <form className="panel user-form" onSubmit={salvarUsuario}>
           <h2>{modo === "novo" ? "Novo usuário" : "Editar usuário"}</h2>
 
           <label htmlFor="usuario-nome">Nome</label>
@@ -200,17 +205,19 @@ function Usuarios() {
             <button type="submit" disabled={salvando}>
               {salvando ? "Salvando..." : "Salvar"}
             </button>
-            <button type="button" onClick={fecharFormulario}>
+            <button className="button-secondary" type="button" onClick={fecharFormulario}>
               Cancelar
             </button>
           </div>
         </form>
       )}
 
-      <hr />
-      <h2>Usuários cadastrados</h2>
+      <div className="section-heading">
+        <div><span className="eyebrow">Contas</span><h2>Usuários cadastrados</h2></div>
+        <span className="count-badge">{usuarios.length}</span>
+      </div>
 
-      <div className="users-table-wrapper">
+      <div className="panel users-table-wrapper">
         <table className="users-table">
           <thead>
             <tr>
@@ -229,12 +236,12 @@ function Usuarios() {
                 <td>{usuario.perfil === "admin" ? "Admin" : "Usuário"}</td>
                 <td>{usuario.ativo ? "Ativo" : "Inativo"}</td>
                 <td className="user-actions">
-                  <button type="button" onClick={() => abrirEdicao(usuario)}>
+                  <button className="button-secondary button-small" type="button" onClick={() => abrirEdicao(usuario)}>
                     Editar
                   </button>
 
                   {usuario.perfil === "usuario" && (
-                    <button type="button" onClick={() => alterarSituacao(usuario)}>
+                    <button className="button-small" type="button" onClick={() => alterarSituacao(usuario)}>
                       {usuario.ativo ? "Desativar" : "Ativar"}
                     </button>
                   )}

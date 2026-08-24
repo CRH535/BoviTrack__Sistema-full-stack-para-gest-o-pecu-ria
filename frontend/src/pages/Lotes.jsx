@@ -217,12 +217,18 @@ function Lotes() {
   }
 
   return (
-    <div>
-      <h1>Lotes</h1>
+    <div className="page">
+      <header className="page-header">
+        <div>
+          <span className="eyebrow">Organização do rebanho</span>
+          <h1>Lotes</h1>
+          <p>Agrupe e gerencie os animais por propriedade.</p>
+        </div>
+      </header>
 
-      {mensagem && <p>{mensagem}</p>}
+      {mensagem && <p className="notice">{mensagem}</p>}
 
-      <form onSubmit={salvarLote}>
+      <form className="panel data-form" onSubmit={salvarLote}>
         <div>
           <label>Nome</label>
           <br />
@@ -270,18 +276,20 @@ function Lotes() {
         </button>
 
         {editandoId && (
-          <button type="button" onClick={limparFormulario}>
+          <button className="button-secondary" type="button" onClick={limparFormulario}>
             Cancelar
           </button>
         )}
       </form>
 
-      <hr />
+      <div className="section-heading">
+        <div><span className="eyebrow">Lotes ativos</span><h2>Lotes cadastrados</h2></div>
+        <span className="count-badge">{lotes.length}</span>
+      </div>
 
-      <h2>Lotes cadastrados</h2>
+      {lotes.length === 0 && <div className="empty-state"><p>Nenhum lote cadastrado.</p></div>}
 
-      {lotes.length === 0 && <p>Nenhum lote cadastrado.</p>}
-
+      <div className="record-grid lot-grid">
       {lotes.map((lote) => {
         const animaisCompativeis = animais.filter(
           (animal) =>
@@ -292,7 +300,11 @@ function Lotes() {
         );
 
         return (
-        <div className="lot-card" key={lote.id}>
+        <article
+          className={`record-card lot-card${loteGerenciado?.id === lote.id ? " expanded" : ""}`}
+          key={lote.id}
+        >
+          <span className="record-icon" aria-hidden="true">▦</span>
           <h3>{lote.nome}</h3>
 
           <p>{lote.descricao || "-"}</p>
@@ -307,11 +319,11 @@ function Lotes() {
                 : "Gerenciar animais"}
             </button>
 
-            <button type="button" onClick={() => editarLote(lote)}>
+            <button className="button-secondary" type="button" onClick={() => editarLote(lote)}>
               Editar
             </button>
 
-            <button type="button" onClick={() => excluirLote(lote.id)}>
+            <button className="button-danger" type="button" onClick={() => excluirLote(lote.id)}>
               Excluir
             </button>
           </div>
@@ -346,6 +358,7 @@ function Lotes() {
                   </div>
 
                   <button
+                    className="button-danger"
                     type="button"
                     onClick={() => removerAnimalDoLote(animal)}
                   >
@@ -389,10 +402,10 @@ function Lotes() {
             </section>
           )}
 
-          <hr />
-        </div>
+        </article>
         );
       })}
+      </div>
     </div>
   );
 }

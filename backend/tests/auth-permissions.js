@@ -265,6 +265,7 @@ async function executar() {
       lote: lote.dados.lote,
       vacina: vacina.dados.vacina,
       vacinacao: vacinacao.dados.vacinacao,
+      despesa: despesa.dados.despesa,
     };
   }
 
@@ -329,6 +330,193 @@ async function executar() {
   confirmar("Dashboard A contém somente dados de A", dashboardA.dados.resumo.propriedades === 1 && dashboardA.dados.resumo.animais === 1 && dashboardA.dados.resumo.total_despesas === 10 && dashboardA.dados.proximas_vacinacoes.length === 1);
   confirmar("Dashboard B contém somente dados de B", dashboardB.dados.resumo.propriedades === 1 && dashboardB.dados.resumo.animais === 1 && dashboardB.dados.resumo.total_despesas === 20 && dashboardB.dados.proximas_vacinacoes.length === 1);
   confirmar("Dashboard admin soma A e B", dashboardAdmin.dados.resumo.propriedades === dashboardInicial.dados.resumo.propriedades + 2 && dashboardAdmin.dados.resumo.total_despesas === dashboardInicial.dados.resumo.total_despesas + 30);
+
+  confirmar(
+    "despesa sem forma de pagamento continua funcionando",
+    conjuntoA.despesa.forma_pagamento === null,
+  );
+
+  const hoje = new Date().toISOString().slice(0, 10);
+  const despesaPix = await requisitar("/despesas", {
+    metodo: "POST",
+    token: tokenA,
+    corpo: {
+      descricao: "Compra de ração",
+      categoria: "Ração",
+      forma_pagamento: "   Pix   ",
+      valor: 850,
+      data: hoje,
+      propriedade_id: conjuntoA.propriedade.id,
+    },
+  });
+  confirmar(
+    "cadastro de despesa remove espaços da forma de pagamento",
+    despesaPix.status === 201 &&
+      despesaPix.dados.despesa.forma_pagamento === "Pix",
+  );
+
+  const despesaTextoLivre = await requisitar("/despesas", {
+    metodo: "POST",
+    token: tokenA,
+    corpo: {
+      descricao: "Compra parcelada",
+      categoria: "Equipamentos",
+      forma_pagamento: "Cartão de crédito em 3x",
+      valor: 300,
+      data: hoje,
+      propriedade_id: conjuntoA.propriedade.id,
+    },
+  });
+  confirmar(
+    "forma de pagamento aceita e preserva texto livre",
+    despesaTextoLivre.status === 201 &&
+      despesaTextoLivre.dados.despesa.forma_pagamento ===
+        "Cartão de crédito em 3x",
+  );
+
+  const despesaEditada = await requisitar(
+    `/despesas/${despesaPix.dados.despesa.id}`,
+    {
+      metodo: "PUT",
+      token: tokenA,
+      corpo: {
+        descricao: "Compra de ração",
+        categoria: "Ração",
+        forma_pagamento: "Dinheiro",
+        valor: 850,
+        data: hoje,
+        propriedade_id: conjuntoA.propriedade.id,
+      },
+    },
+  );
+  confirmar(
+    "edição altera a forma de pagamento",
+    despesaEditada.status === 200 &&
+      despesaEditada.dados.despesa.forma_pagamento === "Dinheiro",
+  );
+
+  const despesaSemForma = await requisitar(
+    `/despesas/${despesaPix.dados.despesa.id}`,
+    {
+      metodo: "PUT",
+      token: tokenA,
+      corpo: {
+        descricao: "Compra de ração",
+        categoria: "Ração",
+        forma_pagamento: "   ",
+        valor: 850,
+        data: hoje,
+        propriedade_id: conjuntoA.propriedade.id,
+      },
+    },
+  );
+  confirmar(
+    "apagar a forma de pagamento salva NULL sem excluir a despesa",
+    despesaSemForma.status === 200 &&
+      despesaSemForma.dados.despesa.forma_pagamento === null,
+  );
+
+  const despesaConsultada = await requisitar(
+    `/despesas/${despesaTextoLivre.dados.despesa.id}`,
+    { token: tokenA },
+  );
+  confirmar(
+    "GET /despesas/:id retorna a forma de pagamento",
+    despesaConsultada.status === 200 &&
+      despesaConsultada.dados.forma_pagamento === "Cartão de crédito em 3x",
+  );
+
+  const despesasAComForma = await requisitar("/despesas", { token: tokenA });
+  confirmar(
+    "GET /despesas retorna formas preenchidas e nulas",
+    despesasAComForma.status === 200 &&
+      despesasAComForma.dados.some(
+        (despesa) =>
+          despesa.id === despesaTextoLivre.dados.despesa.id &&
+          despesa.forma_pagamento === "Cartão de crédito em 3x",
+      ) &&
+      despesasAComForma.dados.some(
+        (despesa) =>
+          despesa.id === despesaPix.dados.despesa.id &&
+          despesa.forma_pagamento === null,
+      ),
+  );
+
+  const despesasDaPropriedade = await requisitar(
+    `/propriedades/${conjuntoA.propriedade.id}/despesas`,
+    { token: tokenA },
+  );
+  confirmar(
+    "listagem financeira por propriedade inclui forma de pagamento",
+    despesasDaPropriedade.status === 200 &&
+      despesasDaPropriedade.dados.some(
+        (despesa) =>
+          despesa.id === despesaTextoLivre.dados.despesa.id &&
+          despesa.forma_pagamento === "Cartão de crédito em 3x",
+      ),
+  );
+
+  const resumoDepoisDaForma = await requisitar(
+    `/propriedades/${conjuntoA.propriedade.id}/despesas/resumo`,
+    { token: tokenA },
+  );
+  const categoriaRacao = resumoDepoisDaForma.dados.categorias.find(
+    (categoria) => categoria.categoria === "Ração",
+  );
+  confirmar(
+    "resumo financeiro mantém total, média, maior, menor e quantidade",
+    resumoDepoisDaForma.status === 200 &&
+      Number(resumoDepoisDaForma.dados.resumo.total) === 1160 &&
+      Number(resumoDepoisDaForma.dados.resumo.media) === 386.67 &&
+      Number(resumoDepoisDaForma.dados.resumo.maior) === 850 &&
+      Number(resumoDepoisDaForma.dados.resumo.menor) === 10 &&
+      Number(resumoDepoisDaForma.dados.resumo.quantidade) === 3,
+  );
+  confirmar(
+    "totais por categoria permanecem corretos",
+    Number(categoriaRacao.total) === 850 &&
+      Number(categoriaRacao.media) === 850 &&
+      Number(categoriaRacao.quantidade) === 1,
+  );
+
+  const despesasBDepoisDasNovas = await requisitar("/despesas", {
+    token: tokenB,
+  });
+  const despesasAdminDepoisDasNovas = await requisitar("/despesas", {
+    token: tokenAdmin,
+  });
+  confirmar(
+    "usuário B não visualiza novas despesas de A",
+    despesasBDepoisDasNovas.dados.length === 1 &&
+      !despesasBDepoisDasNovas.dados.some(
+        (despesa) => despesa.id === despesaTextoLivre.dados.despesa.id,
+      ),
+  );
+  confirmar(
+    "administrador visualiza despesas de A e B com a nova informação",
+    despesasAdminDepoisDasNovas.dados.some(
+      (despesa) => despesa.id === despesaTextoLivre.dados.despesa.id,
+    ) &&
+      despesasAdminDepoisDasNovas.dados.some(
+        (despesa) => despesa.id === conjuntoB.despesa.id,
+      ),
+  );
+
+  confirmar(
+    "forma de pagamento acima de 100 caracteres -> 400",
+    (await requisitar("/despesas", {
+      metodo: "POST",
+      token: tokenA,
+      corpo: {
+        descricao: "Forma extensa",
+        categoria: "Teste",
+        forma_pagamento: "x".repeat(101),
+        valor: 1,
+        data: hoje,
+        propriedade_id: conjuntoA.propriedade.id,
+      },
+    })).status === 400,
+  );
 
   confirmar(
     "animal sem brinco e nascimento continua funcionando",

@@ -1,12 +1,24 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 
+function formatarDataSemFuso(data) {
+  if (!data) return "-";
+
+  const dataIso = String(data).slice(0, 10);
+  const partes = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dataIso);
+
+  if (!partes) return "-";
+
+  return `${partes[3]}/${partes[2]}/${partes[1]}`;
+}
+
 function Despesas() {
   const [despesas, setDespesas] = useState([]);
   const [propriedades, setPropriedades] = useState([]);
 
   const [descricao, setDescricao] = useState("");
   const [categoria, setCategoria] = useState("");
+  const [formaPagamento, setFormaPagamento] = useState("");
   const [valor, setValor] = useState("");
   const [data, setData] = useState("");
   const [propriedadeId, setPropriedadeId] = useState("");
@@ -41,6 +53,7 @@ function Despesas() {
   function limparFormulario() {
     setDescricao("");
     setCategoria("");
+    setFormaPagamento("");
     setValor("");
     setData("");
     setPropriedadeId("");
@@ -54,6 +67,7 @@ function Despesas() {
       const dados = {
         descricao,
         categoria,
+        forma_pagamento: formaPagamento,
         valor: Number(valor),
         data,
         propriedade_id: Number(propriedadeId),
@@ -80,6 +94,7 @@ function Despesas() {
     setEditandoId(despesa.id);
     setDescricao(despesa.descricao);
     setCategoria(despesa.categoria);
+    setFormaPagamento(despesa.forma_pagamento || "");
     setValor(despesa.valor);
     setData(despesa.data ? despesa.data.substring(0, 10) : "");
     setPropriedadeId(despesa.propriedade_id);
@@ -108,12 +123,18 @@ function Despesas() {
   }
 
   return (
-    <div>
-      <h1>Despesas</h1>
+    <div className="page">
+      <header className="page-header">
+        <div>
+          <span className="eyebrow">Controle financeiro</span>
+          <h1>Despesas</h1>
+          <p>Acompanhe os gastos das suas propriedades.</p>
+        </div>
+      </header>
 
-      {mensagem && <p>{mensagem}</p>}
+      {mensagem && <p className="notice">{mensagem}</p>}
 
-      <form onSubmit={salvarDespesa}>
+      <form className="panel data-form" onSubmit={salvarDespesa}>
         <div>
           <label>Descrição</label>
           <br />
@@ -133,6 +154,19 @@ function Despesas() {
             type="text"
             value={categoria}
             onChange={(e) => setCategoria(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label>Forma de pagamento</label>
+          <br />
+
+          <input
+            type="text"
+            maxLength="100"
+            value={formaPagamento}
+            onChange={(e) => setFormaPagamento(e.target.value)}
+            placeholder="Ex.: Pix, dinheiro, cartão..."
           />
         </div>
 
@@ -184,46 +218,47 @@ function Despesas() {
         </button>
 
         {editandoId && (
-          <button type="button" onClick={limparFormulario}>
+          <button className="button-secondary" type="button" onClick={limparFormulario}>
             Cancelar
           </button>
         )}
       </form>
 
-      <hr />
+      <div className="section-heading">
+        <div><span className="eyebrow">Histórico</span><h2>Despesas cadastradas</h2></div>
+        <span className="count-badge">{despesas.length}</span>
+      </div>
 
-      <h2>Despesas cadastradas</h2>
+      {despesas.length === 0 && <div className="empty-state"><p>Nenhuma despesa cadastrada.</p></div>}
 
-      {despesas.length === 0 && <p>Nenhuma despesa cadastrada.</p>}
-
+      <div className="record-grid expense-grid">
       {despesas.map((despesa) => (
-        <div key={despesa.id}>
+        <article className="record-card expense-card" key={despesa.id}>
+          <span className="tag-badge">{despesa.categoria}</span>
           <h3>{despesa.descricao}</h3>
 
-          <p>Categoria: {despesa.categoria}</p>
-
-          <p>Valor: R$ {Number(despesa.valor).toFixed(2)}</p>
-
           <p>
-            Data:{" "}
-            {despesa.data
-              ? new Date(despesa.data).toLocaleDateString("pt-BR")
-              : "-"}
+            Forma de pagamento: {despesa.forma_pagamento || "Não informada"}
           </p>
+
+          <strong className="expense-value">R$ {Number(despesa.valor).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</strong>
+
+          <p>Data: {formatarDataSemFuso(despesa.data)}</p>
 
           <p>Propriedade: {despesa.propriedade || despesa.propriedade_id}</p>
 
-          <button type="button" onClick={() => editarDespesa(despesa)}>
+          <div className="record-actions">
+          <button className="button-secondary" type="button" onClick={() => editarDespesa(despesa)}>
             Editar
           </button>
 
-          <button type="button" onClick={() => excluirDespesa(despesa.id)}>
+          <button className="button-danger" type="button" onClick={() => excluirDespesa(despesa.id)}>
             Excluir
           </button>
-
-          <hr />
-        </div>
+          </div>
+        </article>
       ))}
+      </div>
     </div>
   );
 }

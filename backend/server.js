@@ -111,6 +111,30 @@ function erroDeBrincoDuplicado(erro) {
   );
 }
 
+function normalizarFormaPagamento(valor) {
+  if (valor === undefined || valor === null) {
+    return { valor: null };
+  }
+
+  if (typeof valor !== "string") {
+    return { erro: "Forma de pagamento deve ser um texto" };
+  }
+
+  const formaPagamento = valor.trim();
+
+  if (!formaPagamento) {
+    return { valor: null };
+  }
+
+  if (formaPagamento.length > 100) {
+    return {
+      erro: "Forma de pagamento deve possuir no máximo 100 caracteres",
+    };
+  }
+
+  return { valor: formaPagamento };
+}
+
 app.get("/", (req, res) => {
   res.send("ola agrocontrol!");
 });
@@ -2147,7 +2171,14 @@ app.get("/animais/:id/vacinacoes", async (req, res) => {
 
 app.post("/despesas", async (req, res) => {
   try {
-    const { descricao, categoria, valor, data, propriedade_id } = req.body;
+    const {
+      descricao,
+      categoria,
+      forma_pagamento,
+      valor,
+      data,
+      propriedade_id,
+    } = req.body;
 
     if (!descricao || !categoria || !valor || !data || !propriedade_id) {
       return res.status(400).json({
@@ -2159,6 +2190,15 @@ app.post("/despesas", async (req, res) => {
       return res.status(400).json({
         mensagem: "O valor da despesa deve ser maior que zero",
       });
+    }
+
+    const formaPagamentoNormalizada =
+      normalizarFormaPagamento(forma_pagamento);
+
+    if (formaPagamentoNormalizada.erro) {
+      return res
+        .status(400)
+        .json({ mensagem: formaPagamentoNormalizada.erro });
     }
 
     const propriedadeExiste = await pool.query(
@@ -2177,10 +2217,17 @@ app.post("/despesas", async (req, res) => {
 
     const resultado = await pool.query(
       `INSERT INTO despesas
-            (descricao, categoria, valor, data, propriedade_id)
-            VALUES ($1, $2, $3, $4, $5)
+            (descricao, categoria, forma_pagamento, valor, data, propriedade_id)
+            VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING *`,
-      [descricao, categoria, valor, data, propriedade_id],
+      [
+        descricao,
+        categoria,
+        formaPagamentoNormalizada.valor,
+        valor,
+        data,
+        propriedade_id,
+      ],
     );
 
     res.status(201).json({
@@ -2203,6 +2250,7 @@ app.get("/despesas", async (req, res) => {
                 despesas.id,
                 despesas.descricao,
                 despesas.categoria,
+                despesas.forma_pagamento,
                 despesas.valor,
                 despesas.data,
                 despesas.propriedade_id,
@@ -2234,6 +2282,7 @@ app.get("/despesas/:id", async (req, res) => {
                 despesas.id,
                 despesas.descricao,
                 despesas.categoria,
+                despesas.forma_pagamento,
                 despesas.valor,
                 despesas.data,
                 despesas.propriedade_id,
@@ -2267,7 +2316,14 @@ app.put("/despesas/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const { descricao, categoria, valor, data, propriedade_id } = req.body;
+    const {
+      descricao,
+      categoria,
+      forma_pagamento,
+      valor,
+      data,
+      propriedade_id,
+    } = req.body;
 
     if (!descricao || !categoria || !valor || !data || !propriedade_id) {
       return res.status(400).json({
@@ -2279,6 +2335,15 @@ app.put("/despesas/:id", async (req, res) => {
       return res.status(400).json({
         mensagem: "O valor da despesa deve ser maior que zero",
       });
+    }
+
+    const formaPagamentoNormalizada =
+      normalizarFormaPagamento(forma_pagamento);
+
+    if (formaPagamentoNormalizada.erro) {
+      return res
+        .status(400)
+        .json({ mensagem: formaPagamentoNormalizada.erro });
     }
 
     const propriedadeExiste = await pool.query(
@@ -2299,23 +2364,25 @@ app.put("/despesas/:id", async (req, res) => {
       `UPDATE despesas
              SET descricao = $1,
                  categoria = $2,
-                 valor = $3,
-                 data = $4,
-                 propriedade_id = $5
-             WHERE id = $6
+                 forma_pagamento = $3,
+                 valor = $4,
+                 data = $5,
+                 propriedade_id = $6
+             WHERE id = $7
                AND (
-                 $7 = 'admin'
+                 $8 = 'admin'
                  OR EXISTS (
                    SELECT 1
                      FROM propriedades p
                     WHERE p.id = despesas.propriedade_id
-                      AND p.usuario_id = $8
+                      AND p.usuario_id = $9
                  )
                )
              RETURNING *`,
       [
         descricao,
         categoria,
+        formaPagamentoNormalizada.valor,
         valor,
         data,
         propriedade_id,
