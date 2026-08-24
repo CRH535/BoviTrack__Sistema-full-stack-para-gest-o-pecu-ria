@@ -22,119 +22,6 @@ function converterId(valor) {
   return Number.isInteger(id) && id > 0 ? id : null;
 }
 
-function normalizarNumeroBrinco(valor) {
-  if (valor === undefined || valor === null) {
-    return { valor: null };
-  }
-
-  if (typeof valor !== "string") {
-    return { erro: "Número do brinco deve ser um texto" };
-  }
-
-  const numeroBrinco = valor.trim();
-
-  if (!numeroBrinco) {
-    return { valor: null };
-  }
-
-  if (numeroBrinco.length > 50) {
-    return { erro: "Número do brinco deve possuir no máximo 50 caracteres" };
-  }
-
-  return { valor: numeroBrinco };
-}
-
-async function normalizarDataNascimento(valor) {
-  if (valor === undefined || valor === null || valor === "") {
-    return { valor: null };
-  }
-
-  if (typeof valor !== "string") {
-    return { erro: "Data de nascimento inválida" };
-  }
-
-  const dataNascimento = valor.trim();
-
-  if (!dataNascimento) {
-    return { valor: null };
-  }
-
-  const formatoValido = /^\d{4}-\d{2}-\d{2}$/.test(dataNascimento);
-
-  if (!formatoValido) {
-    return { erro: "Data de nascimento inválida" };
-  }
-
-  const [ano, mes, dia] = dataNascimento.split("-").map(Number);
-  const dataUtc = new Date(Date.UTC(ano, mes - 1, dia));
-  const calendarioValido =
-    dataUtc.getUTCFullYear() === ano &&
-    dataUtc.getUTCMonth() === mes - 1 &&
-    dataUtc.getUTCDate() === dia;
-
-  if (!calendarioValido) {
-    return { erro: "Data de nascimento inválida" };
-  }
-
-  const resultado = await pool.query(
-    "SELECT $1::date > CURRENT_DATE AS futura",
-    [dataNascimento],
-  );
-
-  if (resultado.rows[0].futura) {
-    return { erro: "Data de nascimento não pode ser futura" };
-  }
-
-  return { valor: dataNascimento };
-}
-
-async function brincoJaUtilizado(propriedadeId, numeroBrinco, animalId = null) {
-  if (!numeroBrinco) return false;
-
-  const resultado = await pool.query(
-    `SELECT 1
-       FROM animais
-      WHERE propriedade_id = $1
-        AND numero_brinco = $2
-        AND ($3::INTEGER IS NULL OR id <> $3::INTEGER)
-      LIMIT 1`,
-    [propriedadeId, numeroBrinco, animalId],
-  );
-
-  return resultado.rows.length > 0;
-}
-
-function erroDeBrincoDuplicado(erro) {
-  return (
-    erro.code === "23505" &&
-    erro.constraint === "animais_propriedade_numero_brinco_uidx"
-  );
-}
-
-function normalizarFormaPagamento(valor) {
-  if (valor === undefined || valor === null) {
-    return { valor: null };
-  }
-
-  if (typeof valor !== "string") {
-    return { erro: "Forma de pagamento deve ser um texto" };
-  }
-
-  const formaPagamento = valor.trim();
-
-  if (!formaPagamento) {
-    return { valor: null };
-  }
-
-  if (formaPagamento.length > 100) {
-    return {
-      erro: "Forma de pagamento deve possuir no máximo 100 caracteres",
-    };
-  }
-
-  return { valor: formaPagamento };
-}
-
 app.get("/", (req, res) => {
   res.send("ola agrocontrol!");
 });
@@ -655,8 +542,6 @@ app.get("/animais", async (req, res) => {
             SELECT
                 animais.id,
                 animais.nome,
-                animais.numero_brinco,
-                TO_CHAR(animais.data_nascimento, 'YYYY-MM-DD') AS data_nascimento,
                 animais.especie,
                 animais.raca,
                 animais.sexo,
@@ -701,8 +586,6 @@ app.get("/animais/:id", async (req, res) => {
       `SELECT
                 animais.id,
                 animais.nome,
-                animais.numero_brinco,
-                TO_CHAR(animais.data_nascimento, 'YYYY-MM-DD') AS data_nascimento,
                 animais.especie,
                 animais.raca,
                 animais.sexo,
@@ -765,19 +648,10 @@ app.get("/propriedades/:id/animais", async (req, res) => {
     }
 
     const resultado = await pool.query(
-      `SELECT
-              id,
-              nome,
-              numero_brinco,
-              TO_CHAR(data_nascimento, 'YYYY-MM-DD') AS data_nascimento,
-              especie,
-              raca,
-              sexo,
-              peso,
-              propriedade_id
-         FROM animais
-        WHERE propriedade_id = $1
-        ORDER BY id`,
+      `SELECT *
+             FROM animais
+             WHERE propriedade_id = $1
+             ORDER BY id`,
       [id],
     );
 
@@ -793,16 +667,7 @@ app.get("/propriedades/:id/animais", async (req, res) => {
 
 app.post("/animais", async (req, res) => {
   try {
-    const {
-      nome,
-      numero_brinco,
-      data_nascimento,
-      especie,
-      raca,
-      sexo,
-      peso,
-      propriedade_id,
-    } = req.body;
+    const { nome, especie, raca, sexo, peso, propriedade_id } = req.body;
 
     if (!nome || !especie || !sexo || !propriedade_id) {
       return res.status(400).json({
@@ -820,20 +685,6 @@ app.post("/animais", async (req, res) => {
       return res.status(400).json({
         mensagem: "Peso não pode ser negativo",
       });
-    }
-
-    const brincoNormalizado = normalizarNumeroBrinco(numero_brinco);
-
-    if (brincoNormalizado.erro) {
-      return res.status(400).json({ mensagem: brincoNormalizado.erro });
-    }
-
-    const nascimentoNormalizado = await normalizarDataNascimento(
-      data_nascimento,
-    );
-
-    if (nascimentoNormalizado.erro) {
-      return res.status(400).json({ mensagem: nascimentoNormalizado.erro });
     }
 
     const propriedadeExiste = await pool.query(
@@ -850,42 +701,12 @@ app.post("/animais", async (req, res) => {
       });
     }
 
-    if (
-      await brincoJaUtilizado(
-        propriedade_id,
-        brincoNormalizado.valor,
-      )
-    ) {
-      return res.status(409).json({
-        mensagem:
-          "Já existe um animal com este número de brinco nesta propriedade",
-      });
-    }
-
     const resultado = await pool.query(
       `INSERT INTO animais
-            (nome, numero_brinco, data_nascimento, especie, raca, sexo, peso, propriedade_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-            RETURNING
-              id,
-              nome,
-              numero_brinco,
-              TO_CHAR(data_nascimento, 'YYYY-MM-DD') AS data_nascimento,
-              especie,
-              raca,
-              sexo,
-              peso,
-              propriedade_id`,
-      [
-        nome,
-        brincoNormalizado.valor,
-        nascimentoNormalizado.valor,
-        especie,
-        raca,
-        sexo.toUpperCase(),
-        peso,
-        propriedade_id,
-      ],
+            (nome, especie, raca, sexo, peso, propriedade_id)
+            VALUES ($1, $2, $3, $4, $5, $6)
+            RETURNING *`,
+      [nome, especie, raca, sexo.toUpperCase(), peso, propriedade_id],
     );
 
     res.status(201).json({
@@ -893,13 +714,6 @@ app.post("/animais", async (req, res) => {
       animal: resultado.rows[0],
     });
   } catch (erro) {
-    if (erroDeBrincoDuplicado(erro)) {
-      return res.status(409).json({
-        mensagem:
-          "Já existe um animal com este número de brinco nesta propriedade",
-      });
-    }
-
     console.error(erro);
 
     res.status(500).json({
@@ -912,16 +726,7 @@ app.put("/animais/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const {
-      nome,
-      numero_brinco,
-      data_nascimento,
-      especie,
-      raca,
-      sexo,
-      peso,
-      propriedade_id,
-    } = req.body;
+    const { nome, especie, raca, sexo, peso, propriedade_id } = req.body;
 
     if (!nome || !especie || !sexo || !propriedade_id) {
       return res.status(400).json({
@@ -939,20 +744,6 @@ app.put("/animais/:id", async (req, res) => {
       return res.status(400).json({
         mensagem: "Peso não pode ser negativo",
       });
-    }
-
-    const brincoNormalizado = normalizarNumeroBrinco(numero_brinco);
-
-    if (brincoNormalizado.erro) {
-      return res.status(400).json({ mensagem: brincoNormalizado.erro });
-    }
-
-    const nascimentoNormalizado = await normalizarDataNascimento(
-      data_nascimento,
-    );
-
-    if (nascimentoNormalizado.erro) {
-      return res.status(400).json({ mensagem: nascimentoNormalizado.erro });
     }
 
     const animalAtual = await pool.query(
@@ -982,19 +773,6 @@ app.put("/animais/:id", async (req, res) => {
       });
     }
 
-    if (
-      await brincoJaUtilizado(
-        propriedade_id,
-        brincoNormalizado.valor,
-        id,
-      )
-    ) {
-      return res.status(409).json({
-        mensagem:
-          "Já existe um animal com este número de brinco nesta propriedade",
-      });
-    }
-
     const vinculoIncompativel = await pool.query(
       `SELECT 1
          FROM animais_lotes al
@@ -1020,37 +798,24 @@ app.put("/animais/:id", async (req, res) => {
     const resultado = await pool.query(
       `UPDATE animais
              SET nome = $1,
-                 numero_brinco = $2,
-                 data_nascimento = $3,
-                 especie = $4,
-                 raca = $5,
-                 sexo = $6,
-                 peso = $7,
-                 propriedade_id = $8
-             WHERE id = $9
+                 especie = $2,
+                 raca = $3,
+                 sexo = $4,
+                 peso = $5,
+                 propriedade_id = $6
+             WHERE id = $7
                AND (
-                 $10 = 'admin'
+                 $8 = 'admin'
                  OR EXISTS (
                    SELECT 1
                      FROM propriedades p
                     WHERE p.id = animais.propriedade_id
-                      AND p.usuario_id = $11
+                      AND p.usuario_id = $9
                  )
                )
-             RETURNING
-               id,
-               nome,
-               numero_brinco,
-               TO_CHAR(data_nascimento, 'YYYY-MM-DD') AS data_nascimento,
-               especie,
-               raca,
-               sexo,
-               peso,
-               propriedade_id`,
+             RETURNING *`,
       [
         nome,
-        brincoNormalizado.valor,
-        nascimentoNormalizado.valor,
         especie,
         raca,
         sexo.toUpperCase(),
@@ -1073,13 +838,6 @@ app.put("/animais/:id", async (req, res) => {
       animal: resultado.rows[0],
     });
   } catch (erro) {
-    if (erroDeBrincoDuplicado(erro)) {
-      return res.status(409).json({
-        mensagem:
-          "Já existe um animal com este número de brinco nesta propriedade",
-      });
-    }
-
     console.error(erro);
 
     res.status(500).json({
@@ -2171,14 +1929,7 @@ app.get("/animais/:id/vacinacoes", async (req, res) => {
 
 app.post("/despesas", async (req, res) => {
   try {
-    const {
-      descricao,
-      categoria,
-      forma_pagamento,
-      valor,
-      data,
-      propriedade_id,
-    } = req.body;
+    const { descricao, categoria, valor, data, propriedade_id } = req.body;
 
     if (!descricao || !categoria || !valor || !data || !propriedade_id) {
       return res.status(400).json({
@@ -2190,15 +1941,6 @@ app.post("/despesas", async (req, res) => {
       return res.status(400).json({
         mensagem: "O valor da despesa deve ser maior que zero",
       });
-    }
-
-    const formaPagamentoNormalizada =
-      normalizarFormaPagamento(forma_pagamento);
-
-    if (formaPagamentoNormalizada.erro) {
-      return res
-        .status(400)
-        .json({ mensagem: formaPagamentoNormalizada.erro });
     }
 
     const propriedadeExiste = await pool.query(
@@ -2217,17 +1959,10 @@ app.post("/despesas", async (req, res) => {
 
     const resultado = await pool.query(
       `INSERT INTO despesas
-            (descricao, categoria, forma_pagamento, valor, data, propriedade_id)
-            VALUES ($1, $2, $3, $4, $5, $6)
+            (descricao, categoria, valor, data, propriedade_id)
+            VALUES ($1, $2, $3, $4, $5)
             RETURNING *`,
-      [
-        descricao,
-        categoria,
-        formaPagamentoNormalizada.valor,
-        valor,
-        data,
-        propriedade_id,
-      ],
+      [descricao, categoria, valor, data, propriedade_id],
     );
 
     res.status(201).json({
@@ -2250,7 +1985,6 @@ app.get("/despesas", async (req, res) => {
                 despesas.id,
                 despesas.descricao,
                 despesas.categoria,
-                despesas.forma_pagamento,
                 despesas.valor,
                 despesas.data,
                 despesas.propriedade_id,
@@ -2282,7 +2016,6 @@ app.get("/despesas/:id", async (req, res) => {
                 despesas.id,
                 despesas.descricao,
                 despesas.categoria,
-                despesas.forma_pagamento,
                 despesas.valor,
                 despesas.data,
                 despesas.propriedade_id,
@@ -2316,14 +2049,7 @@ app.put("/despesas/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const {
-      descricao,
-      categoria,
-      forma_pagamento,
-      valor,
-      data,
-      propriedade_id,
-    } = req.body;
+    const { descricao, categoria, valor, data, propriedade_id } = req.body;
 
     if (!descricao || !categoria || !valor || !data || !propriedade_id) {
       return res.status(400).json({
@@ -2335,15 +2061,6 @@ app.put("/despesas/:id", async (req, res) => {
       return res.status(400).json({
         mensagem: "O valor da despesa deve ser maior que zero",
       });
-    }
-
-    const formaPagamentoNormalizada =
-      normalizarFormaPagamento(forma_pagamento);
-
-    if (formaPagamentoNormalizada.erro) {
-      return res
-        .status(400)
-        .json({ mensagem: formaPagamentoNormalizada.erro });
     }
 
     const propriedadeExiste = await pool.query(
@@ -2364,25 +2081,23 @@ app.put("/despesas/:id", async (req, res) => {
       `UPDATE despesas
              SET descricao = $1,
                  categoria = $2,
-                 forma_pagamento = $3,
-                 valor = $4,
-                 data = $5,
-                 propriedade_id = $6
-             WHERE id = $7
+                 valor = $3,
+                 data = $4,
+                 propriedade_id = $5
+             WHERE id = $6
                AND (
-                 $8 = 'admin'
+                 $7 = 'admin'
                  OR EXISTS (
                    SELECT 1
                      FROM propriedades p
                     WHERE p.id = despesas.propriedade_id
-                      AND p.usuario_id = $9
+                      AND p.usuario_id = $8
                  )
                )
              RETURNING *`,
       [
         descricao,
         categoria,
-        formaPagamentoNormalizada.valor,
         valor,
         data,
         propriedade_id,
