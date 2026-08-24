@@ -330,6 +330,160 @@ async function executar() {
   confirmar("Dashboard B contém somente dados de B", dashboardB.dados.resumo.propriedades === 1 && dashboardB.dados.resumo.animais === 1 && dashboardB.dados.resumo.total_despesas === 20 && dashboardB.dados.proximas_vacinacoes.length === 1);
   confirmar("Dashboard admin soma A e B", dashboardAdmin.dados.resumo.propriedades === dashboardInicial.dados.resumo.propriedades + 2 && dashboardAdmin.dados.resumo.total_despesas === dashboardInicial.dados.resumo.total_despesas + 30);
 
+  confirmar(
+    "animal sem brinco e nascimento continua funcionando",
+    conjuntoA.animal.numero_brinco === null &&
+      conjuntoA.animal.data_nascimento === null,
+  );
+
+  const animalCompleto = await requisitar("/animais", {
+    metodo: "POST",
+    token: tokenA,
+    corpo: {
+      nome: "Mimosa Completa",
+      numero_brinco: "  00125  ",
+      data_nascimento: "2023-04-15",
+      especie: "Bovino",
+      raca: "Nelore",
+      sexo: "F",
+      peso: 420,
+      propriedade_id: conjuntoA.propriedade.id,
+    },
+  });
+  confirmar(
+    "animal completo preserva zeros, remove espaços e salva nascimento",
+    animalCompleto.status === 201 &&
+      animalCompleto.dados.animal.numero_brinco === "00125" &&
+      animalCompleto.dados.animal.data_nascimento === "2023-04-15",
+  );
+
+  const brincoDuplicado = await requisitar("/animais", {
+    metodo: "POST",
+    token: tokenA,
+    corpo: {
+      nome: "Brinco duplicado",
+      numero_brinco: "00125",
+      especie: "Bovino",
+      sexo: "F",
+      propriedade_id: conjuntoA.propriedade.id,
+    },
+  });
+  confirmar("brinco duplicado na mesma propriedade -> 409", brincoDuplicado.status === 409);
+
+  const mesmoBrincoOutraPropriedade = await requisitar("/animais", {
+    metodo: "POST",
+    token: tokenB,
+    corpo: {
+      nome: "Mesmo brinco em outra fazenda",
+      numero_brinco: "00125",
+      especie: "Bovino",
+      sexo: "M",
+      propriedade_id: conjuntoB.propriedade.id,
+    },
+  });
+  confirmar(
+    "mesmo brinco em propriedades diferentes é permitido",
+    mesmoBrincoOutraPropriedade.status === 201,
+  );
+
+  confirmar(
+    "data de nascimento futura -> 400",
+    (await requisitar("/animais", {
+      metodo: "POST",
+      token: tokenA,
+      corpo: {
+        nome: "Nascimento futuro",
+        data_nascimento: "2999-01-01",
+        especie: "Bovino",
+        sexo: "F",
+        propriedade_id: conjuntoA.propriedade.id,
+      },
+    })).status === 400,
+  );
+  confirmar(
+    "data inexistente no calendário -> 400",
+    (await requisitar("/animais", {
+      metodo: "POST",
+      token: tokenA,
+      corpo: {
+        nome: "Data inválida",
+        data_nascimento: "2025-02-30",
+        especie: "Bovino",
+        sexo: "F",
+        propriedade_id: conjuntoA.propriedade.id,
+      },
+    })).status === 400,
+  );
+
+  const animalEditadoComNovosCampos = await requisitar(
+    `/animais/${conjuntoA.animal.id}`,
+    {
+      metodo: "PUT",
+      token: tokenA,
+      corpo: {
+        nome: conjuntoA.animal.nome,
+        numero_brinco: "00042",
+        data_nascimento: "2020-02-29",
+        especie: conjuntoA.animal.especie,
+        raca: conjuntoA.animal.raca,
+        sexo: conjuntoA.animal.sexo,
+        peso: 105,
+        propriedade_id: conjuntoA.propriedade.id,
+      },
+    },
+  );
+  confirmar(
+    "edição adiciona brinco e nascimento ao animal existente",
+    animalEditadoComNovosCampos.status === 200 &&
+      animalEditadoComNovosCampos.dados.animal.numero_brinco === "00042" &&
+      animalEditadoComNovosCampos.dados.animal.data_nascimento === "2020-02-29",
+  );
+
+  confirmar(
+    "edição ignora o próprio animal na validação do brinco",
+    (await requisitar(`/animais/${conjuntoA.animal.id}`, {
+      metodo: "PUT",
+      token: tokenA,
+      corpo: {
+        ...animalEditadoComNovosCampos.dados.animal,
+        peso: 110,
+      },
+    })).status === 200,
+  );
+
+  confirmar(
+    "edição bloqueia brinco pertencente a outro animal da propriedade",
+    (await requisitar(`/animais/${conjuntoA.animal.id}`, {
+      metodo: "PUT",
+      token: tokenA,
+      corpo: {
+        ...animalEditadoComNovosCampos.dados.animal,
+        numero_brinco: "00125",
+      },
+    })).status === 409,
+  );
+
+  const animalCompletoConsultado = await requisitar(
+    `/animais/${animalCompleto.dados.animal.id}`,
+    { token: tokenA },
+  );
+  confirmar(
+    "GET por ID retorna brinco e data sem deslocamento de fuso",
+    animalCompletoConsultado.status === 200 &&
+      animalCompletoConsultado.dados.numero_brinco === "00125" &&
+      animalCompletoConsultado.dados.data_nascimento === "2023-04-15",
+  );
+  const listaComNovosCampos = await requisitar("/animais", { token: tokenA });
+  const animalCompletoNaLista = listaComNovosCampos.dados.find(
+    (animal) => animal.id === animalCompleto.dados.animal.id,
+  );
+  confirmar(
+    "GET /animais retorna brinco e data de nascimento",
+    listaComNovosCampos.status === 200 &&
+      animalCompletoNaLista.numero_brinco === "00125" &&
+      animalCompletoNaLista.data_nascimento === "2023-04-15",
+  );
+
   const animaisIniciaisLoteA = await requisitar(`/lotes/${conjuntoA.lote.id}/animais`, { token: tokenA });
   confirmar("GET animais do lote retorna Mimosa associada", animaisIniciaisLoteA.status === 200 && animaisIniciaisLoteA.dados.length === 1 && animaisIniciaisLoteA.dados[0].id === conjuntoA.animal.id);
 

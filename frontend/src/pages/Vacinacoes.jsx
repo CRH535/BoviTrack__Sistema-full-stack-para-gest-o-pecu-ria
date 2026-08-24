@@ -145,6 +145,9 @@ function Vacinacoes() {
             {animais.map((animal) => (
               <option key={animal.id} value={animal.id}>
                 {animal.nome}
+                {animal.numero_brinco
+                  ? ` — Brinco ${animal.numero_brinco}`
+                  : ""}
               </option>
             ))}
           </select>

@@ -331,6 +331,11 @@ function Lotes() {
                 <div className="lot-animal" key={animal.id}>
                   <div>
                     <strong>{animal.nome}</strong>
+                    {animal.numero_brinco && (
+                      <p className="lot-animal-details">
+                        Brinco: {animal.numero_brinco}
+                      </p>
+                    )}
                     <p className="lot-animal-details">
                       {animal.raca || animal.especie}
                       {" • "}
@@ -365,7 +370,11 @@ function Lotes() {
 
                   {animaisCompativeis.map((animal) => (
                     <option key={animal.id} value={animal.id}>
-                      {animal.nome} — {animal.raca || animal.especie}
+                      {animal.nome}
+                      {animal.numero_brinco
+                        ? ` — Brinco ${animal.numero_brinco}`
+                        : ""}
+                      {` — ${animal.raca || animal.especie}`}
                     </option>
                   ))}
                 </select>

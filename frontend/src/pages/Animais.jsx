@@ -1,11 +1,33 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 
+function obterDataAtualLocal() {
+  const agora = new Date();
+  const dataLocal = new Date(
+    agora.getTime() - agora.getTimezoneOffset() * 60 * 1000,
+  );
+
+  return dataLocal.toISOString().slice(0, 10);
+}
+
+function formatarDataSemFuso(data) {
+  if (!data) return "Não informada";
+
+  const dataIso = String(data).slice(0, 10);
+  const partes = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dataIso);
+
+  if (!partes) return "Não informada";
+
+  return `${partes[3]}/${partes[2]}/${partes[1]}`;
+}
+
 function Animais() {
   const [animais, setAnimais] = useState([]);
   const [propriedades, setPropriedades] = useState([]);
 
   const [nome, setNome] = useState("");
+  const [numeroBrinco, setNumeroBrinco] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
   const [especie, setEspecie] = useState("");
   const [raca, setRaca] = useState("");
   const [sexo, setSexo] = useState("");
@@ -41,6 +63,8 @@ function Animais() {
 
   function limparFormulario() {
     setNome("");
+    setNumeroBrinco("");
+    setDataNascimento("");
     setEspecie("");
     setRaca("");
     setSexo("");
@@ -55,6 +79,8 @@ function Animais() {
     try {
       const dados = {
         nome,
+        numero_brinco: numeroBrinco,
+        data_nascimento: dataNascimento || null,
         especie,
         raca,
         sexo,
@@ -82,6 +108,8 @@ function Animais() {
   function editarAnimal(animal) {
     setEditandoId(animal.id);
     setNome(animal.nome);
+    setNumeroBrinco(animal.numero_brinco || "");
+    setDataNascimento(animal.data_nascimento?.slice(0, 10) || "");
     setEspecie(animal.especie);
     setRaca(animal.raca || "");
     setSexo(animal.sexo);
@@ -128,6 +156,31 @@ function Animais() {
             type="text"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label>Número do brinco</label>
+          <br />
+
+          <input
+            type="text"
+            maxLength="50"
+            value={numeroBrinco}
+            onChange={(e) => setNumeroBrinco(e.target.value)}
+            placeholder="Ex.: 00125 ou BOV-428"
+          />
+        </div>
+
+        <div>
+          <label>Data de nascimento</label>
+          <br />
+
+          <input
+            type="date"
+            max={obterDataAtualLocal()}
+            value={dataNascimento}
+            onChange={(e) => setDataNascimento(e.target.value)}
           />
         </div>
 
@@ -217,6 +270,8 @@ function Animais() {
         <div key={animal.id}>
           <h3>{animal.nome}</h3>
 
+          <p>Brinco: {animal.numero_brinco || "Não informado"}</p>
+          <p>Nascimento: {formatarDataSemFuso(animal.data_nascimento)}</p>
           <p>Espécie: {animal.especie}</p>
           <p>Raça: {animal.raca || "-"}</p>
           <p>Sexo: {animal.sexo}</p>
