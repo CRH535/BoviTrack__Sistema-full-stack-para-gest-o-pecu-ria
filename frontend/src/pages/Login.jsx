@@ -38,21 +38,21 @@ function Login() {
     <main className="login-page">
       <section className="auth-visual" aria-hidden="true">
         <div className="auth-visual-content">
-          <span className="auth-brand"><strong>AGRO</strong>CONTROL</span>
+          <span className="auth-brand"><strong>BOVI</strong>TRACK</span>
           <div>
-            <span className="auth-kicker">Gestão rural inteligente</span>
-            <h1>Gerencie sua fazenda de forma simples e eficiente.</h1>
-            <p>Seus animais, propriedades e finanças em um só lugar.</p>
+            <span className="auth-kicker">Gestão pecuária simples</span>
+            <h1>Gerencie melhor a sua produção.</h1>
+            <p>Animais, lotes, vacinações e despesas organizados em um só lugar.</p>
           </div>
         </div>
       </section>
 
       <section className="auth-panel">
         <div className="login-card">
-        <span className="auth-mobile-brand"><strong>AGRO</strong>CONTROL</span>
+        <span className="auth-mobile-brand"><strong>BOVI</strong>TRACK</span>
         <span className="auth-kicker">Bem-vindo de volta</span>
         <h1>Acesse sua conta</h1>
-        <p>Entre para acompanhar sua gestão rural.</p>
+        <p>Entre para acompanhar seu rebanho e sua propriedade.</p>
 
         {mensagem && (
           <p className={`form-message${mensagemSucesso ? " success-message" : ""}`}>

@@ -1,5 +1,5 @@
--- Schema do AgroControl obtido do PostgreSQL local em 25/08/2026.
--- Execute em um projeto Supabase sem as tabelas do AgroControl.
+-- Schema do BoviTrack obtido do PostgreSQL local em 25/08/2026.
+-- Execute em um projeto Supabase sem as tabelas do BoviTrack.
 -- Os IDs continuam INTEGER/SERIAL; o sistema de autenticacao permanece no backend.
 
 BEGIN;

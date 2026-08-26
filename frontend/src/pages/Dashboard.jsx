@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { formatarDataSemFuso } from "../utils/datas";
+import IconeImagem from "../components/IconeImagem";
 
 const resumoInicial = {
   propriedades: 0,
@@ -31,10 +32,10 @@ function Dashboard() {
   }, []);
 
   const indicadores = [
-    { nome: "Propriedades", valor: Number(resumo.propriedades), icon: "⌂" },
-    { nome: "Animais", valor: Number(resumo.animais), icon: "◉" },
-    { nome: "Lotes", valor: Number(resumo.lotes), icon: "▦" },
-    { nome: "Vacinas", valor: Number(resumo.vacinas), icon: "+" },
+    { nome: "Propriedades", valor: Number(resumo.propriedades), icon: "propriedades" },
+    { nome: "Animais", valor: Number(resumo.animais), icon: "animais" },
+    { nome: "Lotes", valor: Number(resumo.lotes), icon: "lotes" },
+    { nome: "Vacinas", valor: Number(resumo.vacinas), icon: "vacinas" },
   ];
   const maiorIndicador = Math.max(1, ...indicadores.map((item) => item.valor));
 
@@ -42,9 +43,9 @@ function Dashboard() {
     <div className="page dashboard-page">
       <header className="page-header">
         <div>
-          <span className="eyebrow">Painel de gestão</span>
-          <h1>Visão geral</h1>
-          <p>Acompanhe os principais números da sua operação.</p>
+          <span className="eyebrow">Gestão pecuária</span>
+          <h1>Visão geral do rebanho</h1>
+          <p>Acompanhe animais, lotes, vacinações e despesas em um só lugar.</p>
         </div>
         <span className="status-badge"><span /> Sistema atualizado</span>
       </header>
@@ -59,7 +60,9 @@ function Dashboard() {
               <strong>{item.valor}</strong>
               <small>Registros cadastrados</small>
             </div>
-            <span className="stat-icon" aria-hidden="true">{item.icon}</span>
+            <span className="stat-icon" aria-hidden="true">
+              <IconeImagem nome={item.icon} className="stat-icon-image" />
+            </span>
           </article>
         ))}
 
@@ -72,7 +75,9 @@ function Dashboard() {
             })}</strong>
             <small>Valor acumulado</small>
           </div>
-          <span className="stat-icon" aria-hidden="true">$</span>
+          <span className="stat-icon" aria-hidden="true">
+            <IconeImagem nome="despesas" className="stat-icon-image" />
+          </span>
         </article>
       </section>
 
@@ -110,7 +115,9 @@ function Dashboard() {
 
           {proximasVacinacoes.length === 0 && (
             <div className="empty-state compact-empty">
-              <span aria-hidden="true">✓</span>
+              <span aria-hidden="true">
+                <IconeImagem nome="proximas-vacinas" className="empty-icon-image" />
+              </span>
               <p>Nenhuma vacinação prevista para esta semana.</p>
             </div>
           )}
@@ -118,7 +125,9 @@ function Dashboard() {
           <div className="activity-list">
             {proximasVacinacoes.map((vacinacao) => (
               <div className="activity-item" key={vacinacao.id}>
-                <span className="activity-icon" aria-hidden="true">+</span>
+                <span className="activity-icon" aria-hidden="true">
+                  <IconeImagem nome="vacinacoes" className="activity-icon-image" />
+                </span>
                 <div>
                   <strong>{vacinacao.animal}</strong>
                   <small>{vacinacao.vacina}</small>

@@ -1,4 +1,4 @@
-# Migração do AgroControl para o Supabase
+# Migração do BoviTrack para o Supabase
 
 O Supabase será usado apenas como PostgreSQL hospedado. O backend continua usando
 `pg`, JWT e as mesmas queries. Supabase Auth, Data API e RLS não participam deste

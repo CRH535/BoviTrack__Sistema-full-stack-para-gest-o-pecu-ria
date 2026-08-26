@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import IconeImagem from "../components/IconeImagem";
 
 function Vacinas() {
   const [vacinas, setVacinas] = useState([]);
@@ -142,7 +143,9 @@ function Vacinas() {
       <div className="record-grid">
       {vacinas.map((vacina) => (
         <article className="record-card" key={vacina.id}>
-          <span className="record-icon" aria-hidden="true">+</span>
+          <span className="record-icon" aria-hidden="true">
+            <IconeImagem nome="vacinas" className="record-icon-image" />
+          </span>
           <h3>{vacina.nome}</h3>
           <p>{vacina.descricao || "-"}</p>
 

@@ -104,7 +104,7 @@ async function executar() {
 
   console.log(`PostgreSQL ${versao.rows[0].server_version}`);
   console.table(contagens);
-  console.log("Schema e relacionamentos do AgroControl validados com sucesso.");
+  console.log("Schema e relacionamentos do BoviTrack validados com sucesso.");
 }
 
 executar()

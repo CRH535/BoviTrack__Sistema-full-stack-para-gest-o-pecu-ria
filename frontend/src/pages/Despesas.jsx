@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import IconeImagem from "../components/IconeImagem";
 
 function formatarDataSemFuso(data) {
   if (!data) return "-";
@@ -128,7 +129,7 @@ function Despesas() {
         <div>
           <span className="eyebrow">Controle financeiro</span>
           <h1>Despesas</h1>
-          <p>Acompanhe os gastos das suas propriedades.</p>
+          <p>Acompanhe os custos do manejo e da sua produção pecuária.</p>
         </div>
       </header>
 
@@ -234,6 +235,9 @@ function Despesas() {
       <div className="record-grid expense-grid">
       {despesas.map((despesa) => (
         <article className="record-card expense-card" key={despesa.id}>
+          <span className="record-icon" aria-hidden="true">
+            <IconeImagem nome="despesas" className="record-icon-image" />
+          </span>
           <span className="tag-badge">{despesa.categoria}</span>
           <h3>{despesa.descricao}</h3>
 

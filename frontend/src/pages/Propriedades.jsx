@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import IconeImagem from "../components/IconeImagem";
 
 function Propriedades() {
   const [propriedades, setPropriedades] = useState([]);
@@ -102,9 +103,9 @@ function Propriedades() {
     <div className="page">
       <header className="page-header">
         <div>
-          <span className="eyebrow">Gestão territorial</span>
+          <span className="eyebrow">Gestão das propriedades</span>
           <h1>Propriedades</h1>
-          <p>Cadastre e acompanhe suas fazendas.</p>
+          <p>Organize as propriedades onde o seu rebanho é manejado.</p>
         </div>
       </header>
 
@@ -183,7 +184,9 @@ function Propriedades() {
       <div className="record-grid">
       {propriedades.map((propriedade) => (
         <article className="record-card" key={propriedade.id}>
-          <span className="record-icon" aria-hidden="true">⌂</span>
+          <span className="record-icon" aria-hidden="true">
+            <IconeImagem nome="propriedades" className="record-icon-image" />
+          </span>
           <h3>{propriedade.nome}</h3>
 
           <p>

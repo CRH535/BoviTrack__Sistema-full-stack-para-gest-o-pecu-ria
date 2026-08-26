@@ -149,7 +149,7 @@ async function criarSchemaSeNecessario(cliente) {
 
   if (existentes.length > 0) {
     throw new Error(
-      `O destino possui apenas parte das tabelas do AgroControl: ${existentes.join(", ")}. Nenhuma tabela foi alterada.`,
+      `O destino possui apenas parte das tabelas do BoviTrack: ${existentes.join(", ")}. Nenhuma tabela foi alterada.`,
     );
   }
 

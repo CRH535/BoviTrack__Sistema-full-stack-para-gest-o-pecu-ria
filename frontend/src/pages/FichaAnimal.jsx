@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import GraficoProducaoLeite from "../components/GraficoProducaoLeite";
+import IconeImagem from "../components/IconeImagem";
 import api from "../services/api";
 import { formatarDataSemFuso, obterDataAtualLocal } from "../utils/datas";
 
@@ -308,11 +309,14 @@ function FichaAnimal() {
 
       <section className="panel animal-profile-card">
         <div className="animal-profile-identity">
-          <span className="animal-profile-avatar" aria-hidden="true">●</span>
+          <span className="animal-profile-avatar" aria-hidden="true">
+            <IconeImagem nome="animais" className="animal-profile-avatar-image" />
+          </span>
           <div>
             <span className="eyebrow">Animal</span>
             <h2>{animal.nome}</h2>
-            <span className="tag-badge">
+            <span className="tag-badge icon-badge">
+              <IconeImagem nome="identificacao" className="badge-icon-image" />
               Brinco {animal.numero_brinco || "não informado"}
             </span>
           </div>
@@ -342,10 +346,14 @@ function FichaAnimal() {
         <div className="section-heading milk-section-heading">
           <div>
             <span className="eyebrow">Acompanhamento individual</span>
-            <h2>Controle Leiteiro</h2>
+            <h2 className="icon-title">
+              <IconeImagem nome="producao" className="title-icon-image" />
+              Controle Leiteiro
+            </h2>
           </div>
           <button type="button" onClick={abrirNovoRegistro}>
-            + Registrar produção
+            <IconeImagem nome="producao" className="button-icon-image" />
+            Registrar produção
           </button>
         </div>
 

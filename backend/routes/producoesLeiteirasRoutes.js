@@ -1,0 +1,340 @@
+const express = require("express");
+const pool = require("../database/pool");
+const { buscarAnimalPermitido } = require("../services/acessoAnimais");
+const {
+  converterId,
+  normalizarDataCalendario,
+  normalizarProducaoLeiteira,
+} = require("../utils/validacoes")
+
+const router = express.Router();
+
+router.post("/animais/:animalId/producoes-leiteiras", async (req, res) => {
+  try {
+    const animalId = converterId(req.params.animalId);
+
+    if (!animalId) {
+      return res.status(400).json({ mensagem: "ID do animal inválido" });
+    }
+
+    const animal = await buscarAnimalPermitido(animalId, req.usuario);
+
+    if (!animal) {
+      return res.status(404).json({ mensagem: "Animal não encontrado" });
+    }
+
+    const producao = normalizarProducaoLeiteira(req.body);
+
+    if (producao.erro) {
+      return res.status(400).json({ mensagem: producao.erro });
+    }
+
+    const { data, turno, quantidadeLitros, observacao } = producao.valor;
+    const resultado = await pool.query(
+      `INSERT INTO producoes_leiteiras
+              (animal_id, data, turno, quantidade_litros, observacao)
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING *`,
+      [animalId, data, turno, quantidadeLitros, observacao],
+    );
+
+    res.status(201).json({
+      mensagem: "Produção leiteira registrada com sucesso!",
+      producao: resultado.rows[0],
+    });
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ mensagem: "Erro ao registrar produção leiteira" });
+  }
+});
+
+router.get("/animais/:animalId/producoes-leiteiras", async (req, res) => {
+  try {
+    const animalId = converterId(req.params.animalId);
+    const periodo = req.query.periodo || "todos";
+    const periodosPermitidos = ["hoje", "7dias", "30dias", "todos"];
+
+    if (!animalId) {
+      return res.status(400).json({ mensagem: "ID do animal inválido" });
+    }
+
+    if (!periodosPermitidos.includes(periodo)) {
+      return res.status(400).json({
+        mensagem: "Período inválido. Use hoje, 7dias, 30dias ou todos",
+      });
+    }
+
+    const animal = await buscarAnimalPermitido(animalId, req.usuario);
+
+    if (!animal) {
+      return res.status(404).json({ mensagem: "Animal não encontrado" });
+    }
+
+    const dataInicio = req.query.data_inicio
+      ? normalizarDataCalendario(req.query.data_inicio, "Data inicial")
+      : { valor: null };
+    const dataFim = req.query.data_fim
+      ? normalizarDataCalendario(req.query.data_fim, "Data final")
+      : { valor: null };
+
+    if (dataInicio.erro || dataFim.erro) {
+      return res.status(400).json({
+        mensagem: dataInicio.erro || dataFim.erro,
+      });
+    }
+
+    if (dataInicio.valor && dataFim.valor && dataInicio.valor > dataFim.valor) {
+      return res.status(400).json({
+        mensagem: "A data inicial não pode ser posterior à data final",
+      });
+    }
+
+    if (periodo !== "todos" && (dataInicio.valor || dataFim.valor)) {
+      return res.status(400).json({
+        mensagem: "Use período ou intervalo personalizado, não ambos",
+      });
+    }
+
+    const fusoHorario = process.env.APP_TIMEZONE || "America/Sao_Paulo";
+    const resultado = await pool.query(
+      `SELECT id,
+              animal_id,
+              data,
+              turno,
+              quantidade_litros,
+              observacao,
+              created_at
+         FROM producoes_leiteiras
+        WHERE animal_id = $1
+          AND (
+            (
+              $3 = 'todos'
+              AND ($4::date IS NULL OR data >= $4::date)
+              AND ($5::date IS NULL OR data <= $5::date)
+            )
+            OR (
+              $3 = 'hoje'
+              AND data = (CURRENT_TIMESTAMP AT TIME ZONE $2)::date
+            )
+            OR (
+              $3 = '7dias'
+              AND data BETWEEN
+                    (CURRENT_TIMESTAMP AT TIME ZONE $2)::date - 6
+                    AND (CURRENT_TIMESTAMP AT TIME ZONE $2)::date
+            )
+            OR (
+              $3 = '30dias'
+              AND data BETWEEN
+                    (CURRENT_TIMESTAMP AT TIME ZONE $2)::date - 29
+                    AND (CURRENT_TIMESTAMP AT TIME ZONE $2)::date
+            )
+          )
+        ORDER BY data DESC,
+                 CASE turno
+                   WHEN 'manha' THEN 1
+                   WHEN 'tarde' THEN 2
+                   WHEN 'noite' THEN 3
+                   ELSE 4
+                 END,
+                 id DESC`,
+      [
+        animalId,
+        fusoHorario,
+        periodo,
+        dataInicio.valor,
+        dataFim.valor,
+      ],
+    );
+
+    res.json(resultado.rows);
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ mensagem: "Erro ao buscar produções leiteiras" });
+  }
+});
+
+router.get("/animais/:animalId/producoes-leiteiras/resumo", async (req, res) => {
+  try {
+    const animalId = converterId(req.params.animalId);
+
+    if (!animalId) {
+      return res.status(400).json({ mensagem: "ID do animal inválido" });
+    }
+
+    const animal = await buscarAnimalPermitido(animalId, req.usuario);
+
+    if (!animal) {
+      return res.status(404).json({ mensagem: "Animal não encontrado" });
+    }
+
+    const fusoHorario = process.env.APP_TIMEZONE || "America/Sao_Paulo";
+    const [resumoResultado, evolucaoResultado] = await Promise.all([
+      pool.query(
+        `WITH referencia AS (
+           SELECT (CURRENT_TIMESTAMP AT TIME ZONE $2)::date AS hoje
+         ),
+         totais_diarios AS (
+           SELECT data, SUM(quantidade_litros) AS total
+             FROM producoes_leiteiras
+            WHERE animal_id = $1
+            GROUP BY data
+         )
+         SELECT COALESCE(
+                  SUM(total) FILTER (WHERE data = referencia.hoje),
+                  0
+                ) AS producao_hoje,
+                COALESCE(AVG(total), 0) AS media_diaria,
+                COALESCE(
+                  SUM(total) FILTER (
+                    WHERE data BETWEEN referencia.hoje - 6 AND referencia.hoje
+                  ),
+                  0
+                ) AS producao_7_dias,
+                COALESCE(
+                  AVG(total) FILTER (
+                    WHERE data BETWEEN referencia.hoje - 6 AND referencia.hoje
+                  ),
+                  0
+                ) AS media_7_dias,
+                COALESCE(
+                  SUM(total) FILTER (
+                    WHERE data BETWEEN referencia.hoje - 29 AND referencia.hoje
+                  ),
+                  0
+                ) AS producao_30_dias
+           FROM referencia
+           LEFT JOIN totais_diarios ON TRUE
+          GROUP BY referencia.hoje`,
+        [animalId, fusoHorario],
+      ),
+      pool.query(
+        `SELECT data, SUM(quantidade_litros) AS total_litros
+           FROM producoes_leiteiras
+          WHERE animal_id = $1
+            AND data BETWEEN
+                  (CURRENT_TIMESTAMP AT TIME ZONE $2)::date - 29
+                  AND (CURRENT_TIMESTAMP AT TIME ZONE $2)::date
+          GROUP BY data
+          ORDER BY data`,
+        [animalId, fusoHorario],
+      ),
+    ]);
+
+    const resumo = resumoResultado.rows[0];
+
+    res.json({
+      resumo: {
+        producao_hoje: Number(resumo.producao_hoje),
+        media_diaria: Number(resumo.media_diaria),
+        producao_7_dias: Number(resumo.producao_7_dias),
+        media_7_dias: Number(resumo.media_7_dias),
+        producao_30_dias: Number(resumo.producao_30_dias),
+      },
+      evolucao: evolucaoResultado.rows.map((item) => ({
+        data: item.data,
+        total_litros: Number(item.total_litros),
+      })),
+    });
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ mensagem: "Erro ao calcular resumo leiteiro" });
+  }
+});
+
+router.put("/producoes-leiteiras/:id", async (req, res) => {
+  try {
+    const id = converterId(req.params.id);
+
+    if (!id) {
+      return res.status(400).json({ mensagem: "ID da produção inválido" });
+    }
+
+    const producao = normalizarProducaoLeiteira(req.body);
+
+    if (producao.erro) {
+      return res.status(400).json({ mensagem: producao.erro });
+    }
+
+    const { data, turno, quantidadeLitros, observacao } = producao.valor;
+    const resultado = await pool.query(
+      `UPDATE producoes_leiteiras pl
+          SET data = $1,
+              turno = $2,
+              quantidade_litros = $3,
+              observacao = $4
+        WHERE pl.id = $5
+          AND EXISTS (
+            SELECT 1
+              FROM animais a
+              JOIN propriedades p ON p.id = a.propriedade_id
+             WHERE a.id = pl.animal_id
+               AND ($6 = 'admin' OR p.usuario_id = $7)
+          )
+        RETURNING pl.*`,
+      [
+        data,
+        turno,
+        quantidadeLitros,
+        observacao,
+        id,
+        req.usuario.perfil,
+        req.usuario.id,
+      ],
+    );
+
+    if (resultado.rows.length === 0) {
+      return res.status(404).json({ mensagem: "Produção não encontrada" });
+    }
+
+    res.json({
+      mensagem: "Produção leiteira atualizada com sucesso!",
+      producao: resultado.rows[0],
+    });
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ mensagem: "Erro ao atualizar produção leiteira" });
+  }
+});
+
+router.delete("/producoes-leiteiras/:id", async (req, res) => {
+  try {
+    const id = converterId(req.params.id);
+
+    if (!id) {
+      return res.status(400).json({ mensagem: "ID da produção inválido" });
+    }
+
+    const resultado = await pool.query(
+      `DELETE FROM producoes_leiteiras pl
+        WHERE pl.id = $1
+          AND EXISTS (
+            SELECT 1
+              FROM animais a
+              JOIN propriedades p ON p.id = a.propriedade_id
+             WHERE a.id = pl.animal_id
+               AND ($2 = 'admin' OR p.usuario_id = $3)
+          )
+        RETURNING pl.*`,
+      [id, req.usuario.perfil, req.usuario.id],
+    );
+
+    if (resultado.rows.length === 0) {
+      return res.status(404).json({ mensagem: "Produção não encontrada" });
+    }
+
+    res.json({
+      mensagem: "Produção leiteira excluída com sucesso!",
+      producao: resultado.rows[0],
+    });
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ mensagem: "Erro ao excluir produção leiteira" });
+  }
+});
+
+// =========================
+// DESPESAS
+// =========================
+
+module.exports = router;
+

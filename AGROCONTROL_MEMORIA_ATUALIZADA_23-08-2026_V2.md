@@ -1,6 +1,6 @@
-# MEMÓRIA DO PROJETO — AGROCONTROL
+# MEMÓRIA DO PROJETO — BOVITRACK
 
-> Arquivo de referência do sistema AgroControl.
+> Arquivo de referência do sistema BoviTrack.
 > Contém decisões de projeto, arquitetura, banco de dados, códigos, rotas, validações, conceitos aprendidos e status atual do desenvolvimento.
 
 ---
@@ -8,7 +8,7 @@
 # 1. Visão geral do projeto
 
 ## Nome
-**AgroControl**
+**BoviTrack**
 
 ## Objetivo
 Sistema web para gerenciamento de propriedades rurais, com foco em:
@@ -22,7 +22,7 @@ Sistema web para gerenciamento de propriedades rurais, com foco em:
 - integrações externas úteis.
 
 ## Ideia central
-O AgroControl não deve ser apenas um CRUD simples. O objetivo é transformá-lo em um sistema de gestão rural que:
+O BoviTrack não deve ser apenas um CRUD simples. O objetivo é transformá-lo em um sistema de gestão pecuária que:
 - armazena dados;
 - relaciona informações;
 - valida dados;
@@ -518,7 +518,7 @@ const pool = new Pool({
 });
 
 app.get("/", (req, res) => {
-    res.send("ola agrocontrol!");
+    res.send("ola bovitrack!");
 });
 
 app.listen(3000, () => {
@@ -1454,7 +1454,7 @@ Objetivo:
 # 43. Resumo técnico rápido
 
 ```text
-Projeto: AgroControl
+Projeto: BoviTrack
 Backend: Node.js + Express
 Banco: PostgreSQL 18.4
 Driver: pg
@@ -1493,7 +1493,7 @@ const pool = new Pool({
 });
 
 app.get("/", (req, res) => {
-    res.send("ola agrocontrol!");
+    res.send("ola bovitrack!");
 });
 
 // =========================
@@ -1782,7 +1782,7 @@ app.listen(3000, () => {
 
 ---
 
-# FIM DA MEMÓRIA ATUAL DO AGROCONTROL
+# FIM DA MEMÓRIA ATUAL DO BOVITRACK
 
 ---
 
@@ -5089,7 +5089,7 @@ Depois disso, próximos passos recomendados:
 
 # ATUALIZAÇÃO DA MEMÓRIA — CONTINUAÇÃO DA CONVERSA DE 23/08/2026 — FRONTEND E INTEGRAÇÃO
 
-> Esta seção registra o desenvolvimento realizado após o ponto anterior da memória. A partir deste momento, foi decidido encerrar as perguntas/quiz e acelerar a finalização prática do AgroControl.
+> Esta seção registra o desenvolvimento realizado após o ponto anterior da memória. A partir deste momento, foi decidido encerrar as perguntas/quiz e acelerar a finalização prática do BoviTrack.
 
 # 96. Mudança de estratégia de desenvolvimento
 
@@ -5845,7 +5845,7 @@ npm
 
 ---
 
-# 117. Estado geral atual do AgroControl
+# 117. Estado geral atual do BoviTrack
 
 O projeto deixou de ser apenas uma API testada no Postman e já possui uma interface web funcional integrada ao PostgreSQL.
 
@@ -5923,7 +5923,7 @@ Mas essas funcionalidades não devem atrasar a entrega principal.
 
 # 119. Regra atual de prioridade
 
-> A prioridade agora é entregar um AgroControl funcional, estável, apresentável e fácil de explicar.
+> A prioridade agora é entregar um BoviTrack funcional, estável, apresentável e fácil de explicar.
 
 Evitar:
 - adicionar bibliotecas sem necessidade;
@@ -6008,7 +6008,7 @@ Porém, como o código final produzido pelo Codex não foi anexado nesta convers
 
 ## Objetivo do prompt
 
-Implementar autenticação no AgroControl com:
+Implementar autenticação no BoviTrack com:
 
 - JWT;
 - bcrypt/bcryptjs;
@@ -6266,7 +6266,7 @@ Status: **PROMPT PREPARADO. NÃO HÁ CONFIRMAÇÃO NESTA CONVERSA DE QUE O CODEX
 
 # 123. Mudança de requisito — cadastro público de produtores
 
-Depois foi decidido que o AgroControl será um **site público**, de fácil acesso para produtores rurais comuns.
+Depois foi decidido que o BoviTrack será um **site público**, de fácil acesso para produtores rurais comuns.
 
 Por isso, não depender apenas do administrador para criar contas.
 
@@ -6291,14 +6291,14 @@ O visitante deve conseguir criar sua própria conta.
 
 ## Objetivo
 
-Permitir que qualquer produtor crie conta no AgroControl sem precisar pedir ao administrador.
+Permitir que qualquer produtor crie conta no BoviTrack sem precisar pedir ao administrador.
 
 Fluxo desejado:
 
 ```text
 PRODUTOR
    ↓
-ACESSA AGROCONTROL
+ACESSA BOVITRACK
    ↓
 LOGIN
    ↓

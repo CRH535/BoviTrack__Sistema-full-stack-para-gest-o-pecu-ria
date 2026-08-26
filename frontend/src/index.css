@@ -190,15 +190,21 @@ p { color: var(--text-muted); line-height: 1.55; }
 hr { display: none; }
 #root { min-height: 100vh; }
 
-.ui-icon {
-  width: 19px;
-  height: 19px;
-  flex: 0 0 19px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.75;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.app-image-icon {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.nav-icon-image {
+  width: 25px;
+  height: 25px;
+  flex: 0 0 25px;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.2));
 }
 
 .app-shell { display: grid; grid-template-columns: 244px minmax(0, 1fr); min-height: 100vh; }
@@ -462,6 +468,25 @@ hr { display: none; }
   font-size: 1.1rem;
   font-weight: 800;
 }
+
+.record-icon-image { width: 34px; height: 34px; }
+.animal-avatar-image { width: 40px; height: 40px; }
+.animal-profile-avatar-image { width: 66px; height: 66px; }
+.stat-icon-image { width: 39px; height: 39px; }
+.activity-icon-image { width: 29px; height: 29px; }
+.empty-icon-image { width: 45px; height: 45px; }
+.badge-icon-image { width: 18px; height: 18px; flex: 0 0 18px; }
+.title-icon-image { width: 30px; height: 30px; flex: 0 0 30px; }
+.button-icon-image {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.icon-title { display: flex; align-items: center; gap: 8px; }
+.icon-badge { padding-block: 3px; }
 
 .record-actions,
 .form-actions,

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
+import IconeImagem from "../components/IconeImagem";
 
 function obterDataAtualLocal() {
   const agora = new Date();
@@ -281,10 +282,15 @@ function Animais() {
       {animais.map((animal) => (
         <article className="record-card animal-card" key={animal.id}>
           <div className="animal-card-heading">
-            <span className="animal-avatar" aria-hidden="true">●</span>
+            <span className="animal-avatar" aria-hidden="true">
+              <IconeImagem nome="animais" className="animal-avatar-image" />
+            </span>
             <div>
               <h3>{animal.nome}</h3>
-              <span className="tag-badge">Brinco {animal.numero_brinco || "não informado"}</span>
+              <span className="tag-badge icon-badge">
+                <IconeImagem nome="identificacao" className="badge-icon-image" />
+                Brinco {animal.numero_brinco || "não informado"}
+              </span>
             </div>
           </div>
 

@@ -135,7 +135,7 @@ function Usuarios() {
         <div>
           <span className="eyebrow">Administração</span>
           <h1>Usuários</h1>
-          <p>Gerencie as contas de usuários comuns do AgroControl.</p>
+          <p>Gerencie as contas de produtores que utilizam o BoviTrack.</p>
         </div>
 
         {!modo && (

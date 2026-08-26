@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { formatarDataSemFuso } from "../utils/datas";
+import IconeImagem from "../components/IconeImagem";
 
 function Vacinacoes() {
   const [vacinacoes, setVacinacoes] = useState([]);
@@ -233,7 +234,9 @@ function Vacinacoes() {
       <div className="record-grid vaccination-grid">
       {vacinacoes.map((vacinacao) => (
         <article className="record-card vaccination-card" key={vacinacao.id}>
-          <span className="record-icon" aria-hidden="true">+</span>
+          <span className="record-icon" aria-hidden="true">
+            <IconeImagem nome="vacinacoes" className="record-icon-image" />
+          </span>
           <h3>{vacinacao.animal || `Animal ${vacinacao.animal_id}`}</h3>
 
           <p>Vacina: {vacinacao.vacina || vacinacao.vacina_id}</p>

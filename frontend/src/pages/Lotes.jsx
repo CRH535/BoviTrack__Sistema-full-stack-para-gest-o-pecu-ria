@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import IconeImagem from "../components/IconeImagem";
 
 function Lotes() {
   const [lotes, setLotes] = useState([]);
@@ -304,7 +305,9 @@ function Lotes() {
           className={`record-card lot-card${loteGerenciado?.id === lote.id ? " expanded" : ""}`}
           key={lote.id}
         >
-          <span className="record-icon" aria-hidden="true">▦</span>
+          <span className="record-icon" aria-hidden="true">
+            <IconeImagem nome="lotes" className="record-icon-image" />
+          </span>
           <h3>{lote.nome}</h3>
 
           <p>{lote.descricao || "-"}</p>
@@ -314,6 +317,7 @@ function Lotes() {
 
           <div className="lot-actions">
             <button type="button" onClick={() => gerenciarAnimais(lote)}>
+              <IconeImagem nome="animais-lotes" className="button-icon-image" />
               {loteGerenciado?.id === lote.id
                 ? "Fechar animais"
                 : "Gerenciar animais"}
@@ -330,7 +334,10 @@ function Lotes() {
 
           {loteGerenciado?.id === lote.id && (
             <section className="lot-animals-manager">
-              <h3>Animais do lote: {lote.nome}</h3>
+              <h3 className="icon-title">
+                <IconeImagem nome="animais-lotes" className="title-icon-image" />
+                Animais do lote: {lote.nome}
+              </h3>
               <p>Propriedade: {lote.propriedade}</p>
 
               {carregandoAnimais && <p>Carregando animais...</p>}
