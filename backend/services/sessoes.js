@@ -1,7 +1,8 @@
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 
-const COOKIE_REFRESH = "agrocontrol_refresh";
+const COOKIE_REFRESH = "bovitrack_refresh";
+const COOKIE_REFRESH_LEGADO = "agrocontrol_refresh";
 const DURACAO_REFRESH_PADRAO = "7d";
 
 function duracaoEmMilissegundos(valor) {
@@ -41,6 +42,7 @@ function hashToken(token) {
 
 function lerRefreshToken(req) {
   const cookies = String(req.headers.cookie || "").split(";");
+  let tokenLegado = null;
 
   for (const cookie of cookies) {
     const separador = cookie.indexOf("=");
@@ -52,9 +54,13 @@ function lerRefreshToken(req) {
     if (nome === COOKIE_REFRESH) {
       return decodeURIComponent(cookie.slice(separador + 1).trim());
     }
+
+    if (nome === COOKIE_REFRESH_LEGADO) {
+      tokenLegado = decodeURIComponent(cookie.slice(separador + 1).trim());
+    }
   }
 
-  return null;
+  return tokenLegado;
 }
 
 function opcoesCookie(expires) {
@@ -77,11 +83,13 @@ function opcoesCookie(expires) {
 }
 
 function definirCookieRefresh(res, token, expiresAt) {
+  res.clearCookie(COOKIE_REFRESH_LEGADO, opcoesCookie());
   res.cookie(COOKIE_REFRESH, token, opcoesCookie(expiresAt));
 }
 
 function limparCookieRefresh(res) {
   res.clearCookie(COOKIE_REFRESH, opcoesCookie());
+  res.clearCookie(COOKIE_REFRESH_LEGADO, opcoesCookie());
 }
 
 async function criarSessaoRefresh(pool, usuarioId) {

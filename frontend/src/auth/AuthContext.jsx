@@ -2,8 +2,28 @@ import { useEffect, useState } from "react";
 import api from "../services/api";
 import AuthContext from "./auth-context";
 
-const TOKEN_KEY = "agrocontrol_token";
-const USER_KEY = "agrocontrol_usuario";
+const TOKEN_KEY = "bovitrack_token";
+const USER_KEY = "bovitrack_usuario";
+const TOKEN_KEY_LEGADO = "agrocontrol_token";
+const USER_KEY_LEGADO = "agrocontrol_usuario";
+
+function migrarSessaoLegada() {
+  const tokenLegado = localStorage.getItem(TOKEN_KEY_LEGADO);
+  const usuarioLegado = localStorage.getItem(USER_KEY_LEGADO);
+
+  if (!localStorage.getItem(TOKEN_KEY) && tokenLegado) {
+    localStorage.setItem(TOKEN_KEY, tokenLegado);
+  }
+
+  if (!localStorage.getItem(USER_KEY) && usuarioLegado) {
+    localStorage.setItem(USER_KEY, usuarioLegado);
+  }
+
+  localStorage.removeItem(TOKEN_KEY_LEGADO);
+  localStorage.removeItem(USER_KEY_LEGADO);
+}
+
+migrarSessaoLegada();
 
 function lerUsuarioSalvo() {
   try {
@@ -29,6 +49,8 @@ export function AuthProvider({ children }) {
         if (status === 401 || status === 403) {
           localStorage.removeItem(TOKEN_KEY);
           localStorage.removeItem(USER_KEY);
+          localStorage.removeItem(TOKEN_KEY_LEGADO);
+          localStorage.removeItem(USER_KEY_LEGADO);
           setUsuario(null);
         } else {
           setUsuario(lerUsuarioSalvo());
@@ -58,6 +80,8 @@ export function AuthProvider({ children }) {
     } finally {
       localStorage.removeItem(TOKEN_KEY);
       localStorage.removeItem(USER_KEY);
+      localStorage.removeItem(TOKEN_KEY_LEGADO);
+      localStorage.removeItem(USER_KEY_LEGADO);
       setUsuario(null);
     }
   }

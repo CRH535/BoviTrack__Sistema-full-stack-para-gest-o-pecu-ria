@@ -772,7 +772,7 @@ hr { display: none; }
   border-radius: var(--radius-lg) 0 0 var(--radius-lg);
   color: #fff;
   background: linear-gradient(90deg, rgba(2, 34, 24, 0.68), rgba(2, 34, 24, 0.12)),
-    url("./assets/agro-login-hero.png") center / cover no-repeat;
+    url("./assets/bovitrack-login-hero.png") center / cover no-repeat;
   box-shadow: var(--shadow);
 }
 

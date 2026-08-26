@@ -7,9 +7,9 @@ const { app, pool } = require("../server");
 const adminEmail = process.env.TEST_ADMIN_EMAIL;
 const adminSenha = process.env.TEST_ADMIN_SENHA;
 const sufixo = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-const emailA = `teste-a-${sufixo}@agrocontrol.local`;
-const emailB = `teste-b-${sufixo}@agrocontrol.local`;
-const emailAdminCriado = `teste-admin-criado-${sufixo}@agrocontrol.local`;
+const emailA = `teste-a-${sufixo}@bovitrack.local`;
+const emailB = `teste-b-${sufixo}@bovitrack.local`;
+const emailAdminCriado = `teste-admin-criado-${sufixo}@bovitrack.local`;
 const senhaUsuario = "TesteSeguro#2026";
 
 let servidor;

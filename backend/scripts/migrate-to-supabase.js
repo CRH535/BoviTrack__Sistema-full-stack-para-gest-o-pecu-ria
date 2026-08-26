@@ -95,7 +95,7 @@ function ambientePg(configuracao) {
 function criarBackup(configuracao) {
   const data = new Date().toISOString().replace(/[:.]/g, "-");
   const pasta = path.join(__dirname, "..", "backups");
-  const arquivo = path.join(pasta, `agrocontrol-antes-supabase-${data}.dump`);
+  const arquivo = path.join(pasta, `bovitrack-antes-supabase-${data}.dump`);
   fs.mkdirSync(pasta, { recursive: true });
 
   const resultado = spawnSync(
@@ -158,7 +158,7 @@ async function criarSchemaSeNecessario(cliente) {
     "..",
     "database",
     "supabase",
-    "001_schema_agrocontrol.sql",
+    "001_schema_bovitrack.sql",
   );
   await cliente.query(fs.readFileSync(arquivo, "utf8"));
   return true;

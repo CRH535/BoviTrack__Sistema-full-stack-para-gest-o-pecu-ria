@@ -4,8 +4,8 @@ const assert = require("assert/strict");
 const { app, pool } = require("../server");
 
 const sufixo = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-const emailA = `leite-a-${sufixo}@agrocontrol.local`;
-const emailB = `leite-b-${sufixo}@agrocontrol.local`;
+const emailA = `leite-a-${sufixo}@bovitrack.local`;
+const emailB = `leite-b-${sufixo}@bovitrack.local`;
 const senha = "LeiteSeguro#2026";
 let servidor;
 let baseUrl;

@@ -241,13 +241,13 @@ psql -U postgres
 ## Banco criado
 
 ```sql
-CREATE DATABASE agrocontrol;
+CREATE DATABASE bovitrack;
 ```
 
 ## Conectar ao banco
 
 ```sql
-\c agrocontrol
+\c bovitrack
 ```
 
 ---
@@ -257,7 +257,7 @@ CREATE DATABASE agrocontrol;
 ## Banco
 
 ```text
-agrocontrol
+bovitrack
 ```
 
 ---
@@ -447,7 +447,7 @@ const { Pool } = require("pg");
 const pool = new Pool({
     user: "postgres",
     host: "localhost",
-    database: "agrocontrol",
+    database: "bovitrack",
     password: "SUA_SENHA",
     port: 5432,
 });
@@ -512,7 +512,7 @@ app.use(express.json());
 const pool = new Pool({
     user: "postgres",
     host: "localhost",
-    database: "agrocontrol",
+    database: "bovitrack",
     password: "SUA_SENHA",
     port: 5432,
 });
@@ -1461,7 +1461,7 @@ Driver: pg
 API: REST
 Porta backend: 3000
 Porta PostgreSQL: 5432
-Banco: agrocontrol
+Banco: bovitrack
 Tabela principal atual: propriedades
 Tabela relacionada: animais
 Relacionamento: propriedades 1:N animais
@@ -1487,7 +1487,7 @@ app.use(express.json());
 const pool = new Pool({
     user: "postgres",
     host: "localhost",
-    database: "agrocontrol",
+    database: "bovitrack",
     password: "SUA_SENHA",
     port: 5432,
 });
@@ -3484,13 +3484,13 @@ postgres=#
 em vez do banco do projeto:
 
 ```text
-agrocontrol=#
+bovitrack=#
 ```
 
 Correção:
 
 ```sql
-\c agrocontrol
+\c bovitrack
 ```
 
 Depois, conferir as tabelas:
@@ -5142,7 +5142,7 @@ Estrutura usada:
 ```env
 DB_USER=postgres
 DB_HOST=localhost
-DB_NAME=agrocontrol
+DB_NAME=bovitrack
 DB_PASSWORD=SUA_SENHA_DO_POSTGRES
 DB_PORT=5432
 PORT=3000

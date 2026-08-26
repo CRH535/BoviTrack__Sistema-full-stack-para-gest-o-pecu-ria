@@ -60,7 +60,7 @@ A origem pode continuar nas variáveis atuais `DB_USER`, `DB_HOST`, `DB_NAME`,
 `DB_PASSWORD` e `DB_PORT`. Como alternativa, informe:
 
 ```env
-LOCAL_DATABASE_URL=postgresql://postgres:SENHA@localhost:5432/agrocontrol
+LOCAL_DATABASE_URL=postgresql://postgres:SENHA@localhost:5432/bovitrack
 ```
 
 ## 3. Parar escritas e migrar
@@ -78,7 +78,7 @@ O script:
 1. cria um dump de segurança do banco local;
 2. conecta na origem e no Supabase;
 3. recusa destinos com tabelas parciais ou dados existentes;
-4. cria o schema definido em `database/supabase/001_schema_agrocontrol.sql`;
+4. cria o schema definido em `database/supabase/001_schema_bovitrack.sql`;
 5. valida tipos e constraints;
 6. copia os dados em ordem de foreign keys e dentro de transação;
 7. preserva os IDs;
