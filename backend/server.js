@@ -8,4 +8,6 @@ if (require.main === module) {
   });
 }
 
-module.exports = { app, pool };
+module.exports = app;
+module.exports.app = app;
+module.exports.pool = pool;

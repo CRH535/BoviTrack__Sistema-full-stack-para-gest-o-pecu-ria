@@ -37,4 +37,8 @@ app.use(vacinacoesRoutes);
 app.use(producoesLeiteirasRoutes);
 app.use(despesasRoutes);
 
-module.exports = { app, pool };
+// A exportacao direta permite que a Vercel detecte o Express sem adaptadores.
+// As propriedades preservam a interface usada pelos testes e pelo servidor local.
+module.exports = app;
+module.exports.app = app;
+module.exports.pool = pool;

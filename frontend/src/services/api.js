@@ -1,5 +1,8 @@
 import axios from "axios";
 
+const API_URL = (
+  import.meta.env.VITE_API_URL || "http://localhost:3000"
+).replace(/\/+$/, "");
 const TOKEN_KEY = "bovitrack_token";
 const USER_KEY = "bovitrack_usuario";
 const TOKEN_KEY_LEGADO = "agrocontrol_token";
@@ -30,7 +33,7 @@ function migrarSessaoLegada() {
 migrarSessaoLegada();
 
 const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: API_URL,
   withCredentials: true,
 });
 

@@ -1,15 +1,16 @@
 function criarConfiguracaoCors(ambiente = process.env) {
-  const origensFrontend = (
-    ambiente.FRONTEND_URL || "http://localhost:5173"
-  )
-    .split(",")
-    .map((origem) => origem.trim())
-    .filter(Boolean);
+  const origensFrontend = new Set([
+    "http://localhost:5173",
+    ...(ambiente.FRONTEND_URL || "")
+      .split(",")
+      .map((origem) => origem.trim().replace(/\/$/, ""))
+      .filter(Boolean),
+  ]);
 
   return {
     credentials: true,
     origin(origem, callback) {
-      if (!origem || origensFrontend.includes(origem)) {
+      if (!origem || origensFrontend.has(origem)) {
         return callback(null, true);
       }
 
@@ -19,4 +20,3 @@ function criarConfiguracaoCors(ambiente = process.env) {
 }
 
 module.exports = { criarConfiguracaoCors };
-
