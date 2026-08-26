@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../services/api";
 
 function obterDataAtualLocal() {
@@ -301,6 +302,10 @@ function Animais() {
           </p>
 
           <div className="record-actions">
+          <Link className="button-secondary button-link" to={`/animais/${animal.id}`}>
+            Ver ficha
+          </Link>
+
           <button className="button-secondary" type="button" onClick={() => editarAnimal(animal)}>
             Editar
           </button>

@@ -19,6 +19,14 @@ npm run migrate:sessions
 
 Essa migration é incremental e não altera dados das tabelas de negócio.
 
+O módulo de Controle Leiteiro utiliza outra migration incremental:
+
+```powershell
+npm run migrate:milk
+```
+
+Ela cria `producoes_leiteiras` usando o mesmo tipo `INTEGER` de `animais.id`.
+
 A origem usa PostgreSQL 18.4. O processo deste projeto cria um schema SQL
 compatível e copia as linhas por `pg`, em vez de restaurar o schema de um dump em
 uma eventual versão anterior do PostgreSQL no Supabase. Antes da cópia, também é

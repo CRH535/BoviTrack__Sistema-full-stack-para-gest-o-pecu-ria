@@ -13,6 +13,7 @@ import AdminRoute from "./auth/AdminRoute";
 import Dashboard from "./pages/Dashboard";
 import Propriedades from "./pages/Propriedades";
 import Animais from "./pages/Animais";
+import FichaAnimal from "./pages/FichaAnimal";
 import Lotes from "./pages/Lotes";
 import Vacinas from "./pages/Vacinas";
 import Vacinacoes from "./pages/Vacinacoes";
@@ -189,6 +190,7 @@ function App() {
           <Route index element={<Dashboard />} />
           <Route path="propriedades" element={<Propriedades />} />
           <Route path="animais" element={<Animais />} />
+          <Route path="animais/:id" element={<FichaAnimal />} />
           <Route path="lotes" element={<Lotes />} />
           <Route path="vacinas" element={<Vacinas />} />
           <Route path="vacinacoes" element={<Vacinacoes />} />

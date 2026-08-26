@@ -10,9 +10,11 @@
     "migrate:animal-lots": "node scripts/migrate-animal-lots.js",
     "migrate:animals": "node scripts/migrate-animals.js",
     "migrate:expenses": "node scripts/migrate-expenses.js",
+    "migrate:milk": "node scripts/migrate-milk-production.js",
     "migrate:sessions": "node scripts/migrate-refresh-sessions.js",
     "migrate:users": "node scripts/migrate-users.js",
     "test": "node tests/auth-permissions.js",
+    "test:milk": "node tests/milk-production.js",
     "start": "node server.js"
   },
   "keywords": [],

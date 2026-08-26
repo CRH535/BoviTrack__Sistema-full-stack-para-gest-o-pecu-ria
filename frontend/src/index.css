@@ -111,6 +111,31 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 
 .button-small { min-height: 34px; padding: 7px 11px; font-size: 0.78rem; }
 
+.button-link {
+  display: inline-flex;
+  min-height: 42px;
+  padding: 10px 17px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cbd8d1;
+  border-radius: var(--radius-sm);
+  color: var(--green-800);
+  background: #fff;
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.button-link:hover {
+  border-color: var(--green-600);
+  color: var(--green-900);
+  background: var(--green-50);
+  box-shadow: 0 6px 16px rgba(8, 116, 67, 0.12);
+  transform: translateY(-1px);
+}
+
 input,
 select,
 textarea {
@@ -443,7 +468,8 @@ hr { display: none; }
 .user-actions,
 .lot-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .record-actions { margin-top: auto; padding-top: 18px; }
-.record-actions button { flex: 1; }
+.record-actions button,
+.record-actions .button-link { flex: 1; }
 
 .animal-card-heading { display: flex; margin-bottom: 14px; align-items: center; gap: 11px; }
 .animal-card-heading h3 { margin-bottom: 5px; }
@@ -592,6 +618,112 @@ hr { display: none; }
 .users-table tbody tr:hover { background: #fbfdfc; }
 .users-table tbody tr:last-child td { border-bottom: none; }
 
+.inline-loading { min-height: 260px; background: transparent; }
+
+.animal-profile-card {
+  display: grid;
+  margin-bottom: 34px;
+  padding: clamp(20px, 3vw, 30px);
+  grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.8fr);
+  gap: 30px;
+  align-items: center;
+}
+
+.animal-profile-identity { display: flex; align-items: center; gap: 16px; }
+.animal-profile-identity h2 { margin-bottom: 9px; font-size: 1.35rem; }
+.animal-profile-avatar {
+  display: grid;
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--green-600);
+  background: linear-gradient(145deg, var(--green-50), #cdebd7);
+  box-shadow: inset 0 0 0 1px #bee0cb;
+  font-size: 1.3rem;
+}
+
+.animal-profile-details {
+  display: grid;
+  margin: 0;
+  grid-template-columns: repeat(3, minmax(120px, 1fr));
+  gap: 18px 24px;
+}
+
+.animal-profile-details > div { min-width: 0; }
+.animal-profile-details dt { margin-bottom: 4px; color: var(--text-muted); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+.animal-profile-details dd { margin: 0; color: var(--text); font-size: 0.88rem; font-weight: 700; }
+.animal-profile-lots { grid-column: span 2; }
+.animal-profile-lots dd { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.milk-section { display: grid; gap: 18px; }
+.milk-section-heading { margin: 0; }
+.milk-form { margin: 0; }
+.milk-form-title,
+.milk-form-actions { grid-column: 1 / -1; }
+.milk-form-title p { margin: 3px 0 0; font-size: 0.78rem; }
+.milk-observation-field { grid-column: span 2; }
+.milk-form-actions { display: flex; justify-content: flex-end; }
+.milk-form-actions button { width: auto; min-width: 170px; }
+
+.milk-stats-grid { display: grid; grid-template-columns: repeat(4, minmax(165px, 1fr)); gap: 14px; }
+.milk-stat-card { min-height: 128px; }
+.milk-stat-card strong { font-size: 1.45rem; }
+
+.milk-comparison {
+  margin: 0;
+  padding: 14px 17px;
+  border: 1px solid #cce8d7;
+  border-radius: var(--radius-sm);
+  color: var(--green-900);
+  background: var(--green-50);
+  font-size: 0.82rem;
+}
+.milk-comparison.is-lower { border-color: #f1d3ae; color: #7a4b11; background: #fff8ec; }
+
+.milk-chart-panel { min-width: 0; padding: 21px; }
+.milk-chart-panel .panel-heading h3 { margin: 0; }
+.milk-chart-wrapper { width: 100%; overflow-x: auto; padding-top: 12px; }
+.milk-chart { display: block; width: 100%; min-width: 560px; height: auto; }
+.milk-chart text { fill: var(--text-muted); font-size: 10px; }
+.milk-chart-grid { stroke: #e5ece8; stroke-width: 1; }
+.milk-chart-area { fill: rgba(10, 138, 75, 0.09); stroke: none; }
+.milk-chart-line { fill: none; stroke: var(--green-600); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.milk-chart-point { fill: #fff; stroke: var(--green-700); stroke-width: 3; }
+.milk-chart-axis-title { font-size: 11px; font-weight: 700; }
+.milk-chart-empty { min-height: 220px; margin-top: 12px; }
+
+.milk-history-section { display: grid; gap: 15px; }
+.milk-history-section > .section-heading { margin: 16px 0 0; }
+.milk-period-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.milk-period-filters button { min-height: 36px; padding: 7px 13px; font-size: 0.76rem; }
+.milk-period-filters button.active { border-color: var(--green-700); color: #fff; background: var(--green-700); }
+
+.milk-custom-filter {
+  display: grid;
+  padding: 16px;
+  grid-template-columns: repeat(2, minmax(150px, 230px)) auto;
+  gap: 12px;
+  align-items: end;
+}
+
+.milk-days-list { display: grid; gap: 13px; }
+.milk-day-card { overflow: hidden; }
+.milk-day-card > header { display: flex; padding: 17px 20px; align-items: center; justify-content: space-between; gap: 18px; border-bottom: 1px solid var(--border); background: var(--surface-soft); }
+.milk-day-card > header h3 { margin: 0; }
+.milk-day-total { display: grid; text-align: right; }
+.milk-day-total span { color: var(--text-muted); font-size: 0.7rem; }
+.milk-day-total strong { color: var(--green-800); font-size: 1.15rem; }
+.milk-records-list { display: grid; }
+.milk-record-row { display: grid; padding: 15px 20px; grid-template-columns: minmax(135px, 0.55fr) minmax(160px, 1fr) auto; gap: 18px; align-items: center; border-bottom: 1px solid var(--border); }
+.milk-record-row:last-child { border-bottom: none; }
+.milk-record-row > div:first-child { display: grid; gap: 3px; }
+.milk-record-row > div:first-child strong { font-size: 0.84rem; }
+.milk-record-row > div:first-child span { color: var(--green-700); font-size: 1rem; font-weight: 800; }
+.milk-record-row p { margin: 0; font-size: 0.78rem; }
+.milk-record-row .record-actions { margin: 0; padding: 0; flex-wrap: nowrap; }
+
 .session-loading { display: grid; min-height: 100vh; margin: 0; place-items: center; color: var(--green-800); background: var(--background); font-weight: 700; }
 
 .login-page {
@@ -669,6 +801,8 @@ hr { display: none; }
   .sidebar { padding-inline: 13px; }
   .stats-grid { grid-template-columns: repeat(3, minmax(160px, 1fr)); }
   .stat-card-finance { grid-column: span 2; }
+  .milk-stats-grid { grid-template-columns: repeat(2, minmax(165px, 1fr)); }
+  .animal-profile-details { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
 }
 
 @media (max-width: 900px) {
@@ -703,6 +837,7 @@ hr { display: none; }
 
   .topbar { min-height: 67px; }
   .dashboard-panels { grid-template-columns: 1fr; }
+  .animal-profile-card { grid-template-columns: 1fr; }
   .login-page { grid-template-columns: 1fr; }
   .auth-visual { min-height: 250px; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
   .auth-visual-content { padding: 28px; }
@@ -725,6 +860,11 @@ hr { display: none; }
   .status-badge { display: none; }
   .data-form,
   .user-form { padding: 17px; grid-template-columns: 1fr; }
+  .milk-form-title,
+  .milk-form-actions,
+  .milk-observation-field { grid-column: 1; }
+  .milk-form-actions { flex-direction: column; }
+  .milk-form-actions button { width: 100%; }
   .user-form h2,
   .user-form .form-actions { grid-column: 1; }
   .record-grid { grid-template-columns: 1fr; }
@@ -739,6 +879,10 @@ hr { display: none; }
   .lot-animal { align-items: stretch; flex-direction: column; }
   .lot-add-form { grid-template-columns: 1fr; }
   .lot-add-form label { grid-column: 1; }
+  .milk-custom-filter { grid-template-columns: 1fr 1fr; }
+  .milk-custom-filter button { grid-column: 1 / -1; }
+  .milk-record-row { grid-template-columns: 1fr; gap: 10px; }
+  .milk-record-row .record-actions { justify-content: flex-start; }
   .auth-visual { min-height: 190px; }
   .auth-visual-content { padding: 22px; }
   .auth-visual-content > .auth-brand { font-size: 0.98rem; }
@@ -757,4 +901,15 @@ hr { display: none; }
   .login-page { padding: 0; }
   .auth-visual,
   .auth-panel { border-radius: 0; }
+  .animal-profile-header .button-link,
+  .milk-section-heading button { width: 100%; }
+  .animal-profile-card { gap: 22px; }
+  .animal-profile-identity { align-items: flex-start; }
+  .animal-profile-avatar { width: 58px; height: 58px; flex-basis: 58px; }
+  .animal-profile-details,
+  .milk-stats-grid,
+  .milk-custom-filter { grid-template-columns: 1fr; }
+  .animal-profile-lots,
+  .milk-custom-filter button { grid-column: 1; }
+  .milk-day-card > header { align-items: flex-start; }
 }
