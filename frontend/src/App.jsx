@@ -107,8 +107,8 @@ function Layout() {
   const { usuario, logout } = useAuth();
   const navigate = useNavigate();
 
-  function sair() {
-    logout();
+  async function sair() {
+    await logout();
     navigate("/login", { replace: true });
   }
 

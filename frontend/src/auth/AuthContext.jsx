@@ -19,22 +19,20 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     async function restaurarSessao() {
-      const token = localStorage.getItem(TOKEN_KEY);
-
-      if (!token) {
-        setUsuario(null);
-        setCarregando(false);
-        return;
-      }
-
       try {
         const resposta = await api.get("/auth/me");
         setUsuario(resposta.data.usuario);
         localStorage.setItem(USER_KEY, JSON.stringify(resposta.data.usuario));
-      } catch {
-        localStorage.removeItem(TOKEN_KEY);
-        localStorage.removeItem(USER_KEY);
-        setUsuario(null);
+      } catch (erro) {
+        const status = erro.response?.status;
+
+        if (status === 401 || status === 403) {
+          localStorage.removeItem(TOKEN_KEY);
+          localStorage.removeItem(USER_KEY);
+          setUsuario(null);
+        } else {
+          setUsuario(lerUsuarioSalvo());
+        }
       } finally {
         setCarregando(false);
       }
@@ -52,10 +50,16 @@ export function AuthProvider({ children }) {
     setUsuario(usuarioAutenticado);
   }
 
-  function logout() {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
-    setUsuario(null);
+  async function logout() {
+    try {
+      await api.post("/auth/logout");
+    } catch (erro) {
+      console.error("Não foi possível confirmar o logout no servidor", erro);
+    } finally {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+      setUsuario(null);
+    }
   }
 
   return (

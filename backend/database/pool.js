@@ -1,11 +1,10 @@
-const { Pool } = require("pg");
+const { Pool, types } = require("pg");
+const { criarConfiguracaoBanco } = require("./config");
 
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-});
+// PostgreSQL DATE nao possui horario nem fuso. Manter YYYY-MM-DD evita que a
+// serializacao JSON desloque o dia conforme o timezone do servidor.
+types.setTypeParser(1082, (valor) => valor);
+
+const pool = new Pool(criarConfiguracaoBanco());
 
 module.exports = pool;

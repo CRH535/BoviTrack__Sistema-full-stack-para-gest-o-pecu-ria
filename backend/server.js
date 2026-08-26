@@ -7,19 +7,112 @@ if (!process.env.JWT_SECRET) {
 const express = require("express");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const pool = require("./database/pool");
 const { autenticar, somenteAdmin } = require("./middleware/autenticacao");
 const { criarUsuarioComum } = require("./services/usuarios");
+const {
+  criarSessaoRefresh,
+  criarTokenAcesso,
+  definirCookieRefresh,
+  encerrarSessaoRefresh,
+  lerRefreshToken,
+  limparCookieRefresh,
+  renovarSessaoRefresh,
+} = require("./services/sessoes");
 
 const app = express();
+const origensFrontend = (process.env.FRONTEND_URL || "http://localhost:5173")
+  .split(",")
+  .map((origem) => origem.trim())
+  .filter(Boolean);
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin(origem, callback) {
+      if (!origem || origensFrontend.includes(origem)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Origem não permitida pelo CORS"));
+    },
+  }),
+);
 
 function converterId(valor) {
   const id = Number(valor);
   return Number.isInteger(id) && id > 0 ? id : null;
+}
+
+function normalizarFormaPagamento(valor) {
+  if (valor === undefined || valor === null) {
+    return { valor: null };
+  }
+
+  if (typeof valor !== "string") {
+    return { erro: "Forma de pagamento invalida" };
+  }
+
+  const formaPagamento = valor.trim();
+
+  if (formaPagamento.length > 100) {
+    return {
+      erro: "A forma de pagamento deve possuir no maximo 100 caracteres",
+    };
+  }
+
+  return { valor: formaPagamento || null };
+}
+
+function normalizarNumeroBrinco(valor) {
+  if (valor === undefined || valor === null || valor === "") {
+    return { valor: null };
+  }
+
+  if (typeof valor !== "string") {
+    return { erro: "Numero do brinco invalido" };
+  }
+
+  const numeroBrinco = valor.trim();
+
+  if (numeroBrinco.length > 50) {
+    return { erro: "O numero do brinco deve possuir no maximo 50 caracteres" };
+  }
+
+  return { valor: numeroBrinco || null };
+}
+
+function normalizarDataNascimento(valor) {
+  if (valor === undefined || valor === null || valor === "") {
+    return { valor: null };
+  }
+
+  if (typeof valor !== "string") {
+    return { erro: "Data de nascimento invalida" };
+  }
+
+  const dataNascimento = valor.trim();
+  const partes = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dataNascimento);
+
+  if (!partes) {
+    return { erro: "Data de nascimento invalida" };
+  }
+
+  const ano = Number(partes[1]);
+  const mes = Number(partes[2]);
+  const dia = Number(partes[3]);
+  const dataUtc = new Date(Date.UTC(ano, mes - 1, dia));
+  const dataExiste =
+    dataUtc.getUTCFullYear() === ano &&
+    dataUtc.getUTCMonth() === mes - 1 &&
+    dataUtc.getUTCDate() === dia;
+
+  if (!dataExiste || dataNascimento > new Date().toISOString().slice(0, 10)) {
+    return { erro: "Data de nascimento invalida" };
+  }
+
+  return { valor: dataNascimento };
 }
 
 app.get("/", (req, res) => {
@@ -94,10 +187,13 @@ app.post("/auth/login", async (req, res) => {
       });
     }
 
-    const token = jwt.sign(
-      { id: usuario.id, perfil: usuario.perfil },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN || "8h" },
+    const token = criarTokenAcesso(usuario);
+    const sessaoRefresh = await criarSessaoRefresh(pool, usuario.id);
+
+    definirCookieRefresh(
+      res,
+      sessaoRefresh.token,
+      sessaoRefresh.expiresAt,
     );
 
     res.json({
@@ -113,6 +209,53 @@ app.post("/auth/login", async (req, res) => {
   } catch (erro) {
     console.error(erro);
     res.status(500).json({ mensagem: "Erro ao realizar login" });
+  }
+});
+
+app.post("/auth/refresh", async (req, res) => {
+  try {
+    const refreshToken = lerRefreshToken(req);
+    const sessao = await renovarSessaoRefresh(pool, refreshToken);
+
+    if (!sessao) {
+      limparCookieRefresh(res);
+      return res.status(401).json({
+        mensagem: "Sessão expirada. Entre novamente",
+        codigo: "SESSAO_EXPIRADA",
+      });
+    }
+
+    const token = criarTokenAcesso(sessao.usuario);
+
+    definirCookieRefresh(res, sessao.token, sessao.expiresAt);
+
+    res.json({
+      token,
+      usuario: {
+        id: sessao.usuario.id,
+        nome: sessao.usuario.nome,
+        email: sessao.usuario.email,
+        perfil: sessao.usuario.perfil,
+        ativo: sessao.usuario.ativo,
+      },
+    });
+  } catch (erro) {
+    console.error(erro);
+    res.status(500).json({ mensagem: "Erro ao renovar sessão" });
+  }
+});
+
+app.post("/auth/logout", async (req, res) => {
+  const refreshToken = lerRefreshToken(req);
+
+  try {
+    await encerrarSessaoRefresh(pool, refreshToken);
+    limparCookieRefresh(res);
+    res.json({ mensagem: "Logout realizado com sucesso" });
+  } catch (erro) {
+    console.error(erro);
+    limparCookieRefresh(res);
+    res.status(500).json({ mensagem: "Erro ao encerrar sessão" });
   }
 });
 
@@ -542,6 +685,8 @@ app.get("/animais", async (req, res) => {
             SELECT
                 animais.id,
                 animais.nome,
+                animais.numero_brinco,
+                animais.data_nascimento,
                 animais.especie,
                 animais.raca,
                 animais.sexo,
@@ -586,6 +731,8 @@ app.get("/animais/:id", async (req, res) => {
       `SELECT
                 animais.id,
                 animais.nome,
+                animais.numero_brinco,
+                animais.data_nascimento,
                 animais.especie,
                 animais.raca,
                 animais.sexo,
@@ -667,7 +814,16 @@ app.get("/propriedades/:id/animais", async (req, res) => {
 
 app.post("/animais", async (req, res) => {
   try {
-    const { nome, especie, raca, sexo, peso, propriedade_id } = req.body;
+    const {
+      nome,
+      numero_brinco,
+      data_nascimento,
+      especie,
+      raca,
+      sexo,
+      peso,
+      propriedade_id,
+    } = req.body;
 
     if (!nome || !especie || !sexo || !propriedade_id) {
       return res.status(400).json({
@@ -684,6 +840,15 @@ app.post("/animais", async (req, res) => {
     if (peso !== undefined && peso !== null && peso < 0) {
       return res.status(400).json({
         mensagem: "Peso não pode ser negativo",
+      });
+    }
+
+    const numeroBrinco = normalizarNumeroBrinco(numero_brinco);
+    const dataNascimento = normalizarDataNascimento(data_nascimento);
+
+    if (numeroBrinco.erro || dataNascimento.erro) {
+      return res.status(400).json({
+        mensagem: numeroBrinco.erro || dataNascimento.erro,
       });
     }
 
@@ -701,12 +866,38 @@ app.post("/animais", async (req, res) => {
       });
     }
 
+    if (numeroBrinco.valor) {
+      const brincoExistente = await pool.query(
+        `SELECT 1
+           FROM animais
+          WHERE propriedade_id = $1
+            AND numero_brinco = $2`,
+        [propriedade_id, numeroBrinco.valor],
+      );
+
+      if (brincoExistente.rows.length > 0) {
+        return res.status(409).json({
+          mensagem:
+            "Ja existe um animal com este numero de brinco nesta propriedade",
+        });
+      }
+    }
+
     const resultado = await pool.query(
       `INSERT INTO animais
-            (nome, especie, raca, sexo, peso, propriedade_id)
-            VALUES ($1, $2, $3, $4, $5, $6)
+            (nome, numero_brinco, data_nascimento, especie, raca, sexo, peso, propriedade_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
             RETURNING *`,
-      [nome, especie, raca, sexo.toUpperCase(), peso, propriedade_id],
+      [
+        nome,
+        numeroBrinco.valor,
+        dataNascimento.valor,
+        especie,
+        raca,
+        sexo.toUpperCase(),
+        peso,
+        propriedade_id,
+      ],
     );
 
     res.status(201).json({
@@ -714,6 +905,16 @@ app.post("/animais", async (req, res) => {
       animal: resultado.rows[0],
     });
   } catch (erro) {
+    if (
+      erro.code === "23505" &&
+      erro.constraint === "animais_propriedade_numero_brinco_uidx"
+    ) {
+      return res.status(409).json({
+        mensagem:
+          "Ja existe um animal com este numero de brinco nesta propriedade",
+      });
+    }
+
     console.error(erro);
 
     res.status(500).json({
@@ -726,7 +927,16 @@ app.put("/animais/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const { nome, especie, raca, sexo, peso, propriedade_id } = req.body;
+    const {
+      nome,
+      numero_brinco,
+      data_nascimento,
+      especie,
+      raca,
+      sexo,
+      peso,
+      propriedade_id,
+    } = req.body;
 
     if (!nome || !especie || !sexo || !propriedade_id) {
       return res.status(400).json({
@@ -743,6 +953,15 @@ app.put("/animais/:id", async (req, res) => {
     if (peso !== undefined && peso !== null && peso < 0) {
       return res.status(400).json({
         mensagem: "Peso não pode ser negativo",
+      });
+    }
+
+    const numeroBrinco = normalizarNumeroBrinco(numero_brinco);
+    const dataNascimento = normalizarDataNascimento(data_nascimento);
+
+    if (numeroBrinco.erro || dataNascimento.erro) {
+      return res.status(400).json({
+        mensagem: numeroBrinco.erro || dataNascimento.erro,
       });
     }
 
@@ -773,6 +992,24 @@ app.put("/animais/:id", async (req, res) => {
       });
     }
 
+    if (numeroBrinco.valor) {
+      const brincoExistente = await pool.query(
+        `SELECT 1
+           FROM animais
+          WHERE propriedade_id = $1
+            AND numero_brinco = $2
+            AND id <> $3`,
+        [propriedade_id, numeroBrinco.valor, id],
+      );
+
+      if (brincoExistente.rows.length > 0) {
+        return res.status(409).json({
+          mensagem:
+            "Ja existe um animal com este numero de brinco nesta propriedade",
+        });
+      }
+    }
+
     const vinculoIncompativel = await pool.query(
       `SELECT 1
          FROM animais_lotes al
@@ -798,24 +1035,28 @@ app.put("/animais/:id", async (req, res) => {
     const resultado = await pool.query(
       `UPDATE animais
              SET nome = $1,
-                 especie = $2,
-                 raca = $3,
-                 sexo = $4,
-                 peso = $5,
-                 propriedade_id = $6
-             WHERE id = $7
+                 numero_brinco = $2,
+                 data_nascimento = $3,
+                 especie = $4,
+                 raca = $5,
+                 sexo = $6,
+                 peso = $7,
+                 propriedade_id = $8
+             WHERE id = $9
                AND (
-                 $8 = 'admin'
+                 $10 = 'admin'
                  OR EXISTS (
                    SELECT 1
                      FROM propriedades p
                     WHERE p.id = animais.propriedade_id
-                      AND p.usuario_id = $9
+                      AND p.usuario_id = $11
                  )
                )
              RETURNING *`,
       [
         nome,
+        numeroBrinco.valor,
+        dataNascimento.valor,
         especie,
         raca,
         sexo.toUpperCase(),
@@ -838,6 +1079,16 @@ app.put("/animais/:id", async (req, res) => {
       animal: resultado.rows[0],
     });
   } catch (erro) {
+    if (
+      erro.code === "23505" &&
+      erro.constraint === "animais_propriedade_numero_brinco_uidx"
+    ) {
+      return res.status(409).json({
+        mensagem:
+          "Ja existe um animal com este numero de brinco nesta propriedade",
+      });
+    }
+
     console.error(erro);
 
     res.status(500).json({
@@ -1929,7 +2180,14 @@ app.get("/animais/:id/vacinacoes", async (req, res) => {
 
 app.post("/despesas", async (req, res) => {
   try {
-    const { descricao, categoria, valor, data, propriedade_id } = req.body;
+    const {
+      descricao,
+      categoria,
+      forma_pagamento,
+      valor,
+      data,
+      propriedade_id,
+    } = req.body;
 
     if (!descricao || !categoria || !valor || !data || !propriedade_id) {
       return res.status(400).json({
@@ -1941,6 +2199,12 @@ app.post("/despesas", async (req, res) => {
       return res.status(400).json({
         mensagem: "O valor da despesa deve ser maior que zero",
       });
+    }
+
+    const formaPagamento = normalizarFormaPagamento(forma_pagamento);
+
+    if (formaPagamento.erro) {
+      return res.status(400).json({ mensagem: formaPagamento.erro });
     }
 
     const propriedadeExiste = await pool.query(
@@ -1959,10 +2223,17 @@ app.post("/despesas", async (req, res) => {
 
     const resultado = await pool.query(
       `INSERT INTO despesas
-            (descricao, categoria, valor, data, propriedade_id)
-            VALUES ($1, $2, $3, $4, $5)
+            (descricao, categoria, forma_pagamento, valor, data, propriedade_id)
+            VALUES ($1, $2, $3, $4, $5, $6)
             RETURNING *`,
-      [descricao, categoria, valor, data, propriedade_id],
+      [
+        descricao,
+        categoria,
+        formaPagamento.valor,
+        valor,
+        data,
+        propriedade_id,
+      ],
     );
 
     res.status(201).json({
@@ -1985,6 +2256,7 @@ app.get("/despesas", async (req, res) => {
                 despesas.id,
                 despesas.descricao,
                 despesas.categoria,
+                despesas.forma_pagamento,
                 despesas.valor,
                 despesas.data,
                 despesas.propriedade_id,
@@ -2016,6 +2288,7 @@ app.get("/despesas/:id", async (req, res) => {
                 despesas.id,
                 despesas.descricao,
                 despesas.categoria,
+                despesas.forma_pagamento,
                 despesas.valor,
                 despesas.data,
                 despesas.propriedade_id,
@@ -2049,7 +2322,14 @@ app.put("/despesas/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
-    const { descricao, categoria, valor, data, propriedade_id } = req.body;
+    const {
+      descricao,
+      categoria,
+      forma_pagamento,
+      valor,
+      data,
+      propriedade_id,
+    } = req.body;
 
     if (!descricao || !categoria || !valor || !data || !propriedade_id) {
       return res.status(400).json({
@@ -2061,6 +2341,12 @@ app.put("/despesas/:id", async (req, res) => {
       return res.status(400).json({
         mensagem: "O valor da despesa deve ser maior que zero",
       });
+    }
+
+    const formaPagamento = normalizarFormaPagamento(forma_pagamento);
+
+    if (formaPagamento.erro) {
+      return res.status(400).json({ mensagem: formaPagamento.erro });
     }
 
     const propriedadeExiste = await pool.query(
@@ -2081,23 +2367,25 @@ app.put("/despesas/:id", async (req, res) => {
       `UPDATE despesas
              SET descricao = $1,
                  categoria = $2,
-                 valor = $3,
-                 data = $4,
-                 propriedade_id = $5
-             WHERE id = $6
+                 forma_pagamento = $3,
+                 valor = $4,
+                 data = $5,
+                 propriedade_id = $6
+             WHERE id = $7
                AND (
-                 $7 = 'admin'
+                 $8 = 'admin'
                  OR EXISTS (
                    SELECT 1
                      FROM propriedades p
                     WHERE p.id = despesas.propriedade_id
-                      AND p.usuario_id = $8
+                      AND p.usuario_id = $9
                  )
                )
              RETURNING *`,
       [
         descricao,
         categoria,
+        formaPagamento.valor,
         valor,
         data,
         propriedade_id,

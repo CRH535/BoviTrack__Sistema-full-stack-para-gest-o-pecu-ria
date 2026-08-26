@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import { formatarDataSemFuso } from "../utils/datas";
 
 const resumoInicial = {
   propriedades: 0,
@@ -124,7 +125,7 @@ function Dashboard() {
                 </div>
                 <time>
                   {vacinacao.proxima_dose
-                    ? new Date(vacinacao.proxima_dose).toLocaleDateString("pt-BR")
+                    ? formatarDataSemFuso(vacinacao.proxima_dose)
                     : "-"}
                 </time>
               </div>

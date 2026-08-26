@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import { formatarDataSemFuso } from "../utils/datas";
 
 function Vacinacoes() {
   const [vacinacoes, setVacinacoes] = useState([]);
@@ -240,14 +241,14 @@ function Vacinacoes() {
           <p>
             Aplicação:{" "}
             {vacinacao.data_aplicacao
-              ? new Date(vacinacao.data_aplicacao).toLocaleDateString("pt-BR")
+              ? formatarDataSemFuso(vacinacao.data_aplicacao)
               : "-"}
           </p>
 
           <p>
             Próxima dose:{" "}
             {vacinacao.proxima_dose
-              ? new Date(vacinacao.proxima_dose).toLocaleDateString("pt-BR")
+              ? formatarDataSemFuso(vacinacao.proxima_dose)
               : "Não informada"}
           </p>
 

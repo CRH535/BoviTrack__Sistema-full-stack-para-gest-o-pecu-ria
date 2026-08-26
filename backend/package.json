@@ -4,10 +4,13 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "db:check": "node scripts/check-database.js",
+    "migrate:supabase": "node scripts/migrate-to-supabase.js",
     "migrate:auth": "node scripts/migrate-auth.js",
     "migrate:animal-lots": "node scripts/migrate-animal-lots.js",
     "migrate:animals": "node scripts/migrate-animals.js",
     "migrate:expenses": "node scripts/migrate-expenses.js",
+    "migrate:sessions": "node scripts/migrate-refresh-sessions.js",
     "migrate:users": "node scripts/migrate-users.js",
     "test": "node tests/auth-permissions.js",
     "start": "node server.js"

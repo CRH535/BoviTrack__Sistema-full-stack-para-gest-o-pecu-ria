@@ -3,15 +3,7 @@ require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
 const bcrypt = require("bcryptjs");
-const { Pool } = require("pg");
-
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
-});
+const pool = require("../database/pool");
 
 const nome = process.env.ADMIN_NOME?.trim();
 const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
