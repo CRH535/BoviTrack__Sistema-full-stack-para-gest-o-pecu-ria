@@ -247,14 +247,12 @@ hr { display: none; }
 .auth-mobile-brand strong { color: #7ed957; }
 
 .brand-symbol {
-  display: grid;
+  display: block;
   width: 28px;
   height: 28px;
-  place-items: center;
+  flex: 0 0 28px;
   border-radius: 9px;
-  color: #91e46d;
-  background: rgba(126, 217, 87, 0.12);
-  font-size: 1.3rem;
+  object-fit: contain;
 }
 
 .nav-links {
@@ -871,8 +869,14 @@ hr { display: none; }
 }
 
 @media (max-width: 680px) {
-  .brand { font-size: 0; }
-  .brand::after { content: "AC"; color: #8de268; font-size: 0.85rem; font-weight: 900; }
+  .brand { gap: 0; font-size: 0; }
+  .brand-symbol {
+    display: block;
+    width: 28px;
+    height: 28px;
+    flex-basis: 28px;
+    object-fit: contain;
+  }
   .nav-link span { display: none; }
   .nav-link { width: 38px; padding: 8px; justify-content: center; }
   .topbar { padding: 13px 18px; }

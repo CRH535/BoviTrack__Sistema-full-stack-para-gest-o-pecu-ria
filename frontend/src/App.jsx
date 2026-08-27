@@ -36,7 +36,12 @@ const itensMenu = [
 function Marca() {
   return (
     <span className="brand">
-      <span className="brand-symbol" aria-hidden="true">⌁</span>
+      <img
+        className="brand-symbol"
+        src="/favicon.svg"
+        alt=""
+        aria-hidden="true"
+      />
       <span><strong>BOVI</strong>TRACK</span>
     </span>
   );
