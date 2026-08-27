@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../services/api";
 import { formatarDataSemFuso } from "../utils/datas";
 import IconeImagem from "../components/IconeImagem";
@@ -32,10 +33,10 @@ function Dashboard() {
   }, []);
 
   const indicadores = [
-    { nome: "Propriedades", valor: Number(resumo.propriedades), icon: "propriedades" },
-    { nome: "Animais", valor: Number(resumo.animais), icon: "animais" },
-    { nome: "Lotes", valor: Number(resumo.lotes), icon: "lotes" },
-    { nome: "Vacinas", valor: Number(resumo.vacinas), icon: "vacinas" },
+    { nome: "Propriedades", valor: Number(resumo.propriedades), icon: "propriedades", rota: "/propriedades" },
+    { nome: "Animais", valor: Number(resumo.animais), icon: "animais", rota: "/animais" },
+    { nome: "Lotes", valor: Number(resumo.lotes), icon: "lotes", rota: "/lotes" },
+    { nome: "Vacinas", valor: Number(resumo.vacinas), icon: "vacinas", rota: "/vacinas" },
   ];
   const maiorIndicador = Math.max(1, ...indicadores.map((item) => item.valor));
 
@@ -54,7 +55,12 @@ function Dashboard() {
 
       <section className="stats-grid" aria-label="Resumo do sistema">
         {indicadores.map((item) => (
-          <article className="stat-card" key={item.nome}>
+          <Link
+            className="stat-card dashboard-link-card"
+            key={item.nome}
+            to={item.rota}
+            aria-label={`Abrir ${item.nome}`}
+          >
             <div>
               <span>{item.nome}</span>
               <strong>{item.valor}</strong>
@@ -63,10 +69,14 @@ function Dashboard() {
             <span className="stat-icon" aria-hidden="true">
               <IconeImagem nome={item.icon} className="stat-icon-image" />
             </span>
-          </article>
+          </Link>
         ))}
 
-        <article className="stat-card stat-card-finance">
+        <Link
+          className="stat-card stat-card-finance dashboard-link-card"
+          to="/despesas"
+          aria-label="Abrir Despesas"
+        >
           <div>
             <span>Despesas totais</span>
             <strong>R$ {Number(resumo.total_despesas).toLocaleString("pt-BR", {
@@ -78,7 +88,7 @@ function Dashboard() {
           <span className="stat-icon" aria-hidden="true">
             <IconeImagem nome="despesas" className="stat-icon-image" />
           </span>
-        </article>
+        </Link>
       </section>
 
       <section className="dashboard-panels">
@@ -104,7 +114,11 @@ function Dashboard() {
           </div>
         </article>
 
-        <article className="panel activity-panel">
+        <Link
+          className="panel activity-panel dashboard-link-card"
+          to="/vacinacoes"
+          aria-label="Abrir Vacinações"
+        >
           <div className="panel-heading">
             <div>
               <span className="eyebrow">Agenda sanitária</span>
@@ -140,7 +154,7 @@ function Dashboard() {
               </div>
             ))}
           </div>
-        </article>
+        </Link>
       </section>
     </div>
   );

@@ -539,6 +539,19 @@ hr { display: none; }
   box-shadow: var(--shadow-sm);
 }
 
+.dashboard-link-card {
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.dashboard-link-card:hover {
+  border-color: #c8dfd1;
+  box-shadow: 0 8px 22px rgba(20, 56, 40, 0.09);
+  transform: translateY(-1px);
+}
+
 .stat-card > div { display: grid; gap: 5px; }
 .stat-card span:first-child { color: var(--text-muted); font-size: 0.75rem; font-weight: 700; }
 .stat-card strong { color: var(--text); font-size: 1.65rem; line-height: 1.1; letter-spacing: -0.04em; }
