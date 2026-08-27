@@ -192,6 +192,22 @@ async function executar() {
   const tokenA = loginA.dados.token;
   const tokenB = loginB.dados.token;
 
+  const edicaoPropriaA = await requisitar("/usuarios/me", {
+    metodo: "PUT",
+    token: tokenA,
+    corpo: {
+      nome: "Usuário A Atualizado",
+      email: emailA,
+      perfil: "admin",
+    },
+  });
+  confirmar(
+    "usuário atualiza somente nome/email da própria conta",
+    edicaoPropriaA.status === 200 &&
+      edicaoPropriaA.dados.usuario.nome === "Usuário A Atualizado" &&
+      edicaoPropriaA.dados.usuario.perfil === "usuario",
+  );
+
   const dashboardNovoA = await requisitar("/dashboard", { token: tokenA });
   confirmar(
     "Dashboard de conta nova carrega zerado",
@@ -740,7 +756,9 @@ async function executar() {
   confirmar("lista de usuários é exclusiva do admin", usuariosAdmin.status === 200 && (await requisitar("/usuarios", { token: tokenA })).status === 403);
   confirmar("lista de usuários nunca retorna hash", usuariosAdmin.dados.every((usuario) => usuario.senha === undefined));
   confirmar("admin principal não pode ser desativado", (await requisitar(`/usuarios/${adminLogin.dados.usuario.id}/ativo`, { metodo: "PUT", token: tokenAdmin, corpo: { ativo: false } })).status === 403);
-  confirmar("DELETE administrativo preserva usuário e seus dados", (await requisitar(`/usuarios/${cadastroB.dados.usuario.id}`, { metodo: "DELETE", token: tokenAdmin })).status === 400);
+  confirmar("admin principal não pode excluir a própria conta", (await requisitar(`/usuarios/${adminLogin.dados.usuario.id}`, { metodo: "DELETE", token: tokenAdmin })).status === 403);
+  confirmar("admin principal não pode usar exclusão da própria conta", (await requisitar("/usuarios/me", { metodo: "DELETE", token: tokenAdmin, corpo: { confirmacao: "EXCLUIR" } })).status === 403);
+  confirmar("exclusão própria exige confirmação textual", (await requisitar("/usuarios/me", { metodo: "DELETE", token: tokenA, corpo: { confirmacao: "excluir", usuario_id: cadastroB.dados.usuario.id } })).status === 400);
 
   const desativacaoA = await requisitar(`/usuarios/${cadastroA.dados.usuario.id}/ativo`, {
     metodo: "PUT", token: tokenAdmin, corpo: { ativo: false },
@@ -754,6 +772,53 @@ async function executar() {
   });
   confirmar("admin reativa USUARIO_A", reativacaoA.status === 200 && reativacaoA.dados.usuario.ativo === true);
   confirmar("USUARIO_A volta a fazer login", (await login(emailA, senhaUsuario)).status === 200);
+
+  const exclusaoB = await requisitar(`/usuarios/${cadastroB.dados.usuario.id}`, {
+    metodo: "DELETE",
+    token: tokenAdmin,
+  });
+  confirmar("admin exclui usuário comum e seus dados", exclusaoB.status === 200);
+  confirmar("usuário excluído pelo admin não consegue login", (await login(emailB, senhaUsuario)).status === 401);
+  confirmar("token do usuário excluído pelo admin é invalidado", (await requisitar("/dashboard", { token: tokenB })).status === 401);
+
+  const dadosRestantesB = await pool.query(
+    `SELECT
+       (SELECT COUNT(*) FROM usuarios WHERE id = $1)::integer AS usuarios,
+       (SELECT COUNT(*) FROM propriedades WHERE usuario_id = $1)::integer AS propriedades,
+       (SELECT COUNT(*) FROM vacinas WHERE usuario_id = $1)::integer AS vacinas,
+       (SELECT COUNT(*) FROM sessoes_refresh WHERE usuario_id = $1)::integer AS sessoes`,
+    [cadastroB.dados.usuario.id],
+  );
+  confirmar(
+    "exclusão administrativa não deixa dados diretos do usuário",
+    Object.values(dadosRestantesB.rows[0]).every((total) => total === 0),
+  );
+
+  const exclusaoPropriaA = await requisitar("/usuarios/me", {
+    metodo: "DELETE",
+    token: tokenA,
+    corpo: {
+      confirmacao: "EXCLUIR",
+      usuario_id: cadastroAdministrativo.dados.usuario.id,
+    },
+  });
+  confirmar("usuário comum exclui somente a própria conta", exclusaoPropriaA.status === 200);
+  confirmar("conta excluída pelo próprio usuário não consegue login", (await login(emailA, senhaUsuario)).status === 401);
+  confirmar("token da conta excluída pelo próprio usuário é invalidado", (await requisitar("/dashboard", { token: tokenA })).status === 401);
+
+  const dadosRestantesA = await pool.query(
+    `SELECT
+       (SELECT COUNT(*) FROM usuarios WHERE id = $1)::integer AS usuarios,
+       (SELECT COUNT(*) FROM propriedades WHERE usuario_id = $1)::integer AS propriedades,
+       (SELECT COUNT(*) FROM vacinas WHERE usuario_id = $1)::integer AS vacinas,
+       (SELECT COUNT(*) FROM sessoes_refresh WHERE usuario_id = $1)::integer AS sessoes`,
+    [cadastroA.dados.usuario.id],
+  );
+  confirmar(
+    "exclusão própria não aceita usuario_id do body e remove somente a conta autenticada",
+    Object.values(dadosRestantesA.rows[0]).every((total) => total === 0) &&
+      (await pool.query("SELECT COUNT(*)::integer AS total FROM usuarios WHERE id = $1", [cadastroAdministrativo.dados.usuario.id])).rows[0].total === 1,
+  );
 }
 
 executar()

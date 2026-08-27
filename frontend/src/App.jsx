@@ -21,6 +21,7 @@ import Despesas from "./pages/Despesas";
 import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
 import Usuarios from "./pages/Usuarios";
+import MinhaConta from "./pages/MinhaConta";
 import IconeImagem from "./components/IconeImagem";
 
 const itensMenu = [
@@ -85,6 +86,16 @@ function Layout() {
               <span>Usuários</span>
             </NavLink>
           )}
+
+          {usuario.perfil === "usuario" && (
+            <NavLink
+              to="/minha-conta"
+              className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
+            >
+              <IconeImagem nome="usuarios" className="nav-icon-image" />
+              <span>Minha Conta</span>
+            </NavLink>
+          )}
         </nav>
 
         <div className="nav-user">
@@ -138,6 +149,7 @@ function App() {
           <Route path="vacinas" element={<Vacinas />} />
           <Route path="vacinacoes" element={<Vacinacoes />} />
           <Route path="despesas" element={<Despesas />} />
+          <Route path="minha-conta" element={<MinhaConta />} />
           <Route element={<AdminRoute />}>
             <Route path="usuarios" element={<Usuarios />} />
           </Route>

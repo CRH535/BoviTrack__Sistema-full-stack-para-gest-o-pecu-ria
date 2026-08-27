@@ -2,6 +2,8 @@ const express = require("express");
 const pool = require("../database/pool");
 const { somenteAdmin } = require("../middleware/autenticacao");
 const { responderCriacaoUsuario } = require("../controllers/usuariosController")
+const { excluirUsuarioComDados } = require("../services/usuarios");
+const { limparCookieRefresh } = require("../services/sessoes");
 
 const router = express.Router();
 
@@ -25,6 +27,76 @@ router.get("/usuarios", somenteAdmin, async (req, res) => {
   } catch (erro) {
     console.error(erro);
     res.status(500).json({ mensagem: "Erro ao buscar usuários" });
+  }
+});
+
+router.put("/usuarios/me", async (req, res) => {
+  try {
+    const { nome: nomeRecebido, email: emailRecebido } = req.body;
+
+    if (typeof nomeRecebido !== "string" || typeof emailRecebido !== "string") {
+      return res.status(400).json({ mensagem: "Nome e email são obrigatórios" });
+    }
+
+    const nome = nomeRecebido.trim();
+    const email = emailRecebido.trim().toLowerCase();
+
+    if (!nome || !email) {
+      return res.status(400).json({ mensagem: "Nome e email são obrigatórios" });
+    }
+
+    if (nome.length > 120 || email.length > 255) {
+      return res.status(400).json({ mensagem: "Nome ou email excede o tamanho permitido" });
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ mensagem: "Email inválido" });
+    }
+
+    const resultado = await pool.query(
+      `UPDATE usuarios
+          SET nome = $1,
+              email = $2
+        WHERE id = $3
+        RETURNING id, nome, email, perfil, ativo, created_at`,
+      [nome, email, req.usuario.id],
+    );
+
+    res.json({
+      mensagem: "Conta atualizada com sucesso!",
+      usuario: resultado.rows[0],
+    });
+  } catch (erro) {
+    if (erro.code === "23505") {
+      return res.status(409).json({ mensagem: "Este email já está cadastrado" });
+    }
+
+    console.error(erro);
+    res.status(500).json({ mensagem: "Erro ao atualizar conta" });
+  }
+});
+
+router.delete("/usuarios/me", async (req, res) => {
+  if (req.body?.confirmacao !== "EXCLUIR") {
+    return res.status(400).json({
+      mensagem: "Digite EXCLUIR para confirmar a exclusão da conta",
+    });
+  }
+
+  try {
+    await excluirUsuarioComDados(req.usuario.id);
+    limparCookieRefresh(res);
+
+    res.json({ mensagem: "Sua conta foi excluída com sucesso" });
+  } catch (erro) {
+    if (erro.status) {
+      return res.status(erro.status).json({ mensagem: erro.message });
+    }
+
+    console.error(erro);
+    res.status(500).json({
+      mensagem: "Não foi possível excluir sua conta. Nenhum dado foi removido",
+    });
   }
 });
 
@@ -142,26 +214,28 @@ router.put("/usuarios/:id/ativo", somenteAdmin, async (req, res) => {
 });
 
 router.delete("/usuarios/:id", somenteAdmin, async (req, res) => {
+  if (Number(req.params.id) === Number(req.usuario.id)) {
+    return res.status(403).json({
+      mensagem: "O administrador não pode excluir a própria conta",
+    });
+  }
+
   try {
-    const resultado = await pool.query(
-      "SELECT id, perfil FROM usuarios WHERE id = $1",
-      [req.params.id],
-    );
+    const resultado = await excluirUsuarioComDados(req.params.id);
 
-    if (resultado.rows.length === 0) {
-      return res.status(404).json({ mensagem: "Usuário não encontrado" });
-    }
-
-    if (resultado.rows[0].perfil === "admin") {
-      return res.status(403).json({ mensagem: "O administrador principal não pode ser excluído" });
-    }
-
-    res.status(400).json({
-      mensagem: "A exclusão de usuários está desabilitada. Desative o usuário para preservar seus dados",
+    res.json({
+      mensagem: "Usuário e dados vinculados excluídos com sucesso",
+      usuario: resultado.usuario,
     });
   } catch (erro) {
+    if (erro.status) {
+      return res.status(erro.status).json({ mensagem: erro.message });
+    }
+
     console.error(erro);
-    res.status(500).json({ mensagem: "Erro ao verificar usuário" });
+    res.status(500).json({
+      mensagem: "Não foi possível excluir o usuário. Nenhum dado foi removido",
+    });
   }
 });
 
@@ -170,4 +244,3 @@ router.delete("/usuarios/:id", somenteAdmin, async (req, res) => {
 // =========================
 
 module.exports = router;
-

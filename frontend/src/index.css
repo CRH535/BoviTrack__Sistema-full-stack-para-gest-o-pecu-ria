@@ -654,6 +654,81 @@ hr { display: none; }
 .users-table tbody tr:hover { background: #fbfdfc; }
 .users-table tbody tr:last-child td { border-bottom: none; }
 
+.account-page { max-width: 960px; }
+.account-card { padding: clamp(20px, 3vw, 30px); }
+.account-heading { display: flex; margin-bottom: 24px; align-items: center; gap: 14px; }
+.account-heading h2 { margin: 0; }
+.account-avatar { display: grid; flex: 0 0 46px; }
+
+.account-details {
+  display: grid;
+  margin: 0 0 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.account-details > div {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+}
+
+.account-details dt { margin-bottom: 5px; color: var(--text-muted); font-size: 0.7rem; font-weight: 800; text-transform: uppercase; }
+.account-details dd { margin: 0; overflow-wrap: anywhere; color: var(--text); font-weight: 700; }
+
+.account-form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.account-form > div { min-width: 0; }
+.account-form .form-actions { grid-column: 1 / -1; }
+
+.danger-zone {
+  display: flex;
+  margin-top: 22px;
+  padding: clamp(20px, 3vw, 28px);
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  border-color: #f0c9c5;
+  background: #fffafa;
+}
+
+.danger-zone h2 { margin-bottom: 7px; color: var(--danger); }
+.danger-zone p { max-width: 650px; margin: 0; }
+.danger-zone > button { flex: 0 0 auto; }
+.danger-kicker { display: block; margin-bottom: 5px; color: var(--danger); font-size: 0.68rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; }
+.protected-account-badge { padding: 8px 12px; border: 1px solid var(--border); border-radius: 999px; color: var(--text-muted); background: var(--surface-soft); font-size: 0.75rem; font-weight: 700; white-space: nowrap; }
+
+.dialog-backdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  padding: 20px;
+  place-items: center;
+  background: rgba(5, 32, 22, 0.62);
+  backdrop-filter: blur(3px);
+}
+
+.confirmation-dialog {
+  width: min(100%, 500px);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  padding: clamp(22px, 4vw, 30px);
+  box-shadow: 0 24px 70px rgba(3, 27, 18, 0.28);
+}
+
+.confirmation-dialog h2 { margin-bottom: 10px; }
+.confirmation-dialog p { margin-bottom: 22px; }
+.confirmation-field { margin-bottom: 20px; }
+.confirmation-field strong { color: var(--danger); }
+.confirmation-actions { display: flex; justify-content: flex-end; gap: 10px; }
+
 .inline-loading { min-height: 260px; background: transparent; }
 
 .animal-profile-card {
@@ -909,6 +984,13 @@ hr { display: none; }
   .milk-form-actions button { width: 100%; }
   .user-form h2,
   .user-form .form-actions { grid-column: 1; }
+  .account-details,
+  .account-form { grid-template-columns: 1fr; }
+  .account-form .form-actions { grid-column: 1; }
+  .danger-zone { align-items: stretch; flex-direction: column; }
+  .danger-zone > button { width: 100%; }
+  .confirmation-actions { flex-direction: column-reverse; }
+  .confirmation-actions button { width: 100%; }
   .record-grid { grid-template-columns: 1fr; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .stat-card,

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ConfirmacaoExclusao from "../components/ConfirmacaoExclusao";
 import api from "../services/api";
 
 const formularioInicial = {
@@ -15,6 +16,8 @@ function Usuarios() {
   const [editandoId, setEditandoId] = useState(null);
   const [mensagem, setMensagem] = useState("");
   const [salvando, setSalvando] = useState(false);
+  const [usuarioParaExcluir, setUsuarioParaExcluir] = useState(null);
+  const [excluindo, setExcluindo] = useState(false);
 
   useEffect(() => {
     carregarUsuarios();
@@ -126,6 +129,28 @@ function Usuarios() {
       setMensagem(
         erro.response?.data?.mensagem || "Erro ao alterar situação do usuário",
       );
+    }
+  }
+
+  async function excluirUsuario() {
+    if (!usuarioParaExcluir) return;
+
+    setExcluindo(true);
+    setMensagem("");
+
+    try {
+      const resposta = await api.delete(`/usuarios/${usuarioParaExcluir.id}`);
+      setUsuarios((atuais) =>
+        atuais.filter((usuario) => usuario.id !== usuarioParaExcluir.id),
+      );
+      setMensagem(resposta.data.mensagem);
+      setUsuarioParaExcluir(null);
+    } catch (erro) {
+      setMensagem(
+        erro.response?.data?.mensagem || "Erro ao excluir usuário",
+      );
+    } finally {
+      setExcluindo(false);
     }
   }
 
@@ -241,9 +266,18 @@ function Usuarios() {
                   </button>
 
                   {usuario.perfil === "usuario" && (
-                    <button className="button-small" type="button" onClick={() => alterarSituacao(usuario)}>
-                      {usuario.ativo ? "Desativar" : "Ativar"}
-                    </button>
+                    <>
+                      <button className="button-small" type="button" onClick={() => alterarSituacao(usuario)}>
+                        {usuario.ativo ? "Desativar" : "Ativar"}
+                      </button>
+                      <button
+                        className="button-danger button-small"
+                        type="button"
+                        onClick={() => setUsuarioParaExcluir(usuario)}
+                      >
+                        Excluir usuário
+                      </button>
+                    </>
                   )}
                 </td>
               </tr>
@@ -253,6 +287,15 @@ function Usuarios() {
       </div>
 
       {usuarios.length === 0 && <p>Nenhum usuário cadastrado.</p>}
+
+      <ConfirmacaoExclusao
+        aberto={Boolean(usuarioParaExcluir)}
+        titulo={`Excluir ${usuarioParaExcluir?.nome || "usuário"}?`}
+        mensagem="A conta e todos os dados vinculados a ela serão excluídos permanentemente. Esta ação não poderá ser desfeita."
+        processando={excluindo}
+        onCancelar={() => setUsuarioParaExcluir(null)}
+        onConfirmar={excluirUsuario}
+      />
     </div>
   );
 }
