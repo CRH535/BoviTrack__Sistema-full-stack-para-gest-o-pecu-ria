@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
+import { useBlackHoleTransition } from "../transitions/useBlackHoleTransition";
 
 function Login() {
   const location = useLocation();
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [mensagem, setMensagem] = useState(location.state?.mensagem || "");
@@ -13,8 +13,17 @@ function Login() {
   );
   const [enviando, setEnviando] = useState(false);
   const { autenticado, carregando, login } = useAuth();
+  const {
+    iniciarTransicao,
+    sinalizarDestinoPronto,
+    transicaoAtiva,
+  } = useBlackHoleTransition();
 
-  if (!carregando && autenticado) {
+  useEffect(() => {
+    sinalizarDestinoPronto("login");
+  }, [sinalizarDestinoPronto]);
+
+  if (!carregando && autenticado && !enviando && !transicaoAtiva) {
     return <Navigate to="/" replace />;
   }
 
@@ -26,7 +35,7 @@ function Login() {
 
     try {
       await login(email, senha);
-      navigate(location.state?.from?.pathname || "/", { replace: true });
+      iniciarTransicao(location.state?.from?.pathname || "/");
     } catch (erro) {
       setMensagem(erro.response?.data?.mensagem || "Erro ao realizar login");
     } finally {
@@ -83,7 +92,7 @@ function Login() {
             placeholder="Digite sua senha"
           />
 
-          <button type="submit" disabled={enviando}>
+          <button type="submit" disabled={enviando || transicaoAtiva}>
             {enviando ? "Entrando..." : "Entrar"}
           </button>
         </form>

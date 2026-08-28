@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import api from "../services/api";
 import { formatarDataSemFuso } from "../utils/datas";
 import IconeImagem from "../components/IconeImagem";
+import { useBlackHoleTransition } from "../transitions/useBlackHoleTransition";
 
 const resumoInicial = {
   propriedades: 0,
@@ -16,21 +17,43 @@ function Dashboard() {
   const [resumo, setResumo] = useState(resumoInicial);
   const [proximasVacinacoes, setProximasVacinacoes] = useState([]);
   const [erro, setErro] = useState("");
+  const [carregamentoConcluido, setCarregamentoConcluido] = useState(false);
+  const { sinalizarDestinoPronto } = useBlackHoleTransition();
 
   useEffect(() => {
+    let componenteAtivo = true;
+
     async function carregarDashboard() {
       try {
         const resposta = await api.get("/dashboard");
-        setResumo(resposta.data.resumo);
-        setProximasVacinacoes(resposta.data.proximas_vacinacoes);
+        if (componenteAtivo) {
+          setResumo(resposta.data.resumo);
+          setProximasVacinacoes(resposta.data.proximas_vacinacoes);
+        }
       } catch (erroCarregamento) {
         console.error(erroCarregamento);
-        setErro("Erro ao carregar o dashboard");
+        if (componenteAtivo) {
+          setErro("Erro ao carregar o dashboard");
+        }
+      } finally {
+        if (componenteAtivo) {
+          setCarregamentoConcluido(true);
+        }
       }
     }
 
     carregarDashboard();
+
+    return () => {
+      componenteAtivo = false;
+    };
   }, []);
+
+  useEffect(() => {
+    if (carregamentoConcluido) {
+      sinalizarDestinoPronto("dashboard");
+    }
+  }, [carregamentoConcluido, sinalizarDestinoPronto]);
 
   const indicadores = [
     { nome: "Propriedades", valor: Number(resumo.propriedades), icon: "propriedades", rota: "/propriedades" },

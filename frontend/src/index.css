@@ -19,6 +19,12 @@
   --radius-sm: 8px;
   --radius: 14px;
   --radius-lg: 22px;
+  --black-hole-absorb-duration: 2250ms;
+  --black-hole-reveal-duration: 2050ms;
+  --black-hole-interface-release-duration: 1200ms;
+  --black-hole-disc-back-duration: 4600ms;
+  --black-hole-disc-front-duration: 5400ms;
+  --black-hole-brand-pulse-duration: 2600ms;
   --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", sans-serif;
   font-family: var(--font);
@@ -358,6 +364,7 @@ hr { display: none; }
 .topbar-dot { width: 8px; height: 8px; border-radius: 50%; background: #20a45b; box-shadow: 0 0 0 4px rgba(32, 164, 91, 0.12); }
 
 .page-content { width: 100%; max-width: 1540px; margin: 0 auto; padding: clamp(24px, 3vw, 42px); }
+.page-content:focus { outline: none; }
 .page { width: 100%; }
 
 .page-header,
@@ -906,6 +913,519 @@ hr { display: none; }
 .auth-mobile-brand { display: none; margin-bottom: 28px; color: var(--green-950); }
 .register-card form { margin-top: 18px; gap: 7px; }
 .register-card input { min-height: 40px; }
+
+/* Transição visual entre a autenticação confirmada e a aplicação protegida. */
+.black-hole-transition-active,
+.black-hole-transition-active body { overflow: hidden; }
+
+.black-hole-surface {
+  min-height: 100vh;
+  transform-origin:
+    calc(50vw + var(--black-hole-scroll-x, 0px))
+    calc(50vh + var(--black-hole-scroll-y, 0px));
+  backface-visibility: hidden;
+}
+
+.black-hole-surface--absorbing {
+  pointer-events: none;
+  animation: black-hole-surface-absorb var(--black-hole-absorb-duration)
+    cubic-bezier(0.72, 0, 0.9, 0.42) both;
+  will-change: transform, opacity, filter;
+}
+
+.black-hole-surface--covered {
+  pointer-events: none;
+  opacity: 0;
+  filter: blur(4px) brightness(0.25);
+  transform: scale(0.035) rotate(9deg);
+}
+
+.black-hole-surface--revealing {
+  pointer-events: none;
+  animation: black-hole-surface-reveal var(--black-hole-reveal-duration)
+    cubic-bezier(0.12, 0.74, 0.22, 1) both;
+  will-change: transform, opacity, filter;
+}
+
+.black-hole-surface--revealing .sidebar,
+.black-hole-surface--revealing .topbar,
+.black-hole-surface--revealing .page-content {
+  animation: black-hole-interface-release var(--black-hole-interface-release-duration)
+    cubic-bezier(0.16, 0.72, 0.22, 1) both;
+}
+
+.black-hole-surface--revealing .sidebar {
+  --black-hole-release-x: -18px;
+  --black-hole-release-y: 0px;
+  animation-delay: 180ms;
+}
+
+.black-hole-surface--revealing .topbar {
+  --black-hole-release-x: 0px;
+  --black-hole-release-y: -14px;
+  animation-delay: 340ms;
+}
+
+.black-hole-surface--revealing .page-content {
+  --black-hole-release-x: 0px;
+  --black-hole-release-y: 18px;
+  animation-delay: 520ms;
+}
+
+.black-hole-transition {
+  position: fixed;
+  z-index: 5000;
+  inset: 0;
+  overflow: hidden;
+  min-width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
+  pointer-events: auto;
+  isolation: isolate;
+  background: #010305;
+  contain: strict;
+}
+
+.black-hole-transition--absorbing {
+  animation: black-hole-curtain-in var(--black-hole-absorb-duration)
+    cubic-bezier(0.55, 0.05, 0.82, 0.38) both;
+}
+
+.black-hole-transition--covered { opacity: 1; }
+
+.black-hole-transition--covered .black-hole-transition__starfield {
+  opacity: 0.08;
+  transform: scale(0.35) rotate(8deg);
+}
+
+.black-hole-transition--covered .black-hole-transition__stage {
+  opacity: 1;
+  transform: translate3d(-50%, -50%, 0) scale(1.14);
+}
+
+.black-hole-transition--revealing {
+  animation: black-hole-curtain-out var(--black-hole-reveal-duration)
+    cubic-bezier(0.15, 0.68, 0.24, 1) both;
+}
+
+.black-hole-transition__starfield {
+  position: absolute;
+  inset: -12%;
+  opacity: 0.72;
+  background-image:
+    radial-gradient(circle at 16% 22%, rgba(255, 255, 255, 0.92) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 73% 14%, rgba(173, 219, 255, 0.8) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 31% 78%, rgba(255, 225, 168, 0.85) 0 1.2px, transparent 2px),
+    radial-gradient(circle at 88% 67%, rgba(255, 255, 255, 0.72) 0 1px, transparent 1.8px),
+    radial-gradient(circle at 52% 43%, rgba(197, 229, 255, 0.7) 0 1px, transparent 1.7px);
+  background-size: 31vmin 29vmin, 37vmin 33vmin, 43vmin 39vmin, 29vmin 35vmin,
+    47vmin 41vmin;
+  will-change: transform, opacity;
+}
+
+.black-hole-transition--absorbing .black-hole-transition__starfield {
+  animation: black-hole-stars-in var(--black-hole-absorb-duration) ease-in both;
+}
+
+.black-hole-transition--revealing .black-hole-transition__starfield {
+  animation: black-hole-stars-out var(--black-hole-reveal-duration) ease-out both;
+}
+
+.black-hole-transition__stage {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: clamp(180px, 38vmin, 430px);
+  aspect-ratio: 1;
+  transform: translate3d(-50%, -50%, 0);
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.black-hole-transition--absorbing .black-hole-transition__stage {
+  animation: black-hole-stage-in var(--black-hole-absorb-duration)
+    cubic-bezier(0.38, 0.05, 0.42, 1) both;
+}
+
+.black-hole-transition--revealing .black-hole-transition__stage {
+  animation: black-hole-stage-out var(--black-hole-reveal-duration)
+    cubic-bezier(0.16, 0.7, 0.24, 1) both;
+}
+
+.black-hole-transition__halo {
+  position: absolute;
+  inset: 6%;
+  border-radius: 50%;
+  opacity: 0.84;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0) 35%,
+    rgba(71, 177, 255, 0.28) 48%,
+    rgba(154, 82, 255, 0.18) 59%,
+    transparent 72%
+  );
+  box-shadow: 0 0 8vmin rgba(46, 146, 255, 0.2), 0 0 15vmin rgba(93, 39, 190, 0.12);
+  filter: blur(4px);
+}
+
+.black-hole-transition__disc {
+  position: absolute;
+  z-index: 1;
+  top: 23%;
+  left: -18%;
+  width: 136%;
+  height: 54%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 32deg,
+    transparent 0 7%,
+    rgba(77, 164, 255, 0.3) 11%,
+    #d9f2ff 17%,
+    #8a6dff 24%,
+    rgba(255, 89, 45, 0.88) 38%,
+    #ffd082 48%,
+    rgba(255, 255, 255, 0.9) 54%,
+    rgba(60, 141, 255, 0.65) 67%,
+    transparent 82% 100%
+  );
+  box-shadow: 0 0 3vmin rgba(255, 160, 78, 0.46), 0 0 7vmin rgba(83, 94, 255, 0.34);
+  filter: blur(1.2px) saturate(1.2);
+  transform: rotate(-12deg) scaleY(0.31);
+}
+
+.black-hole-transition__disc::after {
+  content: "";
+  position: absolute;
+  inset: 20%;
+  border-radius: inherit;
+  background: #010205;
+  box-shadow: 0 0 2vmin #000;
+}
+
+.black-hole-transition__disc--back {
+  opacity: 0.72;
+  animation: black-hole-disc-spin var(--black-hole-disc-back-duration) linear infinite;
+}
+
+.black-hole-transition__disc--front {
+  z-index: 4;
+  opacity: 0.8;
+  mix-blend-mode: screen;
+  animation: black-hole-disc-spin-reverse var(--black-hole-disc-front-duration) linear
+    infinite;
+}
+
+.black-hole-transition__core {
+  position: absolute;
+  z-index: 3;
+  inset: 24%;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 44% 38%, #05070a 0 24%, #000 56% 100%);
+  box-shadow:
+    inset -1.2vmin -1.2vmin 2.4vmin rgba(55, 79, 119, 0.18),
+    0 0 1.1vmin rgba(255, 255, 255, 0.45),
+    0 0 4.8vmin rgba(98, 88, 255, 0.45),
+    0 0 10vmin rgba(26, 89, 163, 0.28);
+}
+
+.black-hole-transition__core span {
+  width: 76%;
+  height: 76%;
+  border-radius: 50%;
+  background: #000;
+  box-shadow: inset 0 0 2vmin #000, 0 0 1.5vmin #000;
+}
+
+.black-hole-transition__brand-mark {
+  position: absolute;
+  z-index: 6;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: clamp(44px, 22%, 88px);
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 23%;
+  object-fit: contain;
+  pointer-events: none;
+  filter:
+    drop-shadow(0 0 7px rgba(116, 217, 159, 0.72))
+    drop-shadow(0 0 18px rgba(64, 184, 117, 0.38));
+  transform: translate3d(-50%, -50%, 0);
+  animation: black-hole-brand-pulse var(--black-hole-brand-pulse-duration) ease-in-out
+    infinite;
+  will-change: transform, filter;
+}
+
+.black-hole-transition__particles {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+}
+
+.black-hole-transition__particles span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--particle-size);
+  height: var(--particle-size);
+  border-radius: 50%;
+  opacity: 0;
+  background: #f6fbff;
+  box-shadow: 0 0 8px rgba(141, 207, 255, 0.92);
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.black-hole-transition--absorbing .black-hole-transition__particles span {
+  animation: black-hole-particle-in var(--black-hole-absorb-duration)
+    cubic-bezier(0.62, 0.04, 0.9, 0.5) var(--particle-delay) both;
+}
+
+.black-hole-transition--revealing .black-hole-transition__particles span {
+  animation: black-hole-particle-out var(--black-hole-reveal-duration)
+    cubic-bezier(0.12, 0.62, 0.28, 1) var(--particle-delay) both;
+}
+
+.black-hole-transition__phase-clock {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.black-hole-transition--absorbing .black-hole-transition__phase-clock {
+  animation: black-hole-phase-clock var(--black-hole-absorb-duration) linear both;
+}
+
+.black-hole-transition--revealing .black-hole-transition__phase-clock {
+  animation: black-hole-phase-clock var(--black-hole-reveal-duration) linear both;
+}
+
+.black-hole-transition__status {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@keyframes black-hole-surface-absorb {
+  0% { opacity: 1; filter: blur(0) brightness(1); transform: scale(1) rotate(0); }
+  40% { opacity: 0.94; filter: blur(0.5px) brightness(0.88); transform: scale(0.86) rotate(-0.7deg); }
+  74% { opacity: 0.62; filter: blur(2px) brightness(0.58); transform: scale(0.42) rotate(3deg); }
+  100% { opacity: 0; filter: blur(4px) brightness(0.25); transform: scale(0.035) rotate(9deg); }
+}
+
+@keyframes black-hole-surface-reveal {
+  0% { opacity: 0; filter: blur(4px) brightness(0.3); transform: scale(0.04) rotate(-7deg); }
+  42% { opacity: 0.56; filter: blur(2px) brightness(0.68); transform: scale(0.48) rotate(2deg); }
+  76% { opacity: 0.94; filter: blur(0.4px) brightness(0.94); transform: scale(1.015) rotate(-0.2deg); }
+  100% { opacity: 1; filter: blur(0) brightness(1); transform: scale(1) rotate(0); }
+}
+
+@keyframes black-hole-interface-release {
+  from {
+    opacity: 0;
+    transform: translate3d(
+        var(--black-hole-release-x, 0),
+        var(--black-hole-release-y, 0),
+        0
+      )
+      scale(0.985);
+  }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes black-hole-curtain-in {
+  0% { opacity: 0; background: rgba(1, 3, 5, 0); }
+  24% { opacity: 1; background: rgba(1, 3, 5, 0.14); }
+  66% { background: rgba(1, 3, 5, 0.76); }
+  100% { opacity: 1; background: #010305; }
+}
+
+@keyframes black-hole-curtain-out {
+  0% { opacity: 1; background: #010305; }
+  52% { opacity: 0.88; background: rgba(1, 3, 5, 0.66); }
+  100% { opacity: 0; background: rgba(1, 3, 5, 0); }
+}
+
+@keyframes black-hole-stage-in {
+  0% { opacity: 0; transform: translate3d(-50%, -50%, 0) scale(0.2) rotate(-20deg); }
+  25% { opacity: 1; }
+  70% { transform: translate3d(-50%, -50%, 0) scale(0.82) rotate(4deg); }
+  100% { opacity: 1; transform: translate3d(-50%, -50%, 0) scale(1.14) rotate(0); }
+}
+
+@keyframes black-hole-stage-out {
+  0% { opacity: 1; transform: translate3d(-50%, -50%, 0) scale(1.14) rotate(0); }
+  58% { opacity: 0.9; transform: translate3d(-50%, -50%, 0) scale(0.62) rotate(-5deg); }
+  100% { opacity: 0; transform: translate3d(-50%, -50%, 0) scale(0.08) rotate(18deg); }
+}
+
+@keyframes black-hole-stars-in {
+  0% { opacity: 0; transform: scale(1.35) rotate(0); }
+  28% { opacity: 0.72; }
+  100% { opacity: 0.08; transform: scale(0.35) rotate(8deg); }
+}
+
+@keyframes black-hole-stars-out {
+  0% { opacity: 0.08; transform: scale(0.35) rotate(8deg); }
+  64% { opacity: 0.68; }
+  100% { opacity: 0; transform: scale(1.45) rotate(-3deg); }
+}
+
+@keyframes black-hole-particle-in {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--particle-angle)) translate3d(var(--particle-distance), 0, 0)
+      scale(0.5);
+  }
+  18% { opacity: 1; }
+  74% { opacity: 0.88; }
+  100% {
+    opacity: 0;
+    transform: rotate(calc(var(--particle-angle) + 210deg)) translate3d(2vmin, 0, 0)
+      scale(0.05);
+  }
+}
+
+@keyframes black-hole-particle-out {
+  0% {
+    opacity: 0;
+    transform: rotate(calc(var(--particle-angle) + 210deg)) translate3d(2vmin, 0, 0)
+      scale(0.05);
+  }
+  24% { opacity: 0.9; }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--particle-angle)) translate3d(var(--particle-distance), 0, 0)
+      scale(0.8);
+  }
+}
+
+@keyframes black-hole-disc-spin {
+  from { transform: rotate(-12deg) scaleY(0.31) rotate(0); }
+  to { transform: rotate(-12deg) scaleY(0.31) rotate(360deg); }
+}
+
+@keyframes black-hole-disc-spin-reverse {
+  from { transform: rotate(-12deg) scaleY(0.31) rotate(360deg); }
+  to { transform: rotate(-12deg) scaleY(0.31) rotate(0); }
+}
+
+@keyframes black-hole-brand-pulse {
+  0%,
+  100% {
+    filter:
+      drop-shadow(0 0 7px rgba(116, 217, 159, 0.7))
+      drop-shadow(0 0 17px rgba(64, 184, 117, 0.34));
+    transform: translate3d(-50%, -50%, 0) scale(0.98) rotate(-0.7deg);
+  }
+  50% {
+    filter:
+      drop-shadow(0 0 10px rgba(155, 241, 189, 0.82))
+      drop-shadow(0 0 23px rgba(64, 184, 117, 0.46));
+    transform: translate3d(-50%, -50%, 0) scale(1.035) rotate(0.7deg);
+  }
+}
+
+@keyframes black-hole-phase-clock {
+  from { opacity: 0; }
+  to { opacity: 0.001; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .black-hole-surface--absorbing {
+    animation: black-hole-surface-reduced-in 180ms ease-in both;
+  }
+
+  .black-hole-surface--revealing {
+    animation: black-hole-surface-reduced-out 180ms ease-out both;
+  }
+
+  .black-hole-surface--covered { filter: none; transform: scale(0.985); }
+
+  .black-hole-transition {
+    --black-hole-absorb-duration: 180ms;
+    --black-hole-reveal-duration: 180ms;
+  }
+
+  .black-hole-transition__particles,
+  .black-hole-transition__starfield,
+  .black-hole-transition__disc,
+  .black-hole-transition__halo { display: none; }
+
+  .black-hole-transition__brand-mark {
+    animation: none;
+    filter: drop-shadow(0 0 7px rgba(116, 217, 159, 0.55));
+    transform: translate3d(-50%, -50%, 0);
+  }
+
+  .black-hole-transition--absorbing .black-hole-transition__stage,
+  .black-hole-transition--revealing .black-hole-transition__stage,
+  .black-hole-transition__core { animation: none; filter: none; }
+
+  .black-hole-surface--revealing .sidebar,
+  .black-hole-surface--revealing .topbar,
+  .black-hole-surface--revealing .page-content { animation: none; }
+
+  .black-hole-transition__stage {
+    width: clamp(80px, 18vmin, 150px);
+    opacity: 0.72;
+    transform: translate3d(-50%, -50%, 0);
+  }
+
+  @keyframes black-hole-surface-reduced-in {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.985); }
+  }
+
+  @keyframes black-hole-surface-reduced-out {
+    from { opacity: 0; transform: scale(0.985); }
+    to { opacity: 1; transform: scale(1); }
+  }
+}
+
+@media (max-width: 680px) and (prefers-reduced-motion: no-preference) {
+  .black-hole-surface--absorbing {
+    animation-name: black-hole-surface-absorb-mobile;
+  }
+
+  .black-hole-surface--covered { filter: none; }
+
+  .black-hole-surface--revealing {
+    animation-name: black-hole-surface-reveal-mobile;
+  }
+
+  .black-hole-transition__halo { filter: blur(2px); }
+  .black-hole-transition__disc { filter: none; }
+  .black-hole-transition__disc--front { opacity: 0.55; mix-blend-mode: normal; }
+  .black-hole-transition__brand-mark { width: clamp(42px, 24%, 62px); }
+
+  @keyframes black-hole-surface-absorb-mobile {
+    0% { opacity: 1; transform: scale(1) rotate(0); }
+    42% { opacity: 0.94; transform: scale(0.84) rotate(-0.5deg); }
+    76% { opacity: 0.58; transform: scale(0.4) rotate(2deg); }
+    100% { opacity: 0; transform: scale(0.035) rotate(7deg); }
+  }
+
+  @keyframes black-hole-surface-reveal-mobile {
+    0% { opacity: 0; transform: scale(0.04) rotate(-5deg); }
+    44% { opacity: 0.58; transform: scale(0.48) rotate(1.5deg); }
+    78% { opacity: 0.95; transform: scale(1.01) rotate(-0.1deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0); }
+  }
+}
 
 @media (max-width: 1180px) {
   .app-shell { grid-template-columns: 214px minmax(0, 1fr); }

@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
-import api from "../services/api";
+import api, { definirLogoutEmAndamento } from "../services/api";
 import AuthContext from "./auth-context";
 
 const TOKEN_KEY = "bovitrack_token";
 const USER_KEY = "bovitrack_usuario";
 const TOKEN_KEY_LEGADO = "agrocontrol_token";
 const USER_KEY_LEGADO = "agrocontrol_usuario";
+
+function limparSessaoLocal() {
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(USER_KEY);
+  localStorage.removeItem(TOKEN_KEY_LEGADO);
+  localStorage.removeItem(USER_KEY_LEGADO);
+}
 
 function migrarSessaoLegada() {
   const tokenLegado = localStorage.getItem(TOKEN_KEY_LEGADO);
@@ -72,18 +79,33 @@ export function AuthProvider({ children }) {
     setUsuario(usuarioAutenticado);
   }
 
-  async function logout() {
+  async function logout({ manterInterface = false } = {}) {
+    const token = localStorage.getItem(TOKEN_KEY);
+    definirLogoutEmAndamento(true);
+
+    if (manterInterface) {
+      limparSessaoLocal();
+    }
+
     try {
-      await api.post("/auth/logout");
+      await api.post("/auth/logout", null, {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined,
+      });
     } catch (erro) {
       console.error("Não foi possível confirmar o logout no servidor", erro);
     } finally {
-      localStorage.removeItem(TOKEN_KEY);
-      localStorage.removeItem(USER_KEY);
-      localStorage.removeItem(TOKEN_KEY_LEGADO);
-      localStorage.removeItem(USER_KEY_LEGADO);
-      setUsuario(null);
+      limparSessaoLocal();
+
+      if (!manterInterface) {
+        setUsuario(null);
+        definirLogoutEmAndamento(false);
+      }
     }
+  }
+
+  function finalizarLogoutVisual() {
+    setUsuario(null);
+    definirLogoutEmAndamento(false);
   }
 
   function atualizarUsuario(usuarioAtualizado) {
@@ -99,6 +121,7 @@ export function AuthProvider({ children }) {
         carregando,
         login,
         logout,
+        finalizarLogoutVisual,
         atualizarUsuario,
       }}
     >

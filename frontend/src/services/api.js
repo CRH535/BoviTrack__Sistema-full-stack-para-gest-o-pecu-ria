@@ -38,6 +38,11 @@ const api = axios.create({
 });
 
 let renovacaoEmAndamento = null;
+let logoutEmAndamento = false;
+
+export function definirLogoutEmAndamento(valor) {
+  logoutEmAndamento = Boolean(valor);
+}
 
 function limparSessaoLocal() {
   localStorage.removeItem(TOKEN_KEY);
@@ -94,6 +99,7 @@ api.interceptors.response.use(
     const requisicaoOriginal = error.config;
     const rota = requisicaoOriginal?.url;
     const podeRenovar =
+      !logoutEmAndamento &&
       error.response?.status === 401 &&
       requisicaoOriginal &&
       !requisicaoOriginal.ignorarRenovacao &&

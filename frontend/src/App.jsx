@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Link,
   Navigate,
@@ -5,7 +6,7 @@ import {
   Outlet,
   Route,
   Routes,
-  useNavigate,
+  useLocation,
 } from "react-router-dom";
 import { useAuth } from "./auth/useAuth";
 import ProtectedRoute from "./auth/ProtectedRoute";
@@ -23,6 +24,7 @@ import Cadastro from "./pages/Cadastro";
 import Usuarios from "./pages/Usuarios";
 import MinhaConta from "./pages/MinhaConta";
 import IconeImagem from "./components/IconeImagem";
+import { useBlackHoleTransition } from "./transitions/useBlackHoleTransition";
 
 const itensMenu = [
   { to: "/", label: "Início", icon: "inicio", end: true },
@@ -49,12 +51,29 @@ function Marca() {
 }
 
 function Layout() {
-  const { usuario, logout } = useAuth();
-  const navigate = useNavigate();
+  const { usuario, logout, finalizarLogoutVisual } = useAuth();
+  const location = useLocation();
+  const {
+    iniciarTransicao,
+    sinalizarDestinoPronto,
+    sinalizarOperacaoConcluida,
+  } = useBlackHoleTransition();
+
+  useEffect(() => {
+    sinalizarDestinoPronto("route");
+  }, [location.pathname, sinalizarDestinoPronto]);
 
   async function sair() {
-    await logout();
-    navigate("/login", { replace: true });
+    const transicaoIniciada = iniciarTransicao("/login", {
+      aguardarOperacao: true,
+    });
+
+    if (!transicaoIniciada) {
+      return;
+    }
+
+    await logout({ manterInterface: true });
+    sinalizarOperacaoConcluida(finalizarLogoutVisual);
   }
 
   return (
@@ -125,7 +144,7 @@ function Layout() {
           </div>
         </header>
 
-        <main className="page-content">
+        <main className="page-content" tabIndex={-1}>
           <Outlet />
         </main>
       </section>
