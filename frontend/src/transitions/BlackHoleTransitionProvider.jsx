@@ -36,7 +36,6 @@ export function BlackHoleTransitionProvider({ children }) {
   const revelacaoAgendadaRef = useRef(false);
   const primeiroFrameRef = useRef(null);
   const segundoFrameRef = useRef(null);
-  const superficieRef = useRef(null);
 
   const transicaoAtiva = fase !== FASE_INICIAL;
 
@@ -117,15 +116,6 @@ export function BlackHoleTransitionProvider({ children }) {
       operacaoConcluidaRef.current = !opcoes.aguardarOperacao;
       navegacaoRealizadaRef.current = false;
       aoNavegarRef.current = null;
-
-      superficieRef.current?.style.setProperty(
-        "--black-hole-scroll-x",
-        `${window.scrollX}px`,
-      );
-      superficieRef.current?.style.setProperty(
-        "--black-hole-scroll-y",
-        `${window.scrollY}px`,
-      );
 
       alterarFase("absorbing");
       return true;
@@ -238,7 +228,6 @@ export function BlackHoleTransitionProvider({ children }) {
   return (
     <BlackHoleTransitionContext.Provider value={valorContexto}>
       <div
-        ref={superficieRef}
         className={`black-hole-surface black-hole-surface--${fase}`}
         aria-busy={transicaoAtiva}
         inert={transicaoAtiva ? true : undefined}

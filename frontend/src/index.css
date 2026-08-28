@@ -49,7 +49,6 @@
   --radius-lg: 22px;
   --black-hole-absorb-duration: 2250ms;
   --black-hole-reveal-duration: 2050ms;
-  --black-hole-interface-release-duration: 1200ms;
   --black-hole-disc-back-duration: 4600ms;
   --black-hole-disc-front-duration: 5400ms;
   --black-hole-brand-pulse-duration: 2600ms;
@@ -1225,56 +1224,28 @@ hr { display: none; }
 
 .black-hole-surface {
   min-height: 100vh;
-  transform-origin:
-    calc(50vw + var(--black-hole-scroll-x, 0px))
-    calc(50vh + var(--black-hole-scroll-y, 0px));
   backface-visibility: hidden;
+  transform: none;
 }
 
 .black-hole-surface--absorbing {
   pointer-events: none;
   animation: black-hole-surface-absorb var(--black-hole-absorb-duration)
     cubic-bezier(0.72, 0, 0.9, 0.42) both;
-  will-change: transform, opacity, filter;
+  will-change: opacity;
 }
 
 .black-hole-surface--covered {
   pointer-events: none;
   opacity: 0;
-  filter: blur(4px) brightness(0.25);
-  transform: scale(0.035) rotate(9deg);
+  transform: none;
 }
 
 .black-hole-surface--revealing {
   pointer-events: none;
   animation: black-hole-surface-reveal var(--black-hole-reveal-duration)
     cubic-bezier(0.12, 0.74, 0.22, 1) both;
-  will-change: transform, opacity, filter;
-}
-
-.black-hole-surface--revealing .sidebar,
-.black-hole-surface--revealing .topbar,
-.black-hole-surface--revealing .page-content {
-  animation: black-hole-interface-release var(--black-hole-interface-release-duration)
-    cubic-bezier(0.16, 0.72, 0.22, 1) both;
-}
-
-.black-hole-surface--revealing .sidebar {
-  --black-hole-release-x: -18px;
-  --black-hole-release-y: 0px;
-  animation-delay: 180ms;
-}
-
-.black-hole-surface--revealing .topbar {
-  --black-hole-release-x: 0px;
-  --black-hole-release-y: -14px;
-  animation-delay: 340ms;
-}
-
-.black-hole-surface--revealing .page-content {
-  --black-hole-release-x: 0px;
-  --black-hole-release-y: 18px;
-  animation-delay: 520ms;
+  will-change: opacity;
 }
 
 .black-hole-transition {
@@ -1525,30 +1496,13 @@ hr { display: none; }
 }
 
 @keyframes black-hole-surface-absorb {
-  0% { opacity: 1; filter: blur(0) brightness(1); transform: scale(1) rotate(0); }
-  40% { opacity: 0.94; filter: blur(0.5px) brightness(0.88); transform: scale(0.86) rotate(-0.7deg); }
-  74% { opacity: 0.62; filter: blur(2px) brightness(0.58); transform: scale(0.42) rotate(3deg); }
-  100% { opacity: 0; filter: blur(4px) brightness(0.25); transform: scale(0.035) rotate(9deg); }
+  from { opacity: 1; }
+  to { opacity: 0; }
 }
 
 @keyframes black-hole-surface-reveal {
-  0% { opacity: 0; filter: blur(4px) brightness(0.3); transform: scale(0.04) rotate(-7deg); }
-  42% { opacity: 0.56; filter: blur(2px) brightness(0.68); transform: scale(0.48) rotate(2deg); }
-  76% { opacity: 0.94; filter: blur(0.4px) brightness(0.94); transform: scale(1.015) rotate(-0.2deg); }
-  100% { opacity: 1; filter: blur(0) brightness(1); transform: scale(1) rotate(0); }
-}
-
-@keyframes black-hole-interface-release {
-  from {
-    opacity: 0;
-    transform: translate3d(
-        var(--black-hole-release-x, 0),
-        var(--black-hole-release-y, 0),
-        0
-      )
-      scale(0.985);
-  }
-  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes black-hole-curtain-in {
@@ -1658,7 +1612,7 @@ hr { display: none; }
     animation: black-hole-surface-reduced-out 180ms ease-out both;
   }
 
-  .black-hole-surface--covered { filter: none; transform: scale(0.985); }
+  .black-hole-surface--covered { transform: none; }
 
   .black-hole-transition {
     --black-hole-absorb-duration: 180ms;
@@ -1680,10 +1634,6 @@ hr { display: none; }
   .black-hole-transition--revealing .black-hole-transition__stage,
   .black-hole-transition__core { animation: none; filter: none; }
 
-  .black-hole-surface--revealing .sidebar,
-  .black-hole-surface--revealing .topbar,
-  .black-hole-surface--revealing .page-content { animation: none; }
-
   .black-hole-transition__stage {
     width: clamp(80px, 18vmin, 150px);
     opacity: 0.72;
@@ -1691,45 +1641,21 @@ hr { display: none; }
   }
 
   @keyframes black-hole-surface-reduced-in {
-    from { opacity: 1; transform: scale(1); }
-    to { opacity: 0; transform: scale(0.985); }
+    from { opacity: 1; }
+    to { opacity: 0; }
   }
 
   @keyframes black-hole-surface-reduced-out {
-    from { opacity: 0; transform: scale(0.985); }
-    to { opacity: 1; transform: scale(1); }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 }
 
 @media (max-width: 680px) and (prefers-reduced-motion: no-preference) {
-  .black-hole-surface--absorbing {
-    animation-name: black-hole-surface-absorb-mobile;
-  }
-
-  .black-hole-surface--covered { filter: none; }
-
-  .black-hole-surface--revealing {
-    animation-name: black-hole-surface-reveal-mobile;
-  }
-
   .black-hole-transition__halo { filter: blur(2px); }
   .black-hole-transition__disc { filter: none; }
   .black-hole-transition__disc--front { opacity: 0.55; mix-blend-mode: normal; }
   .black-hole-transition__brand-mark { width: clamp(42px, 24%, 62px); }
-
-  @keyframes black-hole-surface-absorb-mobile {
-    0% { opacity: 1; transform: scale(1) rotate(0); }
-    42% { opacity: 0.94; transform: scale(0.84) rotate(-0.5deg); }
-    76% { opacity: 0.58; transform: scale(0.4) rotate(2deg); }
-    100% { opacity: 0; transform: scale(0.035) rotate(7deg); }
-  }
-
-  @keyframes black-hole-surface-reveal-mobile {
-    0% { opacity: 0; transform: scale(0.04) rotate(-5deg); }
-    44% { opacity: 0.58; transform: scale(0.48) rotate(1.5deg); }
-    78% { opacity: 0.95; transform: scale(1.01) rotate(-0.1deg); }
-    100% { opacity: 1; transform: scale(1) rotate(0); }
-  }
 }
 
 @media (max-width: 1180px) {
