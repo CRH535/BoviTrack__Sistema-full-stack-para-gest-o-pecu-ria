@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "../services/api";
 import { formatarDataSemFuso } from "../utils/datas";
 import IconeImagem from "../components/IconeImagem";
+import VoltarInicio from "../components/VoltarInicio";
 
 function Vacinacoes() {
   const [vacinacoes, setVacinacoes] = useState([]);
@@ -135,6 +136,7 @@ function Vacinacoes() {
           <h1>Vacinações</h1>
           <p>Registre aplicações e acompanhe as próximas doses.</p>
         </div>
+        <VoltarInicio />
       </header>
 
       {mensagem && <p className="notice">{mensagem}</p>}

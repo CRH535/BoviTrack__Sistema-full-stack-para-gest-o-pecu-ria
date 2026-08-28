@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import GraficoProducaoLeite from "../components/GraficoProducaoLeite";
 import IconeImagem from "../components/IconeImagem";
+import VoltarInicio from "../components/VoltarInicio";
 import api from "../services/api";
 import { formatarDataSemFuso, obterDataAtualLocal } from "../utils/datas";
 
@@ -299,9 +300,12 @@ function FichaAnimal() {
           <h1>{animal.nome}</h1>
           <p>Dados do animal e acompanhamento da produção de leite.</p>
         </div>
-        <Link className="button-secondary button-link" to="/animais">
-          Voltar para animais
-        </Link>
+        <div className="page-header-actions">
+          <Link className="button-secondary button-link" to="/animais">
+            Voltar para animais
+          </Link>
+          <VoltarInicio />
+        </div>
       </header>
 
       {mensagem && <p className="notice">{mensagem}</p>}

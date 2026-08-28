@@ -449,6 +449,28 @@ hr { display: none; }
 .page-header { margin-bottom: 25px; }
 .page-header p { margin-bottom: 0; font-size: 0.88rem; }
 
+.page-header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.back-home-button {
+  min-width: 156px;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.back-home-icon {
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform 160ms ease;
+}
+
+.back-home-button:hover .back-home-icon { transform: translateX(-2px); }
+
 .eyebrow {
   display: block;
   margin-bottom: 5px;
@@ -1777,6 +1799,11 @@ hr { display: none; }
   .section-heading { align-items: flex-start; }
   .page-header { flex-direction: column; }
   .page-header > button { width: 100%; }
+  .page-header > .back-home-button,
+  .page-header-actions { width: 100%; }
+  .page-header-actions { align-items: stretch; flex-direction: column; }
+  .page-header-actions > button,
+  .page-header-actions > .button-link { width: 100%; }
   .theme-options { grid-template-columns: 1fr; }
   .theme-option { min-height: 164px; }
   .status-badge { display: none; }

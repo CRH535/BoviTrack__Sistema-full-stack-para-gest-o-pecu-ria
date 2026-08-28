@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import IconeImagem from "../components/IconeImagem";
+import VoltarInicio from "../components/VoltarInicio";
 
 function Vacinas() {
   const [vacinas, setVacinas] = useState([]);
@@ -93,6 +94,7 @@ function Vacinas() {
           <h1>Vacinas</h1>
           <p>Mantenha organizado o catálogo sanitário.</p>
         </div>
+        <VoltarInicio />
       </header>
 
       {mensagem && <p className="notice">{mensagem}</p>}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import IconeImagem from "../components/IconeImagem";
+import VoltarInicio from "../components/VoltarInicio";
 
 function Propriedades() {
   const [propriedades, setPropriedades] = useState([]);
@@ -107,6 +108,7 @@ function Propriedades() {
           <h1>Propriedades</h1>
           <p>Organize as propriedades onde o seu rebanho é manejado.</p>
         </div>
+        <VoltarInicio />
       </header>
 
       {mensagem && <p className="notice">{mensagem}</p>}

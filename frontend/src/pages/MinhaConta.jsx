@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import ConfirmacaoExclusao from "../components/ConfirmacaoExclusao";
+import VoltarInicio from "../components/VoltarInicio";
 import api from "../services/api";
 
 function MinhaConta() {
@@ -80,6 +81,7 @@ function MinhaConta() {
           <h1>Minha Conta</h1>
           <p>Consulte e atualize as informações da sua conta no BoviTrack.</p>
         </div>
+        <VoltarInicio />
       </header>
 
       {mensagem && (

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
 import IconeImagem from "../components/IconeImagem";
+import VoltarInicio from "../components/VoltarInicio";
 
 function obterDataAtualLocal() {
   const agora = new Date();
@@ -151,6 +152,7 @@ function Animais() {
           <h1>Animais</h1>
           <p>Controle a identificação e os dados do seu rebanho.</p>
         </div>
+        <VoltarInicio />
       </header>
 
       {mensagem && <p className="notice">{mensagem}</p>}

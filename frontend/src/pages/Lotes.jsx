@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import IconeImagem from "../components/IconeImagem";
+import VoltarInicio from "../components/VoltarInicio";
 
 function Lotes() {
   const [lotes, setLotes] = useState([]);
@@ -225,6 +226,7 @@ function Lotes() {
           <h1>Lotes</h1>
           <p>Agrupe e gerencie os animais por propriedade.</p>
         </div>
+        <VoltarInicio />
       </header>
 
       {mensagem && <p className="notice">{mensagem}</p>}

@@ -1,4 +1,5 @@
 import IconeConfiguracoes from "../components/IconeConfiguracoes";
+import VoltarInicio from "../components/VoltarInicio";
 import { usePreferences } from "../preferences/usePreferences";
 
 const temas = [
@@ -33,6 +34,7 @@ function Configuracoes() {
           </h1>
           <p>Personalize a aparência do BoviTrack neste dispositivo.</p>
         </div>
+        <VoltarInicio />
       </header>
 
       <section className="panel settings-section" aria-labelledby="aparencia-titulo">

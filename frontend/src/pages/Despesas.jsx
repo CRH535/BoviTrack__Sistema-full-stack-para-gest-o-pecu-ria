@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import IconeImagem from "../components/IconeImagem";
+import VoltarInicio from "../components/VoltarInicio";
 
 function formatarDataSemFuso(data) {
   if (!data) return "-";
@@ -131,6 +132,7 @@ function Despesas() {
           <h1>Despesas</h1>
           <p>Acompanhe os custos do manejo e da sua produção pecuária.</p>
         </div>
+        <VoltarInicio />
       </header>
 
       {mensagem && <p className="notice">{mensagem}</p>}

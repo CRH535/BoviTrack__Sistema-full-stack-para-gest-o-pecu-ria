@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ConfirmacaoExclusao from "../components/ConfirmacaoExclusao";
+import VoltarInicio from "../components/VoltarInicio";
 import api from "../services/api";
 
 const formularioInicial = {
@@ -163,11 +164,14 @@ function Usuarios() {
           <p>Gerencie as contas de produtores que utilizam o BoviTrack.</p>
         </div>
 
-        {!modo && (
-        <button type="button" onClick={abrirNovoUsuario}>
-          + Novo usuário
-        </button>
-      )}
+        <div className="page-header-actions">
+          {!modo && (
+            <button type="button" onClick={abrirNovoUsuario}>
+              + Novo usuário
+            </button>
+          )}
+          <VoltarInicio />
+        </div>
       </header>
 
       {mensagem && <p className="notice user-message">{mensagem}</p>}
