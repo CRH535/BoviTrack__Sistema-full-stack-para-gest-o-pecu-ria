@@ -23,7 +23,9 @@ import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
 import Usuarios from "./pages/Usuarios";
 import MinhaConta from "./pages/MinhaConta";
+import Configuracoes from "./pages/Configuracoes";
 import IconeImagem from "./components/IconeImagem";
+import IconeConfiguracoes from "./components/IconeConfiguracoes";
 import { useBlackHoleTransition } from "./transitions/useBlackHoleTransition";
 
 const itensMenu = [
@@ -34,6 +36,7 @@ const itensMenu = [
   { to: "/vacinas", label: "Vacinas", icon: "vacinas" },
   { to: "/vacinacoes", label: "Vacinações", icon: "vacinacoes" },
   { to: "/despesas", label: "Despesas", icon: "despesas" },
+  { to: "/configuracoes", label: "Configurações", icon: "configuracoes" },
 ];
 
 function Marca() {
@@ -91,7 +94,11 @@ function Layout() {
               end={item.end}
               className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
             >
-              <IconeImagem nome={item.icon} className="nav-icon-image" />
+              {item.icon === "configuracoes" ? (
+                <IconeConfiguracoes className="nav-icon-image nav-settings-icon" />
+              ) : (
+                <IconeImagem nome={item.icon} className="nav-icon-image" />
+              )}
               <span>{item.label}</span>
             </NavLink>
           ))}
@@ -168,6 +175,7 @@ function App() {
           <Route path="vacinas" element={<Vacinas />} />
           <Route path="vacinacoes" element={<Vacinacoes />} />
           <Route path="despesas" element={<Despesas />} />
+          <Route path="configuracoes" element={<Configuracoes />} />
           <Route path="minha-conta" element={<MinhaConta />} />
           <Route element={<AdminRoute />}>
             <Route path="usuarios" element={<Usuarios />} />

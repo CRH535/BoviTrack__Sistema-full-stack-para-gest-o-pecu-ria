@@ -4,6 +4,35 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <style>
+      html { background: #f4f7f5; }
+      html[data-theme="dark"] { background: #0c1512; }
+    </style>
+    <script>
+      (() => {
+        const root = document.documentElement;
+        let preference = "system";
+
+        try {
+          const saved = JSON.parse(localStorage.getItem("bovitrack_preferences"));
+          if (["light", "dark", "system"].includes(saved?.theme)) {
+            preference = saved.theme;
+          }
+        } catch {
+          preference = "system";
+        }
+
+        const resolved = preference === "system"
+          ? (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+          : preference;
+
+        root.dataset.theme = resolved;
+        root.dataset.themePreference = preference;
+        root.style.colorScheme = resolved;
+        root.style.backgroundColor = resolved === "dark" ? "#0c1512" : "#f4f7f5";
+      })();
+    </script>
     <meta
       name="description"
       content="BoviTrack — gestão pecuária simples para organizar animais, lotes, vacinações e despesas."

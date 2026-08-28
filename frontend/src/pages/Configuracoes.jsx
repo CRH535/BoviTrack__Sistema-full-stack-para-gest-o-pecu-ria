@@ -1,0 +1,103 @@
+import IconeConfiguracoes from "../components/IconeConfiguracoes";
+import { usePreferences } from "../preferences/usePreferences";
+
+const temas = [
+  {
+    value: "light",
+    label: "Claro",
+    description: "Interface clara e leve.",
+  },
+  {
+    value: "dark",
+    label: "Escuro",
+    description: "Superfícies escuras e confortáveis.",
+  },
+  {
+    value: "system",
+    label: "Sistema",
+    description: "Acompanha este dispositivo.",
+  },
+];
+
+function Configuracoes() {
+  const { theme, resolvedTheme, setTheme } = usePreferences();
+
+  return (
+    <div className="page settings-page">
+      <header className="page-header">
+        <div>
+          <span className="eyebrow">Preferências locais</span>
+          <h1 className="icon-title">
+            <IconeConfiguracoes className="title-settings-icon" />
+            Configurações
+          </h1>
+          <p>Personalize a aparência do BoviTrack neste dispositivo.</p>
+        </div>
+      </header>
+
+      <section className="panel settings-section" aria-labelledby="aparencia-titulo">
+        <div className="settings-section-heading">
+          <div>
+            <span className="settings-section-icon" aria-hidden="true">
+              <IconeConfiguracoes />
+            </span>
+            <div>
+              <h2 id="aparencia-titulo">Aparência</h2>
+              <p>Escolha como as telas serão exibidas.</p>
+            </div>
+          </div>
+        </div>
+
+        <fieldset className="theme-fieldset">
+          <legend>Tema</legend>
+          <div className="theme-options">
+            {temas.map((tema) => (
+              <label
+                key={tema.value}
+                className={`theme-option${theme === tema.value ? " selected" : ""}`}
+              >
+                <input
+                  type="radio"
+                  name="tema"
+                  value={tema.value}
+                  checked={theme === tema.value}
+                  onChange={() => setTheme(tema.value)}
+                />
+
+                <span className={`theme-preview theme-preview--${tema.value}`} aria-hidden="true">
+                  <span className="theme-preview-sidebar" />
+                  <span className="theme-preview-content">
+                    <span />
+                    <span />
+                  </span>
+                </span>
+
+                <span className="theme-option-copy">
+                  <strong>{tema.label}</strong>
+                  <small>{tema.description}</small>
+                </span>
+
+                <span className="theme-selection-indicator" aria-hidden="true" />
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <p className="settings-status" aria-live="polite">
+          Tema aplicado agora: <strong>{resolvedTheme === "dark" ? "Escuro" : "Claro"}</strong>
+          {theme === "system" ? " (definido pelo sistema)." : "."}
+        </p>
+      </section>
+
+      <section className="panel settings-section settings-future" aria-labelledby="preferencias-titulo">
+        <h2 id="preferencias-titulo">Preferências</h2>
+        <p>
+          Suas escolhas visuais ficam salvas somente neste navegador. Outras preferências
+          locais poderão ser organizadas aqui futuramente.
+        </p>
+      </section>
+    </div>
+  );
+}
+
+export default Configuracoes;
