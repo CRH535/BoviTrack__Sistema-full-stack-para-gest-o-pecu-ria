@@ -43,7 +43,7 @@ function aplicarTema(theme, resolvedTheme) {
   root.dataset.theme = resolvedTheme;
   root.dataset.themePreference = theme;
   root.style.colorScheme = resolvedTheme;
-  root.style.backgroundColor = resolvedTheme === "dark" ? "#0c1512" : "#f4f7f5";
+  root.style.backgroundColor = resolvedTheme === "dark" ? "#1c1c1c" : "#eef0f2";
 }
 
 export function PreferencesProvider({ children }) {

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light dark" />
     <style>
-      html { background: #f4f7f5; }
-      html[data-theme="dark"] { background: #0c1512; }
+      html { background: #eef0f2; }
+      html[data-theme="dark"] { background: #1c1c1c; }
     </style>
     <script>
       (() => {
@@ -30,7 +30,7 @@
         root.dataset.theme = resolved;
         root.dataset.themePreference = preference;
         root.style.colorScheme = resolved;
-        root.style.backgroundColor = resolved === "dark" ? "#0c1512" : "#f4f7f5";
+        root.style.backgroundColor = resolved === "dark" ? "#1c1c1c" : "#eef0f2";
       })();
     </script>
     <meta
