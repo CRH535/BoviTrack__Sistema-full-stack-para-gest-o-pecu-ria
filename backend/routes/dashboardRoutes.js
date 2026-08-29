@@ -26,7 +26,40 @@ router.get("/dashboard", async (req, res) => {
         (SELECT COALESCE(SUM(d.valor), 0)
            FROM despesas d
            JOIN propriedades p ON p.id = d.propriedade_id
-          WHERE ($1 = 'admin' OR p.usuario_id = $2)) AS total_despesas`,
+          WHERE ($1 = 'admin' OR p.usuario_id = $2)) AS total_despesas,
+        (SELECT COUNT(*)
+           FROM animais a JOIN propriedades p ON p.id = a.propriedade_id
+          WHERE a.data_nascimento >= CURRENT_DATE - 365
+            AND ($1 = 'admin' OR p.usuario_id = $2)
+            AND NOT EXISTS (
+              SELECT 1 FROM desmamas de
+               WHERE de.animal_id = a.id AND de.status = 'CONCLUIDA'
+                 AND de.tipo_desmama <> 'TEMPORARIA'
+            )) AS bezerros_aleitamento,
+        (SELECT COUNT(*) FROM desmamas de
+           JOIN animais a ON a.id = de.animal_id
+           JOIN propriedades p ON p.id = a.propriedade_id
+          WHERE de.status IN ('PLANEJADA','EM_ANDAMENTO')
+            AND ($1 = 'admin' OR p.usuario_id = $2)) AS desmamas_planejadas,
+        (SELECT COUNT(*) FROM desmamas de
+           JOIN animais a ON a.id = de.animal_id
+           JOIN propriedades p ON p.id = a.propriedade_id
+          WHERE de.status IN ('PLANEJADA','EM_ANDAMENTO')
+            AND de.data_planejada BETWEEN CURRENT_DATE AND CURRENT_DATE + 30
+            AND ($1 = 'admin' OR p.usuario_id = $2)) AS desmamas_proximas,
+        (SELECT COUNT(*) FROM desmamas de
+           JOIN animais a ON a.id = de.animal_id
+           JOIN propriedades p ON p.id = a.propriedade_id
+          WHERE de.status = 'CONCLUIDA' AND de.tipo_desmama <> 'TEMPORARIA'
+            AND EXTRACT(YEAR FROM de.data_desmama) = EXTRACT(YEAR FROM CURRENT_DATE)
+            AND ($1 = 'admin' OR p.usuario_id = $2)) AS desmamados_ano,
+        (SELECT COUNT(*) FROM animais a
+           JOIN propriedades p ON p.id = a.propriedade_id
+          WHERE ($1 = 'admin' OR p.usuario_id = $2)
+            AND NOT EXISTS (
+              SELECT 1 FROM pesagens pe WHERE pe.animal_id = a.id
+                AND pe.data_pesagem >= CURRENT_DATE - 60
+            )) AS animais_sem_pesagem_recente`,
       parametros,
     );
 
@@ -62,6 +95,11 @@ router.get("/dashboard", async (req, res) => {
         lotes: Number(resumo.lotes),
         vacinas: Number(resumo.vacinas),
         total_despesas: Number(resumo.total_despesas),
+        bezerros_aleitamento: Number(resumo.bezerros_aleitamento),
+        desmamas_planejadas: Number(resumo.desmamas_planejadas),
+        desmamas_proximas: Number(resumo.desmamas_proximas),
+        desmamados_ano: Number(resumo.desmamados_ano),
+        animais_sem_pesagem_recente: Number(resumo.animais_sem_pesagem_recente),
       },
       proximas_vacinacoes: proximasResultado.rows,
     });
@@ -76,4 +114,3 @@ router.get("/dashboard", async (req, res) => {
 // =========================
 
 module.exports = router;
-

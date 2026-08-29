@@ -14,6 +14,8 @@ const lotesRoutes = require("./routes/lotesRoutes");
 const vacinasRoutes = require("./routes/vacinasRoutes");
 const vacinacoesRoutes = require("./routes/vacinacoesRoutes");
 const producoesLeiteirasRoutes = require("./routes/producoesLeiteirasRoutes");
+const pesagensRoutes = require("./routes/pesagensRoutes");
+const desmamasRoutes = require("./routes/desmamasRoutes");
 const despesasRoutes = require("./routes/despesasRoutes");
 
 const app = express();
@@ -35,6 +37,8 @@ app.use(lotesRoutes);
 app.use(vacinasRoutes);
 app.use(vacinacoesRoutes);
 app.use(producoesLeiteirasRoutes);
+app.use(pesagensRoutes);
+app.use(desmamasRoutes);
 app.use(despesasRoutes);
 
 // A exportacao direta permite que a Vercel detecte o Express sem adaptadores.

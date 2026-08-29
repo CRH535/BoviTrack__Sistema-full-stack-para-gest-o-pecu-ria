@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import GraficoProducaoLeite from "../components/GraficoProducaoLeite";
+import ControlePesagens from "../components/ControlePesagens";
+import ControleDesmama from "../components/ControleDesmama";
 import IconeImagem from "../components/IconeImagem";
 import VoltarInicio from "../components/VoltarInicio";
 import api from "../services/api";
@@ -41,6 +43,7 @@ function FichaAnimal() {
   const [carregando, setCarregando] = useState(true);
   const [mensagem, setMensagem] = useState("");
   const [erro, setErro] = useState("");
+  const [atualizacaoManejo, setAtualizacaoManejo] = useState(0);
 
   const [formularioAberto, setFormularioAberto] = useState(false);
   const [editandoId, setEditandoId] = useState(null);
@@ -125,6 +128,16 @@ function FichaAnimal() {
 
   async function atualizarControleLeiteiro() {
     await Promise.all([carregarHistorico(), carregarResumo()]);
+  }
+
+  async function atualizarAnimal() {
+    const resposta = await api.get(`/animais/${id}`);
+    setAnimal(resposta.data);
+  }
+
+  async function atualizarManejo() {
+    await atualizarAnimal();
+    setAtualizacaoManejo((valor) => valor + 1);
   }
 
   function limparFormulario() {
@@ -298,7 +311,7 @@ function FichaAnimal() {
         <div>
           <span className="eyebrow">Ficha individual</span>
           <h1>{animal.nome}</h1>
-          <p>Dados do animal e acompanhamento da produção de leite.</p>
+          <p>Dados do animal, crescimento, desmama e produção de leite.</p>
         </div>
         <div className="page-header-actions">
           <Link className="button-secondary button-link" to="/animais">
@@ -333,6 +346,7 @@ function FichaAnimal() {
           <div><dt>Nascimento</dt><dd>{formatarDataSemFuso(animal.data_nascimento, "Não informado")}</dd></div>
           <div><dt>Peso</dt><dd>{animal.peso ? `${animal.peso} kg` : "Não informado"}</dd></div>
           <div><dt>Propriedade</dt><dd>{animal.propriedade}</dd></div>
+          <div><dt>Mãe</dt><dd>{animal.mae ? `${animal.mae} — brinco ${animal.mae_numero_brinco || "não informado"}` : "Não informada"}</dd></div>
           <div className="animal-profile-lots">
             <dt>Lotes</dt>
             <dd>
@@ -345,6 +359,17 @@ function FichaAnimal() {
           </div>
         </dl>
       </section>
+
+      <ControlePesagens
+        animal={animal}
+        refreshKey={atualizacaoManejo}
+        onAtualizarAnimal={atualizarAnimal}
+      />
+
+      <ControleDesmama
+        animal={animal}
+        onPesagemCriada={atualizarManejo}
+      />
 
       <section className="milk-section">
         <div className="section-heading milk-section-heading">

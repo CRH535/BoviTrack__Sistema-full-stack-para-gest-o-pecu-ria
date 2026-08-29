@@ -1,6 +1,7 @@
 const express = require("express");
 const pool = require("../database/pool");
 const {
+  converterId,
   normalizarDataNascimento,
   normalizarNumeroBrinco,
 } = require("../utils/validacoes")
@@ -20,6 +21,9 @@ router.get("/animais", async (req, res) => {
                 animais.sexo,
                 animais.peso,
                 animais.propriedade_id,
+                animais.mae_id,
+                mae.nome AS mae,
+                mae.numero_brinco AS mae_numero_brinco,
                 propriedades.nome AS propriedade,
                 COALESCE(
                   (
@@ -37,6 +41,7 @@ router.get("/animais", async (req, res) => {
             FROM animais
             JOIN propriedades
                 ON animais.propriedade_id = propriedades.id
+            LEFT JOIN animais mae ON mae.id = animais.mae_id
             WHERE ($1 = 'admin' OR propriedades.usuario_id = $2)
             ORDER BY animais.id
         `, [req.usuario.perfil, req.usuario.id]);
@@ -66,6 +71,9 @@ router.get("/animais/:id", async (req, res) => {
                 animais.sexo,
                 animais.peso,
                 animais.propriedade_id,
+                animais.mae_id,
+                mae.nome AS mae,
+                mae.numero_brinco AS mae_numero_brinco,
                 propriedades.nome AS propriedade,
                 COALESCE(
                   (
@@ -83,6 +91,7 @@ router.get("/animais/:id", async (req, res) => {
              FROM animais
              JOIN propriedades
                 ON animais.propriedade_id = propriedades.id
+             LEFT JOIN animais mae ON mae.id = animais.mae_id
              WHERE animais.id = $1
                AND ($2 = 'admin' OR propriedades.usuario_id = $3)`,
       [id, req.usuario.perfil, req.usuario.id],
@@ -151,6 +160,7 @@ router.post("/animais", async (req, res) => {
       sexo,
       peso,
       propriedade_id,
+      mae_id,
     } = req.body;
 
     if (!nome || !especie || !sexo || !propriedade_id) {
@@ -194,6 +204,21 @@ router.post("/animais", async (req, res) => {
       });
     }
 
+    const maeId = mae_id ? converterId(mae_id) : null;
+    if (mae_id && !maeId) {
+      return res.status(400).json({ mensagem: "Mãe inválida" });
+    }
+    if (maeId) {
+      const maeExiste = await pool.query(
+        `SELECT id FROM animais
+          WHERE id = $1 AND propriedade_id = $2 AND sexo = 'F'`,
+        [maeId, propriedade_id],
+      );
+      if (!maeExiste.rows.length) {
+        return res.status(400).json({ mensagem: "A mãe deve ser uma fêmea da mesma propriedade" });
+      }
+    }
+
     if (numeroBrinco.valor) {
       const brincoExistente = await pool.query(
         `SELECT 1
@@ -213,8 +238,8 @@ router.post("/animais", async (req, res) => {
 
     const resultado = await pool.query(
       `INSERT INTO animais
-            (nome, numero_brinco, data_nascimento, especie, raca, sexo, peso, propriedade_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            (nome, numero_brinco, data_nascimento, especie, raca, sexo, peso, propriedade_id, mae_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
             RETURNING *`,
       [
         nome,
@@ -225,6 +250,7 @@ router.post("/animais", async (req, res) => {
         sexo.toUpperCase(),
         peso,
         propriedade_id,
+        maeId,
       ],
     );
 
@@ -264,6 +290,7 @@ router.put("/animais/:id", async (req, res) => {
       sexo,
       peso,
       propriedade_id,
+      mae_id,
     } = req.body;
 
     if (!nome || !especie || !sexo || !propriedade_id) {
@@ -320,6 +347,24 @@ router.put("/animais/:id", async (req, res) => {
       });
     }
 
+    const maeId = mae_id ? converterId(mae_id) : null;
+    if (mae_id && !maeId) {
+      return res.status(400).json({ mensagem: "Mãe inválida" });
+    }
+    if (maeId === Number(id)) {
+      return res.status(400).json({ mensagem: "Um animal não pode ser sua própria mãe" });
+    }
+    if (maeId) {
+      const maeExiste = await pool.query(
+        `SELECT id FROM animais
+          WHERE id = $1 AND propriedade_id = $2 AND sexo = 'F'`,
+        [maeId, propriedade_id],
+      );
+      if (!maeExiste.rows.length) {
+        return res.status(400).json({ mensagem: "A mãe deve ser uma fêmea da mesma propriedade" });
+      }
+    }
+
     if (numeroBrinco.valor) {
       const brincoExistente = await pool.query(
         `SELECT 1
@@ -350,7 +395,20 @@ router.put("/animais/:id", async (req, res) => {
          JOIN vacinas v ON v.id = vc.vacina_id
         WHERE vc.animal_id = $1
           AND v.usuario_id <> $3
-        LIMIT 1`,
+       UNION ALL
+       SELECT 1 FROM animais filho
+        WHERE filho.mae_id = $1 AND filho.propriedade_id <> $2
+       UNION ALL
+       SELECT 1 FROM pesagens pe
+        JOIN lotes lp ON lp.id = pe.lote_id
+        WHERE pe.animal_id = $1 AND lp.propriedade_id <> $2
+       UNION ALL
+       SELECT 1 FROM desmamas de
+        LEFT JOIN animais m ON m.id = de.mae_id
+        LEFT JOIN lotes ld ON ld.id = de.lote_destino_id
+        WHERE de.animal_id = $1
+          AND (m.propriedade_id <> $2 OR ld.propriedade_id <> $2)
+       LIMIT 1`,
       [id, propriedade_id, propriedadeExiste.rows[0].usuario_id],
     );
 
@@ -369,15 +427,16 @@ router.put("/animais/:id", async (req, res) => {
                  raca = $5,
                  sexo = $6,
                  peso = $7,
-                 propriedade_id = $8
-             WHERE id = $9
+                 propriedade_id = $8,
+                 mae_id = $9
+             WHERE id = $10
                AND (
-                 $10 = 'admin'
+                 $11 = 'admin'
                  OR EXISTS (
                    SELECT 1
                      FROM propriedades p
                     WHERE p.id = animais.propriedade_id
-                      AND p.usuario_id = $11
+                      AND p.usuario_id = $12
                  )
                )
              RETURNING *`,
@@ -390,6 +449,7 @@ router.put("/animais/:id", async (req, res) => {
         sexo.toUpperCase(),
         peso,
         propriedade_id,
+        maeId,
         id,
         req.usuario.perfil,
         req.usuario.id,
@@ -462,4 +522,3 @@ router.delete("/animais/:id", async (req, res) => {
 // =========================
 
 module.exports = router;
-

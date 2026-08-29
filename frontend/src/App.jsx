@@ -19,6 +19,8 @@ import Lotes from "./pages/Lotes";
 import Vacinas from "./pages/Vacinas";
 import Vacinacoes from "./pages/Vacinacoes";
 import Despesas from "./pages/Despesas";
+import Pesagens from "./pages/Pesagens";
+import Desmamas from "./pages/Desmamas";
 import Login from "./pages/Login";
 import Cadastro from "./pages/Cadastro";
 import Usuarios from "./pages/Usuarios";
@@ -33,6 +35,8 @@ const itensMenu = [
   { to: "/propriedades", label: "Propriedades", icon: "propriedades" },
   { to: "/animais", label: "Animais", icon: "animais" },
   { to: "/lotes", label: "Lotes", icon: "lotes" },
+  { to: "/pesagens", label: "Pesagens", icon: "identificacao" },
+  { to: "/desmamas", label: "Desmamas", icon: "animais-lotes" },
   { to: "/vacinas", label: "Vacinas", icon: "vacinas" },
   { to: "/vacinacoes", label: "Vacinações", icon: "vacinacoes" },
   { to: "/despesas", label: "Despesas", icon: "despesas" },
@@ -172,6 +176,8 @@ function App() {
           <Route path="animais" element={<Animais />} />
           <Route path="animais/:id" element={<FichaAnimal />} />
           <Route path="lotes" element={<Lotes />} />
+          <Route path="pesagens" element={<Pesagens />} />
+          <Route path="desmamas" element={<Desmamas />} />
           <Route path="vacinas" element={<Vacinas />} />
           <Route path="vacinacoes" element={<Vacinacoes />} />
           <Route path="despesas" element={<Despesas />} />

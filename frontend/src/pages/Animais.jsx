@@ -36,6 +36,7 @@ function Animais() {
   const [sexo, setSexo] = useState("");
   const [peso, setPeso] = useState("");
   const [propriedadeId, setPropriedadeId] = useState("");
+  const [maeId, setMaeId] = useState("");
 
   const [editandoId, setEditandoId] = useState(null);
   const [mensagem, setMensagem] = useState("");
@@ -73,6 +74,7 @@ function Animais() {
     setSexo("");
     setPeso("");
     setPropriedadeId("");
+    setMaeId("");
     setEditandoId(null);
   }
 
@@ -89,6 +91,7 @@ function Animais() {
         sexo,
         peso: peso ? Number(peso) : null,
         propriedade_id: Number(propriedadeId),
+        mae_id: maeId ? Number(maeId) : null,
       };
 
       if (editandoId) {
@@ -118,6 +121,7 @@ function Animais() {
     setSexo(animal.sexo);
     setPeso(animal.peso || "");
     setPropriedadeId(animal.propriedade_id);
+    setMaeId(animal.mae_id || "");
   }
 
   async function excluirAnimal(id) {
@@ -245,7 +249,10 @@ function Animais() {
 
           <select
             value={propriedadeId}
-            onChange={(e) => setPropriedadeId(e.target.value)}
+            onChange={(e) => {
+              setPropriedadeId(e.target.value);
+              setMaeId("");
+            }}
           >
             <option value="">Selecione</option>
 
@@ -254,6 +261,29 @@ function Animais() {
                 {propriedade.nome}
               </option>
             ))}
+          </select>
+        </div>
+
+        <div>
+          <label>Mãe (opcional)</label>
+          <br />
+          <select
+            value={maeId}
+            onChange={(e) => setMaeId(e.target.value)}
+            disabled={!propriedadeId}
+          >
+            <option value="">Não informada</option>
+            {animais
+              .filter((animal) => (
+                animal.sexo === "F" &&
+                Number(animal.propriedade_id) === Number(propriedadeId) &&
+                animal.id !== editandoId
+              ))
+              .map((animal) => (
+                <option key={animal.id} value={animal.id}>
+                  {animal.nome} — brinco {animal.numero_brinco || "não informado"}
+                </option>
+              ))}
           </select>
         </div>
 
@@ -302,6 +332,7 @@ function Animais() {
           <p>Sexo: {animal.sexo}</p>
           <p>Peso: {animal.peso || "-"} kg</p>
           <p>Propriedade: {animal.propriedade || animal.propriedade_id}</p>
+          <p>Mãe: {animal.mae ? `${animal.mae} — brinco ${animal.mae_numero_brinco || "não informado"}` : "Não informada"}</p>
           <p>
             {animal.lotes?.length === 1 ? "Lote" : "Lotes"}:{" "}
             {animal.lotes?.length > 0

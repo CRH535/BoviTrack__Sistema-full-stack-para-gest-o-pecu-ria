@@ -17,3 +17,16 @@ export function obterDataAtualLocal() {
 
   return `${ano}-${mes}-${dia}`;
 }
+
+export function calcularDiasEntreDatas(dataInicial, dataFinal) {
+  const extrair = (data) => {
+    const partes = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(data || ""));
+    return partes
+      ? Date.UTC(Number(partes[1]), Number(partes[2]) - 1, Number(partes[3]))
+      : null;
+  };
+  const inicio = extrair(dataInicial);
+  const fim = extrair(dataFinal);
+  if (inicio === null || fim === null || fim < inicio) return null;
+  return Math.round((fim - inicio) / 86400000);
+}

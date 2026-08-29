@@ -11,6 +11,11 @@ const resumoInicial = {
   lotes: 0,
   vacinas: 0,
   total_despesas: 0,
+  bezerros_aleitamento: 0,
+  desmamas_planejadas: 0,
+  desmamas_proximas: 0,
+  desmamados_ano: 0,
+  animais_sem_pesagem_recente: 0,
 };
 
 function Dashboard() {
@@ -112,6 +117,17 @@ function Dashboard() {
             <IconeImagem nome="despesas" className="stat-icon-image" />
           </span>
         </Link>
+      </section>
+
+      <div className="section-heading dashboard-calf-heading">
+        <div><span className="eyebrow">Crescimento e manejo</span><h2>Bezerros e desmamas</h2></div>
+      </div>
+      <section className="calf-stats-grid" aria-label="Indicadores de bezerros e desmamas">
+        <Link className="stat-card dashboard-link-card" to="/desmamas"><div><span>Em aleitamento</span><strong>{Number(resumo.bezerros_aleitamento)}</strong><small>Bezerros sem desmama definitiva</small></div></Link>
+        <Link className="stat-card dashboard-link-card" to="/desmamas"><div><span>Desmamas planejadas</span><strong>{Number(resumo.desmamas_planejadas)}</strong><small>Planejadas ou em andamento</small></div></Link>
+        <Link className="stat-card dashboard-link-card" to="/desmamas"><div><span>Próximos 30 dias</span><strong>{Number(resumo.desmamas_proximas)}</strong><small>Desmamas programadas</small></div></Link>
+        <Link className="stat-card dashboard-link-card" to="/desmamas"><div><span>Desmamados no ano</span><strong>{Number(resumo.desmamados_ano)}</strong><small>Eventos definitivos concluídos</small></div></Link>
+        <Link className="stat-card dashboard-link-card" to="/pesagens"><div><span>Sem pesagem recente</span><strong>{Number(resumo.animais_sem_pesagem_recente)}</strong><small>Sem registro nos últimos 60 dias</small></div></Link>
       </section>
 
       <section className="dashboard-panels">

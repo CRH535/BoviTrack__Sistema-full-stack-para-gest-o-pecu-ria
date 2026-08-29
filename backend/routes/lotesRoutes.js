@@ -161,6 +161,14 @@ router.put("/lotes/:id", async (req, res) => {
          JOIN animais a ON a.id = al.animal_id
         WHERE al.lote_id = $1
           AND a.propriedade_id <> $2
+       UNION ALL
+       SELECT 1 FROM pesagens pe
+        JOIN animais ap ON ap.id = pe.animal_id
+        WHERE pe.lote_id = $1 AND ap.propriedade_id <> $2
+       UNION ALL
+       SELECT 1 FROM desmamas de
+        JOIN animais ad ON ad.id = de.animal_id
+        WHERE de.lote_destino_id = $1 AND ad.propriedade_id <> $2
         LIMIT 1`,
       [id, propriedade_id],
     );
@@ -487,4 +495,3 @@ router.get("/animais/:id/lotes", async (req, res) => {
 // =========================
 
 module.exports = router;
-

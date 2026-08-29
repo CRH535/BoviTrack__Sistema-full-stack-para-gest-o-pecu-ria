@@ -8,6 +8,8 @@ const TABELAS = [
   "propriedades",
   "animais",
   "producoes_leiteiras",
+  "pesagens",
+  "desmamas",
   "lotes",
   "animais_lotes",
   "vacinas",
@@ -53,6 +55,12 @@ async function executar() {
          AS animais_sem_propriedade,
        (SELECT COUNT(*) FROM producoes_leiteiras pl LEFT JOIN animais a ON a.id = pl.animal_id WHERE a.id IS NULL)::integer
          AS producoes_sem_animal,
+       (SELECT COUNT(*) FROM pesagens pe LEFT JOIN animais a ON a.id = pe.animal_id WHERE a.id IS NULL)::integer
+         AS pesagens_sem_animal,
+       (SELECT COUNT(*) FROM desmamas de LEFT JOIN animais a ON a.id = de.animal_id WHERE a.id IS NULL)::integer
+         AS desmamas_sem_animal,
+       (SELECT COUNT(*) FROM animais a LEFT JOIN animais m ON m.id = a.mae_id WHERE a.mae_id IS NOT NULL AND m.id IS NULL)::integer
+         AS animais_sem_mae_valida,
        (SELECT COUNT(*) FROM lotes l LEFT JOIN propriedades p ON p.id = l.propriedade_id WHERE p.id IS NULL)::integer
          AS lotes_sem_propriedade,
        (SELECT COUNT(*) FROM despesas d LEFT JOIN propriedades p ON p.id = d.propriedade_id WHERE p.id IS NULL)::integer
