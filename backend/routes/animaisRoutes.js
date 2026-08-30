@@ -4,12 +4,48 @@ const {
   converterId,
   normalizarDataNascimento,
   normalizarNumeroBrinco,
+  normalizarPaginacao,
+  responderPagina,
+  validarCamposPermitidos,
+  normalizarTextoObrigatorio,
+  normalizarTextoOpcional,
+  normalizarNumeroFinito,
 } = require("../utils/validacoes")
+const { validarParametroId } = require("../middleware/validacao");
+const { registrarErro } = require("../utils/log");
 
 const router = express.Router();
+router.param("id", validarParametroId);
+
+function normalizarDadosAnimal(dados) {
+  const nome = normalizarTextoObrigatorio(dados.nome, "Nome", 120);
+  const especie = normalizarTextoObrigatorio(dados.especie, "Espécie", 80);
+  const raca = normalizarTextoOpcional(dados.raca, "Raça", 100);
+  const numeroBrinco = normalizarNumeroBrinco(dados.numero_brinco);
+  const dataNascimento = normalizarDataNascimento(dados.data_nascimento);
+  const propriedadeId = converterId(dados.propriedade_id);
+  const maeId = dados.mae_id ? converterId(dados.mae_id) : null;
+  const sexo = typeof dados.sexo === "string" ? dados.sexo.trim().toUpperCase() : "";
+  const peso = dados.peso === undefined || dados.peso === null || dados.peso === ""
+    ? { valor: null }
+    : normalizarNumeroFinito(dados.peso, "Peso", { minimo: 0, maximo: 1e6 });
+  const erro = nome.erro || especie.erro || raca.erro || numeroBrinco.erro ||
+    dataNascimento.erro || peso.erro || (!propriedadeId && "Propriedade inválida") ||
+    (dados.mae_id && !maeId && "Mãe inválida") ||
+    (!["M", "F"].includes(sexo) && "Sexo deve ser M ou F");
+  if (erro) return { erro };
+  return { valor: {
+    nome: nome.valor, especie: especie.valor, raca: raca.valor,
+    numero_brinco: numeroBrinco.valor, data_nascimento: dataNascimento.valor,
+    propriedade_id: propriedadeId, mae_id: maeId, sexo, peso: peso.valor,
+  } };
+}
 
 router.get("/animais", async (req, res) => {
   try {
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
+    const { limite, offset } = paginacao.valor;
     const resultado = await pool.query(`
             SELECT
                 animais.id,
@@ -44,11 +80,12 @@ router.get("/animais", async (req, res) => {
             LEFT JOIN animais mae ON mae.id = animais.mae_id
             WHERE ($1 = 'admin' OR propriedades.usuario_id = $2)
             ORDER BY animais.id
-        `, [req.usuario.perfil, req.usuario.id]);
+            LIMIT $3 OFFSET $4
+        `, [req.usuario.perfil, req.usuario.id, limite + 1, offset]);
 
-    res.json(resultado.rows);
+    res.json(responderPagina(res, resultado.rows, paginacao.valor));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("animais_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar animais",
@@ -105,7 +142,7 @@ router.get("/animais/:id", async (req, res) => {
 
     res.json(resultado.rows[0]);
   } catch (erro) {
-    console.error(erro);
+    registrarErro("animais_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar animal",
@@ -115,6 +152,9 @@ router.get("/animais/:id", async (req, res) => {
 
 router.get("/propriedades/:id/animais", async (req, res) => {
   try {
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
+    const { limite, offset } = paginacao.valor;
     const { id } = req.params;
 
     const propriedadeExiste = await pool.query(
@@ -135,13 +175,14 @@ router.get("/propriedades/:id/animais", async (req, res) => {
       `SELECT *
              FROM animais
              WHERE propriedade_id = $1
-             ORDER BY id`,
-      [id],
+             ORDER BY id
+             LIMIT $2 OFFSET $3`,
+      [id, limite + 1, offset],
     );
 
-    res.json(resultado.rows);
+    res.json(responderPagina(res, resultado.rows, paginacao.valor));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("animais_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar animais da propriedade",
@@ -151,44 +192,13 @@ router.get("/propriedades/:id/animais", async (req, res) => {
 
 router.post("/animais", async (req, res) => {
   try {
-    const {
-      nome,
-      numero_brinco,
-      data_nascimento,
-      especie,
-      raca,
-      sexo,
-      peso,
-      propriedade_id,
-      mae_id,
-    } = req.body;
-
-    if (!nome || !especie || !sexo || !propriedade_id) {
-      return res.status(400).json({
-        mensagem: "Nome, espécie, sexo e propriedade são obrigatórios",
-      });
-    }
-
-    if (sexo.toUpperCase() !== "M" && sexo.toUpperCase() !== "F") {
-      return res.status(400).json({
-        mensagem: "Sexo deve ser M ou F",
-      });
-    }
-
-    if (peso !== undefined && peso !== null && peso < 0) {
-      return res.status(400).json({
-        mensagem: "Peso não pode ser negativo",
-      });
-    }
-
-    const numeroBrinco = normalizarNumeroBrinco(numero_brinco);
-    const dataNascimento = normalizarDataNascimento(data_nascimento);
-
-    if (numeroBrinco.erro || dataNascimento.erro) {
-      return res.status(400).json({
-        mensagem: numeroBrinco.erro || dataNascimento.erro,
-      });
-    }
+    const campos = validarCamposPermitidos(req.body, ["nome", "numero_brinco", "data_nascimento", "especie", "raca", "sexo", "peso", "propriedade_id", "mae_id"]);
+    if (campos.erro) return res.status(400).json({ mensagem: campos.erro });
+    const dados = normalizarDadosAnimal(req.body);
+    if (dados.erro) return res.status(400).json({ mensagem: dados.erro });
+    const { nome, numero_brinco, data_nascimento, especie, raca, sexo, peso, propriedade_id, mae_id: maeId } = dados.valor;
+    const numeroBrinco = { valor: numero_brinco };
+    const dataNascimento = { valor: data_nascimento };
 
     const propriedadeExiste = await pool.query(
       `SELECT id, usuario_id
@@ -204,10 +214,6 @@ router.post("/animais", async (req, res) => {
       });
     }
 
-    const maeId = mae_id ? converterId(mae_id) : null;
-    if (mae_id && !maeId) {
-      return res.status(400).json({ mensagem: "Mãe inválida" });
-    }
     if (maeId) {
       const maeExiste = await pool.query(
         `SELECT id FROM animais
@@ -247,7 +253,7 @@ router.post("/animais", async (req, res) => {
         dataNascimento.valor,
         especie,
         raca,
-        sexo.toUpperCase(),
+        sexo,
         peso,
         propriedade_id,
         maeId,
@@ -269,7 +275,7 @@ router.post("/animais", async (req, res) => {
       });
     }
 
-    console.error(erro);
+    registrarErro("animais_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao cadastrar animal",
@@ -279,46 +285,15 @@ router.post("/animais", async (req, res) => {
 
 router.put("/animais/:id", async (req, res) => {
   try {
+    const campos = validarCamposPermitidos(req.body, ["nome", "numero_brinco", "data_nascimento", "especie", "raca", "sexo", "peso", "propriedade_id", "mae_id"]);
+    if (campos.erro) return res.status(400).json({ mensagem: campos.erro });
     const { id } = req.params;
 
-    const {
-      nome,
-      numero_brinco,
-      data_nascimento,
-      especie,
-      raca,
-      sexo,
-      peso,
-      propriedade_id,
-      mae_id,
-    } = req.body;
-
-    if (!nome || !especie || !sexo || !propriedade_id) {
-      return res.status(400).json({
-        mensagem: "Nome, espécie, sexo e propriedade são obrigatórios",
-      });
-    }
-
-    if (sexo.toUpperCase() !== "M" && sexo.toUpperCase() !== "F") {
-      return res.status(400).json({
-        mensagem: "Sexo deve ser M ou F",
-      });
-    }
-
-    if (peso !== undefined && peso !== null && peso < 0) {
-      return res.status(400).json({
-        mensagem: "Peso não pode ser negativo",
-      });
-    }
-
-    const numeroBrinco = normalizarNumeroBrinco(numero_brinco);
-    const dataNascimento = normalizarDataNascimento(data_nascimento);
-
-    if (numeroBrinco.erro || dataNascimento.erro) {
-      return res.status(400).json({
-        mensagem: numeroBrinco.erro || dataNascimento.erro,
-      });
-    }
+    const dados = normalizarDadosAnimal(req.body);
+    if (dados.erro) return res.status(400).json({ mensagem: dados.erro });
+    const { nome, numero_brinco, data_nascimento, especie, raca, sexo, peso, propriedade_id, mae_id: maeId } = dados.valor;
+    const numeroBrinco = { valor: numero_brinco };
+    const dataNascimento = { valor: data_nascimento };
 
     const animalAtual = await pool.query(
       `SELECT a.id
@@ -347,10 +322,6 @@ router.put("/animais/:id", async (req, res) => {
       });
     }
 
-    const maeId = mae_id ? converterId(mae_id) : null;
-    if (mae_id && !maeId) {
-      return res.status(400).json({ mensagem: "Mãe inválida" });
-    }
     if (maeId === Number(id)) {
       return res.status(400).json({ mensagem: "Um animal não pode ser sua própria mãe" });
     }
@@ -446,7 +417,7 @@ router.put("/animais/:id", async (req, res) => {
         dataNascimento.valor,
         especie,
         raca,
-        sexo.toUpperCase(),
+        sexo,
         peso,
         propriedade_id,
         maeId,
@@ -477,7 +448,7 @@ router.put("/animais/:id", async (req, res) => {
       });
     }
 
-    console.error(erro);
+    registrarErro("animais_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao atualizar animal",
@@ -510,7 +481,7 @@ router.delete("/animais/:id", async (req, res) => {
       animal: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("animais_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao excluir animal",

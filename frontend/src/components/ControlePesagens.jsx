@@ -51,9 +51,9 @@ function ControlePesagens({ animal, onAtualizarAnimal, refreshKey = 0 }) {
 
   async function carregar() {
     const [historico, indicadores, lotesResposta] = await Promise.all([
-      api.get(`/animais/${animal.id}/pesagens`),
+      api.getAll(`/animais/${animal.id}/pesagens`),
       api.get(`/animais/${animal.id}/pesagens/resumo`),
-      api.get("/lotes"),
+      api.getAll("/lotes"),
     ]);
     setPesagens(historico.data);
     setResumo(indicadores.data.resumo);
@@ -67,9 +67,9 @@ function ControlePesagens({ animal, onAtualizarAnimal, refreshKey = 0 }) {
     async function carregarInicial() {
       try {
         const [historico, indicadores, lotesResposta] = await Promise.all([
-          api.get(`/animais/${animal.id}/pesagens`),
+          api.getAll(`/animais/${animal.id}/pesagens`),
           api.get(`/animais/${animal.id}/pesagens/resumo`),
-          api.get("/lotes"),
+          api.getAll("/lotes"),
         ]);
         if (!ativo) return;
         setPesagens(historico.data);

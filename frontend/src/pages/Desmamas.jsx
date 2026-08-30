@@ -17,7 +17,7 @@ function Desmamas() {
   const [erro, setErro] = useState("");
 
   async function carregar(params = filtros) {
-    try { const resposta = await api.get("/desmamas", { params: Object.fromEntries(Object.entries(params).filter(([, valor]) => valor !== "")) }); setRegistros(resposta.data); setErro(""); }
+    try { const resposta = await api.getAll("/desmamas", { params: Object.fromEntries(Object.entries(params).filter(([, valor]) => valor !== "")) }); setRegistros(resposta.data); setErro(""); }
     catch (falha) { setErro(falha.response?.data?.mensagem || "Não foi possível carregar as desmamas."); }
   }
   useEffect(() => {
@@ -25,7 +25,7 @@ function Desmamas() {
     async function carregarInicial() {
       try {
         const [p, l, registrosResposta] = await Promise.all([
-          api.get("/propriedades"), api.get("/lotes"), api.get("/desmamas"),
+          api.getAll("/propriedades"), api.getAll("/lotes"), api.getAll("/desmamas"),
         ]);
         if (!ativo) return;
         setPropriedades(p.data); setLotes(l.data); setRegistros(registrosResposta.data);

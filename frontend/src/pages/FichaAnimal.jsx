@@ -64,7 +64,7 @@ function FichaAnimal() {
         const [animalResposta, producoesResposta, resumoResposta] =
           await Promise.all([
             api.get(`/animais/${id}`),
-            api.get(`/animais/${id}/producoes-leiteiras`, {
+            api.getAll(`/animais/${id}/producoes-leiteiras`, {
               params: { periodo: "todos" },
             }),
             api.get(`/animais/${id}/producoes-leiteiras/resumo`),
@@ -110,7 +110,7 @@ function FichaAnimal() {
       params.data_fim = fimRecebido;
     }
 
-    const resposta = await api.get(`/animais/${id}/producoes-leiteiras`, {
+    const resposta = await api.getAll(`/animais/${id}/producoes-leiteiras`, {
       params,
     });
 

@@ -33,13 +33,17 @@ async function limpar() {
 }
 
 async function executar() {
+  if (process.env.ALLOW_TEST_DB_WRITES !== "true") {
+    throw new Error("Defina ALLOW_TEST_DB_WRITES=true somente em um banco isolado de teste");
+  }
+  await pool.query("DELETE FROM limites_requisicao WHERE escopo IN ('LOGIN_CONTA', 'LOGIN_IP', 'CADASTRO_IP')");
   servidor = app.listen(0);
   await new Promise((resolve) => servidor.once("listening", resolve));
   baseUrl = `http://127.0.0.1:${servidor.address().port}`;
 
   for (const [indice, email] of emails.entries()) {
     const cadastro = await requisitar("/auth/cadastro", { metodo: "POST", corpo: { nome: `Produtor Bezerros ${indice + 1}`, email, senha } });
-    confirmar(`cadastro do produtor ${indice + 1}`, cadastro.status === 201);
+    confirmar(`cadastro do produtor ${indice + 1}`, cadastro.status === 202);
   }
   const sessoes = await Promise.all(emails.map((email) => requisitar("/auth/login", { metodo: "POST", corpo: { email, senha } })));
   const [tokenA, tokenB] = sessoes.map((item) => item.dados.token);

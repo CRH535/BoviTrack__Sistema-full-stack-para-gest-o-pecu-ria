@@ -16,7 +16,7 @@ function Pesagens() {
 
   async function carregar(params = filtros) {
     try {
-      const resposta = await api.get("/pesagens", { params: Object.fromEntries(Object.entries(params).filter(([, valor]) => valor !== "")) });
+      const resposta = await api.getAll("/pesagens", { params: Object.fromEntries(Object.entries(params).filter(([, valor]) => valor !== "")) });
       setRegistros(resposta.data); setErro("");
     } catch (falha) { setErro(falha.response?.data?.mensagem || "Não foi possível carregar as pesagens."); }
   }
@@ -26,7 +26,7 @@ function Pesagens() {
     async function carregarInicial() {
       try {
         const [p, l, registrosResposta] = await Promise.all([
-          api.get("/propriedades"), api.get("/lotes"), api.get("/pesagens"),
+          api.getAll("/propriedades"), api.getAll("/lotes"), api.getAll("/pesagens"),
         ]);
         if (!ativo) return;
         setPropriedades(p.data); setLotes(l.data); setRegistros(registrosResposta.data);

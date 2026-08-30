@@ -1,37 +1,32 @@
 const express = require("express");
 const pool = require("../database/pool");
-const { normalizarFormaPagamento } = require("../utils/validacoes")
+const { normalizarFormaPagamento, normalizarPaginacao, responderPagina, validarCamposPermitidos, converterId, normalizarDataCalendario, normalizarTextoObrigatorio, normalizarNumeroFinito } = require("../utils/validacoes")
+const { validarParametroId } = require("../middleware/validacao");
+const { registrarErro } = require("../utils/log");
 
 const router = express.Router();
+router.param("id", validarParametroId);
+
+function normalizarDadosDespesa(dados) {
+  const descricao = normalizarTextoObrigatorio(dados.descricao, "Descrição", 150);
+  const categoria = normalizarTextoObrigatorio(dados.categoria, "Categoria", 100);
+  const formaPagamento = normalizarFormaPagamento(dados.forma_pagamento);
+  const valor = normalizarNumeroFinito(dados.valor, "Valor", { minimo: 0.01, maximo: 1e12 });
+  const data = normalizarDataCalendario(dados.data, "Data");
+  const propriedadeId = converterId(dados.propriedade_id);
+  const erro = descricao.erro || categoria.erro || formaPagamento.erro || valor.erro || data.erro ||
+    (!propriedadeId && "Propriedade inválida");
+  if (erro) return { erro };
+  return { valor: { descricao: descricao.valor, categoria: categoria.valor, formaPagamento: formaPagamento.valor, valor: valor.valor, data: data.valor, propriedade_id: propriedadeId } };
+}
 
 router.post("/despesas", async (req, res) => {
   try {
-    const {
-      descricao,
-      categoria,
-      forma_pagamento,
-      valor,
-      data,
-      propriedade_id,
-    } = req.body;
-
-    if (!descricao || !categoria || !valor || !data || !propriedade_id) {
-      return res.status(400).json({
-        mensagem: "Todos os campos são obrigatórios",
-      });
-    }
-
-    if (valor <= 0) {
-      return res.status(400).json({
-        mensagem: "O valor da despesa deve ser maior que zero",
-      });
-    }
-
-    const formaPagamento = normalizarFormaPagamento(forma_pagamento);
-
-    if (formaPagamento.erro) {
-      return res.status(400).json({ mensagem: formaPagamento.erro });
-    }
+    const campos = validarCamposPermitidos(req.body, ["descricao", "categoria", "forma_pagamento", "valor", "data", "propriedade_id"]);
+    if (campos.erro) return res.status(400).json({ mensagem: campos.erro });
+    const dados = normalizarDadosDespesa(req.body);
+    if (dados.erro) return res.status(400).json({ mensagem: dados.erro });
+    const { descricao, categoria, formaPagamento, valor, data, propriedade_id } = dados.valor;
 
     const propriedadeExiste = await pool.query(
       `SELECT id
@@ -55,7 +50,7 @@ router.post("/despesas", async (req, res) => {
       [
         descricao,
         categoria,
-        formaPagamento.valor,
+        formaPagamento,
         valor,
         data,
         propriedade_id,
@@ -67,7 +62,7 @@ router.post("/despesas", async (req, res) => {
       despesa: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("despesas_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao cadastrar despesa",
@@ -77,6 +72,9 @@ router.post("/despesas", async (req, res) => {
 
 router.get("/despesas", async (req, res) => {
   try {
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
+    const { limite, offset } = paginacao.valor;
     const resultado = await pool.query(`
             SELECT
                 despesas.id,
@@ -91,12 +89,13 @@ router.get("/despesas", async (req, res) => {
             JOIN propriedades
                 ON despesas.propriedade_id = propriedades.id
             WHERE ($1 = 'admin' OR propriedades.usuario_id = $2)
-            ORDER BY despesas.data DESC
-        `, [req.usuario.perfil, req.usuario.id]);
+            ORDER BY despesas.data DESC, despesas.id DESC
+            LIMIT $3 OFFSET $4
+        `, [req.usuario.perfil, req.usuario.id, limite + 1, offset]);
 
-    res.json(resultado.rows);
+    res.json(responderPagina(res, resultado.rows, paginacao.valor));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("despesas_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar despesas",
@@ -136,7 +135,7 @@ router.get("/despesas/:id", async (req, res) => {
 
     res.json(resultado.rows[0]);
   } catch (erro) {
-    console.error(erro);
+    registrarErro("despesas_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar despesa",
@@ -146,34 +145,13 @@ router.get("/despesas/:id", async (req, res) => {
 
 router.put("/despesas/:id", async (req, res) => {
   try {
+    const campos = validarCamposPermitidos(req.body, ["descricao", "categoria", "forma_pagamento", "valor", "data", "propriedade_id"]);
+    if (campos.erro) return res.status(400).json({ mensagem: campos.erro });
     const { id } = req.params;
 
-    const {
-      descricao,
-      categoria,
-      forma_pagamento,
-      valor,
-      data,
-      propriedade_id,
-    } = req.body;
-
-    if (!descricao || !categoria || !valor || !data || !propriedade_id) {
-      return res.status(400).json({
-        mensagem: "Todos os campos são obrigatórios",
-      });
-    }
-
-    if (valor <= 0) {
-      return res.status(400).json({
-        mensagem: "O valor da despesa deve ser maior que zero",
-      });
-    }
-
-    const formaPagamento = normalizarFormaPagamento(forma_pagamento);
-
-    if (formaPagamento.erro) {
-      return res.status(400).json({ mensagem: formaPagamento.erro });
-    }
+    const dados = normalizarDadosDespesa(req.body);
+    if (dados.erro) return res.status(400).json({ mensagem: dados.erro });
+    const { descricao, categoria, formaPagamento, valor, data, propriedade_id } = dados.valor;
 
     const propriedadeExiste = await pool.query(
       `SELECT id
@@ -211,7 +189,7 @@ router.put("/despesas/:id", async (req, res) => {
       [
         descricao,
         categoria,
-        formaPagamento.valor,
+        formaPagamento,
         valor,
         data,
         propriedade_id,
@@ -232,7 +210,7 @@ router.put("/despesas/:id", async (req, res) => {
       despesa: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("despesas_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao atualizar despesa",
@@ -265,7 +243,7 @@ router.delete("/despesas/:id", async (req, res) => {
       despesa: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("despesas_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao excluir despesa",
@@ -279,6 +257,8 @@ router.delete("/despesas/:id", async (req, res) => {
 router.get("/propriedades/:id/despesas", async (req, res) => {
   try {
     const { id } = req.params;
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
 
     const {
       periodo = "todos",
@@ -309,13 +289,13 @@ router.get("/propriedades/:id/despesas", async (req, res) => {
       });
     }
 
-    if (valor_minimo && isNaN(Number(valor_minimo))) {
+    if (valor_minimo !== undefined && !Number.isFinite(Number(valor_minimo))) {
       return res.status(400).json({
         mensagem: "Valor mínimo inválido",
       });
     }
 
-    if (valor_maximo && isNaN(Number(valor_maximo))) {
+    if (valor_maximo !== undefined && !Number.isFinite(Number(valor_maximo))) {
       return res.status(400).json({
         mensagem: "Valor máximo inválido",
       });
@@ -343,19 +323,25 @@ router.get("/propriedades/:id/despesas", async (req, res) => {
       });
     }
 
-    if (data_inicio && isNaN(Date.parse(data_inicio))) {
+    const dataInicioValidada = data_inicio
+      ? normalizarDataCalendario(data_inicio, "Data inicial")
+      : { valor: null };
+    if (dataInicioValidada.erro) {
       return res.status(400).json({
         mensagem: "Data inicial inválida",
       });
     }
 
-    if (data_fim && isNaN(Date.parse(data_fim))) {
+    const dataFimValidada = data_fim
+      ? normalizarDataCalendario(data_fim, "Data final")
+      : { valor: null };
+    if (dataFimValidada.erro) {
       return res.status(400).json({
         mensagem: "Data final inválida",
       });
     }
 
-    if (data_inicio && data_fim && new Date(data_inicio) > new Date(data_fim)) {
+    if (data_inicio && data_fim && dataInicioValidada.valor > dataFimValidada.valor) {
       return res.status(400).json({
         mensagem: "A data inicial não pode ser posterior à data final",
       });
@@ -366,6 +352,10 @@ router.get("/propriedades/:id/despesas", async (req, res) => {
         mensagem:
           "Use periodo ou intervalo de datas, não os dois ao mesmo tempo",
       });
+    }
+
+    if (categoria !== undefined && (typeof categoria !== "string" || !categoria.trim() || categoria.trim().length > 100)) {
+      return res.status(400).json({ mensagem: "Categoria inválida" });
     }
 
     const valores = [id];
@@ -393,7 +383,7 @@ router.get("/propriedades/:id/despesas", async (req, res) => {
       const parametro = valores.length + 1;
 
       filtro += ` AND categoria = $${parametro}`;
-      valores.push(categoria);
+      valores.push(categoria.trim());
     }
 
     if (valor_minimo) {
@@ -414,28 +404,34 @@ router.get("/propriedades/:id/despesas", async (req, res) => {
       const parametro = valores.length + 1;
 
       filtro += ` AND data >= $${parametro}`;
-      valores.push(data_inicio);
+      valores.push(dataInicioValidada.valor);
     }
 
     if (data_fim) {
       const parametro = valores.length + 1;
 
       filtro += ` AND data <= $${parametro}`;
-      valores.push(data_fim);
+      valores.push(dataFimValidada.valor);
     }
 
+    const parametroLimite = valores.length + 1;
+    const parametroOffset = valores.length + 2;
+    valores.push(paginacao.valor.limite + 1, paginacao.valor.offset);
+
     const resultado = await pool.query(
-      `SELECT *
+      `SELECT id, descricao, categoria, valor, data, forma_pagamento,
+              propriedade_id
              FROM despesas
              WHERE propriedade_id = $1
              ${filtro}
-             ORDER BY data DESC, valor DESC`,
+             ORDER BY data DESC, valor DESC, id DESC
+             LIMIT $${parametroLimite} OFFSET $${parametroOffset}`,
       valores,
     );
 
-    res.json(resultado.rows);
+    res.json(responderPagina(res, resultado.rows, paginacao.valor));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("despesas_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar despesas da propriedade",
@@ -479,13 +475,13 @@ router.get("/propriedades/:id/despesas/resumo", async (req, res) => {
       });
     }
 
-    if (valor_minimo && isNaN(Number(valor_minimo))) {
+    if (valor_minimo !== undefined && !Number.isFinite(Number(valor_minimo))) {
       return res.status(400).json({
         mensagem: "Valor mínimo inválido",
       });
     }
 
-    if (valor_maximo && isNaN(Number(valor_maximo))) {
+    if (valor_maximo !== undefined && !Number.isFinite(Number(valor_maximo))) {
       return res.status(400).json({
         mensagem: "Valor máximo inválido",
       });
@@ -513,19 +509,25 @@ router.get("/propriedades/:id/despesas/resumo", async (req, res) => {
       });
     }
 
-    if (data_inicio && isNaN(Date.parse(data_inicio))) {
+    const dataInicioValidada = data_inicio
+      ? normalizarDataCalendario(data_inicio, "Data inicial")
+      : { valor: null };
+    if (dataInicioValidada.erro) {
       return res.status(400).json({
         mensagem: "Data inicial inválida",
       });
     }
 
-    if (data_fim && isNaN(Date.parse(data_fim))) {
+    const dataFimValidada = data_fim
+      ? normalizarDataCalendario(data_fim, "Data final")
+      : { valor: null };
+    if (dataFimValidada.erro) {
       return res.status(400).json({
         mensagem: "Data final inválida",
       });
     }
 
-    if (data_inicio && data_fim && new Date(data_inicio) > new Date(data_fim)) {
+    if (data_inicio && data_fim && dataInicioValidada.valor > dataFimValidada.valor) {
       return res.status(400).json({
         mensagem: "A data inicial não pode ser posterior à data final",
       });
@@ -536,6 +538,10 @@ router.get("/propriedades/:id/despesas/resumo", async (req, res) => {
         mensagem:
           "Use periodo ou intervalo de datas, não os dois ao mesmo tempo",
       });
+    }
+
+    if (categoria !== undefined && (typeof categoria !== "string" || !categoria.trim() || categoria.trim().length > 100)) {
+      return res.status(400).json({ mensagem: "Categoria inválida" });
     }
 
     const valores = [id];
@@ -563,7 +569,7 @@ router.get("/propriedades/:id/despesas/resumo", async (req, res) => {
       const parametro = valores.length + 1;
 
       filtro += ` AND categoria = $${parametro}`;
-      valores.push(categoria);
+      valores.push(categoria.trim());
     }
 
     if (valor_minimo) {
@@ -584,14 +590,14 @@ router.get("/propriedades/:id/despesas/resumo", async (req, res) => {
       const parametro = valores.length + 1;
 
       filtro += ` AND data >= $${parametro}`;
-      valores.push(data_inicio);
+      valores.push(dataInicioValidada.valor);
     }
 
     if (data_fim) {
       const parametro = valores.length + 1;
 
       filtro += ` AND data <= $${parametro}`;
-      valores.push(data_fim);
+      valores.push(dataFimValidada.valor);
     }
 
     const resumoResultado = await pool.query(
@@ -645,7 +651,7 @@ router.get("/propriedades/:id/despesas/resumo", async (req, res) => {
       categorias: categoriasResultado.rows,
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("despesas_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar resumo de despesas",
@@ -654,4 +660,3 @@ router.get("/propriedades/:id/despesas/resumo", async (req, res) => {
 });
 
 module.exports = router;
-

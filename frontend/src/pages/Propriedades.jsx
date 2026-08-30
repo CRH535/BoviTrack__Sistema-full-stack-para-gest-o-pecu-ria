@@ -20,10 +20,10 @@ function Propriedades() {
 
   async function carregarPropriedades() {
     try {
-      const resposta = await api.get("/propriedades");
+      const resposta = await api.getAll("/propriedades");
       setPropriedades(resposta.data);
-    } catch (erro) {
-      console.error(erro);
+    } catch {
+      console.error("Falha em uma operação de propriedades");
       setMensagem("Erro ao carregar propriedades");
     }
   }
@@ -58,7 +58,7 @@ function Propriedades() {
       limparFormulario();
       carregarPropriedades();
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de propriedades");
 
       setMensagem(
         erro.response?.data?.mensagem || "Erro ao salvar propriedade",
@@ -92,7 +92,7 @@ function Propriedades() {
 
       setMensagem("Propriedade excluída com sucesso!");
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de propriedades");
 
       setMensagem(
         erro.response?.data?.mensagem || "Erro ao excluir propriedade",

@@ -27,7 +27,7 @@ function ControleDesmama({ animal, onPesagemCriada }) {
 
   async function carregar() {
     const [desmamas, lotesResposta, animaisResposta] = await Promise.all([
-      api.get(`/animais/${animal.id}/desmamas`), api.get("/lotes"), api.get("/animais"),
+      api.getAllNested(`/animais/${animal.id}/desmamas`, "eventos"), api.getAll("/lotes"), api.getAll("/animais"),
     ]);
     setEventos(desmamas.data.eventos);
     setStatusAtual(desmamas.data.status_atual);
@@ -41,7 +41,7 @@ function ControleDesmama({ animal, onPesagemCriada }) {
     async function carregarInicial() {
       try {
         const [desmamas, lotesResposta, animaisResposta] = await Promise.all([
-          api.get(`/animais/${animal.id}/desmamas`), api.get("/lotes"), api.get("/animais"),
+          api.getAllNested(`/animais/${animal.id}/desmamas`, "eventos"), api.getAll("/lotes"), api.getAll("/animais"),
         ]);
         if (!ativo) return;
         setEventos(desmamas.data.eventos);

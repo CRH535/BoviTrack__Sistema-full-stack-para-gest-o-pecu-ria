@@ -1,5 +1,6 @@
 const express = require("express");
 const pool = require("../database/pool")
+const { registrarErro } = require("../utils/log");
 
 const router = express.Router();
 
@@ -104,7 +105,7 @@ router.get("/dashboard", async (req, res) => {
       proximas_vacinacoes: proximasResultado.rows,
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("dashboard_erro", erro, req);
     res.status(500).json({ mensagem: "Erro ao carregar o dashboard" });
   }
 });

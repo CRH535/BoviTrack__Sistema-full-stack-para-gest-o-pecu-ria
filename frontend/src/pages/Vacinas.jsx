@@ -18,10 +18,10 @@ function Vacinas() {
 
   async function carregarVacinas() {
     try {
-      const resposta = await api.get("/vacinas");
+      const resposta = await api.getAll("/vacinas");
       setVacinas(resposta.data);
-    } catch (erro) {
-      console.error(erro);
+    } catch {
+      console.error("Falha em uma operação de vacinas");
       setMensagem("Erro ao carregar vacinas");
     }
   }
@@ -52,7 +52,7 @@ function Vacinas() {
       limparFormulario();
       carregarVacinas();
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de vacinas");
 
       setMensagem(erro.response?.data?.mensagem || "Erro ao salvar vacina");
     }
@@ -80,7 +80,7 @@ function Vacinas() {
 
       setMensagem("Vacina excluída com sucesso!");
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de vacinas");
 
       setMensagem(erro.response?.data?.mensagem || "Erro ao excluir vacina");
     }

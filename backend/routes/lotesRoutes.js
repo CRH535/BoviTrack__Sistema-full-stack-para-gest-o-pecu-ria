@@ -1,11 +1,17 @@
 const express = require("express");
 const pool = require("../database/pool");
-const { converterId } = require("../utils/validacoes")
+const { converterId, normalizarPaginacao, responderPagina, validarCamposPermitidos, normalizarTextoObrigatorio, normalizarTextoOpcional } = require("../utils/validacoes")
+const { validarParametroId } = require("../middleware/validacao");
+const { registrarErro } = require("../utils/log");
 
 const router = express.Router();
+router.param("id", validarParametroId);
 
 router.get("/lotes", async (req, res) => {
   try {
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
+    const { limite, offset } = paginacao.valor;
     const resultado = await pool.query(`
             SELECT
                 lotes.id,
@@ -21,11 +27,12 @@ router.get("/lotes", async (req, res) => {
                 ON lotes.propriedade_id = propriedades.id
             WHERE ($1 = 'admin' OR propriedades.usuario_id = $2)
             ORDER BY lotes.id
-        `, [req.usuario.perfil, req.usuario.id]);
+            LIMIT $3 OFFSET $4
+        `, [req.usuario.perfil, req.usuario.id, limite + 1, offset]);
 
-    res.json(resultado.rows);
+    res.json(responderPagina(res, resultado.rows, paginacao.valor));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("lotes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar lotes",
@@ -63,7 +70,7 @@ router.get("/lotes/:id", async (req, res) => {
 
     res.json(resultado.rows[0]);
   } catch (erro) {
-    console.error(erro);
+    registrarErro("lotes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar lote",
@@ -73,13 +80,13 @@ router.get("/lotes/:id", async (req, res) => {
 
 router.post("/lotes", async (req, res) => {
   try {
-    const { nome, descricao, propriedade_id } = req.body;
-
-    if (!nome || !propriedade_id) {
-      return res.status(400).json({
-        mensagem: "Nome e propriedade são obrigatórios",
-      });
-    }
+    const campos = validarCamposPermitidos(req.body, ["nome", "descricao", "propriedade_id"]);
+    if (campos.erro) return res.status(400).json({ mensagem: campos.erro });
+    const nome = normalizarTextoObrigatorio(req.body.nome, "Nome", 120);
+    const descricao = normalizarTextoOpcional(req.body.descricao, "Descrição", 500);
+    const propriedade_id = converterId(req.body.propriedade_id);
+    const erro = nome.erro || descricao.erro || (!propriedade_id && "Propriedade inválida");
+    if (erro) return res.status(400).json({ mensagem: erro });
 
     const propriedadeExiste = await pool.query(
       `SELECT id
@@ -100,7 +107,7 @@ router.post("/lotes", async (req, res) => {
             (nome, descricao, propriedade_id)
             VALUES ($1, $2, $3)
             RETURNING *`,
-      [nome, descricao, propriedade_id],
+      [nome.valor, descricao.valor, propriedade_id],
     );
 
     res.status(201).json({
@@ -108,7 +115,7 @@ router.post("/lotes", async (req, res) => {
       lote: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("lotes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao cadastrar lote",
@@ -118,15 +125,15 @@ router.post("/lotes", async (req, res) => {
 
 router.put("/lotes/:id", async (req, res) => {
   try {
+    const campos = validarCamposPermitidos(req.body, ["nome", "descricao", "propriedade_id"]);
+    if (campos.erro) return res.status(400).json({ mensagem: campos.erro });
     const { id } = req.params;
 
-    const { nome, descricao, propriedade_id } = req.body;
-
-    if (!nome || !propriedade_id) {
-      return res.status(400).json({
-        mensagem: "Nome e propriedade são obrigatórios",
-      });
-    }
+    const nome = normalizarTextoObrigatorio(req.body.nome, "Nome", 120);
+    const descricao = normalizarTextoOpcional(req.body.descricao, "Descrição", 500);
+    const propriedade_id = converterId(req.body.propriedade_id);
+    const erro = nome.erro || descricao.erro || (!propriedade_id && "Propriedade inválida");
+    if (erro) return res.status(400).json({ mensagem: erro });
 
     const loteAtual = await pool.query(
       `SELECT l.id
@@ -196,8 +203,8 @@ router.put("/lotes/:id", async (req, res) => {
                )
              RETURNING *`,
       [
-        nome,
-        descricao,
+        nome.valor,
+        descricao.valor,
         propriedade_id,
         id,
         req.usuario.perfil,
@@ -216,7 +223,7 @@ router.put("/lotes/:id", async (req, res) => {
       lote: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("lotes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao atualizar lote",
@@ -249,7 +256,7 @@ router.delete("/lotes/:id", async (req, res) => {
       lote: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("lotes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao excluir lote",
@@ -263,6 +270,8 @@ router.delete("/lotes/:id", async (req, res) => {
 
 router.post("/lotes/:id/animais", async (req, res) => {
   try {
+    const campos = validarCamposPermitidos(req.body, ["animal_id"]);
+    if (campos.erro) return res.status(400).json({ mensagem: campos.erro });
     const { id } = req.params;
     const { animal_id } = req.body;
     const loteId = converterId(id);
@@ -344,7 +353,7 @@ router.post("/lotes/:id/animais", async (req, res) => {
       });
     }
 
-    console.error(erro);
+    registrarErro("lotes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao adicionar animal ao lote",
@@ -354,6 +363,9 @@ router.post("/lotes/:id/animais", async (req, res) => {
 
 router.get("/lotes/:id/animais", async (req, res) => {
   try {
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
+    const { limite, offset } = paginacao.valor;
     const { id } = req.params;
     const loteId = converterId(id);
 
@@ -385,13 +397,14 @@ router.get("/lotes/:id/animais", async (req, res) => {
                 ON lotes.id = animais_lotes.lote_id
              WHERE animais_lotes.lote_id = $1
                AND animais.propriedade_id = lotes.propriedade_id
-             ORDER BY animais.id`,
-      [loteId],
+             ORDER BY animais.id
+             LIMIT $2 OFFSET $3`,
+      [loteId, limite + 1, offset],
     );
 
-    res.json(resultado.rows);
+    res.json(responderPagina(res, resultado.rows, paginacao.valor));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("lotes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar animais do lote",
@@ -436,7 +449,7 @@ router.delete("/lotes/:id/animais/:animal_id", async (req, res) => {
       relacao: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("lotes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao remover animal do lote",
@@ -446,6 +459,9 @@ router.delete("/lotes/:id/animais/:animal_id", async (req, res) => {
 
 router.get("/animais/:id/lotes", async (req, res) => {
   try {
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
+    const { limite, offset } = paginacao.valor;
     const { id } = req.params;
     const animalId = converterId(id);
 
@@ -477,13 +493,14 @@ router.get("/animais/:id/lotes", async (req, res) => {
                 ON animais.id = animais_lotes.animal_id
              WHERE animais_lotes.animal_id = $1
                AND lotes.propriedade_id = animais.propriedade_id
-             ORDER BY lotes.id`,
-      [animalId],
+             ORDER BY lotes.id
+             LIMIT $2 OFFSET $3`,
+      [animalId, limite + 1, offset],
     );
 
-    res.json(resultado.rows);
+    res.json(responderPagina(res, resultado.rows, paginacao.valor));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("lotes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar lotes do animal",

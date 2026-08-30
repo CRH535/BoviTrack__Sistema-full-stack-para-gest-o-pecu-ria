@@ -1,5 +1,6 @@
-const jwt = require("jsonwebtoken");
 const pool = require("../database/pool");
+const { verificarTokenAcesso } = require("../services/sessoes");
+const { registrarErro } = require("../utils/log");
 
 async function autenticar(req, res, next) {
   const authorization = req.headers.authorization;
@@ -21,7 +22,7 @@ async function autenticar(req, res, next) {
   let dados;
 
   try {
-    dados = jwt.verify(token, process.env.JWT_SECRET);
+    dados = verificarTokenAcesso(token);
   } catch (erro) {
     if (erro.name === "TokenExpiredError") {
       return res.status(401).json({
@@ -30,9 +31,7 @@ async function autenticar(req, res, next) {
       });
     }
 
-    if (erro.name !== "JsonWebTokenError") {
-      console.error(erro);
-    }
+    if (erro.name !== "JsonWebTokenError") registrarErro("jwt_invalido", erro, req);
 
     return res.status(401).json({
       mensagem: "Token de autenticação inválido",
@@ -41,12 +40,25 @@ async function autenticar(req, res, next) {
   }
 
   try {
+    const usuarioId = Number(dados.sub);
+    if (!Number.isInteger(usuarioId) || usuarioId <= 0 || !dados.sid) {
+      return res.status(401).json({
+        mensagem: "Token de autenticação inválido",
+        codigo: "TOKEN_INVALIDO",
+      });
+    }
+
     const resultado = await pool.query(
-      `SELECT id, nome, email, perfil, ativo
-         FROM usuarios
-        WHERE id = $1
-          AND ativo = TRUE`,
-      [dados.id],
+      `SELECT u.id, u.nome, u.email, u.perfil, u.ativo
+         FROM usuarios u
+         JOIN sessoes_refresh sr
+           ON sr.usuario_id = u.id
+          AND sr.session_id = $2
+          AND sr.revoked_at IS NULL
+          AND sr.expires_at > CURRENT_TIMESTAMP
+        WHERE u.id = $1
+          AND u.ativo = TRUE`,
+      [usuarioId, dados.sid],
     );
 
     if (resultado.rows.length === 0) {
@@ -57,9 +69,13 @@ async function autenticar(req, res, next) {
     }
 
     req.usuario = resultado.rows[0];
+    req.autenticacao = {
+      sessionId: dados.sid,
+      autenticadoEm: dados.auth_time,
+    };
     next();
   } catch (erro) {
-    console.error(erro);
+    registrarErro("validacao_sessao_falhou", erro, req);
     return res.status(500).json({ mensagem: "Erro ao validar sessão" });
   }
 }
@@ -72,4 +88,18 @@ function somenteAdmin(req, res, next) {
   next();
 }
 
-module.exports = { autenticar, somenteAdmin };
+function exigirAutenticacaoRecente(maximoSegundos = 15 * 60) {
+  return function autenticacaoRecente(req, res, next) {
+    const autenticadoEm = Number(req.autenticacao?.autenticadoEm);
+    const idade = Math.floor(Date.now() / 1000) - autenticadoEm;
+    if (!Number.isFinite(autenticadoEm) || idade < 0 || idade > maximoSegundos) {
+      return res.status(403).json({
+        mensagem: "Entre novamente antes de realizar esta operação administrativa",
+        codigo: "REAUTENTICACAO_NECESSARIA",
+      });
+    }
+    next();
+  };
+}
+
+module.exports = { autenticar, somenteAdmin, exigirAutenticacaoRecente };

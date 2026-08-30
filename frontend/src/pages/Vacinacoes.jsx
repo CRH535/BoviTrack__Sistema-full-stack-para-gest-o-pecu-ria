@@ -26,29 +26,29 @@ function Vacinacoes() {
 
   async function carregarVacinacoes() {
     try {
-      const resposta = await api.get("/vacinacoes");
+      const resposta = await api.getAll("/vacinacoes");
       setVacinacoes(resposta.data);
-    } catch (erro) {
-      console.error(erro);
+    } catch {
+      console.error("Falha em uma operação de vacinações");
       setMensagem("Erro ao carregar vacinações");
     }
   }
 
   async function carregarAnimais() {
     try {
-      const resposta = await api.get("/animais");
+      const resposta = await api.getAll("/animais");
       setAnimais(resposta.data);
-    } catch (erro) {
-      console.error(erro);
+    } catch {
+      console.error("Falha em uma operação de vacinações");
     }
   }
 
   async function carregarVacinas() {
     try {
-      const resposta = await api.get("/vacinas");
+      const resposta = await api.getAll("/vacinas");
       setVacinas(resposta.data);
-    } catch (erro) {
-      console.error(erro);
+    } catch {
+      console.error("Falha em uma operação de vacinações");
     }
   }
 
@@ -84,7 +84,7 @@ function Vacinacoes() {
       limparFormulario();
       carregarVacinacoes();
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de vacinações");
 
       setMensagem(erro.response?.data?.mensagem || "Erro ao salvar vacinação");
     }
@@ -122,7 +122,7 @@ function Vacinacoes() {
 
       setMensagem("Vacinação excluída com sucesso!");
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de vacinações");
 
       setMensagem(erro.response?.data?.mensagem || "Erro ao excluir vacinação");
     }

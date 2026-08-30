@@ -48,20 +48,20 @@ function Animais() {
 
   async function carregarAnimais() {
     try {
-      const resposta = await api.get("/animais");
+      const resposta = await api.getAll("/animais");
       setAnimais(resposta.data);
-    } catch (erro) {
-      console.error(erro);
+    } catch {
+      console.error("Falha em uma operação de animais");
       setMensagem("Erro ao carregar animais");
     }
   }
 
   async function carregarPropriedades() {
     try {
-      const resposta = await api.get("/propriedades");
+      const resposta = await api.getAll("/propriedades");
       setPropriedades(resposta.data);
-    } catch (erro) {
-      console.error(erro);
+    } catch {
+      console.error("Falha em uma operação de animais");
     }
   }
 
@@ -105,7 +105,7 @@ function Animais() {
       limparFormulario();
       carregarAnimais();
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de animais");
 
       setMensagem(erro.response?.data?.mensagem || "Erro ao salvar animal");
     }
@@ -142,7 +142,7 @@ function Animais() {
 
       setMensagem("Animal excluído com sucesso!");
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de animais");
 
       setMensagem(erro.response?.data?.mensagem || "Erro ao excluir animal");
     }

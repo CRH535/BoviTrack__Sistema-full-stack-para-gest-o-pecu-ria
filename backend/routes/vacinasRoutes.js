@@ -1,24 +1,28 @@
 const express = require("express");
 const pool = require("../database/pool")
+const { normalizarPaginacao, responderPagina, validarCamposPermitidos, normalizarTextoObrigatorio, normalizarTextoOpcional } = require("../utils/validacoes");
+const { validarParametroId } = require("../middleware/validacao");
+const { registrarErro } = require("../utils/log");
 
 const router = express.Router();
+router.param("id", validarParametroId);
 
 router.post("/vacinas", async (req, res) => {
   try {
-    const { nome, fabricante, descricao } = req.body;
-
-    if (!nome) {
-      return res.status(400).json({
-        mensagem: "Nome da vacina é obrigatório",
-      });
-    }
+    const campos = validarCamposPermitidos(req.body, ["nome", "fabricante", "descricao"]);
+    if (campos.erro) return res.status(400).json({ mensagem: campos.erro });
+    const nome = normalizarTextoObrigatorio(req.body.nome, "Nome da vacina", 120);
+    const fabricante = normalizarTextoOpcional(req.body.fabricante, "Fabricante", 120);
+    const descricao = normalizarTextoOpcional(req.body.descricao, "Descrição", 500);
+    const erro = nome.erro || fabricante.erro || descricao.erro;
+    if (erro) return res.status(400).json({ mensagem: erro });
 
     const resultado = await pool.query(
       `INSERT INTO vacinas
              (nome, fabricante, descricao, usuario_id)
              VALUES ($1, $2, $3, $4)
              RETURNING *`,
-      [nome, fabricante, descricao, req.usuario.id],
+      [nome.valor, fabricante.valor, descricao.valor, req.usuario.id],
     );
 
     res.status(201).json({
@@ -26,7 +30,7 @@ router.post("/vacinas", async (req, res) => {
       vacina: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("vacinas_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao cadastrar vacina",
@@ -36,17 +40,21 @@ router.post("/vacinas", async (req, res) => {
 
 router.get("/vacinas", async (req, res) => {
   try {
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
+    const { limite, offset } = paginacao.valor;
     const resultado = await pool.query(
       `SELECT id, nome, fabricante, descricao, usuario_id
          FROM vacinas
         WHERE ($1 = 'admin' OR usuario_id = $2)
-        ORDER BY id`,
-      [req.usuario.perfil, req.usuario.id],
+        ORDER BY id
+        LIMIT $3 OFFSET $4`,
+      [req.usuario.perfil, req.usuario.id, limite + 1, offset],
     );
 
-    res.json(resultado.rows);
+    res.json(responderPagina(res, resultado.rows, paginacao.valor));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("vacinas_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar vacinas",
@@ -74,7 +82,7 @@ router.get("/vacinas/:id", async (req, res) => {
 
     res.json(resultado.rows[0]);
   } catch (erro) {
-    console.error(erro);
+    registrarErro("vacinas_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar vacina",
@@ -84,15 +92,15 @@ router.get("/vacinas/:id", async (req, res) => {
 
 router.put("/vacinas/:id", async (req, res) => {
   try {
+    const campos = validarCamposPermitidos(req.body, ["nome", "fabricante", "descricao"]);
+    if (campos.erro) return res.status(400).json({ mensagem: campos.erro });
     const { id } = req.params;
 
-    const { nome, fabricante, descricao } = req.body;
-
-    if (!nome) {
-      return res.status(400).json({
-        mensagem: "Nome da vacina é obrigatório",
-      });
-    }
+    const nome = normalizarTextoObrigatorio(req.body.nome, "Nome da vacina", 120);
+    const fabricante = normalizarTextoOpcional(req.body.fabricante, "Fabricante", 120);
+    const descricao = normalizarTextoOpcional(req.body.descricao, "Descrição", 500);
+    const erro = nome.erro || fabricante.erro || descricao.erro;
+    if (erro) return res.status(400).json({ mensagem: erro });
 
     const resultado = await pool.query(
       `UPDATE vacinas
@@ -102,7 +110,7 @@ router.put("/vacinas/:id", async (req, res) => {
              WHERE id = $4
                AND ($5 = 'admin' OR usuario_id = $6)
              RETURNING *`,
-      [nome, fabricante, descricao, id, req.usuario.perfil, req.usuario.id],
+      [nome.valor, fabricante.valor, descricao.valor, id, req.usuario.perfil, req.usuario.id],
     );
 
     if (resultado.rows.length === 0) {
@@ -116,7 +124,7 @@ router.put("/vacinas/:id", async (req, res) => {
       vacina: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("vacinas_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao atualizar vacina",
@@ -147,7 +155,7 @@ router.delete("/vacinas/:id", async (req, res) => {
       vacina: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("vacinas_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao excluir vacina",
@@ -160,4 +168,3 @@ router.delete("/vacinas/:id", async (req, res) => {
 // =========================
 
 module.exports = router;
-

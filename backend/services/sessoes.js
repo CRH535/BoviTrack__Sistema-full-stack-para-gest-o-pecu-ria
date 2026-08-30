@@ -1,35 +1,66 @@
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
+const {
+  audience,
+  expiracaoAcesso,
+  issuer,
+} = require("../config/ambiente");
 
 const COOKIE_REFRESH = "bovitrack_refresh";
 const COOKIE_REFRESH_LEGADO = "agrocontrol_refresh";
 const DURACAO_REFRESH_PADRAO = "7d";
+const ALGORITMO_JWT = "HS256";
+const JANELA_CONCORRENCIA_REPLAY_MS = 5000;
 
 function duracaoEmMilissegundos(valor) {
   const partes = /^(\d+)\s*([smhd])$/i.exec(String(valor || "").trim());
-
   if (!partes) {
     throw new Error(
       "JWT_REFRESH_EXPIRES_IN deve usar segundos (s), minutos (m), horas (h) ou dias (d)",
     );
   }
-
   const multiplicadores = {
     s: 1000,
     m: 60 * 1000,
     h: 60 * 60 * 1000,
     d: 24 * 60 * 60 * 1000,
   };
-
   return Number(partes[1]) * multiplicadores[partes[2].toLowerCase()];
 }
 
-function criarTokenAcesso(usuario) {
+function gerarIdentificadorSessao() {
+  return crypto.randomBytes(32).toString("hex");
+}
+
+function criarTokenAcesso(usuario, sessao) {
+  if (!sessao?.sessionId) {
+    throw new Error("Uma sessão ativa é obrigatória para emitir o access token");
+  }
+
+  const autenticadoEm = sessao.lastAuthenticatedAt || new Date();
   return jwt.sign(
-    { id: usuario.id, perfil: usuario.perfil },
+    {
+      perfil: usuario.perfil,
+      sid: sessao.sessionId,
+      auth_time: Math.floor(new Date(autenticadoEm).getTime() / 1000),
+    },
     process.env.JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRES_IN || "8h" },
+    {
+      algorithm: ALGORITMO_JWT,
+      audience,
+      expiresIn: expiracaoAcesso,
+      issuer,
+      subject: String(usuario.id),
+    },
   );
+}
+
+function verificarTokenAcesso(token) {
+  return jwt.verify(token, process.env.JWT_SECRET, {
+    algorithms: [ALGORITMO_JWT],
+    audience,
+    issuer,
+  });
 }
 
 function gerarRefreshToken() {
@@ -46,17 +77,17 @@ function lerRefreshToken(req) {
 
   for (const cookie of cookies) {
     const separador = cookie.indexOf("=");
-
     if (separador === -1) continue;
-
     const nome = cookie.slice(0, separador).trim();
+    if (nome !== COOKIE_REFRESH && nome !== COOKIE_REFRESH_LEGADO) continue;
 
-    if (nome === COOKIE_REFRESH) {
-      return decodeURIComponent(cookie.slice(separador + 1).trim());
-    }
-
-    if (nome === COOKIE_REFRESH_LEGADO) {
-      tokenLegado = decodeURIComponent(cookie.slice(separador + 1).trim());
+    try {
+      const token = decodeURIComponent(cookie.slice(separador + 1).trim());
+      if (nome === COOKIE_REFRESH) return token;
+      tokenLegado = token;
+    } catch {
+      req.refreshCookieInvalido = true;
+      return null;
     }
   }
 
@@ -95,10 +126,13 @@ function limparCookieRefresh(res) {
 async function criarSessaoRefresh(pool, usuarioId) {
   const token = gerarRefreshToken();
   const tokenHash = hashToken(token);
+  const sessionId = gerarIdentificadorSessao();
+  const familyId = gerarIdentificadorSessao();
   const duracao = duracaoEmMilissegundos(
     process.env.JWT_REFRESH_EXPIRES_IN || DURACAO_REFRESH_PADRAO,
   );
   const expiresAt = new Date(Date.now() + duracao);
+  const lastAuthenticatedAt = new Date();
   const cliente = await pool.connect();
 
   try {
@@ -107,16 +141,17 @@ async function criarSessaoRefresh(pool, usuarioId) {
       "DELETE FROM sessoes_refresh WHERE expires_at <= CURRENT_TIMESTAMP",
     );
     await cliente.query(
-      `INSERT INTO sessoes_refresh (usuario_id, token_hash, expires_at)
-       VALUES ($1, $2, $3)`,
-      [usuarioId, tokenHash, expiresAt],
+      `INSERT INTO sessoes_refresh
+              (usuario_id, token_hash, session_id, family_id, expires_at,
+               last_authenticated_at)
+       VALUES ($1, $2, $3, $4, $5, $6)`,
+      [usuarioId, tokenHash, sessionId, familyId, expiresAt, lastAuthenticatedAt],
     );
     await cliente.query(
       `DELETE FROM sessoes_refresh
         WHERE usuario_id = $1
           AND id NOT IN (
-            SELECT id
-              FROM sessoes_refresh
+            SELECT id FROM sessoes_refresh
              WHERE usuario_id = $1
              ORDER BY created_at DESC, id DESC
              LIMIT 10
@@ -125,64 +160,141 @@ async function criarSessaoRefresh(pool, usuarioId) {
     );
     await cliente.query("COMMIT");
   } catch (erro) {
-    await cliente.query("ROLLBACK");
+    await cliente.query("ROLLBACK").catch(() => {});
     throw erro;
   } finally {
     cliente.release();
   }
 
-  return { token, expiresAt };
+  return { token, expiresAt, sessionId, familyId, lastAuthenticatedAt };
 }
 
 async function renovarSessaoRefresh(pool, tokenAtual) {
-  if (typeof tokenAtual !== "string" || tokenAtual.length < 32) {
-    return null;
-  }
+  if (typeof tokenAtual !== "string" || tokenAtual.length < 32) return null;
 
+  const tokenAtualHash = hashToken(tokenAtual);
   const novoToken = gerarRefreshToken();
-  const resultado = await pool.query(
-    `UPDATE sessoes_refresh AS sr
-        SET token_hash = $1
-       FROM usuarios AS u
-      WHERE sr.token_hash = $2
-        AND sr.usuario_id = u.id
-        AND sr.expires_at > CURRENT_TIMESTAMP
-        AND u.ativo = TRUE
-      RETURNING u.id,
-                u.nome,
-                u.email,
-                u.perfil,
-                u.ativo,
-                sr.expires_at`,
-    [hashToken(novoToken), hashToken(tokenAtual)],
-  );
+  const novoHash = hashToken(novoToken);
+  const cliente = await pool.connect();
 
-  if (resultado.rows.length === 0) {
-    return null;
+  try {
+    await cliente.query("BEGIN");
+    const atualResultado = await cliente.query(
+      `SELECT sr.id, sr.session_id, sr.family_id, sr.expires_at,
+              sr.last_authenticated_at, sr.revoked_at,
+              u.id AS usuario_id, u.nome, u.email, u.perfil, u.ativo
+         FROM sessoes_refresh sr
+         JOIN usuarios u ON u.id = sr.usuario_id
+        WHERE sr.token_hash = $1
+        FOR UPDATE OF sr`,
+      [tokenAtualHash],
+    );
+    const atual = atualResultado.rows[0];
+
+    if (!atual) {
+      const usadoResultado = await cliente.query(
+        `SELECT su.family_id, su.used_at, sr.revoked_at
+           FROM sessoes_refresh_usados su
+           LEFT JOIN sessoes_refresh sr ON sr.id = su.sessao_id
+          WHERE su.token_hash = $1`,
+        [tokenAtualHash],
+      );
+      const usado = usadoResultado.rows[0];
+      if (usado && !usado.revoked_at) {
+        const idade = Date.now() - new Date(usado.used_at).getTime();
+        if (idade > JANELA_CONCORRENCIA_REPLAY_MS) {
+          await cliente.query(
+            `UPDATE sessoes_refresh
+                SET revoked_at = CURRENT_TIMESTAMP, revoke_reason = 'REPLAY'
+              WHERE family_id = $1 AND revoked_at IS NULL`,
+            [usado.family_id],
+          );
+          await cliente.query("COMMIT");
+          return { replay: true };
+        }
+        await cliente.query("ROLLBACK");
+        return { concorrente: true };
+      }
+      await cliente.query("ROLLBACK");
+      return null;
+    }
+
+    if (
+      atual.revoked_at ||
+      !atual.ativo ||
+      new Date(atual.expires_at).getTime() <= Date.now()
+    ) {
+      await cliente.query("ROLLBACK");
+      return null;
+    }
+
+    await cliente.query(
+      `INSERT INTO sessoes_refresh_usados
+              (token_hash, sessao_id, family_id, expires_at)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT (token_hash) DO NOTHING`,
+      [tokenAtualHash, atual.id, atual.family_id, atual.expires_at],
+    );
+    await cliente.query(
+      `UPDATE sessoes_refresh
+          SET token_hash = $1, rotated_at = CURRENT_TIMESTAMP
+        WHERE id = $2`,
+      [novoHash, atual.id],
+    );
+    await cliente.query("COMMIT");
+
+    return {
+      token: novoToken,
+      expiresAt: atual.expires_at,
+      sessionId: atual.session_id,
+      familyId: atual.family_id,
+      lastAuthenticatedAt: atual.last_authenticated_at,
+      usuario: {
+        id: atual.usuario_id,
+        nome: atual.nome,
+        email: atual.email,
+        perfil: atual.perfil,
+        ativo: atual.ativo,
+      },
+    };
+  } catch (erro) {
+    await cliente.query("ROLLBACK").catch(() => {});
+    throw erro;
+  } finally {
+    cliente.release();
   }
-
-  return {
-    token: novoToken,
-    expiresAt: resultado.rows[0].expires_at,
-    usuario: resultado.rows[0],
-  };
 }
 
 async function encerrarSessaoRefresh(pool, token) {
   if (typeof token !== "string" || !token) return;
+  await pool.query(
+    `UPDATE sessoes_refresh
+        SET revoked_at = CURRENT_TIMESTAMP, revoke_reason = 'LOGOUT'
+      WHERE token_hash = $1 AND revoked_at IS NULL`,
+    [hashToken(token)],
+  );
+}
 
-  await pool.query("DELETE FROM sessoes_refresh WHERE token_hash = $1", [
-    hashToken(token),
-  ]);
+async function encerrarTodasSessoes(pool, usuarioId) {
+  await pool.query(
+    `UPDATE sessoes_refresh
+        SET revoked_at = CURRENT_TIMESTAMP, revoke_reason = 'LOGOUT_ALL'
+      WHERE usuario_id = $1 AND revoked_at IS NULL`,
+    [usuarioId],
+  );
 }
 
 module.exports = {
+  ALGORITMO_JWT,
   COOKIE_REFRESH,
   criarSessaoRefresh,
   criarTokenAcesso,
   definirCookieRefresh,
   encerrarSessaoRefresh,
+  encerrarTodasSessoes,
+  hashToken,
   lerRefreshToken,
   limparCookieRefresh,
   renovarSessaoRefresh,
+  verificarTokenAcesso,
 };

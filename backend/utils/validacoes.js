@@ -3,6 +3,51 @@ function converterId(valor) {
   return Number.isInteger(id) && id > 0 ? id : null;
 }
 
+function validarCamposPermitidos(dados, camposPermitidos) {
+  if (!dados || typeof dados !== "object" || Array.isArray(dados)) {
+    return { erro: "Corpo da requisição inválido" };
+  }
+  const permitidos = new Set(camposPermitidos);
+  const desconhecidos = Object.keys(dados).filter((campo) => !permitidos.has(campo));
+  return desconhecidos.length
+    ? { erro: `Campos não permitidos: ${desconhecidos.join(", ")}` }
+    : { valor: dados };
+}
+
+function normalizarTextoObrigatorio(valor, campo, limite, minimo = 1) {
+  if (typeof valor !== "string") return { erro: `${campo} é obrigatório` };
+  const texto = valor.trim();
+  if (texto.length < minimo) return { erro: `${campo} deve possuir pelo menos ${minimo} caracteres` };
+  if (texto.length > limite) return { erro: `${campo} deve possuir no máximo ${limite} caracteres` };
+  return { valor: texto };
+}
+
+function normalizarNumeroFinito(valor, campo, { minimo, maximo } = {}) {
+  const numero = typeof valor === "number" ? valor : Number(valor);
+  if (!Number.isFinite(numero)) return { erro: `${campo} deve ser um número válido` };
+  if (minimo !== undefined && numero < minimo) return { erro: `${campo} está abaixo do limite permitido` };
+  if (maximo !== undefined && numero > maximo) return { erro: `${campo} está acima do limite permitido` };
+  return { valor: numero };
+}
+
+function normalizarPaginacao(query = {}) {
+  const pagina = query.page === undefined ? 1 : Number(query.page);
+  const limite = query.limit === undefined ? 50 : Number(query.limit);
+  if (!Number.isInteger(pagina) || pagina < 1) return { erro: "Página inválida" };
+  if (!Number.isInteger(limite) || limite < 1 || limite > 100) {
+    return { erro: "Limite deve ser um inteiro entre 1 e 100" };
+  }
+  return { valor: { pagina, limite, offset: (pagina - 1) * limite } };
+}
+
+function responderPagina(res, linhas, paginacao) {
+  const possuiMais = linhas.length > paginacao.limite;
+  res.setHeader("X-Page", String(paginacao.pagina));
+  res.setHeader("X-Limit", String(paginacao.limite));
+  res.setHeader("X-Has-More", String(possuiMais));
+  return linhas.slice(0, paginacao.limite);
+}
+
 function normalizarFormaPagamento(valor) {
   if (valor === undefined || valor === null) {
     return { valor: null };
@@ -131,6 +176,8 @@ function normalizarDataCalendario(valor, campo = "Data") {
 }
 
 function normalizarProducaoLeiteira(dados) {
+  const campos = validarCamposPermitidos(dados, ["data", "turno", "quantidade_litros", "observacao"]);
+  if (campos.erro) return campos;
   const data = normalizarDataCalendario(dados.data, "Data da ordenha");
   const turno = typeof dados.turno === "string" ? dados.turno.trim() : "";
   const quantidade = Number(dados.quantidade_litros);
@@ -184,6 +231,8 @@ function normalizarTextoOpcional(valor, campo, limite) {
 }
 
 function normalizarPesagem(dados) {
+  const campos = validarCamposPermitidos(dados, ["data_pesagem", "peso_kg", "tipo_pesagem", "metodo", "lote_id", "observacao"]);
+  if (campos.erro) return campos;
   const data = normalizarDataCalendario(dados.data_pesagem, "Data da pesagem");
   const peso = Number(dados.peso_kg);
   const tipo = typeof dados.tipo_pesagem === "string"
@@ -219,6 +268,8 @@ function normalizarPesagem(dados) {
 }
 
 function normalizarDesmama(dados, { permitirConclusao = false } = {}) {
+  const campos = validarCamposPermitidos(dados, ["data_planejada", "data_inicio", "data_fim", "data_desmama", "tipo_desmama", "status", "mae_id", "lote_destino_id", "suplementacao", "observacao"]);
+  if (campos.erro) return campos;
   const dataPlanejada = normalizarDataCalendario(dados.data_planejada, "Data planejada");
   const tipo = typeof dados.tipo_desmama === "string"
     ? dados.tipo_desmama.trim().toUpperCase()
@@ -282,6 +333,12 @@ function normalizarDesmama(dados, { permitirConclusao = false } = {}) {
 
 module.exports = {
   converterId,
+  validarCamposPermitidos,
+  normalizarTextoObrigatorio,
+  normalizarTextoOpcional,
+  normalizarNumeroFinito,
+  normalizarPaginacao,
+  responderPagina,
   normalizarDataCalendario,
   normalizarDataNascimento,
   normalizarFormaPagamento,

@@ -97,6 +97,10 @@ async function limpar() {
 }
 
 async function executar() {
+  if (process.env.ALLOW_TEST_DB_WRITES !== "true") {
+    throw new Error("Defina ALLOW_TEST_DB_WRITES=true somente em um banco isolado de teste");
+  }
+  await pool.query("DELETE FROM limites_requisicao WHERE escopo IN ('LOGIN_CONTA', 'LOGIN_IP', 'CADASTRO_IP')");
   servidor = app.listen(0);
   await new Promise((resolve) => servidor.once("listening", resolve));
   baseUrl = `http://127.0.0.1:${servidor.address().port}`;
@@ -115,7 +119,7 @@ async function executar() {
     metodo: "POST",
     corpo: { nome: "Produtor Leite B", email: emailB, senha },
   });
-  confirmar("criação dos usuários de teste", cadastroA.status === 201 && cadastroB.status === 201);
+  confirmar("criação dos usuários de teste", cadastroA.status === 202 && cadastroB.status === 202);
 
   const [sessaoA, sessaoB] = await Promise.all([
     login(emailA, senha),

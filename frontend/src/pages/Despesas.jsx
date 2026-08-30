@@ -35,20 +35,20 @@ function Despesas() {
 
   async function carregarDespesas() {
     try {
-      const resposta = await api.get("/despesas");
+      const resposta = await api.getAll("/despesas");
       setDespesas(resposta.data);
-    } catch (erro) {
-      console.error(erro);
+    } catch {
+      console.error("Falha em uma operação de despesas");
       setMensagem("Erro ao carregar despesas");
     }
   }
 
   async function carregarPropriedades() {
     try {
-      const resposta = await api.get("/propriedades");
+      const resposta = await api.getAll("/propriedades");
       setPropriedades(resposta.data);
-    } catch (erro) {
-      console.error(erro);
+    } catch {
+      console.error("Falha em uma operação de despesas");
     }
   }
 
@@ -86,7 +86,7 @@ function Despesas() {
       limparFormulario();
       carregarDespesas();
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de despesas");
 
       setMensagem(erro.response?.data?.mensagem || "Erro ao salvar despesa");
     }
@@ -118,7 +118,7 @@ function Despesas() {
 
       setMensagem("Despesa excluída com sucesso!");
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de despesas");
 
       setMensagem(erro.response?.data?.mensagem || "Erro ao excluir despesa");
     }

@@ -1,13 +1,14 @@
 const pool = require("../database/pool");
 
-async function buscarAnimalPermitido(animalId, usuario) {
-  const resultado = await pool.query(
+async function buscarAnimalPermitido(animalId, usuario, cliente = pool, bloquear = false) {
+  const resultado = await cliente.query(
     `SELECT a.id, a.nome, a.numero_brinco, a.data_nascimento, a.peso,
             a.propriedade_id, a.mae_id, p.usuario_id
        FROM animais a
        JOIN propriedades p ON p.id = a.propriedade_id
       WHERE a.id = $1
-        AND ($2 = 'admin' OR p.usuario_id = $3)`,
+        AND ($2 = 'admin' OR p.usuario_id = $3)
+      ${bloquear ? "FOR UPDATE OF a" : ""}`,
     [animalId, usuario.perfil, usuario.id],
   );
 

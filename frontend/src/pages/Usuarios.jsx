@@ -26,7 +26,7 @@ function Usuarios() {
 
   async function carregarUsuarios() {
     try {
-      const resposta = await api.get("/usuarios");
+      const resposta = await api.getAll("/usuarios");
       setUsuarios(resposta.data);
     } catch (erro) {
       setMensagem(erro.response?.data?.mensagem || "Erro ao carregar usuários");

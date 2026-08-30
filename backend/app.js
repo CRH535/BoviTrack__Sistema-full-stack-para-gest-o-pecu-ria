@@ -2,9 +2,12 @@ require("./config/ambiente");
 
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 const pool = require("./database/pool");
 const { criarConfiguracaoCors } = require("./config/cors");
 const { autenticar } = require("./middleware/autenticacao");
+const { contextoRequisicao } = require("./middleware/contextoRequisicao");
+const { rotaNaoEncontrada, tratarErros } = require("./middleware/erros");
 const authRoutes = require("./routes/authRoutes");
 const usuariosRoutes = require("./routes/usuariosRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
@@ -20,11 +23,32 @@ const despesasRoutes = require("./routes/despesasRoutes");
 
 const app = express();
 
-app.use(express.json());
+// Na Vercel existe exatamente um proxy confiável antes da função. Fora dela,
+// não confiamos em X-Forwarded-For enviado diretamente pelo cliente.
+if (process.env.VERCEL) {
+  app.set("trust proxy", 1);
+}
+
+app.disable("x-powered-by");
+app.use(contextoRequisicao);
+app.use(
+  helmet({
+    // Esta aplicação entrega somente JSON. A CSP do SPA é configurada no frontend.
+    contentSecurityPolicy: false,
+    crossOriginResourcePolicy: false,
+    strictTransportSecurity: process.env.NODE_ENV === "production",
+    referrerPolicy: { policy: "no-referrer" },
+  }),
+);
+app.use((req, res, next) => {
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  next();
+});
+app.use(express.json({ limit: process.env.JSON_BODY_LIMIT || "100kb" }));
 app.use(cors(criarConfiguracaoCors()));
 
 app.get("/", (req, res) => {
-  res.send("ola bovitrack!");
+  res.json({ status: "ok" });
 });
 
 app.use(authRoutes);
@@ -40,6 +64,8 @@ app.use(producoesLeiteirasRoutes);
 app.use(pesagensRoutes);
 app.use(desmamasRoutes);
 app.use(despesasRoutes);
+app.use(rotaNaoEncontrada);
+app.use(tratarErros);
 
 // A exportacao direta permite que a Vercel detecte o Express sem adaptadores.
 // As propriedades preservam a interface usada pelos testes e pelo servidor local.

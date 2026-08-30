@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "db:check": "node scripts/check-database.js",
+    "db:check:security": "node scripts/check-security-readonly.js",
     "migrate:supabase": "node scripts/migrate-to-supabase.js",
     "migrate:auth": "node scripts/migrate-auth.js",
     "migrate:animal-lots": "node scripts/migrate-animal-lots.js",
@@ -13,11 +14,13 @@
     "migrate:milk": "node scripts/migrate-milk-production.js",
     "migrate:bezerros": "node scripts/migrate-calf-management.js",
     "migrate:sessions": "node scripts/migrate-refresh-sessions.js",
+    "migrate:security": "node scripts/run-security-migrations.js",
     "migrate:users": "node scripts/migrate-users.js",
     "test": "node tests/auth-permissions.js",
     "test:milk": "node tests/milk-production.js",
     "test:bezerros": "node tests/calf-management.js",
     "test:bezerros:integration": "node tests/calf-management-integration.js",
+    "test:security": "node tests/security-hardening.js",
     "start": "node server.js"
   },
   "keywords": [],
@@ -29,6 +32,7 @@
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "helmet": "^8.3.0",
     "jsonwebtoken": "^9.0.3",
     "pg": "^8.23.0"
   }

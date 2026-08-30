@@ -27,29 +27,29 @@ function Lotes() {
 
   async function carregarLotes() {
     try {
-      const resposta = await api.get("/lotes");
+      const resposta = await api.getAll("/lotes");
       setLotes(resposta.data);
-    } catch (erro) {
-      console.error(erro);
+    } catch {
+      console.error("Falha em uma operação de lotes");
       setMensagem("Erro ao carregar lotes");
     }
   }
 
   async function carregarPropriedades() {
     try {
-      const resposta = await api.get("/propriedades");
+      const resposta = await api.getAll("/propriedades");
       setPropriedades(resposta.data);
-    } catch (erro) {
-      console.error(erro);
+    } catch {
+      console.error("Falha em uma operação de lotes");
     }
   }
 
   async function carregarAnimais() {
     try {
-      const resposta = await api.get("/animais");
+      const resposta = await api.getAll("/animais");
       setAnimais(resposta.data);
-    } catch (erro) {
-      console.error(erro);
+    } catch {
+      console.error("Falha em uma operação de lotes");
       setMensagem("Erro ao carregar animais disponíveis");
     }
   }
@@ -58,7 +58,7 @@ function Lotes() {
     setCarregandoAnimais(true);
 
     try {
-      const resposta = await api.get(`/lotes/${loteId}/animais`);
+      const resposta = await api.getAll(`/lotes/${loteId}/animais`);
       const animaisVinculados = resposta.data;
       const idNumerico = Number(loteId);
 
@@ -76,7 +76,7 @@ function Lotes() {
           : loteAtual,
       );
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de lotes");
       setMensagem(
         erro.response?.data?.mensagem || "Erro ao carregar animais do lote",
       );
@@ -117,7 +117,7 @@ function Lotes() {
       setAnimalSelecionado("");
       await carregarAnimaisDoLote(loteGerenciado.id);
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de lotes");
       setMensagem(
         erro.response?.data?.mensagem ||
           "Não foi possível adicionar o animal.",
@@ -142,7 +142,7 @@ function Lotes() {
       setMensagem(resposta.data.mensagem);
       await carregarAnimaisDoLote(loteGerenciado.id);
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de lotes");
       setMensagem(
         erro.response?.data?.mensagem || "Não foi possível remover o animal.",
       );
@@ -177,7 +177,7 @@ function Lotes() {
       limparFormulario();
       carregarLotes();
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de lotes");
 
       setMensagem(erro.response?.data?.mensagem || "Erro ao salvar lote");
     }
@@ -212,7 +212,7 @@ function Lotes() {
 
       setMensagem("Lote excluído com sucesso!");
     } catch (erro) {
-      console.error(erro);
+      console.error("Falha em uma operação de lotes");
 
       setMensagem(erro.response?.data?.mensagem || "Erro ao excluir lote");
     }

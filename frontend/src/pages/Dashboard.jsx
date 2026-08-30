@@ -35,8 +35,8 @@ function Dashboard() {
           setResumo(resposta.data.resumo);
           setProximasVacinacoes(resposta.data.proximas_vacinacoes);
         }
-      } catch (erroCarregamento) {
-        console.error(erroCarregamento);
+      } catch {
+        console.error("Falha ao carregar o dashboard");
         if (componenteAtivo) {
           setErro("Erro ao carregar o dashboard");
         }

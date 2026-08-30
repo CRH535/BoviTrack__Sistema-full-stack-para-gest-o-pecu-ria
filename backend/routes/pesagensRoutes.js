@@ -1,13 +1,24 @@
 const express = require("express");
 const pool = require("../database/pool");
+const { registrarErro } = require("../utils/log");
 const {
   buscarAnimalPermitido,
   buscarLoteCompativel,
 } = require("../services/acessoAnimais");
 const { montarResumoPesagens } = require("../services/calculosPesagem");
-const { converterId, normalizarDataCalendario, normalizarPesagem } = require("../utils/validacoes");
+const { bloquearAnimalParaPeso, sincronizarPesoAtual } = require("../services/pesoAtual");
+const {
+  converterId,
+  normalizarDataCalendario,
+  normalizarPesagem,
+  normalizarPaginacao,
+  responderPagina,
+} = require("../utils/validacoes");
+const { validarParametroId } = require("../middleware/validacao");
 
 const router = express.Router();
+router.param("animalId", validarParametroId);
+router.param("id", validarParametroId);
 
 function serializarPesagens(linhas) {
   const crescentes = [...linhas].sort((a, b) => (
@@ -21,23 +32,10 @@ function serializarPesagens(linhas) {
   return linhas.map((item) => ({
     ...item,
     peso_kg: Number(item.peso_kg),
-    variacao_kg: variacoes.get(item.id),
+    variacao_kg: item.variacao_kg == null
+      ? variacoes.get(item.id)
+      : Number(item.variacao_kg),
   }));
-}
-
-async function sincronizarPesoAtual(cliente, animalId) {
-  await cliente.query(
-    `UPDATE animais
-        SET peso = (
-          SELECT p.peso_kg
-            FROM pesagens p
-           WHERE p.animal_id = animais.id
-           ORDER BY p.data_pesagem DESC, p.id DESC
-           LIMIT 1
-        )
-      WHERE id = $1`,
-    [animalId],
-  );
 }
 
 async function validarLote(pesagem, animal, usuario, cliente = pool) {
@@ -47,6 +45,9 @@ async function validarLote(pesagem, animal, usuario, cliente = pool) {
 
 router.get("/animais/:animalId/pesagens", async (req, res) => {
   try {
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
+    const { limite, offset } = paginacao.valor;
     const animalId = converterId(req.params.animalId);
     if (!animalId) return res.status(400).json({ mensagem: "ID do animal inválido" });
 
@@ -56,16 +57,21 @@ router.get("/animais/:animalId/pesagens", async (req, res) => {
     const resultado = await pool.query(
       `SELECT p.id, p.animal_id, p.data_pesagem, p.peso_kg, p.tipo_pesagem,
               p.metodo, p.lote_id, l.nome AS lote, p.observacao,
-              p.registrado_por, p.created_at, p.updated_at
+              p.registrado_por, p.created_at, p.updated_at,
+              p.peso_kg - LAG(p.peso_kg) OVER (
+                PARTITION BY p.animal_id ORDER BY p.data_pesagem, p.id
+              ) AS variacao_kg
          FROM pesagens p
          LEFT JOIN lotes l ON l.id = p.lote_id
         WHERE p.animal_id = $1
-        ORDER BY p.data_pesagem DESC, p.id DESC`,
-      [animalId],
+        ORDER BY p.data_pesagem DESC, p.id DESC
+        LIMIT $2 OFFSET $3`,
+      [animalId, limite + 1, offset],
     );
-    res.json(serializarPesagens(resultado.rows));
+    const linhas = responderPagina(res, resultado.rows, paginacao.valor);
+    res.json(serializarPesagens(linhas));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("pesagens_rota_erro", erro, req);
     res.status(500).json({ mensagem: "Erro ao buscar pesagens" });
   }
 });
@@ -130,26 +136,32 @@ router.get("/animais/:animalId/pesagens/resumo", async (req, res) => {
       })),
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("pesagens_rota_erro", erro, req);
     res.status(500).json({ mensagem: "Erro ao calcular indicadores de pesagem" });
   }
 });
 
 router.post("/animais/:animalId/pesagens", async (req, res) => {
-  const cliente = await pool.connect();
+  const animalId = converterId(req.params.animalId);
+  if (!animalId) return res.status(400).json({ mensagem: "ID do animal inválido" });
+  const normalizada = normalizarPesagem(req.body);
+  if (normalizada.erro) return res.status(400).json({ mensagem: normalizada.erro });
+  const pesagem = normalizada.valor;
+  let cliente;
   try {
-    const animalId = converterId(req.params.animalId);
-    if (!animalId) return res.status(400).json({ mensagem: "ID do animal inválido" });
-    const animal = await buscarAnimalPermitido(animalId, req.usuario);
-    if (!animal) return res.status(404).json({ mensagem: "Animal não encontrado" });
-    const normalizada = normalizarPesagem(req.body);
-    if (normalizada.erro) return res.status(400).json({ mensagem: normalizada.erro });
-    const pesagem = normalizada.valor;
+    cliente = await pool.connect();
+    await cliente.query("BEGIN");
+    const animal = await buscarAnimalPermitido(animalId, req.usuario, cliente, true);
+    if (!animal) {
+      await cliente.query("ROLLBACK");
+      return res.status(404).json({ mensagem: "Animal não encontrado" });
+    }
     if (pesagem.loteId && !(await validarLote(pesagem, animal, req.usuario, cliente))) {
+      await cliente.query("ROLLBACK");
       return res.status(404).json({ mensagem: "Lote não encontrado na propriedade do animal" });
     }
 
-    await cliente.query("BEGIN");
+    await bloquearAnimalParaPeso(cliente, animalId);
     const resultado = await cliente.query(
       `INSERT INTO pesagens
               (animal_id, data_pesagem, peso_kg, tipo_pesagem, metodo,
@@ -163,37 +175,44 @@ router.post("/animais/:animalId/pesagens", async (req, res) => {
     await cliente.query("COMMIT");
     res.status(201).json({ mensagem: "Pesagem registrada com sucesso!", pesagem: resultado.rows[0] });
   } catch (erro) {
-    await cliente.query("ROLLBACK").catch(() => {});
-    console.error(erro);
+    if (cliente) await cliente.query("ROLLBACK").catch(() => {});
+    registrarErro("pesagens_rota_erro", erro, req);
     res.status(500).json({ mensagem: "Erro ao registrar pesagem" });
   } finally {
-    cliente.release();
+    cliente?.release();
   }
 });
 
 router.put("/pesagens/:id", async (req, res) => {
-  const cliente = await pool.connect();
+  const id = converterId(req.params.id);
+  if (!id) return res.status(400).json({ mensagem: "ID da pesagem inválido" });
+  const normalizada = normalizarPesagem(req.body);
+  if (normalizada.erro) return res.status(400).json({ mensagem: normalizada.erro });
+  const pesagem = normalizada.valor;
+  let cliente;
   try {
-    const id = converterId(req.params.id);
-    if (!id) return res.status(400).json({ mensagem: "ID da pesagem inválido" });
-    const existente = await pool.query(
+    cliente = await pool.connect();
+    await cliente.query("BEGIN");
+    const existente = await cliente.query(
       `SELECT pe.animal_id
          FROM pesagens pe
          JOIN animais a ON a.id = pe.animal_id
          JOIN propriedades p ON p.id = a.propriedade_id
-        WHERE pe.id = $1 AND ($2 = 'admin' OR p.usuario_id = $3)`,
+        WHERE pe.id = $1 AND ($2 = 'admin' OR p.usuario_id = $3)
+        FOR UPDATE OF pe`,
       [id, req.usuario.perfil, req.usuario.id],
     );
-    if (!existente.rows[0]) return res.status(404).json({ mensagem: "Pesagem não encontrada" });
-    const animal = await buscarAnimalPermitido(existente.rows[0].animal_id, req.usuario);
-    const normalizada = normalizarPesagem(req.body);
-    if (normalizada.erro) return res.status(400).json({ mensagem: normalizada.erro });
-    const pesagem = normalizada.valor;
+    if (!existente.rows[0]) {
+      await cliente.query("ROLLBACK");
+      return res.status(404).json({ mensagem: "Pesagem não encontrada" });
+    }
+    const animal = await buscarAnimalPermitido(existente.rows[0].animal_id, req.usuario, cliente, true);
     if (pesagem.loteId && !(await validarLote(pesagem, animal, req.usuario, cliente))) {
+      await cliente.query("ROLLBACK");
       return res.status(404).json({ mensagem: "Lote não encontrado na propriedade do animal" });
     }
 
-    await cliente.query("BEGIN");
+    await bloquearAnimalParaPeso(cliente, animal.id);
     const resultado = await cliente.query(
       `UPDATE pesagens SET data_pesagem = $1, peso_kg = $2, tipo_pesagem = $3,
               metodo = $4, lote_id = $5, observacao = $6,
@@ -206,20 +225,35 @@ router.put("/pesagens/:id", async (req, res) => {
     await cliente.query("COMMIT");
     res.json({ mensagem: "Pesagem atualizada com sucesso!", pesagem: resultado.rows[0] });
   } catch (erro) {
-    await cliente.query("ROLLBACK").catch(() => {});
-    console.error(erro);
+    if (cliente) await cliente.query("ROLLBACK").catch(() => {});
+    registrarErro("pesagens_rota_erro", erro, req);
     res.status(500).json({ mensagem: "Erro ao atualizar pesagem" });
   } finally {
-    cliente.release();
+    cliente?.release();
   }
 });
 
 router.delete("/pesagens/:id", async (req, res) => {
-  const cliente = await pool.connect();
+  const id = converterId(req.params.id);
+  if (!id) return res.status(400).json({ mensagem: "ID da pesagem inválido" });
+  let cliente;
   try {
-    const id = converterId(req.params.id);
-    if (!id) return res.status(400).json({ mensagem: "ID da pesagem inválido" });
+    cliente = await pool.connect();
     await cliente.query("BEGIN");
+    const existente = await cliente.query(
+      `SELECT pe.animal_id
+         FROM pesagens pe
+         JOIN animais a ON a.id = pe.animal_id
+         JOIN propriedades p ON p.id = a.propriedade_id
+        WHERE pe.id = $1 AND ($2 = 'admin' OR p.usuario_id = $3)
+        FOR UPDATE OF pe`,
+      [id, req.usuario.perfil, req.usuario.id],
+    );
+    if (!existente.rows[0]) {
+      await cliente.query("ROLLBACK");
+      return res.status(404).json({ mensagem: "Pesagem não encontrada" });
+    }
+    await bloquearAnimalParaPeso(cliente, existente.rows[0].animal_id);
     const resultado = await cliente.query(
       `DELETE FROM pesagens pe
         WHERE pe.id = $1
@@ -239,21 +273,25 @@ router.delete("/pesagens/:id", async (req, res) => {
     await cliente.query("COMMIT");
     res.json({ mensagem: "Pesagem excluída com sucesso!", pesagem: resultado.rows[0] });
   } catch (erro) {
-    await cliente.query("ROLLBACK").catch(() => {});
-    console.error(erro);
+    if (cliente) await cliente.query("ROLLBACK").catch(() => {});
+    registrarErro("pesagens_rota_erro", erro, req);
     res.status(500).json({ mensagem: "Erro ao excluir pesagem" });
   } finally {
-    cliente.release();
+    cliente?.release();
   }
 });
 
 router.get("/pesagens", async (req, res) => {
   try {
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
+    const { limite, offset } = paginacao.valor;
     const propriedadeId = req.query.propriedade_id ? converterId(req.query.propriedade_id) : null;
     const loteId = req.query.lote_id ? converterId(req.query.lote_id) : null;
     const animalId = req.query.animal_id ? converterId(req.query.animal_id) : null;
     const tipo = req.query.tipo ? String(req.query.tipo).toUpperCase() : null;
     const busca = String(req.query.busca || "").trim();
+    if (busca.length > 120) return res.status(400).json({ mensagem: "Busca acima do limite permitido" });
     const inicio = req.query.data_inicio ? normalizarDataCalendario(req.query.data_inicio, "Data inicial") : { valor: null };
     const fim = req.query.data_fim ? normalizarDataCalendario(req.query.data_fim, "Data final") : { valor: null };
     if (inicio.erro || fim.erro) return res.status(400).json({ mensagem: inicio.erro || fim.erro });
@@ -285,13 +323,14 @@ router.get("/pesagens", async (req, res) => {
           AND ($8::date IS NULL OR pe.data_pesagem <= $8)
           AND ($9 = '' OR a.nome ILIKE '%' || $9 || '%' OR COALESCE(a.numero_brinco, '') ILIKE '%' || $9 || '%')
         ORDER BY pe.data_pesagem DESC, pe.id DESC
-        LIMIT 500`,
+        LIMIT $10 OFFSET $11`,
       [req.usuario.perfil, req.usuario.id, propriedadeId, loteId, animalId,
-        tipo, inicio.valor, fim.valor, busca],
+        tipo, inicio.valor, fim.valor, busca, limite + 1, offset],
     );
-    res.json(serializarPesagens(resultado.rows));
+    const linhas = responderPagina(res, resultado.rows, paginacao.valor);
+    res.json(serializarPesagens(linhas));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("pesagens_rota_erro", erro, req);
     res.status(500).json({ mensagem: "Erro ao buscar pesagens" });
   }
 });

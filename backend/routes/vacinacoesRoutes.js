@@ -1,18 +1,33 @@
 const express = require("express");
 const pool = require("../database/pool")
+const { normalizarPaginacao, responderPagina, validarCamposPermitidos, converterId, normalizarDataCalendario, normalizarTextoOpcional } = require("../utils/validacoes");
+const { validarParametroId } = require("../middleware/validacao");
+const { registrarErro } = require("../utils/log");
 
 const router = express.Router();
+router.param("id", validarParametroId);
+
+function normalizarDadosVacinacao(dados) {
+  const animalId = converterId(dados.animal_id);
+  const vacinaId = converterId(dados.vacina_id);
+  const aplicacao = normalizarDataCalendario(dados.data_aplicacao, "Data de aplicação");
+  const proxima = dados.proxima_dose
+    ? normalizarDataCalendario(dados.proxima_dose, "Próxima dose")
+    : { valor: null };
+  const observacao = normalizarTextoOpcional(dados.observacao, "Observação", 500);
+  const erro = (!animalId && "Animal inválido") || (!vacinaId && "Vacina inválida") ||
+    aplicacao.erro || proxima.erro || observacao.erro;
+  if (erro) return { erro };
+  return { valor: { animal_id: animalId, vacina_id: vacinaId, data_aplicacao: aplicacao.valor, proxima_dose: proxima.valor, observacao: observacao.valor } };
+}
 
 router.post("/vacinacoes", async (req, res) => {
   try {
-    const { animal_id, vacina_id, data_aplicacao, proxima_dose, observacao } =
-      req.body;
-
-    if (!animal_id || !vacina_id || !data_aplicacao) {
-      return res.status(400).json({
-        mensagem: "Animal, vacina e data de aplicação são obrigatórios",
-      });
-    }
+    const campos = validarCamposPermitidos(req.body, ["animal_id", "vacina_id", "data_aplicacao", "proxima_dose", "observacao"]);
+    if (campos.erro) return res.status(400).json({ mensagem: campos.erro });
+    const dados = normalizarDadosVacinacao(req.body);
+    if (dados.erro) return res.status(400).json({ mensagem: dados.erro });
+    const { animal_id, vacina_id, data_aplicacao, proxima_dose, observacao } = dados.valor;
 
     const animalExiste = await pool.query(
       `SELECT a.*, p.usuario_id
@@ -58,8 +73,8 @@ router.post("/vacinacoes", async (req, res) => {
         animal_id,
         vacina_id,
         data_aplicacao,
-        proxima_dose || null,
-        observacao || null,
+        proxima_dose,
+        observacao,
       ],
     );
 
@@ -68,7 +83,7 @@ router.post("/vacinacoes", async (req, res) => {
       vacinacao: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("vacinacoes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao registrar vacinação",
@@ -78,6 +93,9 @@ router.post("/vacinacoes", async (req, res) => {
 
 router.get("/vacinacoes", async (req, res) => {
   try {
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
+    const { limite, offset } = paginacao.valor;
     const resultado = await pool.query(`
             SELECT
                 vacinacoes.id,
@@ -100,11 +118,12 @@ router.get("/vacinacoes", async (req, res) => {
               OR (propriedades.usuario_id = $2 AND vacinas.usuario_id = $2)
             )
             ORDER BY vacinacoes.id
-        `, [req.usuario.perfil, req.usuario.id]);
+            LIMIT $3 OFFSET $4
+        `, [req.usuario.perfil, req.usuario.id, limite + 1, offset]);
 
-    res.json(resultado.rows);
+    res.json(responderPagina(res, resultado.rows, paginacao.valor));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("vacinacoes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar vacinações",
@@ -117,6 +136,9 @@ router.get("/vacinacoes", async (req, res) => {
 
 router.get("/vacinacoes/proximas", async (req, res) => {
   try {
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
+    const { limite, offset } = paginacao.valor;
     const { periodo = "todos" } = req.query;
 
     const filtrosPeriodo = {
@@ -162,12 +184,13 @@ router.get("/vacinacoes/proximas", async (req, res) => {
                 $1 = 'admin'
                 OR (propriedades.usuario_id = $2 AND vacinas.usuario_id = $2)
               )
-            ORDER BY vacinacoes.proxima_dose
-        `, [req.usuario.perfil, req.usuario.id]);
+            ORDER BY vacinacoes.proxima_dose, vacinacoes.id
+            LIMIT $3 OFFSET $4
+        `, [req.usuario.perfil, req.usuario.id, limite + 1, offset]);
 
-    res.json(resultado.rows);
+    res.json(responderPagina(res, resultado.rows, paginacao.valor));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("vacinacoes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar próximas vacinações",
@@ -212,7 +235,7 @@ router.get("/vacinacoes/:id", async (req, res) => {
 
     res.json(resultado.rows[0]);
   } catch (erro) {
-    console.error(erro);
+    registrarErro("vacinacoes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar vacinação",
@@ -222,16 +245,13 @@ router.get("/vacinacoes/:id", async (req, res) => {
 
 router.put("/vacinacoes/:id", async (req, res) => {
   try {
+    const campos = validarCamposPermitidos(req.body, ["animal_id", "vacina_id", "data_aplicacao", "proxima_dose", "observacao"]);
+    if (campos.erro) return res.status(400).json({ mensagem: campos.erro });
     const { id } = req.params;
 
-    const { animal_id, vacina_id, data_aplicacao, proxima_dose, observacao } =
-      req.body;
-
-    if (!animal_id || !vacina_id || !data_aplicacao) {
-      return res.status(400).json({
-        mensagem: "Animal, vacina e data de aplicação são obrigatórios",
-      });
-    }
+    const dados = normalizarDadosVacinacao(req.body);
+    if (dados.erro) return res.status(400).json({ mensagem: dados.erro });
+    const { animal_id, vacina_id, data_aplicacao, proxima_dose, observacao } = dados.valor;
 
     const animalExiste = await pool.query(
       `SELECT a.*, p.usuario_id
@@ -292,8 +312,8 @@ router.put("/vacinacoes/:id", async (req, res) => {
         animal_id,
         vacina_id,
         data_aplicacao,
-        proxima_dose || null,
-        observacao || null,
+        proxima_dose,
+        observacao,
         id,
         req.usuario.perfil,
         req.usuario.id,
@@ -311,7 +331,7 @@ router.put("/vacinacoes/:id", async (req, res) => {
       vacinacao: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("vacinacoes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao atualizar vacinação",
@@ -345,7 +365,7 @@ router.delete("/vacinacoes/:id", async (req, res) => {
       vacinacao: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("vacinacoes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao excluir vacinação",
@@ -359,6 +379,9 @@ router.delete("/vacinacoes/:id", async (req, res) => {
 
 router.get("/animais/:id/vacinacoes", async (req, res) => {
   try {
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
+    const { limite, offset } = paginacao.valor;
     const { id } = req.params;
 
     const animalExiste = await pool.query(
@@ -393,13 +416,14 @@ router.get("/animais/:id/vacinacoes", async (req, res) => {
                 ON propriedades.id = animais.propriedade_id
              WHERE vacinacoes.animal_id = $1
                AND vacinas.usuario_id = propriedades.usuario_id
-             ORDER BY vacinacoes.data_aplicacao DESC`,
-      [id],
+             ORDER BY vacinacoes.data_aplicacao DESC, vacinacoes.id DESC
+             LIMIT $2 OFFSET $3`,
+      [id, limite + 1, offset],
     );
 
-    res.json(resultado.rows);
+    res.json(responderPagina(res, resultado.rows, paginacao.valor));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("vacinacoes_rota_erro", erro, req);
 
     res.status(500).json({
       mensagem: "Erro ao buscar vacinações do animal",
@@ -411,4 +435,3 @@ router.get("/animais/:id/vacinacoes", async (req, res) => {
 // =========================
 
 module.exports = router;
-

@@ -5,9 +5,15 @@ const {
   converterId,
   normalizarDataCalendario,
   normalizarProducaoLeiteira,
+  normalizarPaginacao,
+  responderPagina,
 } = require("../utils/validacoes")
+const { validarParametroId } = require("../middleware/validacao");
+const { registrarErro } = require("../utils/log");
 
 const router = express.Router();
+router.param("animalId", validarParametroId);
+router.param("id", validarParametroId);
 
 router.post("/animais/:animalId/producoes-leiteiras", async (req, res) => {
   try {
@@ -43,13 +49,16 @@ router.post("/animais/:animalId/producoes-leiteiras", async (req, res) => {
       producao: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("producoes_leiteiras_rota_erro", erro, req);
     res.status(500).json({ mensagem: "Erro ao registrar produção leiteira" });
   }
 });
 
 router.get("/animais/:animalId/producoes-leiteiras", async (req, res) => {
   try {
+    const paginacao = normalizarPaginacao(req.query);
+    if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
+    const { limite, offset } = paginacao.valor;
     const animalId = converterId(req.params.animalId);
     const periodo = req.query.periodo || "todos";
     const periodosPermitidos = ["hoje", "7dias", "30dias", "todos"];
@@ -136,19 +145,22 @@ router.get("/animais/:animalId/producoes-leiteiras", async (req, res) => {
                    WHEN 'noite' THEN 3
                    ELSE 4
                  END,
-                 id DESC`,
+                 id DESC
+        LIMIT $6 OFFSET $7`,
       [
         animalId,
         fusoHorario,
         periodo,
         dataInicio.valor,
         dataFim.valor,
+        limite + 1,
+        offset,
       ],
     );
 
-    res.json(resultado.rows);
+    res.json(responderPagina(res, resultado.rows, paginacao.valor));
   } catch (erro) {
-    console.error(erro);
+    registrarErro("producoes_leiteiras_rota_erro", erro, req);
     res.status(500).json({ mensagem: "Erro ao buscar produções leiteiras" });
   }
 });
@@ -236,7 +248,7 @@ router.get("/animais/:animalId/producoes-leiteiras/resumo", async (req, res) => 
       })),
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("producoes_leiteiras_rota_erro", erro, req);
     res.status(500).json({ mensagem: "Erro ao calcular resumo leiteiro" });
   }
 });
@@ -291,7 +303,7 @@ router.put("/producoes-leiteiras/:id", async (req, res) => {
       producao: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("producoes_leiteiras_rota_erro", erro, req);
     res.status(500).json({ mensagem: "Erro ao atualizar produção leiteira" });
   }
 });
@@ -327,7 +339,7 @@ router.delete("/producoes-leiteiras/:id", async (req, res) => {
       producao: resultado.rows[0],
     });
   } catch (erro) {
-    console.error(erro);
+    registrarErro("producoes_leiteiras_rota_erro", erro, req);
     res.status(500).json({ mensagem: "Erro ao excluir produção leiteira" });
   }
 });
@@ -337,4 +349,3 @@ router.delete("/producoes-leiteiras/:id", async (req, res) => {
 // =========================
 
 module.exports = router;
-

@@ -7,6 +7,16 @@ function criarErroValidacao(mensagem, status = 400) {
   return erro;
 }
 
+function validarSenha(senha) {
+  if (typeof senha !== "string" || senha.length < 8) {
+    throw criarErroValidacao("A senha deve possuir pelo menos 8 caracteres");
+  }
+
+  if (Buffer.byteLength(senha, "utf8") > 72) {
+    throw criarErroValidacao("A senha deve possuir no máximo 72 bytes em UTF-8");
+  }
+}
+
 async function criarUsuarioComum(body) {
   const { nome: nomeRecebido, email: emailRecebido, senha } = body;
 
@@ -33,9 +43,7 @@ async function criarUsuarioComum(body) {
     throw criarErroValidacao("Email inválido");
   }
 
-  if (senha.length < 8) {
-    throw criarErroValidacao("A senha deve possuir pelo menos 8 caracteres");
-  }
+  validarSenha(senha);
 
   const emailExistente = await pool.query(
     "SELECT 1 FROM usuarios WHERE email = $1",
@@ -43,6 +51,8 @@ async function criarUsuarioComum(body) {
   );
 
   if (emailExistente.rows.length > 0) {
+    // Mantém custo semelhante ao cadastro válido e reduz enumeração por tempo.
+    await bcrypt.hash(senha, 12);
     throw criarErroValidacao("Este email já está cadastrado", 409);
   }
 
@@ -205,4 +215,4 @@ async function excluirUsuarioComDados(usuarioId) {
   }
 }
 
-module.exports = { criarUsuarioComum, excluirUsuarioComDados };
+module.exports = { criarUsuarioComum, excluirUsuarioComDados, validarSenha };

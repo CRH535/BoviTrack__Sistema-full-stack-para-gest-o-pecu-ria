@@ -122,6 +122,9 @@ async function limparDadosTemporarios() {
 }
 
 async function executar() {
+  if (process.env.ALLOW_TEST_DB_WRITES !== "true") {
+    throw new Error("Defina ALLOW_TEST_DB_WRITES=true somente em um banco isolado de teste");
+  }
   if (!adminEmail || !adminSenha) {
     throw new Error("Informe TEST_ADMIN_EMAIL e TEST_ADMIN_SENHA");
   }
@@ -129,6 +132,7 @@ async function executar() {
   servidor = app.listen(0);
   await new Promise((resolve) => servidor.once("listening", resolve));
   baseUrl = `http://127.0.0.1:${servidor.address().port}`;
+  await pool.query("DELETE FROM limites_requisicao WHERE escopo IN ('LOGIN_CONTA', 'LOGIN_IP', 'LOGIN_ADMIN', 'CADASTRO_IP', 'REFRESH_SESSAO_IP')");
 
   const adminLogin = await login(adminEmail, adminSenha);
   confirmar("admin + senha correta -> 200", adminLogin.status === 200);
@@ -149,10 +153,17 @@ async function executar() {
     metodo: "POST",
     corpo: { nome: "Usuário B", email: emailB, senha: senhaUsuario },
   });
-  confirmar("cadastro público cria USUARIO_A e USUARIO_B -> 201", cadastroA.status === 201 && cadastroB.status === 201);
-  confirmar("cadastro público ignora perfil admin", cadastroA.dados.usuario.perfil === "usuario");
-  confirmar("cadastro público ignora ativo false", cadastroA.dados.usuario.ativo === true);
-  confirmar("cadastro público nunca retorna hash", cadastroA.dados.usuario.senha === undefined);
+  confirmar("cadastro público responde genericamente -> 202", cadastroA.status === 202 && cadastroB.status === 202);
+  confirmar("cadastro público não expõe o usuário criado", cadastroA.dados.usuario === undefined && cadastroB.dados.usuario === undefined);
+
+  const usuariosCriados = await pool.query(
+    "SELECT id, email, perfil, ativo FROM usuarios WHERE email = ANY($1::text[]) ORDER BY email",
+    [[emailA, emailB]],
+  );
+  const usuarioA = usuariosCriados.rows.find((usuario) => usuario.email === emailA);
+  const usuarioB = usuariosCriados.rows.find((usuario) => usuario.email === emailB);
+  confirmar("cadastro público ignora perfil admin", usuarioA?.perfil === "usuario");
+  confirmar("cadastro público ignora ativo false", usuarioA?.ativo === true);
 
   const quantidadeAdmins = await pool.query(
     "SELECT COUNT(*) AS total FROM usuarios WHERE perfil = 'admin'",
@@ -169,7 +180,8 @@ async function executar() {
       (await bcrypt.compare(senhaUsuario, senhaArmazenada.rows[0].senha)),
   );
 
-  confirmar("cadastro público duplicado -> 409", (await requisitar("/auth/cadastro", { metodo: "POST", corpo: { nome: "Duplicado", email: emailA, senha: senhaUsuario } })).status === 409);
+  confirmar("cadastro público duplicado mantém resposta genérica -> 202", (await requisitar("/auth/cadastro", { metodo: "POST", corpo: { nome: "Duplicado", email: emailA, senha: senhaUsuario } })).status === 202);
+  await pool.query("DELETE FROM limites_requisicao WHERE escopo = 'CADASTRO_IP'");
   confirmar("cadastro público rejeita email inválido -> 400", (await requisitar("/auth/cadastro", { metodo: "POST", corpo: { nome: "Inválido", email: "email-invalido", senha: senhaUsuario } })).status === 400);
   confirmar("cadastro público rejeita senha curta -> 400", (await requisitar("/auth/cadastro", { metodo: "POST", corpo: { nome: "Inválido", email: `curta-${sufixo}@teste.local`, senha: "1234567" } })).status === 400);
   confirmar("cadastro público rejeita nome vazio -> 400", (await requisitar("/auth/cadastro", { metodo: "POST", corpo: { nome: " ", email: `vazio-${sufixo}@teste.local`, senha: senhaUsuario } })).status === 400);
@@ -220,21 +232,21 @@ async function executar() {
   confirmar("usuário comum tenta POST /usuarios -> 403", (await requisitar("/usuarios", { metodo: "POST", token: tokenA, corpo: { nome: "Ataque", email: `ataque-${sufixo}@teste.local`, senha: senhaUsuario, perfil: "admin" } })).status === 403);
   confirmar("email duplicado administrativo -> 409", (await requisitar("/usuarios", { metodo: "POST", token: tokenAdmin, corpo: { nome: "Duplicado", email: emailA, senha: senhaUsuario } })).status === 409);
 
-  const usuarioBPorId = await requisitar(`/usuarios/${cadastroB.dados.usuario.id}`, { token: tokenAdmin });
+  const usuarioBPorId = await requisitar(`/usuarios/${usuarioB.id}`, { token: tokenAdmin });
   confirmar("admin busca usuário por ID", usuarioBPorId.status === 200 && usuarioBPorId.dados.email === emailB);
 
-  const edicaoB = await requisitar(`/usuarios/${cadastroB.dados.usuario.id}`, {
+  const edicaoB = await requisitar(`/usuarios/${usuarioB.id}`, {
     metodo: "PUT", token: tokenAdmin,
     corpo: { nome: "Usuário B Editado", email: emailB, perfil: "admin", senha: "nao-deve-alterar" },
   });
   confirmar("admin edita somente nome/email", edicaoB.status === 200 && edicaoB.dados.usuario.nome === "Usuário B Editado" && edicaoB.dados.usuario.perfil === "usuario");
-  confirmar("edição com email de outro usuário -> 409", (await requisitar(`/usuarios/${cadastroB.dados.usuario.id}`, { metodo: "PUT", token: tokenAdmin, corpo: { nome: "Usuário B", email: emailA } })).status === 409);
+  confirmar("edição com email de outro usuário -> 409", (await requisitar(`/usuarios/${usuarioB.id}`, { metodo: "PUT", token: tokenAdmin, corpo: { nome: "Usuário B", email: emailA } })).status === 409);
 
   confirmar("usuário comum tenta GET /usuarios -> 403", (await requisitar("/usuarios", { token: tokenA })).status === 403);
-  confirmar("usuário comum tenta GET /usuarios/:id -> 403", (await requisitar(`/usuarios/${cadastroB.dados.usuario.id}`, { token: tokenA })).status === 403);
-  confirmar("usuário comum tenta PUT /usuarios/:id -> 403", (await requisitar(`/usuarios/${cadastroB.dados.usuario.id}`, { metodo: "PUT", token: tokenA, corpo: { nome: "Ataque", email: emailB } })).status === 403);
-  confirmar("usuário comum tenta desativar outro -> 403", (await requisitar(`/usuarios/${cadastroB.dados.usuario.id}/ativo`, { metodo: "PUT", token: tokenA, corpo: { ativo: false } })).status === 403);
-  confirmar("usuário comum tenta DELETE /usuarios/:id -> 403", (await requisitar(`/usuarios/${cadastroB.dados.usuario.id}`, { metodo: "DELETE", token: tokenA })).status === 403);
+  confirmar("usuário comum tenta GET /usuarios/:id -> 403", (await requisitar(`/usuarios/${usuarioB.id}`, { token: tokenA })).status === 403);
+  confirmar("usuário comum tenta PUT /usuarios/:id -> 403", (await requisitar(`/usuarios/${usuarioB.id}`, { metodo: "PUT", token: tokenA, corpo: { nome: "Ataque", email: emailB } })).status === 403);
+  confirmar("usuário comum tenta desativar outro -> 403", (await requisitar(`/usuarios/${usuarioB.id}/ativo`, { metodo: "PUT", token: tokenA, corpo: { ativo: false } })).status === 403);
+  confirmar("usuário comum tenta DELETE /usuarios/:id -> 403", (await requisitar(`/usuarios/${usuarioB.id}`, { metodo: "DELETE", token: tokenA })).status === 403);
 
   confirmar("senha errada -> 401", (await login(emailA, "senha-errada")).status === 401);
   confirmar("usuário inexistente -> 401", (await login(`inexistente-${sufixo}@teste.local`, senhaUsuario)).status === 401);
@@ -294,7 +306,7 @@ async function executar() {
   );
   confirmar(
     "primeira propriedade fica vinculada ao usuário do JWT",
-    propriedadeANoBanco.rows[0].usuario_id === cadastroA.dados.usuario.id,
+    propriedadeANoBanco.rows[0].usuario_id === usuarioA.id,
   );
 
   const listaA = await requisitar("/propriedades", { token: tokenA });
@@ -758,22 +770,22 @@ async function executar() {
   confirmar("admin principal não pode ser desativado", (await requisitar(`/usuarios/${adminLogin.dados.usuario.id}/ativo`, { metodo: "PUT", token: tokenAdmin, corpo: { ativo: false } })).status === 403);
   confirmar("admin principal não pode excluir a própria conta", (await requisitar(`/usuarios/${adminLogin.dados.usuario.id}`, { metodo: "DELETE", token: tokenAdmin })).status === 403);
   confirmar("admin principal não pode usar exclusão da própria conta", (await requisitar("/usuarios/me", { metodo: "DELETE", token: tokenAdmin, corpo: { confirmacao: "EXCLUIR" } })).status === 403);
-  confirmar("exclusão própria exige confirmação textual", (await requisitar("/usuarios/me", { metodo: "DELETE", token: tokenA, corpo: { confirmacao: "excluir", usuario_id: cadastroB.dados.usuario.id } })).status === 400);
+  confirmar("exclusão própria exige confirmação textual", (await requisitar("/usuarios/me", { metodo: "DELETE", token: tokenA, corpo: { confirmacao: "excluir", usuario_id: usuarioB.id } })).status === 400);
 
-  const desativacaoA = await requisitar(`/usuarios/${cadastroA.dados.usuario.id}/ativo`, {
+  const desativacaoA = await requisitar(`/usuarios/${usuarioA.id}/ativo`, {
     metodo: "PUT", token: tokenAdmin, corpo: { ativo: false },
   });
   confirmar("admin desativa USUARIO_A", desativacaoA.status === 200 && desativacaoA.dados.usuario.ativo === false);
   confirmar("USUARIO_A desativado não consegue login", (await login(emailA, senhaUsuario)).status === 403);
   confirmar("token antigo de usuário desativado é bloqueado", (await requisitar("/dashboard", { token: tokenA })).status === 401);
 
-  const reativacaoA = await requisitar(`/usuarios/${cadastroA.dados.usuario.id}/ativo`, {
+  const reativacaoA = await requisitar(`/usuarios/${usuarioA.id}/ativo`, {
     metodo: "PUT", token: tokenAdmin, corpo: { ativo: true },
   });
   confirmar("admin reativa USUARIO_A", reativacaoA.status === 200 && reativacaoA.dados.usuario.ativo === true);
   confirmar("USUARIO_A volta a fazer login", (await login(emailA, senhaUsuario)).status === 200);
 
-  const exclusaoB = await requisitar(`/usuarios/${cadastroB.dados.usuario.id}`, {
+  const exclusaoB = await requisitar(`/usuarios/${usuarioB.id}`, {
     metodo: "DELETE",
     token: tokenAdmin,
   });
@@ -787,7 +799,7 @@ async function executar() {
        (SELECT COUNT(*) FROM propriedades WHERE usuario_id = $1)::integer AS propriedades,
        (SELECT COUNT(*) FROM vacinas WHERE usuario_id = $1)::integer AS vacinas,
        (SELECT COUNT(*) FROM sessoes_refresh WHERE usuario_id = $1)::integer AS sessoes`,
-    [cadastroB.dados.usuario.id],
+    [usuarioB.id],
   );
   confirmar(
     "exclusão administrativa não deixa dados diretos do usuário",
@@ -812,7 +824,7 @@ async function executar() {
        (SELECT COUNT(*) FROM propriedades WHERE usuario_id = $1)::integer AS propriedades,
        (SELECT COUNT(*) FROM vacinas WHERE usuario_id = $1)::integer AS vacinas,
        (SELECT COUNT(*) FROM sessoes_refresh WHERE usuario_id = $1)::integer AS sessoes`,
-    [cadastroA.dados.usuario.id],
+    [usuarioA.id],
   );
   confirmar(
     "exclusão própria não aceita usuario_id do body e remove somente a conta autenticada",
