@@ -102,7 +102,7 @@ function Propriedades() {
 
   return (
     <div className="page">
-      <header className="page-header">
+      <header className="page-header" data-tour="propriedades">
         <div>
           <span className="eyebrow">Gestão das propriedades</span>
           <h1>Propriedades</h1>

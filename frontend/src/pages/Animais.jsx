@@ -150,7 +150,7 @@ function Animais() {
 
   return (
     <div className="page">
-      <header className="page-header">
+      <header className="page-header" data-tour="animais">
         <div>
           <span className="eyebrow">Gestão do rebanho</span>
           <h1>Animais</h1>

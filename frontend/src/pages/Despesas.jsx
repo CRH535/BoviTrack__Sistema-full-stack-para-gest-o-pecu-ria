@@ -126,7 +126,7 @@ function Despesas() {
 
   return (
     <div className="page">
-      <header className="page-header">
+      <header className="page-header" data-tour="despesas">
         <div>
           <span className="eyebrow">Controle financeiro</span>
           <h1>Despesas</h1>

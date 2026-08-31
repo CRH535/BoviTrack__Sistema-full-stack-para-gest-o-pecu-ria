@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import VoltarInicio from "../components/VoltarInicio";
+import RegistroFichaNotice from "../components/RegistroFichaNotice";
 import api from "../services/api";
 import { formatarDataSemFuso } from "../utils/datas";
 
@@ -41,8 +42,9 @@ function Pesagens() {
   function alterar(campo, valor) { setFiltros((atual) => ({ ...atual, [campo]: valor, ...(campo === "propriedade_id" ? { lote_id: "" } : {}) })); }
 
   return <div className="page">
-    <header className="page-header"><div><span className="eyebrow">Desempenho do rebanho</span><h1>Pesagens</h1><p>Consulte o histórico por animal, propriedade, lote, período e tipo.</p></div><VoltarInicio /></header>
+    <header className="page-header" data-tour="pesagens"><div><span className="eyebrow">Desempenho do rebanho</span><h1>Pesagens</h1><p>Consulte o histórico por animal, propriedade, lote, período e tipo.</p></div><VoltarInicio /></header>
     {erro && <p className="notice notice-error">{erro}</p>}
+    <RegistroFichaNotice tipo="pesagem" acao="adicionar uma nova pesagem" />
     <form className="panel filter-panel management-filters" onSubmit={(e) => { e.preventDefault(); carregar(); }}>
       <div><label>Animal ou brinco</label><input value={filtros.busca} onChange={(e) => alterar("busca", e.target.value)} placeholder="Pesquisar" /></div>
       <div><label>Propriedade</label><select value={filtros.propriedade_id} onChange={(e) => alterar("propriedade_id", e.target.value)}><option value="">Todas</option>{propriedades.map((item) => <option key={item.id} value={item.id}>{item.nome}</option>)}</select></div>

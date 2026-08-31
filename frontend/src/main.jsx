@@ -6,6 +6,7 @@ import App from './App.jsx'
 import { AuthProvider } from './auth/AuthContext.jsx'
 import { BlackHoleTransitionProvider } from './transitions/BlackHoleTransitionProvider.jsx'
 import { PreferencesProvider } from './preferences/PreferencesProvider.jsx'
+import { TutorialProvider } from './tutorial/TutorialProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -13,7 +14,9 @@ createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <BlackHoleTransitionProvider>
           <AuthProvider>
-            <App />
+            <TutorialProvider>
+              <App />
+            </TutorialProvider>
           </AuthProvider>
         </BlackHoleTransitionProvider>
       </BrowserRouter>

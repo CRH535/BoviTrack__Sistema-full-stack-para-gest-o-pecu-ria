@@ -96,6 +96,7 @@ function Layout() {
               key={item.to}
               to={item.to}
               end={item.end}
+              data-tour={`menu-${item.icon}`}
               className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}
             >
               {item.icon === "configuracoes" ? (

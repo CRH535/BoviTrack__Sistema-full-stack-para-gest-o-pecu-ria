@@ -130,7 +130,7 @@ function Vacinacoes() {
 
   return (
     <div className="page">
-      <header className="page-header">
+      <header className="page-header" data-tour="vacinacoes">
         <div>
           <span className="eyebrow">Agenda sanitária</span>
           <h1>Vacinações</h1>

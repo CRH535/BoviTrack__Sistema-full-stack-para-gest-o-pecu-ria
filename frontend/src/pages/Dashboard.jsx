@@ -70,7 +70,7 @@ function Dashboard() {
 
   return (
     <div className="page dashboard-page">
-      <header className="page-header">
+      <header className="page-header" data-tour="dashboard">
         <div>
           <span className="eyebrow">Gestão pecuária</span>
           <h1>Visão geral do rebanho</h1>

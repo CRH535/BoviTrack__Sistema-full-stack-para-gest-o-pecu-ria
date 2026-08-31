@@ -220,7 +220,7 @@ function Lotes() {
 
   return (
     <div className="page">
-      <header className="page-header">
+      <header className="page-header" data-tour="lotes">
         <div>
           <span className="eyebrow">Organização do rebanho</span>
           <h1>Lotes</h1>

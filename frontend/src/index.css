@@ -571,6 +571,54 @@ hr { display: none; }
 .form-message { border-color: var(--danger-border); color: var(--danger); background: var(--danger-soft); }
 .success-message { border-color: var(--accent-border); color: var(--accent-text); background: var(--accent-soft); }
 
+.record-entry-notice {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.record-entry-notice p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.record-entry-notice strong { color: var(--accent-text); }
+
+.record-entry-notice-icon {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid var(--accent-border);
+  border-radius: 50%;
+  color: var(--accent-text);
+  background: var(--surface-input);
+  font-size: 0.78rem;
+  font-weight: 850;
+  font-style: normal;
+}
+
+.record-entry-notice .button-link {
+  min-height: 36px;
+  padding: 7px 12px;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .record-entry-notice {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .record-entry-notice .button-link {
+    width: 100%;
+    grid-column: 1 / -1;
+  }
+}
+
 .data-form {
   display: grid;
   margin-bottom: 32px;
@@ -1925,4 +1973,310 @@ hr { display: none; }
   .performance-grid,
   .calf-stats-grid,
   .management-filters { grid-template-columns: 1fr; }
+}
+
+/* Tutorial guiado */
+:root {
+  --tutorial-backdrop: rgba(17, 20, 18, 0.74);
+  --tutorial-highlight: rgba(250, 250, 255, 0.98);
+  --tutorial-highlight-glow: rgba(250, 250, 255, 0.2);
+}
+
+:root[data-theme="dark"] {
+  --tutorial-backdrop: rgba(5, 5, 5, 0.78);
+  --tutorial-highlight: rgba(236, 235, 228, 0.96);
+  --tutorial-highlight-glow: rgba(218, 221, 216, 0.2);
+}
+
+.tutorial-dialog-backdrop,
+.tutorial-tour-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 6000;
+  overflow: hidden;
+}
+
+.tutorial-dialog-backdrop {
+  display: grid;
+  padding: clamp(16px, 4vw, 36px);
+  place-items: center;
+  background: var(--modal-backdrop);
+  animation: tutorial-fade-in 180ms ease-out both;
+}
+
+.tutorial-dialog,
+.tutorial-tooltip {
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: 0 22px 70px var(--modal-shadow);
+}
+
+.tutorial-dialog {
+  width: min(480px, 100%);
+  padding: clamp(22px, 4vw, 34px);
+  animation: tutorial-card-in 220ms ease-out both;
+}
+
+.tutorial-dialog h2,
+.tutorial-tooltip h2 {
+  margin: 7px 0 8px;
+  color: var(--text);
+}
+
+.tutorial-dialog h2 { font-size: clamp(1.35rem, 3vw, 1.75rem); }
+
+.tutorial-dialog p,
+.tutorial-tooltip p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.58;
+}
+
+.tutorial-eyebrow {
+  color: var(--accent-text);
+  font-size: 0.7rem;
+  font-weight: 850;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.tutorial-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 25px;
+  gap: 10px;
+}
+
+.tutorial-button {
+  min-height: 42px;
+  white-space: nowrap;
+}
+
+.tutorial-button--ghost {
+  border-color: var(--border-strong);
+  color: var(--text);
+  background: var(--surface-soft);
+}
+
+.tutorial-button--ghost:hover {
+  border-color: var(--border-hover);
+  background: var(--row-hover);
+}
+
+.tutorial-button--danger {
+  border-color: var(--danger-border);
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.tutorial-button--danger:hover {
+  border-color: var(--danger-hover-border);
+  color: var(--danger-hover);
+  background: var(--danger-hover-soft);
+}
+
+.tutorial-interaction-blocker {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: transparent;
+}
+
+.tutorial-highlight {
+  position: fixed;
+  z-index: 1;
+  border: 2px solid var(--tutorial-highlight);
+  border-radius: calc(var(--radius) + 4px);
+  box-shadow:
+    0 0 0 9999px var(--tutorial-backdrop),
+    0 0 0 5px var(--tutorial-highlight-glow),
+    0 0 28px var(--tutorial-highlight-glow);
+  pointer-events: none;
+  transition: top 220ms ease, left 220ms ease, width 220ms ease, height 220ms ease;
+}
+
+.tutorial-tooltip {
+  position: fixed;
+  z-index: 2;
+  width: min(390px, calc(100vw - 32px));
+  padding: 20px;
+  animation: tutorial-card-in 200ms ease-out both;
+}
+
+.tutorial-tooltip h2 { font-size: 1.18rem; }
+.tutorial-tooltip p { font-size: 0.88rem; }
+
+.tutorial-progress-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--text-subtle);
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+.tutorial-exit-link {
+  min-height: 30px;
+  padding: 3px 5px;
+  border: 0;
+  color: var(--text-muted);
+  background: transparent;
+  font-size: 0.72rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.tutorial-exit-link:hover {
+  color: var(--text);
+  background: transparent;
+  transform: none;
+}
+
+.tutorial-progress {
+  height: 4px;
+  margin: 10px 0 17px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--track);
+}
+
+.tutorial-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 220ms ease;
+}
+
+.tutorial-tooltip-actions {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 21px;
+  gap: 12px;
+}
+
+.tutorial-tooltip-actions > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.tutorial-loading {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #fff;
+  background: var(--tutorial-backdrop);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.tutorial-loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: tutorial-spin 700ms linear infinite;
+}
+
+.tutorial-toast {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 6300;
+  width: min(430px, calc(100vw - 32px));
+  padding: 14px 17px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  font-size: 0.82rem;
+  line-height: 1.45;
+  animation: tutorial-toast-in 220ms ease-out both;
+}
+
+.tutorial-settings-action {
+  margin-top: 22px;
+}
+
+@keyframes tutorial-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes tutorial-card-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tutorial-toast-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes tutorial-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 700px) {
+  .tutorial-tooltip {
+    right: 12px;
+    bottom: max(12px, env(safe-area-inset-bottom));
+    left: 12px;
+    width: auto;
+    max-height: min(58vh, 430px);
+    overflow-y: auto;
+  }
+
+  .tutorial-tooltip-actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .tutorial-tooltip-actions > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tutorial-tooltip-actions .tutorial-button { width: 100%; }
+
+  .tutorial-dialog-actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .tutorial-dialog-actions .tutorial-button { width: 100%; }
+
+  .tutorial-toast {
+    right: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    left: 16px;
+    width: auto;
+  }
+
+  .tutorial-settings-action { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tutorial-dialog-backdrop,
+  .tutorial-dialog,
+  .tutorial-tooltip,
+  .tutorial-toast {
+    animation-duration: 1ms;
+  }
+
+  .tutorial-highlight,
+  .tutorial-progress span { transition: none; }
+
+  .tutorial-loading-spinner { animation: none; }
 }

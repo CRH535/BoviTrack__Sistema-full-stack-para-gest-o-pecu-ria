@@ -1,6 +1,7 @@
 import IconeConfiguracoes from "../components/IconeConfiguracoes";
 import VoltarInicio from "../components/VoltarInicio";
 import { usePreferences } from "../preferences/usePreferences";
+import { useTutorial } from "../tutorial/useTutorial";
 
 const temas = [
   {
@@ -22,10 +23,11 @@ const temas = [
 
 function Configuracoes() {
   const { theme, resolvedTheme, setTheme } = usePreferences();
+  const { restartTutorial, tutorialActive } = useTutorial();
 
   return (
     <div className="page settings-page">
-      <header className="page-header">
+      <header className="page-header" data-tour="configuracoes">
         <div>
           <span className="eyebrow">Preferências locais</span>
           <h1 className="icon-title">
@@ -89,6 +91,26 @@ function Configuracoes() {
           Tema aplicado agora: <strong>{resolvedTheme === "dark" ? "Escuro" : "Claro"}</strong>
           {theme === "system" ? " (definido pelo sistema)." : "."}
         </p>
+      </section>
+
+      <section className="panel settings-section" aria-labelledby="tutorial-titulo">
+        <div className="settings-section-heading">
+          <div>
+            <span className="settings-section-icon" aria-hidden="true">?</span>
+            <div>
+              <h2 id="tutorial-titulo">Tutorial do BoviTrack</h2>
+              <p>Veja novamente o guia rápido das principais funções do sistema.</p>
+            </div>
+          </div>
+        </div>
+        <button
+          className="tutorial-settings-action"
+          type="button"
+          onClick={restartTutorial}
+          disabled={tutorialActive}
+        >
+          Refazer tutorial
+        </button>
       </section>
 
       <section className="panel settings-section settings-future" aria-labelledby="preferencias-titulo">
