@@ -712,6 +712,27 @@ hr { display: none; }
 
 .expense-value { display: block; margin: 12px 0; color: var(--text); font-size: 1.25rem; letter-spacing: -0.025em; }
 
+.profit-summary-grid {
+  display: grid;
+  margin-bottom: 22px;
+  grid-template-columns: repeat(3, minmax(190px, 1fr));
+  gap: 14px;
+}
+
+.profit-summary-grid .stat-card { min-height: 120px; }
+.profit-negative { color: var(--danger) !important; }
+.revenue-observation-field,
+.revenue-form-actions { grid-column: 1 / -1; }
+.revenue-form-actions { justify-content: flex-end; }
+.revenue-form-actions button { min-width: 160px; }
+.revenue-card .tag-badge { align-self: flex-start; }
+
+@media (max-width: 760px) {
+  .profit-summary-grid { grid-template-columns: 1fr; }
+  .revenue-form-actions { align-items: stretch; flex-direction: column; }
+  .revenue-form-actions button { width: 100%; }
+}
+
 .empty-state {
   display: grid;
   min-height: 150px;
@@ -725,7 +746,7 @@ hr { display: none; }
 
 .empty-state p { margin: 0; }
 
-.stats-grid { display: grid; margin-bottom: 18px; grid-template-columns: repeat(5, minmax(155px, 1fr)); gap: 14px; }
+.stats-grid { display: grid; margin-bottom: 18px; grid-template-columns: repeat(6, minmax(145px, 1fr)); gap: 14px; }
 
 .stat-card {
   display: flex;
@@ -1822,7 +1843,7 @@ hr { display: none; }
   .app-shell { grid-template-columns: 214px minmax(0, 1fr); }
   .sidebar { padding-inline: 13px; }
   .stats-grid { grid-template-columns: repeat(3, minmax(160px, 1fr)); }
-  .stat-card-finance { grid-column: span 2; }
+  .stat-card-finance { grid-column: auto; }
   .milk-stats-grid { grid-template-columns: repeat(2, minmax(165px, 1fr)); }
   .animal-profile-details { grid-template-columns: repeat(2, minmax(120px, 1fr)); }
   .calf-stats-grid { grid-template-columns: repeat(3, minmax(150px, 1fr)); }

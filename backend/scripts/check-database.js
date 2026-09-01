@@ -15,6 +15,7 @@ const TABELAS = [
   "vacinas",
   "vacinacoes",
   "despesas",
+  "receitas",
 ];
 
 const TABELAS_COM_SEQUENCE = TABELAS.filter(
@@ -65,6 +66,8 @@ async function executar() {
          AS lotes_sem_propriedade,
        (SELECT COUNT(*) FROM despesas d LEFT JOIN propriedades p ON p.id = d.propriedade_id WHERE p.id IS NULL)::integer
          AS despesas_sem_propriedade,
+       (SELECT COUNT(*) FROM receitas r LEFT JOIN propriedades p ON p.id = r.propriedade_id WHERE p.id IS NULL)::integer
+         AS receitas_sem_propriedade,
        (SELECT COUNT(*) FROM vacinas v LEFT JOIN usuarios u ON u.id = v.usuario_id WHERE u.id IS NULL)::integer
          AS vacinas_sem_usuario,
        (SELECT COUNT(*) FROM sessoes_refresh sr LEFT JOIN usuarios u ON u.id = sr.usuario_id WHERE u.id IS NULL)::integer

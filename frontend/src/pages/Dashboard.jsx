@@ -11,6 +11,8 @@ const resumoInicial = {
   lotes: 0,
   vacinas: 0,
   total_despesas: 0,
+  total_receitas: 0,
+  lucro_liquido: 0,
   bezerros_aleitamento: 0,
   desmamas_planejadas: 0,
   desmamas_proximas: 0,
@@ -115,6 +117,25 @@ function Dashboard() {
           </div>
           <span className="stat-icon" aria-hidden="true">
             <IconeImagem nome="despesas" className="stat-icon-image" />
+          </span>
+        </Link>
+
+        <Link
+          className="stat-card stat-card-finance dashboard-link-card"
+          to="/lucros"
+          aria-label="Abrir Lucros"
+          data-tour="lucros-card"
+        >
+          <div>
+            <span>Lucro líquido</span>
+            <strong>R$ {Number(resumo.lucro_liquido).toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}</strong>
+            <small>Receitas menos despesas</small>
+          </div>
+          <span className="stat-icon" aria-hidden="true">
+            <IconeImagem nome="producao" className="stat-icon-image" />
           </span>
         </Link>
       </section>

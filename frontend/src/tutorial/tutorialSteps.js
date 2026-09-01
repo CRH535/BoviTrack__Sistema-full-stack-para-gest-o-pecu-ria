@@ -64,6 +64,14 @@ export const tutorialSteps = Object.freeze([
       "Registre e consulte os custos da atividade para manter o controle financeiro da propriedade.",
   },
   {
+    id: "lucros",
+    route: "/lucros",
+    target: '[data-tour="lucros"]',
+    title: "Lucros",
+    description:
+      "Aqui você registra receitas da propriedade, como vendas de animais, leite e outros produtos, e acompanha o lucro comparando essas entradas com as despesas do BoviTrack.",
+  },
+  {
     id: "configuracoes",
     route: "/configuracoes",
     target: '[data-tour="configuracoes"]',

@@ -19,6 +19,7 @@ import Lotes from "./pages/Lotes";
 import Vacinas from "./pages/Vacinas";
 import Vacinacoes from "./pages/Vacinacoes";
 import Despesas from "./pages/Despesas";
+import Lucros from "./pages/Lucros";
 import Pesagens from "./pages/Pesagens";
 import Desmamas from "./pages/Desmamas";
 import Login from "./pages/Login";
@@ -40,6 +41,7 @@ const itensMenu = [
   { to: "/vacinas", label: "Vacinas", icon: "vacinas" },
   { to: "/vacinacoes", label: "Vacinações", icon: "vacinacoes" },
   { to: "/despesas", label: "Despesas", icon: "despesas" },
+  { to: "/lucros", label: "Lucros", icon: "producao" },
   { to: "/configuracoes", label: "Configurações", icon: "configuracoes" },
 ];
 
@@ -182,6 +184,7 @@ function App() {
           <Route path="vacinas" element={<Vacinas />} />
           <Route path="vacinacoes" element={<Vacinacoes />} />
           <Route path="despesas" element={<Despesas />} />
+          <Route path="lucros" element={<Lucros />} />
           <Route path="configuracoes" element={<Configuracoes />} />
           <Route path="minha-conta" element={<MinhaConta />} />
           <Route element={<AdminRoute />}>

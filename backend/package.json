@@ -11,6 +11,7 @@
     "migrate:animal-lots": "node scripts/migrate-animal-lots.js",
     "migrate:animals": "node scripts/migrate-animals.js",
     "migrate:expenses": "node scripts/migrate-expenses.js",
+    "migrate:revenues": "node scripts/migrate-revenues.js",
     "migrate:milk": "node scripts/migrate-milk-production.js",
     "migrate:bezerros": "node scripts/migrate-calf-management.js",
     "migrate:sessions": "node scripts/migrate-refresh-sessions.js",
@@ -21,6 +22,7 @@
     "test:bezerros": "node tests/calf-management.js",
     "test:bezerros:integration": "node tests/calf-management-integration.js",
     "test:security": "node tests/security-hardening.js",
+    "test:receitas": "node tests/receitas.js",
     "start": "node server.js"
   },
   "keywords": [],

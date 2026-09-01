@@ -1,6 +1,6 @@
 const express = require("express");
 const pool = require("../database/pool")
-const { registrarErro } = require("../utils/log");
+const { registrarErro, registrarEvento } = require("../utils/log");
 
 const router = express.Router();
 
@@ -64,6 +64,25 @@ router.get("/dashboard", async (req, res) => {
       parametros,
     );
 
+    let totalReceitas = 0;
+    try {
+      const receitasResultado = await pool.query(
+        `SELECT COALESCE(SUM(r.valor), 0) AS total_receitas
+           FROM receitas r
+           JOIN propriedades p ON p.id = r.propriedade_id
+          WHERE ($1 = 'admin' OR p.usuario_id = $2)`,
+        parametros,
+      );
+      totalReceitas = Number(receitasResultado.rows[0].total_receitas);
+    } catch (erro) {
+      if (erro.code !== "42P01") throw erro;
+
+      registrarEvento("aviso", "receitas_schema_pendente", {
+        request_id: req.id,
+        usuario_id: req.usuario.id,
+      });
+    }
+
     const proximasResultado = await pool.query(
       `SELECT vc.id,
               vc.animal_id,
@@ -96,6 +115,8 @@ router.get("/dashboard", async (req, res) => {
         lotes: Number(resumo.lotes),
         vacinas: Number(resumo.vacinas),
         total_despesas: Number(resumo.total_despesas),
+        total_receitas: totalReceitas,
+        lucro_liquido: totalReceitas - Number(resumo.total_despesas),
         bezerros_aleitamento: Number(resumo.bezerros_aleitamento),
         desmamas_planejadas: Number(resumo.desmamas_planejadas),
         desmamas_proximas: Number(resumo.desmamas_proximas),

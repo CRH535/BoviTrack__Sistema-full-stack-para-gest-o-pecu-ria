@@ -17,6 +17,7 @@ const TABELAS = [
   "vacinas",
   "vacinacoes",
   "despesas",
+  "receitas",
   "animais_lotes",
 ];
 
@@ -222,6 +223,9 @@ async function validarSchema(origem, destino) {
     "animais_propriedade_id_fkey",
     "despesas_pkey",
     "despesas_propriedade_id_fkey",
+    "receitas_pkey",
+    "receitas_propriedade_id_fkey",
+    "receitas_valor_check",
     "lotes_pkey",
     "lotes_propriedade_id_fkey",
     "propriedades_pkey",
@@ -259,6 +263,8 @@ async function validarSchema(origem, destino) {
     "animais_id_seq",
     "animais_propriedade_numero_brinco_uidx",
     "despesas_id_seq",
+    "receitas_id_seq",
+    "receitas_propriedade_data_idx",
     "lotes_id_seq",
     "propriedades_id_seq",
     "propriedades_usuario_id_idx",

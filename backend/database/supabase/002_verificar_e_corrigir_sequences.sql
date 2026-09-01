@@ -45,6 +45,12 @@ SELECT setval(
   COUNT(*) > 0
 ) FROM public.despesas;
 
+SELECT setval(
+  pg_get_serial_sequence('public.receitas', 'id'),
+  COALESCE(MAX(id), 1),
+  COUNT(*) > 0
+) FROM public.receitas;
+
 COMMIT;
 
 -- Contagem das tabelas migradas.
@@ -56,6 +62,7 @@ UNION ALL SELECT 'animais_lotes', COUNT(*) FROM public.animais_lotes
 UNION ALL SELECT 'vacinas', COUNT(*) FROM public.vacinas
 UNION ALL SELECT 'vacinacoes', COUNT(*) FROM public.vacinacoes
 UNION ALL SELECT 'despesas', COUNT(*) FROM public.despesas
+UNION ALL SELECT 'receitas', COUNT(*) FROM public.receitas
 ORDER BY tabela;
 
 -- O resultado deve ser zero em todas as linhas.
@@ -77,6 +84,11 @@ UNION ALL
 SELECT 'despesas.propriedade_id', COUNT(*)
   FROM public.despesas d
   LEFT JOIN public.propriedades p ON p.id = d.propriedade_id
+ WHERE p.id IS NULL
+UNION ALL
+SELECT 'receitas.propriedade_id', COUNT(*)
+  FROM public.receitas r
+  LEFT JOIN public.propriedades p ON p.id = r.propriedade_id
  WHERE p.id IS NULL
 UNION ALL
 SELECT 'vacinas.usuario_id', COUNT(*)

@@ -98,6 +98,26 @@ CREATE TABLE public.despesas (
     FOREIGN KEY (propriedade_id) REFERENCES public.propriedades(id)
 );
 
+CREATE TABLE public.receitas (
+  id SERIAL PRIMARY KEY,
+  descricao VARCHAR(150) NOT NULL,
+  categoria VARCHAR(100) NOT NULL,
+  valor NUMERIC(14, 2) NOT NULL,
+  data DATE NOT NULL,
+  propriedade_id INTEGER NOT NULL,
+  forma_recebimento VARCHAR(100),
+  observacao VARCHAR(500),
+  created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT receitas_propriedade_id_fkey
+    FOREIGN KEY (propriedade_id) REFERENCES public.propriedades(id) ON DELETE CASCADE,
+  CONSTRAINT receitas_valor_check CHECK (valor > 0)
+);
+
+CREATE INDEX receitas_propriedade_data_idx
+  ON public.receitas (propriedade_id, data DESC, id DESC);
+CREATE INDEX receitas_categoria_idx ON public.receitas (categoria);
+
 CREATE TABLE public.animais_lotes (
   animal_id INTEGER NOT NULL,
   lote_id INTEGER NOT NULL,

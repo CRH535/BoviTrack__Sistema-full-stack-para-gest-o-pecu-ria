@@ -171,6 +171,16 @@ async function excluirUsuarioComDados(usuarioId) {
       )
     ).rowCount;
 
+    exclusoes.receitas = (
+      await cliente.query(
+        `DELETE FROM receitas
+          WHERE propriedade_id IN (
+                  SELECT id FROM propriedades WHERE usuario_id = $1
+                )`,
+        [id],
+      )
+    ).rowCount;
+
     exclusoes.lotes = (
       await cliente.query(
         `DELETE FROM lotes
