@@ -1,11 +1,11 @@
 # Graph Report - Teste  (2026-09-04)
 
 ## Corpus Check
-- 137 files · ~186,733 words
+- 136 files · ~186,631 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 948 nodes · 1602 edges · 78 communities (71 shown, 4 thin omitted)
+- 943 nodes · 1598 edges · 77 communities (70 shown, 4 thin omitted)
 - Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 105 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
@@ -34,7 +34,7 @@
 - log.js
 - validacoes.js
 - receitasRoutes.js
-- auth-permissions.js
+- ControlePesagens.jsx
 - sessoes.js
 - MinhaConta.jsx
 - Lotes
@@ -42,7 +42,7 @@
 - What You Must Do When Invoked
 - registrarErro
 - calf-management.js
-- Configuracoes.jsx
+- milk-production.js
 - graphify reference: extra exports and benchmark
 - migrate-auth.js
 - receitas.js
@@ -89,7 +89,6 @@
 - graphify reference: transcribe video and audio
 - AGENTS.md
 - extraction-spec.md
-- Q: Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?
 
 ## God Nodes (most connected - your core abstractions)
 1. `registrarErro()` - 23 edges
@@ -123,11 +122,11 @@
 - **Runtime serverless seguro do banco** — backend_database_seguranca_producao_runtime_least_privilege, backend_database_seguranca_producao_transaction_pooler_runtime, backend_database_seguranca_producao_tls_verify_full, backend_database_seguranca_producao_data_api_desativada, backend_database_seguranca_producao_post_deploy_verification [EXTRACTED 1.00]
 - **Superfície de runtime do frontend BoviTrack** — frontend_readme_react_vite_template, frontend_index_bovitrack_html_entry, backend_database_seguranca_producao_frontend_public_config [INFERRED 0.75]
 
-## Communities (78 total, 4 thin omitted)
+## Communities (77 total, 4 thin omitted)
 
 ### Community 0 - "PreferencesProvider.jsx"
-Cohesion: 0.07
-Nodes (34): App(), BlackHoleTransition(), PARTICULAS, obterElementosFocaveis(), TutorialDialog(), controlarTeclado(), elementoEstaVisivel(), obterElementosFocaveis() (+26 more)
+Cohesion: 0.08
+Nodes (31): IconeConfiguracoes(), obterElementosFocaveis(), TutorialDialog(), controlarTeclado(), elementoEstaVisivel(), obterElementosFocaveis(), TutorialOverlay(), controlarTeclado() (+23 more)
 
 ### Community 1 - "app.js"
 Cohesion: 0.05
@@ -166,8 +165,8 @@ Cohesion: 0.07
 Nodes (33): Cookie HttpOnly e ausência de JWT em storage, Data API desativada, Frontend limitado a VITE_API_URL, Migrations de segurança e hardening, Rotação obrigatória de JWT_SECRET, Verificação de segurança pós-deploy, Login runtime de menor privilégio, Segurança do banco em produção (+25 more)
 
 ### Community 7 - "FichaAnimal"
-Cohesion: 0.08
-Nodes (29): ControleDesmama(), abrirConclusao(), cancelar(), carregar(), concluir(), planejar(), salvar(), ControlePesagens() (+21 more)
+Cohesion: 0.11
+Nodes (23): ControleDesmama(), abrirConclusao(), cancelar(), carregar(), concluir(), planejar(), salvar(), novo() (+15 more)
 
 ### Community 8 - "authRoutes.js"
 Cohesion: 0.10
@@ -187,24 +186,24 @@ Cohesion: 0.09
 Nodes (20): configuracao, dotenv, duracaoEmSegundos(), DURACOES, validarAmbiente(), { app }, assert, { consumirLimite } (+12 more)
 
 ### Community 10 - "App.jsx"
-Cohesion: 0.26
-Nodes (8): itensMenu, Layout(), AdminRoute(), ProtectedRoute(), useAuth(), Cadastro(), Login(), useBlackHoleTransition()
+Cohesion: 0.23
+Nodes (9): itensMenu, Layout(), AdminRoute(), ProtectedRoute(), useAuth(), Cadastro(), Dashboard(), Login() (+1 more)
 
 ### Community 11 - "api.js"
-Cohesion: 0.25
-Nodes (11): IconeImagem(), icones, VoltarInicio(), CATEGORIAS_SUGERIDAS, FILTROS_INICIAIS, FORMAS_RECEBIMENTO, RESUMO_INICIAL, api (+3 more)
+Cohesion: 0.23
+Nodes (12): IconeImagem(), icones, VoltarInicio(), resumoInicial, CATEGORIAS_SUGERIDAS, FILTROS_INICIAIS, FORMAS_RECEBIMENTO, RESUMO_INICIAL (+4 more)
 
 ### Community 12 - "AuthContext.jsx"
-Cohesion: 0.16
-Nodes (17): sair(), AuthContext, AuthProvider(), avisarOutrasAbas(), finalizarLogoutVisual(), login(), logout(), logoutTodosDispositivos() (+9 more)
+Cohesion: 0.10
+Nodes (24): App(), sair(), AuthContext, AuthProvider(), avisarOutrasAbas(), finalizarLogoutVisual(), login(), logout() (+16 more)
 
 ### Community 13 - "usuariosRoutes.js"
 Cohesion: 0.12
 Nodes (17): autenticar(), exigirAutenticacaoRecente(), pool, { registrarErro }, somenteAdmin(), { verificarTokenAcesso }, { excluirUsuarioComDados }, express (+9 more)
 
 ### Community 14 - "FichaAnimal.jsx"
-Cohesion: 0.13
-Nodes (19): ROTULOS_TIPO, STATUS, TIPOS, METODOS, RESUMO_VAZIO, ROTULOS, TIPOS, GraficoPeso() (+11 more)
+Cohesion: 0.20
+Nodes (13): ROTULOS_TIPO, STATUS, TIPOS, GraficoPeso(), margem, formatarLitros(), GraficoProducaoLeite(), margem (+5 more)
 
 ### Community 15 - "Desmamas.jsx"
 Cohesion: 0.12
@@ -244,9 +243,9 @@ Nodes (23): construirFiltro(), {
   validarCamposPermitidos,
 }, express, normalizarFiltros(), normalizarReceita(), PERIODOS, pool, { registrarErro } (+15 more)
 
-### Community 19 - "auth-permissions.js"
-Cohesion: 0.33
-Nodes (8): { app, pool }, assert, bcrypt, confirmar(), executar(), criarConjunto(), login(), requisitar()
+### Community 19 - "ControlePesagens.jsx"
+Cohesion: 0.19
+Nodes (10): ControlePesagens(), carregar(), confirmarExclusao(), salvar(), gmd(), kg(), METODOS, RESUMO_VAZIO (+2 more)
 
 ### Community 20 - "sessoes.js"
 Cohesion: 0.24
@@ -285,9 +284,9 @@ Nodes (9): calcularGMD(), calcularIdadeEmDias(), calcularP205(), dataUtc(), mont
   montarResumoPesagens,
 } (+1 more)
 
-### Community 27 - "Configuracoes.jsx"
-Cohesion: 0.47
-Nodes (4): IconeConfiguracoes(), Configuracoes(), temas, useTutorial()
+### Community 27 - "milk-production.js"
+Cohesion: 0.33
+Nodes (8): { app, pool }, assert, confirmar(), dataNoFuso(), executar(), login(), requisitar(), somarDias()
 
 ### Community 28 - "graphify reference: extra exports and benchmark"
 Cohesion: 0.22
@@ -463,13 +462,9 @@ Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify refer
 Cohesion: 0.50
 Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
 
-### Community 77 - "Q: Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
-Cohesion: 0.40
-Nodes (4): Answer, Outcome, Q: Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?, Source Nodes
-
 ## Knowledge Gaps
-- **394 isolated node(s):** `express`, `cors`, `helmet`, `{ criarConfiguracaoCors }`, `{ autenticar }` (+389 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 491 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **391 isolated node(s):** `express`, `cors`, `helmet`, `{ criarConfiguracaoCors }`, `{ autenticar }` (+386 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 487 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
@@ -479,12 +474,12 @@ _Questions this graph is uniquely positioned to answer:_
   _High betweenness centrality (0.009) - this node is a cross-community bridge._
 - **Why does `FichaAnimal()` connect `FichaAnimal` to `App.jsx`, `FichaAnimal.jsx`?**
   _High betweenness centrality (0.009) - this node is a cross-community bridge._
-- **Why does `formatarDataSemFuso()` connect `FichaAnimal.jsx` to `Lucros`, `Vacinacoes`, `FichaAnimal`, `api.js`, `Desmamas.jsx`?**
+- **Why does `formatarDataSemFuso()` connect `FichaAnimal.jsx` to `Lucros`, `Vacinacoes`, `FichaAnimal`, `App.jsx`, `api.js`, `Desmamas.jsx`, `ControlePesagens.jsx`?**
   _High betweenness centrality (0.007) - this node is a cross-community bridge._
 - **What connects `express`, `cors`, `helmet` to the rest of the system?**
-  _394 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _391 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `PreferencesProvider.jsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.07092198581560284 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.08246225319396051 - nodes in this community are weakly interconnected._
 - **Should `app.js` be split into smaller, more focused modules?**
   _Cohesion score 0.05061224489795919 - nodes in this community are weakly interconnected._
 - **Should `migrate-to-supabase.js` be split into smaller, more focused modules?**

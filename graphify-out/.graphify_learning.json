@@ -1,0 +1,70 @@
+{
+  "generated_at": "2026-09-04T03:11:47.830314+00:00",
+  "nodes": {
+    "backend_middleware_autenticacao_autenticar": {
+      "code_fingerprint": "ea0eb1988c506c73fc3128d82308dd82a7f6cafd71b1292904613c3cb8500a88",
+      "label": "autenticar()",
+      "last": "2026-09-04T03:05:39.620343+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-04T03:05:39.620343+00:00",
+          "outcome": "useful",
+          "q": "Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
+        }
+      ],
+      "score": 0.999901539,
+      "source_file": "backend/middleware/autenticacao.js",
+      "status": "tentative",
+      "uses": 1
+    },
+    "backend_routes_propriedadesroutes": {
+      "code_fingerprint": "5bbef938eb51f828458487fd3047c76c0fc9d2eaf56fd08afcd7267fb6e15de2",
+      "label": "propriedadesRoutes.js",
+      "last": "2026-09-04T03:05:39.620343+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-04T03:05:39.620343+00:00",
+          "outcome": "useful",
+          "q": "Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
+        }
+      ],
+      "score": 0.999901539,
+      "source_file": "backend/routes/propriedadesRoutes.js",
+      "status": "tentative",
+      "uses": 1
+    },
+    "frontend_src_auth_useauth_useauth": {
+      "code_fingerprint": "0d7995467ba365895d6029352c808dd729a271b6c344083da6d951d5b5942636",
+      "label": "useAuth()",
+      "last": "2026-09-04T03:05:39.620343+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-04T03:05:39.620343+00:00",
+          "outcome": "useful",
+          "q": "Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
+        }
+      ],
+      "score": 0.999901539,
+      "source_file": "frontend/src/auth/useAuth.js",
+      "status": "tentative",
+      "uses": 1
+    },
+    "frontend_src_pages_propriedades_propriedades": {
+      "code_fingerprint": "25310a2ee5bf5df2e25ef77455c5af5a0a5260d6735b3a61d977ad4f0cc879e3",
+      "label": "Propriedades()",
+      "last": "2026-09-04T03:05:39.620343+00:00",
+      "provenance": [
+        {
+          "date": "2026-09-04T03:05:39.620343+00:00",
+          "outcome": "useful",
+          "q": "Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
+        }
+      ],
+      "score": 0.999901539,
+      "source_file": "frontend/src/pages/Propriedades.jsx",
+      "status": "tentative",
+      "uses": 1
+    }
+  },
+  "version": 1
+}

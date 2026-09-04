@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import api from "../services/api";
 import IconeImagem from "../components/IconeImagem";
 import VoltarInicio from "../components/VoltarInicio";
+import { useAuth } from "../auth/useAuth";
 
 function Propriedades() {
+  const { usuario } = useAuth();
+  const ehAdmin = usuario?.perfil === "admin";
   const [propriedades, setPropriedades] = useState([]);
 
   const [nome, setNome] = useState("");
@@ -196,6 +199,23 @@ function Propriedades() {
           </p>
 
           <p>Área: {propriedade.area} ha</p>
+
+          {ehAdmin && propriedade.proprietario && (
+            <section
+              className="property-owner-details"
+              aria-label={`Proprietário de ${propriedade.nome}`}
+            >
+              <p>
+                <strong>Proprietário:</strong> {propriedade.proprietario.nome}
+              </p>
+              <p>
+                <strong>E-mail:</strong>{" "}
+                <a href={`mailto:${propriedade.proprietario.email}`}>
+                  {propriedade.proprietario.email}
+                </a>
+              </p>
+            </section>
+          )}
 
           <div className="record-actions">
           <button className="button-secondary" type="button" onClick={() => editarPropriedade(propriedade)}>

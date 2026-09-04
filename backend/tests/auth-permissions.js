@@ -315,6 +315,56 @@ async function executar() {
   confirmar("USUARIO_A vê apenas propriedade A", listaA.dados.length === 1 && listaA.dados[0].id === conjuntoA.propriedade.id);
   confirmar("USUARIO_B vê apenas propriedade B", listaB.dados.length === 1 && listaB.dados[0].id === conjuntoB.propriedade.id);
   confirmar("ADMIN vê registros de A e B", listaAdmin.dados.some((p) => p.id === conjuntoA.propriedade.id) && listaAdmin.dados.some((p) => p.id === conjuntoB.propriedade.id));
+  confirmar(
+    "usuário comum não recebe dados do proprietário",
+    !Object.prototype.hasOwnProperty.call(listaA.dados[0], "proprietario"),
+  );
+
+  const propriedadeAParaAdmin = listaAdmin.dados.find(
+    (propriedade) => propriedade.id === conjuntoA.propriedade.id,
+  );
+  const propriedadeBParaAdmin = listaAdmin.dados.find(
+    (propriedade) => propriedade.id === conjuntoB.propriedade.id,
+  );
+  confirmar(
+    "admin recebe o proprietário correto de cada propriedade",
+    propriedadeAParaAdmin?.proprietario?.id === usuarioA.id &&
+      propriedadeAParaAdmin.proprietario.email === emailA &&
+      propriedadeBParaAdmin?.proprietario?.id === usuarioB.id &&
+      propriedadeBParaAdmin.proprietario.email === emailB,
+  );
+  confirmar(
+    "resposta de propriedades não expõe senha ou sessão",
+    [propriedadeAParaAdmin, propriedadeBParaAdmin].every(
+      (propriedade) =>
+        !Object.prototype.hasOwnProperty.call(propriedade.proprietario, "senha") &&
+        !Object.prototype.hasOwnProperty.call(propriedade.proprietario, "token") &&
+        !Object.prototype.hasOwnProperty.call(propriedade.proprietario, "sessao"),
+    ),
+  );
+
+  const detalhePropriedadeAUsuario = await requisitar(
+    `/propriedades/${conjuntoA.propriedade.id}`,
+    { token: tokenA },
+  );
+  const detalhePropriedadeAAdmin = await requisitar(
+    `/propriedades/${conjuntoA.propriedade.id}`,
+    { token: tokenAdmin },
+  );
+  confirmar(
+    "detalhe comum não recebe proprietário",
+    detalhePropriedadeAUsuario.status === 200 &&
+      !Object.prototype.hasOwnProperty.call(
+        detalhePropriedadeAUsuario.dados,
+        "proprietario",
+      ),
+  );
+  confirmar(
+    "detalhe admin recebe proprietário",
+    detalhePropriedadeAAdmin.status === 200 &&
+      detalhePropriedadeAAdmin.dados.proprietario.id === usuarioA.id &&
+      detalhePropriedadeAAdmin.dados.proprietario.email === emailA,
+  );
 
   for (const [rota, campo, idA] of [
     ["/animais", "id", conjuntoA.animal.id],

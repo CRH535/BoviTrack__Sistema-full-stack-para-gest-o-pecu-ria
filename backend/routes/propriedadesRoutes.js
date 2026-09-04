@@ -7,21 +7,58 @@ const { registrarErro } = require("../utils/log");
 const router = express.Router();
 router.param("id", validarParametroId);
 
+function serializarPropriedade(linha, ehAdmin) {
+  const {
+    proprietario_id,
+    proprietario_nome,
+    proprietario_email,
+    ...propriedade
+  } = linha;
+
+  if (!ehAdmin) return propriedade;
+
+  return {
+    ...propriedade,
+    proprietario: proprietario_id
+      ? {
+          id: proprietario_id,
+          nome: proprietario_nome,
+          email: proprietario_email,
+        }
+      : null,
+  };
+}
+
 router.get("/propriedades", async (req, res) => {
   try {
     const paginacao = normalizarPaginacao(req.query);
     if (paginacao.erro) return res.status(400).json({ mensagem: paginacao.erro });
     const { limite, offset } = paginacao.valor;
     const resultado = await pool.query(
-      `SELECT id, nome, cidade, estado, area, usuario_id
-         FROM propriedades
-        WHERE ($1 = 'admin' OR usuario_id = $2)
-        ORDER BY id
+      `SELECT p.id,
+              p.nome,
+              p.cidade,
+              p.estado,
+              p.area,
+              p.usuario_id,
+              u.id AS proprietario_id,
+              u.nome AS proprietario_nome,
+              u.email AS proprietario_email
+         FROM propriedades p
+         LEFT JOIN usuarios u
+           ON $1 = 'admin'
+          AND u.id = p.usuario_id
+        WHERE ($1 = 'admin' OR p.usuario_id = $2)
+        ORDER BY p.id
         LIMIT $3 OFFSET $4`,
       [req.usuario.perfil, req.usuario.id, limite + 1, offset],
     );
 
-    res.json(responderPagina(res, resultado.rows, paginacao.valor));
+    const propriedades = resultado.rows.map((linha) =>
+      serializarPropriedade(linha, req.usuario.perfil === "admin"),
+    );
+
+    res.json(responderPagina(res, propriedades, paginacao.valor));
   } catch (erro) {
     registrarErro("propriedades_rota_erro", erro, req);
 
@@ -36,10 +73,21 @@ router.get("/propriedades/:id", async (req, res) => {
     const { id } = req.params;
 
     const resultado = await pool.query(
-      `SELECT id, nome, cidade, estado, area, usuario_id
-         FROM propriedades
-        WHERE id = $1
-          AND ($2 = 'admin' OR usuario_id = $3)`,
+      `SELECT p.id,
+              p.nome,
+              p.cidade,
+              p.estado,
+              p.area,
+              p.usuario_id,
+              u.id AS proprietario_id,
+              u.nome AS proprietario_nome,
+              u.email AS proprietario_email
+         FROM propriedades p
+         LEFT JOIN usuarios u
+           ON $2 = 'admin'
+          AND u.id = p.usuario_id
+        WHERE p.id = $1
+          AND ($2 = 'admin' OR p.usuario_id = $3)`,
       [id, req.usuario.perfil, req.usuario.id],
     );
 
@@ -49,7 +97,12 @@ router.get("/propriedades/:id", async (req, res) => {
       });
     }
 
-    res.json(resultado.rows[0]);
+    res.json(
+      serializarPropriedade(
+        resultado.rows[0],
+        req.usuario.perfil === "admin",
+      ),
+    );
   } catch (erro) {
     registrarErro("propriedades_rota_erro", erro, req);
 

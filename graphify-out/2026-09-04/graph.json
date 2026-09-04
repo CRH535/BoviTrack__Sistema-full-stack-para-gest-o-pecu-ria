@@ -49,40 +49,16 @@
   },
   "nodes": [
     {
-      "id": "frontend_src_app_app",
-      "label": "App()",
+      "id": "frontend_src_components_iconeconfiguracoes_iconeconfiguracoes",
+      "label": "IconeConfiguracoes()",
       "_callable": true,
       "_origin": "ast",
       "community": 0,
       "community_name": "PreferencesProvider.jsx",
       "file_type": "code",
-      "norm_label": "app()",
-      "source_file": "frontend/src/App.jsx",
-      "source_location": "L169"
-    },
-    {
-      "id": "frontend_src_components_transitions_blackholetransition_blackholetransition",
-      "label": "BlackHoleTransition()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "PreferencesProvider.jsx",
-      "file_type": "code",
-      "norm_label": "blackholetransition()",
-      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
-      "source_location": "L16"
-    },
-    {
-      "id": "frontend_src_components_transitions_blackholetransition_blackholetransition_concluirpelomarcador",
-      "label": "concluirPeloMarcador()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "PreferencesProvider.jsx",
-      "file_type": "code",
-      "norm_label": "concluirpelomarcador()",
-      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
-      "source_location": "L30"
+      "norm_label": "iconeconfiguracoes()",
+      "source_file": "frontend/src/components/IconeConfiguracoes.jsx",
+      "source_location": "L1"
     },
     {
       "id": "frontend_src_components_tutorial_tutorialdialog_obterelementosfocaveis",
@@ -193,6 +169,18 @@
       "source_location": "L43"
     },
     {
+      "id": "frontend_src_pages_configuracoes_configuracoes",
+      "label": "Configuracoes()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "configuracoes()",
+      "source_file": "frontend/src/pages/Configuracoes.jsx",
+      "source_location": "L24"
+    },
+    {
       "id": "frontend_src_preferences_preferencesprovider_aplicartema",
       "label": "aplicarTema()",
       "_callable": true,
@@ -301,42 +289,6 @@
       "source_location": "L4"
     },
     {
-      "id": "frontend_src_transitions_blackholetransitionprovider_blackholetransitionprovider",
-      "label": "BlackHoleTransitionProvider()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "PreferencesProvider.jsx",
-      "file_type": "code",
-      "norm_label": "blackholetransitionprovider()",
-      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
-      "source_location": "L22"
-    },
-    {
-      "id": "frontend_src_transitions_blackholetransitionprovider_escopododestino",
-      "label": "escopoDoDestino()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "PreferencesProvider.jsx",
-      "file_type": "code",
-      "norm_label": "escopododestino()",
-      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
-      "source_location": "L12"
-    },
-    {
-      "id": "frontend_src_transitions_blackholetransitionprovider_normalizarcaminho",
-      "label": "normalizarCaminho()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "PreferencesProvider.jsx",
-      "file_type": "code",
-      "norm_label": "normalizarcaminho()",
-      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
-      "source_location": "L8"
-    },
-    {
       "id": "frontend_src_tutorial_tutorialprovider_clampstep",
       "label": "clampStep()",
       "_callable": true,
@@ -359,6 +311,18 @@
       "norm_label": "tutorialprovider()",
       "source_file": "frontend/src/tutorial/TutorialProvider.jsx",
       "source_location": "L24"
+    },
+    {
+      "id": "frontend_src_tutorial_usetutorial_usetutorial",
+      "label": "useTutorial()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "usetutorial()",
+      "source_file": "frontend/src/tutorial/useTutorial.js",
+      "source_location": "L4"
     },
     {
       "id": "backend_middleware_contextorequisicao_contextorequisicao",
@@ -395,6 +359,78 @@
       "norm_label": "tratarerros()",
       "source_file": "backend/middleware/erros.js",
       "source_location": "L7"
+    },
+    {
+      "id": "backend_tests_auth_permissions_confirmar",
+      "label": "confirmar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "confirmar()",
+      "source_file": "backend/tests/auth-permissions.js",
+      "source_location": "L35"
+    },
+    {
+      "id": "backend_tests_auth_permissions_executar",
+      "label": "executar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "executar()",
+      "source_file": "backend/tests/auth-permissions.js",
+      "source_location": "L124"
+    },
+    {
+      "id": "backend_tests_auth_permissions_executar_criarconjunto",
+      "label": "criarConjunto()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "criarconjunto()",
+      "source_file": "backend/tests/auth-permissions.js",
+      "source_location": "L256"
+    },
+    {
+      "id": "backend_tests_auth_permissions_limpardadostemporarios",
+      "label": "limparDadosTemporarios()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "limpardadostemporarios()",
+      "source_file": "backend/tests/auth-permissions.js",
+      "source_location": "L48"
+    },
+    {
+      "id": "backend_tests_auth_permissions_login",
+      "label": "login()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "login()",
+      "source_file": "backend/tests/auth-permissions.js",
+      "source_location": "L41"
+    },
+    {
+      "id": "backend_tests_auth_permissions_requisitar",
+      "label": "requisitar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "requisitar()",
+      "source_file": "backend/tests/auth-permissions.js",
+      "source_location": "L19"
     },
     {
       "id": "backend_tests_calf_management_integration_confirmar",
@@ -443,90 +479,6 @@
       "norm_label": "requisitar()",
       "source_file": "backend/tests/calf-management-integration.js",
       "source_location": "L19"
-    },
-    {
-      "id": "backend_tests_milk_production_confirmar",
-      "label": "confirmar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "confirmar()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L14"
-    },
-    {
-      "id": "backend_tests_milk_production_datanofuso",
-      "label": "dataNoFuso()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "datanofuso()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L43"
-    },
-    {
-      "id": "backend_tests_milk_production_executar",
-      "label": "executar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "executar()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L99"
-    },
-    {
-      "id": "backend_tests_milk_production_limpar",
-      "label": "limpar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "limpar()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L68"
-    },
-    {
-      "id": "backend_tests_milk_production_login",
-      "label": "login()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "login()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L36"
-    },
-    {
-      "id": "backend_tests_milk_production_requisitar",
-      "label": "requisitar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "requisitar()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L20"
-    },
-    {
-      "id": "backend_tests_milk_production_somardias",
-      "label": "somarDias()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "somardias()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L57"
     },
     {
       "id": "frontend_src_app_layout",
@@ -613,6 +565,30 @@
       "source_location": "L20"
     },
     {
+      "id": "frontend_src_pages_dashboard_dashboard",
+      "label": "Dashboard()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "App.jsx",
+      "file_type": "code",
+      "norm_label": "dashboard()",
+      "source_file": "frontend/src/pages/Dashboard.jsx",
+      "source_location": "L23"
+    },
+    {
+      "id": "frontend_src_pages_dashboard_dashboard_carregardashboard",
+      "label": "carregarDashboard()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "App.jsx",
+      "file_type": "code",
+      "norm_label": "carregardashboard()",
+      "source_file": "frontend/src/pages/Dashboard.jsx",
+      "source_location": "L33"
+    },
+    {
       "id": "frontend_src_pages_login_login",
       "label": "Login()",
       "_callable": true,
@@ -671,6 +647,18 @@
       "norm_label": "voltarinicio()",
       "source_file": "frontend/src/components/VoltarInicio.jsx",
       "source_location": "L3"
+    },
+    {
+      "id": "frontend_src_app_app",
+      "label": "App()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "AuthContext.jsx",
+      "file_type": "code",
+      "norm_label": "app()",
+      "source_file": "frontend/src/App.jsx",
+      "source_location": "L169"
     },
     {
       "id": "frontend_src_app_layout_sair",
@@ -781,6 +769,30 @@
       "source_location": "L38"
     },
     {
+      "id": "frontend_src_components_transitions_blackholetransition_blackholetransition",
+      "label": "BlackHoleTransition()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "AuthContext.jsx",
+      "file_type": "code",
+      "norm_label": "blackholetransition()",
+      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "frontend_src_components_transitions_blackholetransition_blackholetransition_concluirpelomarcador",
+      "label": "concluirPeloMarcador()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "AuthContext.jsx",
+      "file_type": "code",
+      "norm_label": "concluirpelomarcador()",
+      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
+      "source_location": "L30"
+    },
+    {
       "id": "frontend_src_services_api_aguardar",
       "label": "aguardar()",
       "_callable": true,
@@ -877,6 +889,42 @@
       "source_location": "L57"
     },
     {
+      "id": "frontend_src_transitions_blackholetransitionprovider_blackholetransitionprovider",
+      "label": "BlackHoleTransitionProvider()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "AuthContext.jsx",
+      "file_type": "code",
+      "norm_label": "blackholetransitionprovider()",
+      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
+      "source_location": "L22"
+    },
+    {
+      "id": "frontend_src_transitions_blackholetransitionprovider_escopododestino",
+      "label": "escopoDoDestino()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "AuthContext.jsx",
+      "file_type": "code",
+      "norm_label": "escopododestino()",
+      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
+      "source_location": "L12"
+    },
+    {
+      "id": "frontend_src_transitions_blackholetransitionprovider_normalizarcaminho",
+      "label": "normalizarCaminho()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "AuthContext.jsx",
+      "file_type": "code",
+      "norm_label": "normalizarcaminho()",
+      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
+      "source_location": "L8"
+    },
+    {
       "id": "backend_middleware_autenticacao_autenticar",
       "label": "autenticar()",
       "_callable": true,
@@ -959,30 +1007,6 @@
       "norm_label": "graficoproducaoleite()",
       "source_file": "frontend/src/components/GraficoProducaoLeite.jsx",
       "source_location": "L14"
-    },
-    {
-      "id": "frontend_src_pages_dashboard_dashboard",
-      "label": "Dashboard()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "FichaAnimal.jsx",
-      "file_type": "code",
-      "norm_label": "dashboard()",
-      "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L23"
-    },
-    {
-      "id": "frontend_src_pages_dashboard_dashboard_carregardashboard",
-      "label": "carregarDashboard()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "FichaAnimal.jsx",
-      "file_type": "code",
-      "norm_label": "carregardashboard()",
-      "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L33"
     },
     {
       "id": "frontend_src_utils_datas_calculardiasentredatas",
@@ -1429,76 +1453,112 @@
       "source_location": "L6"
     },
     {
-      "id": "backend_tests_auth_permissions_confirmar",
-      "label": "confirmar()",
+      "id": "frontend_src_components_controlepesagens_controlepesagens",
+      "label": "ControlePesagens()",
       "_callable": true,
       "_origin": "ast",
       "community": 19,
-      "community_name": "auth-permissions.js",
+      "community_name": "ControlePesagens.jsx",
       "file_type": "code",
-      "norm_label": "confirmar()",
-      "source_file": "backend/tests/auth-permissions.js",
+      "norm_label": "controlepesagens()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
       "source_location": "L35"
     },
     {
-      "id": "backend_tests_auth_permissions_executar",
-      "label": "executar()",
+      "id": "frontend_src_components_controlepesagens_controlepesagens_alterar",
+      "label": "alterar()",
       "_callable": true,
       "_origin": "ast",
       "community": 19,
-      "community_name": "auth-permissions.js",
+      "community_name": "ControlePesagens.jsx",
       "file_type": "code",
-      "norm_label": "executar()",
-      "source_file": "backend/tests/auth-permissions.js",
-      "source_location": "L124"
+      "norm_label": "alterar()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L88"
     },
     {
-      "id": "backend_tests_auth_permissions_executar_criarconjunto",
-      "label": "criarConjunto()",
+      "id": "frontend_src_components_controlepesagens_controlepesagens_carregar",
+      "label": "carregar()",
       "_callable": true,
       "_origin": "ast",
       "community": 19,
-      "community_name": "auth-permissions.js",
+      "community_name": "ControlePesagens.jsx",
       "file_type": "code",
-      "norm_label": "criarconjunto()",
-      "source_file": "backend/tests/auth-permissions.js",
-      "source_location": "L256"
+      "norm_label": "carregar()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L52"
     },
     {
-      "id": "backend_tests_auth_permissions_limpardadostemporarios",
-      "label": "limparDadosTemporarios()",
+      "id": "frontend_src_components_controlepesagens_controlepesagens_carregarinicial",
+      "label": "carregarInicial()",
       "_callable": true,
       "_origin": "ast",
       "community": 19,
-      "community_name": "auth-permissions.js",
+      "community_name": "ControlePesagens.jsx",
       "file_type": "code",
-      "norm_label": "limpardadostemporarios()",
-      "source_file": "backend/tests/auth-permissions.js",
-      "source_location": "L48"
+      "norm_label": "carregarinicial()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L67"
     },
     {
-      "id": "backend_tests_auth_permissions_login",
-      "label": "login()",
+      "id": "frontend_src_components_controlepesagens_controlepesagens_confirmarexclusao",
+      "label": "confirmarExclusao()",
       "_callable": true,
       "_origin": "ast",
       "community": 19,
-      "community_name": "auth-permissions.js",
+      "community_name": "ControlePesagens.jsx",
       "file_type": "code",
-      "norm_label": "login()",
-      "source_file": "backend/tests/auth-permissions.js",
-      "source_location": "L41"
+      "norm_label": "confirmarexclusao()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L131"
     },
     {
-      "id": "backend_tests_auth_permissions_requisitar",
-      "label": "requisitar()",
+      "id": "frontend_src_components_controlepesagens_controlepesagens_editar",
+      "label": "editar()",
       "_callable": true,
       "_origin": "ast",
       "community": 19,
-      "community_name": "auth-permissions.js",
+      "community_name": "ControlePesagens.jsx",
       "file_type": "code",
-      "norm_label": "requisitar()",
-      "source_file": "backend/tests/auth-permissions.js",
-      "source_location": "L19"
+      "norm_label": "editar()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L99"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_controlepesagens_salvar",
+      "label": "salvar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 19,
+      "community_name": "ControlePesagens.jsx",
+      "file_type": "code",
+      "norm_label": "salvar()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L112"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_gmd",
+      "label": "gmd()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 19,
+      "community_name": "ControlePesagens.jsx",
+      "file_type": "code",
+      "norm_label": "gmd()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L29"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_kg",
+      "label": "kg()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 19,
+      "community_name": "ControlePesagens.jsx",
+      "file_type": "code",
+      "norm_label": "kg()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L23"
     },
     {
       "id": "backend_database_config_analisarurl",
@@ -2317,40 +2377,88 @@
       "source_location": "L10"
     },
     {
-      "id": "frontend_src_components_iconeconfiguracoes_iconeconfiguracoes",
-      "label": "IconeConfiguracoes()",
+      "id": "backend_tests_milk_production_confirmar",
+      "label": "confirmar()",
       "_callable": true,
       "_origin": "ast",
       "community": 27,
-      "community_name": "Configuracoes.jsx",
+      "community_name": "milk-production.js",
       "file_type": "code",
-      "norm_label": "iconeconfiguracoes()",
-      "source_file": "frontend/src/components/IconeConfiguracoes.jsx",
-      "source_location": "L1"
+      "norm_label": "confirmar()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L14"
     },
     {
-      "id": "frontend_src_pages_configuracoes_configuracoes",
-      "label": "Configuracoes()",
+      "id": "backend_tests_milk_production_datanofuso",
+      "label": "dataNoFuso()",
       "_callable": true,
       "_origin": "ast",
       "community": 27,
-      "community_name": "Configuracoes.jsx",
+      "community_name": "milk-production.js",
       "file_type": "code",
-      "norm_label": "configuracoes()",
-      "source_file": "frontend/src/pages/Configuracoes.jsx",
-      "source_location": "L24"
+      "norm_label": "datanofuso()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L43"
     },
     {
-      "id": "frontend_src_tutorial_usetutorial_usetutorial",
-      "label": "useTutorial()",
+      "id": "backend_tests_milk_production_executar",
+      "label": "executar()",
       "_callable": true,
       "_origin": "ast",
       "community": 27,
-      "community_name": "Configuracoes.jsx",
+      "community_name": "milk-production.js",
       "file_type": "code",
-      "norm_label": "usetutorial()",
-      "source_file": "frontend/src/tutorial/useTutorial.js",
-      "source_location": "L4"
+      "norm_label": "executar()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L99"
+    },
+    {
+      "id": "backend_tests_milk_production_limpar",
+      "label": "limpar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "milk-production.js",
+      "file_type": "code",
+      "norm_label": "limpar()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L68"
+    },
+    {
+      "id": "backend_tests_milk_production_login",
+      "label": "login()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "milk-production.js",
+      "file_type": "code",
+      "norm_label": "login()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L36"
+    },
+    {
+      "id": "backend_tests_milk_production_requisitar",
+      "label": "requisitar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "milk-production.js",
+      "file_type": "code",
+      "norm_label": "requisitar()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L20"
+    },
+    {
+      "id": "backend_tests_milk_production_somardias",
+      "label": "somarDias()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "milk-production.js",
+      "file_type": "code",
+      "norm_label": "somardias()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L57"
     },
     {
       "id": "backend_scripts_migrate_auth_executar",
@@ -3529,78 +3637,6 @@
       "source_location": "L79"
     },
     {
-      "id": "frontend_src_components_controlepesagens_controlepesagens",
-      "label": "ControlePesagens()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "FichaAnimal",
-      "file_type": "code",
-      "norm_label": "controlepesagens()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L35"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_controlepesagens_alterar",
-      "label": "alterar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "FichaAnimal",
-      "file_type": "code",
-      "norm_label": "alterar()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L88"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_controlepesagens_carregar",
-      "label": "carregar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "FichaAnimal",
-      "file_type": "code",
-      "norm_label": "carregar()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L52"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_controlepesagens_carregarinicial",
-      "label": "carregarInicial()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "FichaAnimal",
-      "file_type": "code",
-      "norm_label": "carregarinicial()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L67"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_controlepesagens_confirmarexclusao",
-      "label": "confirmarExclusao()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "FichaAnimal",
-      "file_type": "code",
-      "norm_label": "confirmarexclusao()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L131"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_controlepesagens_editar",
-      "label": "editar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "FichaAnimal",
-      "file_type": "code",
-      "norm_label": "editar()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L99"
-    },
-    {
       "id": "frontend_src_components_controlepesagens_controlepesagens_novo",
       "label": "novo()",
       "_callable": true,
@@ -3611,42 +3647,6 @@
       "norm_label": "novo()",
       "source_file": "frontend/src/components/ControlePesagens.jsx",
       "source_location": "L92"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_controlepesagens_salvar",
-      "label": "salvar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "FichaAnimal",
-      "file_type": "code",
-      "norm_label": "salvar()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L112"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_gmd",
-      "label": "gmd()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "FichaAnimal",
-      "file_type": "code",
-      "norm_label": "gmd()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L29"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_kg",
-      "label": "kg()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "FichaAnimal",
-      "file_type": "code",
-      "norm_label": "kg()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L23"
     },
     {
       "id": "frontend_src_pages_fichaanimal_fichaanimal",
@@ -3997,25 +3997,14 @@
       "source_location": "L30"
     },
     {
-      "id": "frontend_src_components_transitions_blackholetransition",
-      "label": "BlackHoleTransition.jsx",
+      "id": "frontend_src_components_iconeconfiguracoes",
+      "label": "IconeConfiguracoes.jsx",
       "_origin": "ast",
       "community": 0,
       "community_name": "PreferencesProvider.jsx",
       "file_type": "code",
-      "norm_label": "blackholetransition.jsx",
-      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_transitions_blackholetransition_particulas",
-      "label": "PARTICULAS",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "PreferencesProvider.jsx",
-      "file_type": "code",
-      "norm_label": "particulas",
-      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
+      "norm_label": "iconeconfiguracoes.jsx",
+      "source_file": "frontend/src/components/IconeConfiguracoes.jsx",
       "source_location": "L1"
     },
     {
@@ -4041,15 +4030,26 @@
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_main",
-      "label": "main.jsx",
+      "id": "frontend_src_pages_configuracoes",
+      "label": "Configuracoes.jsx",
       "_origin": "ast",
       "community": 0,
       "community_name": "PreferencesProvider.jsx",
       "file_type": "code",
-      "norm_label": "main.jsx",
-      "source_file": "frontend/src/main.jsx",
+      "norm_label": "configuracoes.jsx",
+      "source_file": "frontend/src/pages/Configuracoes.jsx",
       "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_configuracoes_temas",
+      "label": "temas",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "temas",
+      "source_file": "frontend/src/pages/Configuracoes.jsx",
+      "source_location": "L6"
     },
     {
       "id": "frontend_src_preferences_preferences_context",
@@ -4137,39 +4137,6 @@
       "file_type": "code",
       "norm_label": "usepreferences.js",
       "source_file": "frontend/src/preferences/usePreferences.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_transitions_black_hole_transition_context",
-      "label": "black-hole-transition-context.js",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "PreferencesProvider.jsx",
-      "file_type": "code",
-      "norm_label": "black-hole-transition-context.js",
-      "source_file": "frontend/src/transitions/black-hole-transition-context.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_transitions_black_hole_transition_context_blackholetransitioncontext",
-      "label": "BlackHoleTransitionContext",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "PreferencesProvider.jsx",
-      "file_type": "code",
-      "norm_label": "blackholetransitioncontext",
-      "source_file": "frontend/src/transitions/black-hole-transition-context.js",
-      "source_location": "L3"
-    },
-    {
-      "id": "frontend_src_transitions_blackholetransitionprovider",
-      "label": "BlackHoleTransitionProvider.jsx",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "PreferencesProvider.jsx",
-      "file_type": "code",
-      "norm_label": "blackholetransitionprovider.jsx",
-      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
       "source_location": "L1"
     },
     {
@@ -4558,6 +4525,50 @@
       "source_location": "L1"
     },
     {
+      "id": "backend_tests_auth_permissions",
+      "label": "auth-permissions.js",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "auth-permissions.js",
+      "source_file": "backend/tests/auth-permissions.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_tests_auth_permissions_app_pool",
+      "label": "{ app, pool }",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "{ app, pool }",
+      "source_file": "backend/tests/auth-permissions.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "backend_tests_auth_permissions_assert",
+      "label": "assert",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "assert",
+      "source_file": "backend/tests/auth-permissions.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "backend_tests_auth_permissions_bcrypt",
+      "label": "bcrypt",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "bcrypt",
+      "source_file": "backend/tests/auth-permissions.js",
+      "source_location": "L4"
+    },
+    {
       "id": "backend_tests_calf_management_integration",
       "label": "calf-management-integration.js",
       "_origin": "ast",
@@ -4600,39 +4611,6 @@
       "norm_label": "emails",
       "source_file": "backend/tests/calf-management-integration.js",
       "source_location": "L7"
-    },
-    {
-      "id": "backend_tests_milk_production",
-      "label": "milk-production.js",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "milk-production.js",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_tests_milk_production_app_pool",
-      "label": "{ app, pool }",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "{ app, pool }",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L4"
-    },
-    {
-      "id": "backend_tests_milk_production_assert",
-      "label": "assert",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "assert",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L3"
     },
     {
       "id": "frontend_src_app",
@@ -4765,6 +4743,28 @@
       "norm_label": "animais.jsx",
       "source_file": "frontend/src/pages/Animais.jsx",
       "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_dashboard",
+      "label": "Dashboard.jsx",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api.js",
+      "file_type": "code",
+      "norm_label": "dashboard.jsx",
+      "source_file": "frontend/src/pages/Dashboard.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_dashboard_resumoinicial",
+      "label": "resumoInicial",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api.js",
+      "file_type": "code",
+      "norm_label": "resumoinicial",
+      "source_file": "frontend/src/pages/Dashboard.jsx",
+      "source_location": "L8"
     },
     {
       "id": "frontend_src_pages_despesas",
@@ -4962,6 +4962,72 @@
       "file_type": "code",
       "norm_label": "authcontext.jsx",
       "source_file": "frontend/src/auth/AuthContext.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_transitions_blackholetransition",
+      "label": "BlackHoleTransition.jsx",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "AuthContext.jsx",
+      "file_type": "code",
+      "norm_label": "blackholetransition.jsx",
+      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_transitions_blackholetransition_particulas",
+      "label": "PARTICULAS",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "AuthContext.jsx",
+      "file_type": "code",
+      "norm_label": "particulas",
+      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_main",
+      "label": "main.jsx",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "AuthContext.jsx",
+      "file_type": "code",
+      "norm_label": "main.jsx",
+      "source_file": "frontend/src/main.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_transitions_black_hole_transition_context",
+      "label": "black-hole-transition-context.js",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "AuthContext.jsx",
+      "file_type": "code",
+      "norm_label": "black-hole-transition-context.js",
+      "source_file": "frontend/src/transitions/black-hole-transition-context.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_transitions_black_hole_transition_context_blackholetransitioncontext",
+      "label": "BlackHoleTransitionContext",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "AuthContext.jsx",
+      "file_type": "code",
+      "norm_label": "blackholetransitioncontext",
+      "source_file": "frontend/src/transitions/black-hole-transition-context.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "frontend_src_transitions_blackholetransitionprovider",
+      "label": "BlackHoleTransitionProvider.jsx",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "AuthContext.jsx",
+      "file_type": "code",
+      "norm_label": "blackholetransitionprovider.jsx",
+      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
       "source_location": "L1"
     },
     {
@@ -5174,61 +5240,6 @@
       "source_location": "L5"
     },
     {
-      "id": "frontend_src_components_controlepesagens",
-      "label": "ControlePesagens.jsx",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "FichaAnimal.jsx",
-      "file_type": "code",
-      "norm_label": "controlepesagens.jsx",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_metodos",
-      "label": "METODOS",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "FichaAnimal.jsx",
-      "file_type": "code",
-      "norm_label": "metodos",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L12"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_resumo_vazio",
-      "label": "RESUMO_VAZIO",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "FichaAnimal.jsx",
-      "file_type": "code",
-      "norm_label": "resumo_vazio",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L17"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_rotulos",
-      "label": "ROTULOS",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "FichaAnimal.jsx",
-      "file_type": "code",
-      "norm_label": "rotulos",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L16"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_tipos",
-      "label": "TIPOS",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "FichaAnimal.jsx",
-      "file_type": "code",
-      "norm_label": "tipos",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L7"
-    },
-    {
       "id": "frontend_src_components_graficopeso",
       "label": "GraficoPeso.jsx",
       "_origin": "ast",
@@ -5271,28 +5282,6 @@
       "norm_label": "margem",
       "source_file": "frontend/src/components/GraficoProducaoLeite.jsx",
       "source_location": "L5"
-    },
-    {
-      "id": "frontend_src_pages_dashboard",
-      "label": "Dashboard.jsx",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "FichaAnimal.jsx",
-      "file_type": "code",
-      "norm_label": "dashboard.jsx",
-      "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_pages_dashboard_resumoinicial",
-      "label": "resumoInicial",
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "FichaAnimal.jsx",
-      "file_type": "code",
-      "norm_label": "resumoinicial",
-      "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L8"
     },
     {
       "id": "frontend_src_pages_fichaanimal",
@@ -5944,48 +5933,59 @@
       "source_location": "L4"
     },
     {
-      "id": "backend_tests_auth_permissions",
-      "label": "auth-permissions.js",
+      "id": "frontend_src_components_controlepesagens",
+      "label": "ControlePesagens.jsx",
       "_origin": "ast",
       "community": 19,
-      "community_name": "auth-permissions.js",
+      "community_name": "ControlePesagens.jsx",
       "file_type": "code",
-      "norm_label": "auth-permissions.js",
-      "source_file": "backend/tests/auth-permissions.js",
+      "norm_label": "controlepesagens.jsx",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
       "source_location": "L1"
     },
     {
-      "id": "backend_tests_auth_permissions_app_pool",
-      "label": "{ app, pool }",
+      "id": "frontend_src_components_controlepesagens_metodos",
+      "label": "METODOS",
       "_origin": "ast",
       "community": 19,
-      "community_name": "auth-permissions.js",
+      "community_name": "ControlePesagens.jsx",
       "file_type": "code",
-      "norm_label": "{ app, pool }",
-      "source_file": "backend/tests/auth-permissions.js",
-      "source_location": "L5"
+      "norm_label": "metodos",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L12"
     },
     {
-      "id": "backend_tests_auth_permissions_assert",
-      "label": "assert",
+      "id": "frontend_src_components_controlepesagens_resumo_vazio",
+      "label": "RESUMO_VAZIO",
       "_origin": "ast",
       "community": 19,
-      "community_name": "auth-permissions.js",
+      "community_name": "ControlePesagens.jsx",
       "file_type": "code",
-      "norm_label": "assert",
-      "source_file": "backend/tests/auth-permissions.js",
-      "source_location": "L3"
+      "norm_label": "resumo_vazio",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L17"
     },
     {
-      "id": "backend_tests_auth_permissions_bcrypt",
-      "label": "bcrypt",
+      "id": "frontend_src_components_controlepesagens_rotulos",
+      "label": "ROTULOS",
       "_origin": "ast",
       "community": 19,
-      "community_name": "auth-permissions.js",
+      "community_name": "ControlePesagens.jsx",
       "file_type": "code",
-      "norm_label": "bcrypt",
-      "source_file": "backend/tests/auth-permissions.js",
-      "source_location": "L4"
+      "norm_label": "rotulos",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_tipos",
+      "label": "TIPOS",
+      "_origin": "ast",
+      "community": 19,
+      "community_name": "ControlePesagens.jsx",
+      "file_type": "code",
+      "norm_label": "tipos",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L7"
     },
     {
       "id": "backend_database_config",
@@ -6809,37 +6809,37 @@
       "source_location": "L8"
     },
     {
-      "id": "frontend_src_components_iconeconfiguracoes",
-      "label": "IconeConfiguracoes.jsx",
+      "id": "backend_tests_milk_production",
+      "label": "milk-production.js",
       "_origin": "ast",
       "community": 27,
-      "community_name": "Configuracoes.jsx",
+      "community_name": "milk-production.js",
       "file_type": "code",
-      "norm_label": "iconeconfiguracoes.jsx",
-      "source_file": "frontend/src/components/IconeConfiguracoes.jsx",
+      "norm_label": "milk-production.js",
+      "source_file": "backend/tests/milk-production.js",
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_pages_configuracoes",
-      "label": "Configuracoes.jsx",
+      "id": "backend_tests_milk_production_app_pool",
+      "label": "{ app, pool }",
       "_origin": "ast",
       "community": 27,
-      "community_name": "Configuracoes.jsx",
+      "community_name": "milk-production.js",
       "file_type": "code",
-      "norm_label": "configuracoes.jsx",
-      "source_file": "frontend/src/pages/Configuracoes.jsx",
-      "source_location": "L1"
+      "norm_label": "{ app, pool }",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L4"
     },
     {
-      "id": "frontend_src_pages_configuracoes_temas",
-      "label": "temas",
+      "id": "backend_tests_milk_production_assert",
+      "label": "assert",
       "_origin": "ast",
       "community": 27,
-      "community_name": "Configuracoes.jsx",
+      "community_name": "milk-production.js",
       "file_type": "code",
-      "norm_label": "temas",
-      "source_file": "frontend/src/pages/Configuracoes.jsx",
-      "source_location": "L6"
+      "norm_label": "assert",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L3"
     },
     {
       "id": "codex_skills_graphify_references_exports",
@@ -9407,74 +9407,6 @@
       "norm_label": "graphify reference: extraction subagent prompt (compact)",
       "source_file": ".codex/skills/graphify/references/extraction-spec.md",
       "source_location": "L1"
-    },
-    {
-      "id": "graphify_out_memory_query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som",
-      "label": "query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som.md",
-      "_origin": "ast",
-      "community": 77,
-      "community_name": "Q: Como adicionar o propriet\u00e1rio das propriedades somente para administradores no BoviTrack?",
-      "file_type": "document",
-      "frontmatter": {
-        "type": "query",
-        "date": "2026-09-04T03:05:39.620343+00:00",
-        "question": "Como adicionar o propriet\u00e1rio das propriedades somente para administradores no BoviTrack?",
-        "contributor": "graphify",
-        "outcome": "useful",
-        "source_nodes": "[&quot;propriedadesRoutes.js&quot;, &quot;Propriedades()&quot;, &quot;useAuth()&quot;, &quot;autenticar()&quot;]"
-      },
-      "node_kind": "page",
-      "norm_label": "query_20260904_030539_como_adicionar_o_proprietario_das_propriedades_som.md",
-      "source_file": "graphify-out/memory/query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "graphify_out_memory_query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som_answer",
-      "label": "Answer",
-      "_origin": "ast",
-      "community": 77,
-      "community_name": "Q: Como adicionar o propriet\u00e1rio das propriedades somente para administradores no BoviTrack?",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "answer",
-      "source_file": "graphify-out/memory/query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som.md",
-      "source_location": "L12"
-    },
-    {
-      "id": "graphify_out_memory_query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som_outcome",
-      "label": "Outcome",
-      "_origin": "ast",
-      "community": 77,
-      "community_name": "Q: Como adicionar o propriet\u00e1rio das propriedades somente para administradores no BoviTrack?",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "outcome",
-      "source_file": "graphify-out/memory/query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som.md",
-      "source_location": "L16"
-    },
-    {
-      "id": "graphify_out_memory_query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som_q_como_adicionar_o_propriet\u00e1rio_das_propriedades_somente_para_administradores_no_bovitrack",
-      "label": "Q: Como adicionar o propriet\u00e1rio das propriedades somente para administradores no BoviTrack?",
-      "_origin": "ast",
-      "community": 77,
-      "community_name": "Q: Como adicionar o propriet\u00e1rio das propriedades somente para administradores no BoviTrack?",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "q: como adicionar o proprietario das propriedades somente para administradores no bovitrack?",
-      "source_file": "graphify-out/memory/query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som.md",
-      "source_location": "L10"
-    },
-    {
-      "id": "graphify_out_memory_query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som_source_nodes",
-      "label": "Source Nodes",
-      "_origin": "ast",
-      "community": 77,
-      "community_name": "Q: Como adicionar o propriet\u00e1rio das propriedades somente para administradores no BoviTrack?",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "source nodes",
-      "source_file": "graphify-out/memory/query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som.md",
-      "source_location": "L20"
     },
     {
       "id": "backend_routes_authroutes",
@@ -27890,50 +27822,6 @@
       "confidence_score": 1.0,
       "source_file": "frontend/vercel.json",
       "source_location": "L3",
-      "weight": 1.0
-    },
-    {
-      "source": "graphify_out_memory_query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som",
-      "target": "graphify_out_memory_query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som_q_como_adicionar_o_propriet\u00e1rio_das_propriedades_somente_para_administradores_no_bovitrack",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "graphify-out/memory/query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som.md",
-      "source_location": "L10",
-      "weight": 1.0
-    },
-    {
-      "source": "graphify_out_memory_query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som_q_como_adicionar_o_propriet\u00e1rio_das_propriedades_somente_para_administradores_no_bovitrack",
-      "target": "graphify_out_memory_query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som_answer",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "graphify-out/memory/query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som.md",
-      "source_location": "L12",
-      "weight": 1.0
-    },
-    {
-      "source": "graphify_out_memory_query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som_q_como_adicionar_o_propriet\u00e1rio_das_propriedades_somente_para_administradores_no_bovitrack",
-      "target": "graphify_out_memory_query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som_outcome",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "graphify-out/memory/query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som.md",
-      "source_location": "L16",
-      "weight": 1.0
-    },
-    {
-      "source": "graphify_out_memory_query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som_q_como_adicionar_o_propriet\u00e1rio_das_propriedades_somente_para_administradores_no_bovitrack",
-      "target": "graphify_out_memory_query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som_source_nodes",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "graphify-out/memory/query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som.md",
-      "source_location": "L20",
       "weight": 1.0
     },
     {

@@ -18,7 +18,7 @@
   "16": "log.js",
   "17": "validacoes.js",
   "18": "receitasRoutes.js",
-  "19": "auth-permissions.js",
+  "19": "ControlePesagens.jsx",
   "20": "sessoes.js",
   "21": "MinhaConta.jsx",
   "22": "Lotes",
@@ -26,7 +26,7 @@
   "24": "What You Must Do When Invoked",
   "25": "registrarErro",
   "26": "calf-management.js",
-  "27": "Configuracoes.jsx",
+  "27": "milk-production.js",
   "28": "graphify reference: extra exports and benchmark",
   "29": "migrate-auth.js",
   "30": "receitas.js",
@@ -75,6 +75,5 @@
   "73": "graphify reference: GitHub clone and cross-repo merge",
   "74": "graphify reference: transcribe video and audio",
   "75": "AGENTS.md",
-  "76": "extraction-spec.md",
-  "77": "Q: Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
+  "76": "extraction-spec.md"
 }
