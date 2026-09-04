@@ -1,16 +1,16 @@
 # Graph Report - Teste  (2026-09-04)
 
 ## Corpus Check
-- 137 files · ~186,733 words
+- 141 files · ~190,360 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 948 nodes · 1602 edges · 78 communities (71 shown, 4 thin omitted)
-- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 105 edges (avg confidence: 0.86)
+- 994 nodes · 1692 edges · 82 communities (75 shown, 4 thin omitted)
+- Extraction: 93% EXTRACTED · 7% INFERRED · 0% AMBIGUOUS · INFERRED: 110 edges (avg confidence: 0.86)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `099b153c`
+- Built from commit: `8cf80819`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -31,27 +31,27 @@
 - usuariosRoutes.js
 - FichaAnimal.jsx
 - Desmamas.jsx
-- log.js
+- registrarEvento
+- animaisRoutes.js
 - validacoes.js
-- receitasRoutes.js
 - auth-permissions.js
 - sessoes.js
-- MinhaConta.jsx
+- ConfirmacaoExclusao.jsx
 - Lotes
 - usuariosController.js
 - What You Must Do When Invoked
-- registrarErro
+- rateLimit.js
 - calf-management.js
-- Configuracoes.jsx
+- impactoExclusao.js
 - graphify reference: extra exports and benchmark
 - migrate-auth.js
 - receitas.js
 - Animais
 - Lucros
 - Usuarios
-- producoesLeiteirasRoutes.js
+- pesagensRoutes.js
 - propriedadesRoutes.js
-- lotesRoutes.js
+- registrarErro
 - Despesas
 - Vacinacoes
 - pool.js
@@ -90,10 +90,14 @@
 - AGENTS.md
 - extraction-spec.md
 - Q: Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?
+- ControlePesagens.jsx
+- ControleDesmama
+- dashboardRoutes.js
+- Q: Quais componentes e estilos causam overflow e sobreposição no Dashboard do BoviTrack?
 
 ## God Nodes (most connected - your core abstractions)
-1. `registrarErro()` - 23 edges
-2. `scripts` - 21 edges
+1. `scripts` - 23 edges
+2. `registrarErro()` - 23 edges
 3. `formatarDataSemFuso()` - 21 edges
 4. `converterId()` - 19 edges
 5. `FichaAnimal()` - 19 edges
@@ -123,11 +127,11 @@
 - **Runtime serverless seguro do banco** — backend_database_seguranca_producao_runtime_least_privilege, backend_database_seguranca_producao_transaction_pooler_runtime, backend_database_seguranca_producao_tls_verify_full, backend_database_seguranca_producao_data_api_desativada, backend_database_seguranca_producao_post_deploy_verification [EXTRACTED 1.00]
 - **Superfície de runtime do frontend BoviTrack** — frontend_readme_react_vite_template, frontend_index_bovitrack_html_entry, backend_database_seguranca_producao_frontend_public_config [INFERRED 0.75]
 
-## Communities (78 total, 4 thin omitted)
+## Communities (82 total, 4 thin omitted)
 
 ### Community 0 - "PreferencesProvider.jsx"
-Cohesion: 0.07
-Nodes (34): App(), BlackHoleTransition(), PARTICULAS, obterElementosFocaveis(), TutorialDialog(), controlarTeclado(), elementoEstaVisivel(), obterElementosFocaveis() (+26 more)
+Cohesion: 0.06
+Nodes (38): App(), IconeConfiguracoes(), BlackHoleTransition(), PARTICULAS, obterElementosFocaveis(), TutorialDialog(), controlarTeclado(), elementoEstaVisivel() (+30 more)
 
 ### Community 1 - "app.js"
 Cohesion: 0.05
@@ -139,11 +143,11 @@ Nodes (41): analisarUrl(), configurarSsl(), criarConfiguracaoBanco(), criarConfi
 
 ### Community 3 - "scripts"
 Cohesion: 0.04
-Nodes (44): author, dependencies, bcryptjs, cors, dotenv, express, helmet, jsonwebtoken (+36 more)
+Nodes (46): author, dependencies, bcryptjs, cors, dotenv, express, helmet, jsonwebtoken (+38 more)
 
 ### Community 4 - "desmamasRoutes.js"
 Cohesion: 0.09
-Nodes (25): {
+Nodes (21): {
   buscarAnimalPermitido,
   buscarLoteCompativel,
   buscarMaeCompativel,
@@ -155,7 +159,7 @@ Nodes (25): {
   responderPagina,
   validarCamposPermitidos,
   normalizarTextoOpcional,
-}, express, pool, { registrarErro }, router, { sincronizarPesoAtual }, { validarParametroId } (+17 more)
+}, express, pool, { registrarErro }, router, { sincronizarPesoAtual }, { validarParametroId } (+13 more)
 
 ### Community 5 - "devDependencies"
 Cohesion: 0.05
@@ -166,12 +170,12 @@ Cohesion: 0.07
 Nodes (33): Cookie HttpOnly e ausência de JWT em storage, Data API desativada, Frontend limitado a VITE_API_URL, Migrations de segurança e hardening, Rotação obrigatória de JWT_SECRET, Verificação de segurança pós-deploy, Login runtime de menor privilégio, Segurança do banco em produção (+25 more)
 
 ### Community 7 - "FichaAnimal"
-Cohesion: 0.08
-Nodes (29): ControleDesmama(), abrirConclusao(), cancelar(), carregar(), concluir(), planejar(), salvar(), ControlePesagens() (+21 more)
+Cohesion: 0.22
+Nodes (14): FichaAnimal(), abrirNovoRegistro(), aplicarIntervalo(), aplicarPeriodo(), atualizarAnimal(), atualizarControleLeiteiro(), atualizarManejo(), carregarHistorico() (+6 more)
 
 ### Community 8 - "authRoutes.js"
-Cohesion: 0.10
-Nodes (24): { autenticar }, bcrypt, { consumirLimite }, {
+Cohesion: 0.12
+Nodes (21): { autenticar }, bcrypt, { consumirLimite }, {
   criarSessaoRefresh,
   criarTokenAcesso,
   definirCookieRefresh,
@@ -180,19 +184,19 @@ Nodes (24): { autenticar }, bcrypt, { consumirLimite }, {
   lerRefreshToken,
   limparCookieRefresh,
   renovarSessaoRefresh,
-}, emailNormalizado(), express, limitarCadastro, limitarLoginConta (+16 more)
+}, emailNormalizado(), express, limitarCadastro, limitarLoginConta (+13 more)
 
 ### Community 9 - "security-hardening.js"
 Cohesion: 0.09
 Nodes (20): configuracao, dotenv, duracaoEmSegundos(), DURACOES, validarAmbiente(), { app }, assert, { consumirLimite } (+12 more)
 
 ### Community 10 - "App.jsx"
-Cohesion: 0.26
-Nodes (8): itensMenu, Layout(), AdminRoute(), ProtectedRoute(), useAuth(), Cadastro(), Login(), useBlackHoleTransition()
+Cohesion: 0.15
+Nodes (11): itensMenu, Layout(), AdminRoute(), ProtectedRoute(), useAuth(), Cadastro(), Dashboard(), resumoInicial (+3 more)
 
 ### Community 11 - "api.js"
-Cohesion: 0.25
-Nodes (11): IconeImagem(), icones, VoltarInicio(), CATEGORIAS_SUGERIDAS, FILTROS_INICIAIS, FORMAS_RECEBIMENTO, RESUMO_INICIAL, api (+3 more)
+Cohesion: 0.23
+Nodes (12): IconeImagem(), icones, VoltarInicio(), CATEGORIAS_SUGERIDAS, FILTROS_INICIAIS, FORMAS_RECEBIMENTO, RESUMO_INICIAL, formularioInicial (+4 more)
 
 ### Community 12 - "AuthContext.jsx"
 Cohesion: 0.16
@@ -200,26 +204,26 @@ Nodes (17): sair(), AuthContext, AuthProvider(), avisarOutrasAbas(), finalizarLo
 
 ### Community 13 - "usuariosRoutes.js"
 Cohesion: 0.12
-Nodes (17): autenticar(), exigirAutenticacaoRecente(), pool, { registrarErro }, somenteAdmin(), { verificarTokenAcesso }, { excluirUsuarioComDados }, express (+9 more)
+Nodes (18): autenticar(), exigirAutenticacaoRecente(), pool, { registrarErro }, somenteAdmin(), { verificarTokenAcesso }, { excluirUsuarioComDados }, express (+10 more)
 
 ### Community 14 - "FichaAnimal.jsx"
-Cohesion: 0.13
-Nodes (19): ROTULOS_TIPO, STATUS, TIPOS, METODOS, RESUMO_VAZIO, ROTULOS, TIPOS, GraficoPeso() (+11 more)
+Cohesion: 0.20
+Nodes (13): ROTULOS_TIPO, STATUS, TIPOS, GraficoPeso(), margem, formatarLitros(), GraficoProducaoLeite(), margem (+5 more)
 
 ### Community 15 - "Desmamas.jsx"
 Cohesion: 0.12
 Nodes (9): RegistroFichaNotice(), Desmamas(), ROTULOS_STATUS, ROTULOS_TIPO, STATUS, TIPOS, Pesagens(), ROTULOS (+1 more)
 
-### Community 16 - "log.js"
-Cohesion: 0.20
-Nodes (13): criarConfiguracaoCors(), normalizarOrigem(), obterOrigensPermitidas(), {
+### Community 16 - "registrarEvento"
+Cohesion: 0.33
+Nodes (9): criarConfiguracaoCors(), normalizarOrigem(), obterOrigensPermitidas(), {
   normalizarOrigem,
   obterOrigensPermitidas,
-}, origemDoReferer(), protegerContraCsrf(), { registrarEvento }, express (+5 more)
+}, origemDoReferer(), protegerContraCsrf(), { registrarEvento }, registrarEvento() (+1 more)
 
-### Community 17 - "validacoes.js"
-Cohesion: 0.11
-Nodes (24): {
+### Community 17 - "animaisRoutes.js"
+Cohesion: 0.13
+Nodes (19): {
   converterId,
   normalizarDataNascimento,
   normalizarNumeroBrinco,
@@ -229,10 +233,10 @@ Nodes (24): {
   normalizarTextoObrigatorio,
   normalizarTextoOpcional,
   normalizarNumeroFinito,
-}, express, normalizarDadosAnimal(), pool, { registrarErro }, router, { validarParametroId }, express (+16 more)
+}, express, normalizarDadosAnimal(), pool, { registrarErro }, router, { validarParametroId }, express (+11 more)
 
-### Community 18 - "receitasRoutes.js"
-Cohesion: 0.13
+### Community 18 - "validacoes.js"
+Cohesion: 0.14
 Nodes (23): construirFiltro(), {
   converterId,
   normalizarDataCalendario,
@@ -249,32 +253,32 @@ Cohesion: 0.33
 Nodes (8): { app, pool }, assert, bcrypt, confirmar(), executar(), criarConjunto(), login(), requisitar()
 
 ### Community 20 - "sessoes.js"
-Cohesion: 0.24
-Nodes (12): {
+Cohesion: 0.20
+Nodes (15): {
   audience,
   expiracaoAcesso,
   issuer,
-}, criarSessaoRefresh(), criarTokenAcesso(), crypto, duracaoEmMilissegundos(), encerrarSessaoRefresh(), encerrarTodasSessoes(), gerarIdentificadorSessao() (+4 more)
+}, criarSessaoRefresh(), criarTokenAcesso(), crypto, definirCookieRefresh(), duracaoEmMilissegundos(), encerrarSessaoRefresh(), encerrarTodasSessoes() (+7 more)
 
-### Community 21 - "MinhaConta.jsx"
-Cohesion: 0.20
-Nodes (3): ConfirmacaoExclusao(), MinhaConta(), formularioInicial
+### Community 21 - "ConfirmacaoExclusao.jsx"
+Cohesion: 0.27
+Nodes (6): ConfirmacaoExclusao(), descreverRegistro(), detalhesResumo(), formatarData(), ResumoImpactoExclusao(), ROTULOS_RESUMO
 
 ### Community 22 - "Lotes"
 Cohesion: 0.24
 Nodes (8): Lotes(), adicionarAnimalAoLote(), carregarAnimaisDoLote(), carregarLotes(), gerenciarAnimais(), limparFormulario(), removerAnimalDoLote(), salvarLote()
 
 ### Community 23 - "usuariosController.js"
-Cohesion: 0.29
-Nodes (9): { criarUsuarioComum }, { registrarEvento, registrarErro }, responderCriacaoUsuario(), bcrypt, criarErroValidacao(), criarUsuarioComum(), excluirUsuarioComDados(), pool (+1 more)
+Cohesion: 0.27
+Nodes (9): { criarUsuarioComum }, { registrarEvento, registrarErro }, responderCriacaoUsuario(), bcrypt, criarErroValidacao(), criarUsuarioComum(), { excluirUsuarioComDados }, pool (+1 more)
 
 ### Community 24 - "What You Must Do When Invoked"
 Cohesion: 0.08
 Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
 
-### Community 25 - "registrarErro"
-Cohesion: 0.29
-Nodes (8): { consumirLimite }, limitarRequisicoes(), { registrarErro, registrarEvento }, consumirLimite(), crypto, hashChave(), pool, registrarErro()
+### Community 25 - "rateLimit.js"
+Cohesion: 0.31
+Nodes (7): { consumirLimite }, limitarRequisicoes(), { registrarErro, registrarEvento }, consumirLimite(), crypto, hashChave(), pool
 
 ### Community 26 - "calf-management.js"
 Cohesion: 0.32
@@ -285,9 +289,12 @@ Nodes (9): calcularGMD(), calcularIdadeEmDias(), calcularP205(), dataUtc(), mont
   montarResumoPesagens,
 } (+1 more)
 
-### Community 27 - "Configuracoes.jsx"
-Cohesion: 0.47
-Nodes (4): IconeConfiguracoes(), Configuracoes(), temas, useTutorial()
+### Community 27 - "impactoExclusao.js"
+Cohesion: 0.17
+Nodes (23): executar(), {
+  obterImpactoExclusaoPropriedade,
+  obterImpactoExclusaoUsuario,
+}, pool, VERIFICACOES_ORFAOS, adicionarSemDuplicar(), agregarGrupos(), buscarPropriedadeAutorizada(), consultarRegistrosDaPropriedade() (+15 more)
 
 ### Community 28 - "graphify reference: extra exports and benchmark"
 Cohesion: 0.22
@@ -310,26 +317,32 @@ Cohesion: 0.25
 Nodes (4): formatarMoeda(), Lucros(), limparFormulario(), salvarReceita()
 
 ### Community 33 - "Usuarios"
-Cohesion: 0.31
-Nodes (5): Usuarios(), alterarSituacao(), carregarUsuarios(), fecharFormulario(), salvarUsuario()
+Cohesion: 0.25
+Nodes (7): Usuarios(), alterarSituacao(), carregarUsuarios(), excluirUsuario(), fecharExclusaoUsuario(), fecharFormulario(), salvarUsuario()
 
-### Community 34 - "producoesLeiteirasRoutes.js"
-Cohesion: 0.22
-Nodes (8): { buscarAnimalPermitido }, {
+### Community 34 - "pesagensRoutes.js"
+Cohesion: 0.18
+Nodes (11): { bloquearAnimalParaPeso, sincronizarPesoAtual }, {
+  buscarAnimalPermitido,
+  buscarLoteCompativel,
+}, {
   converterId,
   normalizarDataCalendario,
-  normalizarProducaoLeiteira,
+  normalizarPesagem,
   normalizarPaginacao,
   responderPagina,
-}, express, pool, { registrarErro }, router, { validarParametroId }, normalizarProducaoLeiteira()
+}, express, { montarResumoPesagens }, pool, { registrarErro }, router (+3 more)
 
 ### Community 35 - "propriedadesRoutes.js"
-Cohesion: 0.20
-Nodes (8): { converterId }, validarParametroId(), express, { normalizarPaginacao, responderPagina, validarCamposPermitidos, normalizarTextoObrigatorio, normalizarNumeroFinito }, pool, { registrarErro }, router, { validarParametroId }
+Cohesion: 0.18
+Nodes (9): { converterId }, validarParametroId(), {
+  excluirPropriedadeComDados,
+  obterImpactoExclusaoPropriedade,
+}, express, { normalizarPaginacao, responderPagina, validarCamposPermitidos, normalizarTextoObrigatorio, normalizarNumeroFinito }, pool, { registrarErro, registrarEvento }, router (+1 more)
 
-### Community 36 - "lotesRoutes.js"
-Cohesion: 0.13
-Nodes (14): { converterId, normalizarPaginacao, responderPagina, validarCamposPermitidos, normalizarTextoObrigatorio, normalizarTextoOpcional }, express, pool, { registrarErro }, router, { validarParametroId }, express, { normalizarPaginacao, responderPagina, validarCamposPermitidos, normalizarTextoObrigatorio, normalizarTextoOpcional } (+6 more)
+### Community 36 - "registrarErro"
+Cohesion: 0.10
+Nodes (21): { converterId, normalizarPaginacao, responderPagina, validarCamposPermitidos, normalizarTextoObrigatorio, normalizarTextoOpcional }, express, pool, { registrarErro }, router, { validarParametroId }, express, { normalizarPaginacao, responderPagina, validarCamposPermitidos, converterId, normalizarDataCalendario, normalizarTextoOpcional } (+13 more)
 
 ### Community 37 - "Despesas"
 Cohesion: 0.32
@@ -344,8 +357,8 @@ Cohesion: 0.29
 Nodes (4): { criarConfiguracaoBanco }, pool, { Pool, types }, pool
 
 ### Community 40 - "Propriedades"
-Cohesion: 0.47
-Nodes (4): Propriedades(), carregarPropriedades(), limparFormulario(), salvarPropriedade()
+Cohesion: 0.36
+Nodes (6): Propriedades(), carregarPropriedades(), excluirPropriedade(), fecharExclusao(), limparFormulario(), salvarPropriedade()
 
 ### Community 41 - "Vacinas"
 Cohesion: 0.47
@@ -467,9 +480,25 @@ Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphif
 Cohesion: 0.40
 Nodes (4): Answer, Outcome, Q: Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?, Source Nodes
 
+### Community 78 - "ControlePesagens.jsx"
+Cohesion: 0.19
+Nodes (10): ControlePesagens(), carregar(), confirmarExclusao(), salvar(), gmd(), kg(), METODOS, RESUMO_VAZIO (+2 more)
+
+### Community 79 - "ControleDesmama"
+Cohesion: 0.22
+Nodes (9): ControleDesmama(), abrirConclusao(), cancelar(), carregar(), concluir(), planejar(), salvar(), novo() (+1 more)
+
+### Community 80 - "dashboardRoutes.js"
+Cohesion: 0.40
+Nodes (4): express, pool, { registrarErro, registrarEvento }, router
+
+### Community 81 - "Q: Quais componentes e estilos causam overflow e sobreposição no Dashboard do BoviTrack?"
+Cohesion: 0.40
+Nodes (4): Answer, Outcome, Q: Quais componentes e estilos causam overflow e sobreposição no Dashboard do BoviTrack?, Source Nodes
+
 ## Knowledge Gaps
-- **394 isolated node(s):** `express`, `cors`, `helmet`, `{ criarConfiguracaoCors }`, `{ autenticar }` (+389 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 491 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **408 isolated node(s):** `express`, `cors`, `helmet`, `{ criarConfiguracaoCors }`, `{ autenticar }` (+403 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 508 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
@@ -477,14 +506,14 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `criarConfiguracaoPorUrl()` connect `migrate-to-supabase.js` to `security-hardening.js`?**
   _High betweenness centrality (0.009) - this node is a cross-community bridge._
-- **Why does `FichaAnimal()` connect `FichaAnimal` to `App.jsx`, `FichaAnimal.jsx`?**
-  _High betweenness centrality (0.009) - this node is a cross-community bridge._
-- **Why does `formatarDataSemFuso()` connect `FichaAnimal.jsx` to `Lucros`, `Vacinacoes`, `FichaAnimal`, `api.js`, `Desmamas.jsx`?**
-  _High betweenness centrality (0.007) - this node is a cross-community bridge._
+- **Why does `FichaAnimal()` connect `FichaAnimal` to `App.jsx`, `FichaAnimal.jsx`, `ControleDesmama`?**
+  _High betweenness centrality (0.008) - this node is a cross-community bridge._
+- **Why does `formatarDataSemFuso()` connect `FichaAnimal.jsx` to `Lucros`, `Vacinacoes`, `FichaAnimal`, `App.jsx`, `api.js`, `ControlePesagens.jsx`, `Desmamas.jsx`, `ControleDesmama`?**
+  _High betweenness centrality (0.006) - this node is a cross-community bridge._
 - **What connects `express`, `cors`, `helmet` to the rest of the system?**
-  _394 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _408 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `PreferencesProvider.jsx` be split into smaller, more focused modules?**
-  _Cohesion score 0.07092198581560284 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06429070580013976 - nodes in this community are weakly interconnected._
 - **Should `app.js` be split into smaller, more focused modules?**
   _Cohesion score 0.05061224489795919 - nodes in this community are weakly interconnected._
 - **Should `migrate-to-supabase.js` be split into smaller, more focused modules?**

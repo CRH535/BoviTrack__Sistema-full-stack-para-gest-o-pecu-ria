@@ -986,7 +986,7 @@ hr { display: none; }
 }
 
 .confirmation-dialog {
-  width: min(100%, 500px);
+  width: min(100%, 660px);
   max-height: calc(100vh - 40px);
   overflow-y: auto;
   padding: clamp(22px, 4vw, 30px);
@@ -998,6 +998,127 @@ hr { display: none; }
 .confirmation-field { margin-bottom: 20px; }
 .confirmation-field strong { color: var(--danger); }
 .confirmation-actions { display: flex; justify-content: flex-end; gap: 10px; }
+
+.deletion-impact {
+  margin: 0 0 22px;
+  min-width: 0;
+}
+
+.deletion-impact-warning {
+  margin: 0 0 12px !important;
+  padding: 11px 13px;
+  border: 1px solid var(--danger-border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  background: var(--danger-soft);
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.deletion-impact-status,
+.deletion-impact-error,
+.deletion-impact-empty {
+  display: flex;
+  margin: 0 0 22px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+  gap: 10px;
+}
+
+.deletion-impact-status { align-items: center; }
+.deletion-impact-error,
+.deletion-impact-empty { flex-direction: column; }
+.deletion-impact-error { border-color: var(--danger-border); color: var(--danger); background: var(--danger-soft); }
+.deletion-impact-error span,
+.deletion-impact-empty span { color: var(--text-muted); font-size: 0.8rem; }
+
+.deletion-impact-spinner {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  border: 2px solid var(--border-strong);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: deletion-impact-spin 700ms linear infinite;
+}
+
+.deletion-impact-totals {
+  display: grid;
+  margin: 0 0 13px;
+  padding: 0;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 7px;
+  list-style: none;
+}
+
+.deletion-impact-totals li {
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-muted);
+  background: var(--surface-soft);
+  font-size: 0.76rem;
+}
+
+.deletion-impact-totals strong { color: var(--text); }
+
+.deletion-impact-groups {
+  max-height: min(38vh, 330px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.deletion-impact-group + .deletion-impact-group { border-top: 1px solid var(--border); }
+
+.deletion-impact-group summary {
+  display: flex;
+  min-height: 44px;
+  padding: 10px 12px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--text);
+  background: var(--surface-soft);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.deletion-impact-group summary:hover { background: var(--row-hover); }
+.deletion-impact-group summary:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.deletion-impact-group .count-badge { flex: 0 0 auto; }
+
+.deletion-impact-group ul {
+  display: grid;
+  margin: 0;
+  padding: 6px 12px 10px 31px;
+  gap: 7px;
+}
+
+.deletion-impact-group li {
+  min-width: 0;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+  font-size: 0.78rem;
+}
+
+.deletion-impact-group li strong,
+.deletion-impact-group li span { display: block; }
+.deletion-impact-group li strong { color: var(--text); }
+.deletion-impact-group li span { margin-top: 2px; font-size: 0.72rem; }
+
+@keyframes deletion-impact-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deletion-impact-spinner { animation: none; }
+}
 
 .inline-loading { min-height: 260px; background: transparent; }
 

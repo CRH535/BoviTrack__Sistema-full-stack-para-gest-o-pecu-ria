@@ -366,6 +366,55 @@ async function executar() {
       detalhePropriedadeAAdmin.dados.proprietario.email === emailA,
   );
 
+  const previewPropriedadeA = await requisitar(
+    `/propriedades/${conjuntoA.propriedade.id}/exclusao-preview`,
+    { token: tokenA },
+  );
+  confirmar(
+    "preview da propriedade lista dependências sem excluir dados",
+    previewPropriedadeA.status === 200 &&
+      previewPropriedadeA.dados.entidade.id === conjuntoA.propriedade.id &&
+      previewPropriedadeA.dados.resumo.animais === 1 &&
+      previewPropriedadeA.dados.resumo.lotes === 1 &&
+      previewPropriedadeA.dados.resumo.vacinacoes === 1 &&
+      previewPropriedadeA.dados.resumo.despesas === 1 &&
+      (await requisitar(`/propriedades/${conjuntoA.propriedade.id}`, {
+        token: tokenA,
+      })).status === 200,
+  );
+  confirmar(
+    "usuário comum não consulta preview de propriedade alheia",
+    (await requisitar(
+      `/propriedades/${conjuntoB.propriedade.id}/exclusao-preview`,
+      { token: tokenA },
+    )).status === 404,
+  );
+  confirmar(
+    "administrador consulta preview de propriedade autorizada",
+    (await requisitar(
+      `/propriedades/${conjuntoB.propriedade.id}/exclusao-preview`,
+      { token: tokenAdmin },
+    )).status === 200,
+  );
+  confirmar(
+    "usuário comum consulta somente o preview da própria conta",
+    (await requisitar("/usuarios/me/exclusao-preview", { token: tokenA }))
+      .status === 200 &&
+      (await requisitar(`/usuarios/${usuarioB.id}/exclusao-preview`, {
+        token: tokenA,
+      })).status === 403,
+  );
+  confirmar(
+    "administrador consulta impacto de usuário comum e não da própria conta",
+    (await requisitar(`/usuarios/${usuarioB.id}/exclusao-preview`, {
+      token: tokenAdmin,
+    })).status === 200 &&
+      (await requisitar(
+        `/usuarios/${adminLogin.dados.usuario.id}/exclusao-preview`,
+        { token: tokenAdmin },
+      )).status === 403,
+  );
+
   for (const [rota, campo, idA] of [
     ["/animais", "id", conjuntoA.animal.id],
     ["/lotes", "id", conjuntoA.lote.id],
@@ -822,6 +871,156 @@ async function executar() {
   confirmar("admin principal não pode usar exclusão da própria conta", (await requisitar("/usuarios/me", { metodo: "DELETE", token: tokenAdmin, corpo: { confirmacao: "EXCLUIR" } })).status === 403);
   confirmar("exclusão própria exige confirmação textual", (await requisitar("/usuarios/me", { metodo: "DELETE", token: tokenA, corpo: { confirmacao: "excluir", usuario_id: usuarioB.id } })).status === 400);
 
+  const propriedadeParaExcluir = await requisitar("/propriedades", {
+    metodo: "POST",
+    token: tokenB,
+    corpo: {
+      nome: "Fazenda Exclusão Segura",
+      cidade: "Teste",
+      estado: "SP",
+      area: 12,
+    },
+  });
+  const propriedadeExclusaoId = propriedadeParaExcluir.dados.propriedade.id;
+  const animalParaExcluir = await requisitar("/animais", {
+    metodo: "POST",
+    token: tokenB,
+    corpo: {
+      nome: "Animal Exclusão",
+      especie: "Bovino",
+      sexo: "F",
+      peso: 120,
+      propriedade_id: propriedadeExclusaoId,
+    },
+  });
+  const animalExclusaoId = animalParaExcluir.dados.animal.id;
+  const loteParaExcluir = await requisitar("/lotes", {
+    metodo: "POST",
+    token: tokenB,
+    corpo: { nome: "Lote Exclusão", propriedade_id: propriedadeExclusaoId },
+  });
+  const loteExclusaoId = loteParaExcluir.dados.lote.id;
+  await requisitar(`/lotes/${loteExclusaoId}/animais`, {
+    metodo: "POST",
+    token: tokenB,
+    corpo: { animal_id: animalExclusaoId },
+  });
+  const vacinacaoExclusao = await requisitar("/vacinacoes", {
+    metodo: "POST",
+    token: tokenB,
+    corpo: {
+      animal_id: animalExclusaoId,
+      vacina_id: conjuntoB.vacina.id,
+      data_aplicacao: new Date().toISOString().slice(0, 10),
+    },
+  });
+  const despesaExclusao = await requisitar("/despesas", {
+    metodo: "POST",
+    token: tokenB,
+    corpo: {
+      descricao: "Despesa da exclusão",
+      categoria: "Teste",
+      valor: 30,
+      data: new Date().toISOString().slice(0, 10),
+      propriedade_id: propriedadeExclusaoId,
+    },
+  });
+  const receitaExclusao = await requisitar("/receitas", {
+    metodo: "POST",
+    token: tokenB,
+    corpo: {
+      descricao: "Receita da exclusão",
+      categoria: "Outros",
+      valor: 60,
+      data: new Date().toISOString().slice(0, 10),
+      propriedade_id: propriedadeExclusaoId,
+    },
+  });
+  const pesagemExclusao = await pool.query(
+    `INSERT INTO pesagens
+       (animal_id, data_pesagem, peso_kg, tipo_pesagem, lote_id, registrado_por)
+     VALUES ($1, CURRENT_DATE, 121, 'ROTINA', $2, $3)
+     RETURNING id`,
+    [animalExclusaoId, loteExclusaoId, usuarioB.id],
+  );
+  const desmamaExclusao = await pool.query(
+    `INSERT INTO desmamas
+       (animal_id, data_planejada, tipo_desmama, status, registrado_por)
+     VALUES ($1, CURRENT_DATE, 'CONVENCIONAL', 'PLANEJADA', $2)
+     RETURNING id`,
+    [animalExclusaoId, usuarioB.id],
+  );
+  const producaoExclusao = await pool.query(
+    `INSERT INTO producoes_leiteiras
+       (animal_id, data, turno, quantidade_litros)
+     VALUES ($1, CURRENT_DATE, 'manha', 8)
+     RETURNING id`,
+    [animalExclusaoId],
+  );
+
+  const previewCompleto = await requisitar(
+    `/propriedades/${propriedadeExclusaoId}/exclusao-preview`,
+    { token: tokenB },
+  );
+  confirmar(
+    "preview detalha todas as dependências reais da propriedade",
+    previewCompleto.status === 200 &&
+      [
+        "animais",
+        "lotes",
+        "animais_lotes",
+        "pesagens",
+        "desmamas",
+        "vacinacoes",
+        "despesas",
+        "receitas",
+        "producoes_leiteiras",
+      ].every((chave) => previewCompleto.dados.resumo[chave] === 1),
+  );
+
+  const exclusaoPropriedade = await requisitar(
+    `/propriedades/${propriedadeExclusaoId}`,
+    { metodo: "DELETE", token: tokenB },
+  );
+  confirmar(
+    "exclusão transacional remove propriedade e dependências",
+    exclusaoPropriedade.status === 200,
+  );
+  const dependenciasRestantes = await pool.query(
+    `SELECT
+       (SELECT COUNT(*) FROM propriedades WHERE id = $1)::integer AS propriedades,
+       (SELECT COUNT(*) FROM animais WHERE id = $2)::integer AS animais,
+       (SELECT COUNT(*) FROM lotes WHERE id = $3)::integer AS lotes,
+       (SELECT COUNT(*) FROM vacinacoes WHERE id = $4)::integer AS vacinacoes,
+       (SELECT COUNT(*) FROM despesas WHERE id = $5)::integer AS despesas,
+       (SELECT COUNT(*) FROM receitas WHERE id = $6)::integer AS receitas,
+       (SELECT COUNT(*) FROM pesagens WHERE id = $7)::integer AS pesagens,
+       (SELECT COUNT(*) FROM desmamas WHERE id = $8)::integer AS desmamas,
+       (SELECT COUNT(*) FROM producoes_leiteiras WHERE id = $9)::integer AS producoes,
+       (SELECT COUNT(*) FROM animais_lotes WHERE animal_id = $2 OR lote_id = $3)::integer AS vinculos`,
+    [
+      propriedadeExclusaoId,
+      animalExclusaoId,
+      loteExclusaoId,
+      vacinacaoExclusao.dados.vacinacao.id,
+      despesaExclusao.dados.despesa.id,
+      receitaExclusao.dados.receita.id,
+      pesagemExclusao.rows[0].id,
+      desmamaExclusao.rows[0].id,
+      producaoExclusao.rows[0].id,
+    ],
+  );
+  confirmar(
+    "exclusão da propriedade não deixa registros órfãos",
+    Object.values(dependenciasRestantes.rows[0]).every((total) => total === 0),
+  );
+  confirmar(
+    "exclusão da propriedade preserva cadastro de vacina do usuário",
+    (await pool.query("SELECT COUNT(*)::integer AS total FROM vacinas WHERE id = $1", [
+      conjuntoB.vacina.id,
+    ])).rows[0].total === 1,
+  );
+
   const desativacaoA = await requisitar(`/usuarios/${usuarioA.id}/ativo`, {
     metodo: "PUT", token: tokenAdmin, corpo: { ativo: false },
   });
@@ -890,10 +1089,12 @@ executar()
     process.exitCode = 1;
   })
   .finally(async () => {
-    await limparDadosTemporarios().catch((erro) => {
-      console.error(`Falha ao limpar dados temporários: ${erro.message}`);
-      process.exitCode = 1;
-    });
+    if (process.env.ALLOW_TEST_DB_WRITES === "true") {
+      await limparDadosTemporarios().catch((erro) => {
+        console.error(`Falha ao limpar dados temporários: ${erro.message}`);
+        process.exitCode = 1;
+      });
+    }
 
     if (servidor) {
       await new Promise((resolve) => servidor.close(resolve));

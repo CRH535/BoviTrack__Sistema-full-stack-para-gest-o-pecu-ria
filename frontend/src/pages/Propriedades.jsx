@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import IconeImagem from "../components/IconeImagem";
+import ConfirmacaoExclusao from "../components/ConfirmacaoExclusao";
 import VoltarInicio from "../components/VoltarInicio";
 import { useAuth } from "../auth/useAuth";
 
@@ -16,6 +17,13 @@ function Propriedades() {
 
   const [editandoId, setEditandoId] = useState(null);
   const [mensagem, setMensagem] = useState("");
+  const [exclusao, setExclusao] = useState({
+    propriedade: null,
+    impacto: null,
+    carregando: false,
+    erro: "",
+    processando: false,
+  });
 
   useEffect(() => {
     carregarPropriedades();
@@ -77,29 +85,73 @@ function Propriedades() {
     setArea(propriedade.area);
   }
 
-  async function excluirPropriedade(id) {
-    const confirmar = window.confirm(
-      "Tem certeza que deseja excluir esta propriedade?",
-    );
-
-    if (!confirmar) {
-      return;
-    }
+  async function abrirExclusao(propriedade) {
+    setExclusao({
+      propriedade,
+      impacto: null,
+      carregando: true,
+      erro: "",
+      processando: false,
+    });
 
     try {
-      await api.delete(`/propriedades/${id}`);
+      const resposta = await api.get(
+        `/propriedades/${propriedade.id}/exclusao-preview`,
+      );
+      setExclusao((atual) =>
+        atual.propriedade?.id === propriedade.id
+          ? { ...atual, impacto: resposta.data, carregando: false }
+          : atual,
+      );
+    } catch (erro) {
+      setExclusao((atual) =>
+        atual.propriedade?.id === propriedade.id
+          ? {
+              ...atual,
+              carregando: false,
+              erro:
+                erro.response?.data?.mensagem ||
+                "Não foi possível verificar os registros relacionados.",
+            }
+          : atual,
+      );
+    }
+  }
+
+  function fecharExclusao() {
+    if (exclusao.processando) return;
+    setExclusao({
+      propriedade: null,
+      impacto: null,
+      carregando: false,
+      erro: "",
+      processando: false,
+    });
+  }
+
+  async function excluirPropriedade() {
+    if (!exclusao.propriedade || !exclusao.impacto) return;
+
+    const id = exclusao.propriedade.id;
+    setExclusao((atual) => ({ ...atual, processando: true, erro: "" }));
+
+    try {
+      const resposta = await api.delete(`/propriedades/${id}`);
 
       setPropriedades((propriedadesAtuais) =>
         propriedadesAtuais.filter((propriedade) => propriedade.id !== id),
       );
-
-      setMensagem("Propriedade excluída com sucesso!");
+      setMensagem(resposta.data.mensagem);
+      fecharExclusao();
     } catch (erro) {
       console.error("Falha em uma operação de propriedades");
-
-      setMensagem(
-        erro.response?.data?.mensagem || "Erro ao excluir propriedade",
-      );
+      setExclusao((atual) => ({
+        ...atual,
+        processando: false,
+        erro:
+          erro.response?.data?.mensagem ||
+          "Não foi possível excluir a propriedade.",
+      }));
     }
   }
 
@@ -225,7 +277,7 @@ function Propriedades() {
           <button
             className="button-danger"
             type="button"
-            onClick={() => excluirPropriedade(propriedade.id)}
+            onClick={() => abrirExclusao(propriedade)}
           >
             Excluir
           </button>
@@ -233,6 +285,21 @@ function Propriedades() {
         </article>
       ))}
       </div>
+
+      <ConfirmacaoExclusao
+        aberto={Boolean(exclusao.propriedade)}
+        titulo={`Excluir ${exclusao.propriedade?.nome || "propriedade"}?`}
+        mensagem="Esta ação é permanente. Antes de confirmar, revise todos os registros que serão apagados junto com a propriedade."
+        impacto={exclusao.impacto}
+        impactoObrigatorio
+        carregandoImpacto={exclusao.carregando}
+        erroImpacto={exclusao.erro}
+        processando={exclusao.processando}
+        rotuloConfirmar="Excluir propriedade e registros"
+        rotuloProcessando="Excluindo propriedade e registros..."
+        onCancelar={fecharExclusao}
+        onConfirmar={excluirPropriedade}
+      />
     </div>
   );
 }

@@ -2,7 +2,11 @@ const express = require("express");
 const pool = require("../database/pool")
 const { normalizarPaginacao, responderPagina, validarCamposPermitidos, normalizarTextoObrigatorio, normalizarNumeroFinito } = require("../utils/validacoes");
 const { validarParametroId } = require("../middleware/validacao");
-const { registrarErro } = require("../utils/log");
+const { registrarErro, registrarEvento } = require("../utils/log");
+const {
+  excluirPropriedadeComDados,
+  obterImpactoExclusaoPropriedade,
+} = require("../services/impactoExclusao");
 
 const router = express.Router();
 router.param("id", validarParametroId);
@@ -112,6 +116,30 @@ router.get("/propriedades/:id", async (req, res) => {
   }
 });
 
+router.get("/propriedades/:id/exclusao-preview", async (req, res) => {
+  try {
+    const impacto = await obterImpactoExclusaoPropriedade(
+      pool,
+      req.params.id,
+      {
+        usuarioId: req.usuario.id,
+        perfil: req.usuario.perfil,
+      },
+    );
+
+    res.json(impacto);
+  } catch (erro) {
+    if (erro.status) {
+      return res.status(erro.status).json({ mensagem: erro.message });
+    }
+
+    registrarErro("propriedade_exclusao_preview_erro", erro, req);
+    res.status(500).json({
+      mensagem: "Não foi possível verificar os registros relacionados",
+    });
+  }
+});
+
 router.post("/propriedades", async (req, res) => {
   try {
     const campos = validarCamposPermitidos(req.body, ["nome", "cidade", "estado", "area"]);
@@ -196,31 +224,32 @@ router.put("/propriedades/:id", async (req, res) => {
 
 router.delete("/propriedades/:id", async (req, res) => {
   try {
-    const { id } = req.params;
+    const resultado = await excluirPropriedadeComDados(req.params.id, {
+      usuarioId: req.usuario.id,
+      perfil: req.usuario.perfil,
+    });
 
-    const resultado = await pool.query(
-      `DELETE FROM propriedades
-             WHERE id = $1
-               AND ($2 = 'admin' OR usuario_id = $3)
-             RETURNING *`,
-      [id, req.usuario.perfil, req.usuario.id],
-    );
-
-    if (resultado.rows.length === 0) {
-      return res.status(404).json({
-        mensagem: "Propriedade não encontrada",
-      });
-    }
+    registrarEvento("aviso", "propriedade_excluida_com_dependencias", {
+      request_id: req.id,
+      usuario_id: req.usuario.id,
+      propriedade_id: Number(req.params.id),
+      exclusoes: resultado.exclusoes,
+    });
 
     res.json({
-      mensagem: "Propriedade excluída com sucesso!",
-      propriedade: resultado.rows[0],
+      mensagem: "Propriedade e registros relacionados excluídos com sucesso.",
+      propriedade: resultado.propriedade,
+      exclusoes: resultado.exclusoes,
     });
   } catch (erro) {
+    if (erro.status) {
+      return res.status(erro.status).json({ mensagem: erro.message });
+    }
+
     registrarErro("propriedades_rota_erro", erro, req);
 
     res.status(500).json({
-      mensagem: "Erro ao excluir propriedade",
+      mensagem: "Não foi possível excluir a propriedade. Nenhum dado foi removido",
     });
   }
 });

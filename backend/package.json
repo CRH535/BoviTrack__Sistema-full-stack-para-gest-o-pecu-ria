@@ -6,6 +6,7 @@
   "scripts": {
     "db:check": "node scripts/check-database.js",
     "db:check:security": "node scripts/check-security-readonly.js",
+    "db:check:deletions": "node scripts/check-deletion-integrity.js",
     "migrate:supabase": "node scripts/migrate-to-supabase.js",
     "migrate:auth": "node scripts/migrate-auth.js",
     "migrate:animal-lots": "node scripts/migrate-animal-lots.js",
@@ -23,6 +24,7 @@
     "test:bezerros:integration": "node tests/calf-management-integration.js",
     "test:security": "node tests/security-hardening.js",
     "test:receitas": "node tests/receitas.js",
+    "test:deletion-impact": "node tests/deletion-impact.js",
     "start": "node server.js"
   },
   "keywords": [],

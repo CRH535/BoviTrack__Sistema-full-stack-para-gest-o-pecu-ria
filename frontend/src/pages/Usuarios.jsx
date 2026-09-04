@@ -19,6 +19,9 @@ function Usuarios() {
   const [salvando, setSalvando] = useState(false);
   const [usuarioParaExcluir, setUsuarioParaExcluir] = useState(null);
   const [excluindo, setExcluindo] = useState(false);
+  const [impactoExclusao, setImpactoExclusao] = useState(null);
+  const [carregandoImpacto, setCarregandoImpacto] = useState(false);
+  const [erroImpacto, setErroImpacto] = useState("");
 
   useEffect(() => {
     carregarUsuarios();
@@ -134,7 +137,7 @@ function Usuarios() {
   }
 
   async function excluirUsuario() {
-    if (!usuarioParaExcluir) return;
+    if (!usuarioParaExcluir || !impactoExclusao) return;
 
     setExcluindo(true);
     setMensagem("");
@@ -145,14 +148,43 @@ function Usuarios() {
         atuais.filter((usuario) => usuario.id !== usuarioParaExcluir.id),
       );
       setMensagem(resposta.data.mensagem);
-      setUsuarioParaExcluir(null);
+      fecharExclusaoUsuario();
     } catch (erro) {
-      setMensagem(
+      setErroImpacto(
         erro.response?.data?.mensagem || "Erro ao excluir usuário",
       );
     } finally {
       setExcluindo(false);
     }
+  }
+
+  async function abrirExclusaoUsuario(usuario) {
+    setUsuarioParaExcluir(usuario);
+    setImpactoExclusao(null);
+    setErroImpacto("");
+    setCarregandoImpacto(true);
+
+    try {
+      const resposta = await api.get(
+        `/usuarios/${usuario.id}/exclusao-preview`,
+      );
+      setImpactoExclusao(resposta.data);
+      setCarregandoImpacto(false);
+    } catch (erro) {
+      setErroImpacto(
+        erro.response?.data?.mensagem ||
+          "Não foi possível verificar os registros relacionados.",
+      );
+      setCarregandoImpacto(false);
+    }
+  }
+
+  function fecharExclusaoUsuario() {
+    if (excluindo) return;
+    setUsuarioParaExcluir(null);
+    setImpactoExclusao(null);
+    setCarregandoImpacto(false);
+    setErroImpacto("");
   }
 
   return (
@@ -277,7 +309,7 @@ function Usuarios() {
                       <button
                         className="button-danger button-small"
                         type="button"
-                        onClick={() => setUsuarioParaExcluir(usuario)}
+                        onClick={() => abrirExclusaoUsuario(usuario)}
                       >
                         Excluir usuário
                       </button>
@@ -295,9 +327,15 @@ function Usuarios() {
       <ConfirmacaoExclusao
         aberto={Boolean(usuarioParaExcluir)}
         titulo={`Excluir ${usuarioParaExcluir?.nome || "usuário"}?`}
-        mensagem="A conta e todos os dados vinculados a ela serão excluídos permanentemente. Esta ação não poderá ser desfeita."
+        mensagem="Esta ação é permanente. Revise a conta e todos os dados vinculados que serão apagados."
+        impacto={impactoExclusao}
+        impactoObrigatorio
+        carregandoImpacto={carregandoImpacto}
+        erroImpacto={erroImpacto}
         processando={excluindo}
-        onCancelar={() => setUsuarioParaExcluir(null)}
+        rotuloConfirmar="Excluir usuário e registros"
+        rotuloProcessando="Excluindo usuário e registros..."
+        onCancelar={fecharExclusaoUsuario}
         onConfirmar={excluirUsuario}
       />
     </div>

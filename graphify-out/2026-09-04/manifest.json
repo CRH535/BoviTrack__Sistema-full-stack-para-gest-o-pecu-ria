@@ -162,10 +162,10 @@
     "semantic_hash": "b8399fb5a4597b44c6dbbc3067d5e82a"
   },
   "backend/package.json": {
-    "mtime": 1788233833.7329834,
-    "seen": 1788268037.8810573,
-    "ast_hash": "77baa3e93b196c58fcd242d13e6b972f",
-    "semantic_hash": "77baa3e93b196c58fcd242d13e6b972f"
+    "mtime": 1788493579.4615548,
+    "seen": 1788493733.7931466,
+    "ast_hash": "be65d2db81c7b2a9111b995899fd359f",
+    "semantic_hash": ""
   },
   "backend/routes/animaisRoutes.js": {
     "mtime": 1788124315.7480052,
@@ -216,9 +216,9 @@
     "semantic_hash": "5da3e9ed6e08cf54f4bb4eba9849cff6"
   },
   "backend/routes/propriedadesRoutes.js": {
-    "mtime": 1788490961.7038124,
-    "seen": 1788491119.8358219,
-    "ast_hash": "67b4164bc6384cf911b59e379e0a4c2d",
+    "mtime": 1788493184.162008,
+    "seen": 1788493733.7966008,
+    "ast_hash": "c1be4722a45a14f21d8a1bed0044c3f6",
     "semantic_hash": ""
   },
   "backend/routes/receitasRoutes.js": {
@@ -228,10 +228,10 @@
     "semantic_hash": "a3e15ce2bea60d34e5224c6600c7ab3c"
   },
   "backend/routes/usuariosRoutes.js": {
-    "mtime": 1788124343.4289713,
-    "seen": 1788268037.8810747,
-    "ast_hash": "27f346b43e27b99ae20fc6e1d44dd2c8",
-    "semantic_hash": "27f346b43e27b99ae20fc6e1d44dd2c8"
+    "mtime": 1788493186.8125215,
+    "seen": 1788493733.79699,
+    "ast_hash": "5b7d9b2450055ac4a98c943cb5723adb",
+    "semantic_hash": ""
   },
   "backend/routes/vacinacoesRoutes.js": {
     "mtime": 1788124339.9704287,
@@ -360,15 +360,15 @@
     "semantic_hash": "ce9c440c4f6c04f74e1839cbc006d29e"
   },
   "backend/services/usuarios.js": {
-    "mtime": 1788233549.666298,
-    "seen": 1788268037.8811095,
-    "ast_hash": "1c963e2bd2a53e608322edad0207bcaf",
-    "semantic_hash": "1c963e2bd2a53e608322edad0207bcaf"
+    "mtime": 1788493153.2089763,
+    "seen": 1788493733.8061254,
+    "ast_hash": "74cb52b145f24e74d5687935e67ec479",
+    "semantic_hash": ""
   },
   "backend/tests/auth-permissions.js": {
-    "mtime": 1788491009.7531912,
-    "seen": 1788491119.846193,
-    "ast_hash": "c82abe90b0e3f8af07051c77a6721118",
+    "mtime": 1788493684.4012527,
+    "seen": 1788493733.8061275,
+    "ast_hash": "5821788fc2f13e250baf23505d090112",
     "semantic_hash": ""
   },
   "backend/tests/calf-management-integration.js": {
@@ -474,10 +474,10 @@
     "semantic_hash": "c9a4754c32fbe9487a153627ec3caea1"
   },
   "frontend/src/components/ConfirmacaoExclusao.jsx": {
-    "mtime": 1787867951.3450494,
-    "seen": 1788268037.8811393,
-    "ast_hash": "4eebcb2e5ed28a98031be0e9ae54af8f",
-    "semantic_hash": "4eebcb2e5ed28a98031be0e9ae54af8f"
+    "mtime": 1788493668.8984773,
+    "seen": 1788493733.8133657,
+    "ast_hash": "686eaaef471a057586130112630b5e33",
+    "semantic_hash": ""
   },
   "frontend/src/components/ControleDesmama.jsx": {
     "mtime": 1788124513.4530013,
@@ -612,10 +612,10 @@
     "semantic_hash": "707492c30b0073bb73cb473fb43a247e"
   },
   "frontend/src/pages/MinhaConta.jsx": {
-    "mtime": 1787914078.2192788,
-    "seen": 1788268037.8811765,
-    "ast_hash": "be80b6b72b94a8830003f327e5ab4e8e",
-    "semantic_hash": "be80b6b72b94a8830003f327e5ab4e8e"
+    "mtime": 1788493371.1085155,
+    "seen": 1788493733.8234525,
+    "ast_hash": "f2951ccc53c39dd820583b847346a05c",
+    "semantic_hash": ""
   },
   "frontend/src/pages/Pesagens.jsx": {
     "mtime": 1788140203.8049824,
@@ -624,16 +624,16 @@
     "semantic_hash": "b4b6dd128bac2b32753fb415e855ab4b"
   },
   "frontend/src/pages/Propriedades.jsx": {
-    "mtime": 1788490976.2225275,
-    "seen": 1788491119.8639898,
-    "ast_hash": "d0e2079756b675b2e93d5d3d7a3b0eba",
+    "mtime": 1788493314.0843482,
+    "seen": 1788493733.8238635,
+    "ast_hash": "af17f32756c427c54f9660109cd53085",
     "semantic_hash": ""
   },
   "frontend/src/pages/Usuarios.jsx": {
-    "mtime": 1788107422.0925515,
-    "seen": 1788268037.8811812,
-    "ast_hash": "7ee2d8f1936609176bdcac767a7cb48f",
-    "semantic_hash": "7ee2d8f1936609176bdcac767a7cb48f"
+    "mtime": 1788493349.5079327,
+    "seen": 1788493733.8238661,
+    "ast_hash": "cb10bb61dc7f58577f3b8958584ba720",
+    "semantic_hash": ""
   },
   "frontend/src/pages/Vacinacoes.jsx": {
     "mtime": 1788139462.997293,
@@ -909,6 +909,36 @@
     "mtime": 1788266817.0070162,
     "seen": 1788491119.8713462,
     "ast_hash": "21ceb6533048be51308e69e7b74a35cf",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260904_030539_como_adicionar_o_propriet\u00e1rio_das_propriedades_som.md": {
+    "mtime": 1788491139.620177,
+    "seen": 1788492086.789885,
+    "ast_hash": "53fd5e82b305faa4162bb352ecc0cc32",
+    "semantic_hash": ""
+  },
+  "backend/scripts/check-deletion-integrity.js": {
+    "mtime": 1788493576.80198,
+    "seen": 1788493733.7982516,
+    "ast_hash": "7cea45545b99eab649c66b35d4bfa06c",
+    "semantic_hash": ""
+  },
+  "backend/services/impactoExclusao.js": {
+    "mtime": 1788493666.2244768,
+    "seen": 1788493733.804825,
+    "ast_hash": "54f3713ac80dd6f824e6d7016ccab91f",
+    "semantic_hash": ""
+  },
+  "backend/tests/deletion-impact.js": {
+    "mtime": 1788493528.7113528,
+    "seen": 1788493733.8070648,
+    "ast_hash": "4e3490d11ef62af836a530c496d9b393",
+    "semantic_hash": ""
+  },
+  "graphify-out/memory/query_20260904_032135_quais_componentes_e_estilos_causam_overflow_e_sobr.md": {
+    "mtime": 1788492095.769206,
+    "seen": 1788493733.836742,
+    "ast_hash": "0722a56a345a5a922bb1cbe04b70ab22",
     "semantic_hash": ""
   }
 }

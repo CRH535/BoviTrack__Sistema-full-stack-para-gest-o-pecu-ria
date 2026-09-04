@@ -16,6 +16,9 @@ function MinhaConta() {
   const [salvando, setSalvando] = useState(false);
   const [confirmandoExclusao, setConfirmandoExclusao] = useState(false);
   const [excluindo, setExcluindo] = useState(false);
+  const [impactoExclusao, setImpactoExclusao] = useState(null);
+  const [carregandoImpacto, setCarregandoImpacto] = useState(false);
+  const [erroImpacto, setErroImpacto] = useState("");
 
   function cancelarEdicao() {
     setNome(usuario.nome || "");
@@ -47,6 +50,8 @@ function MinhaConta() {
   }
 
   async function excluirMinhaConta() {
+    if (!impactoExclusao) return;
+
     setExcluindo(true);
     setMensagem("");
     setErro(false);
@@ -63,14 +68,41 @@ function MinhaConta() {
       });
     } catch (erroRequisicao) {
       setErro(true);
-      setMensagem(
+      const mensagemErro =
         erroRequisicao.response?.data?.mensagem ||
-          "Não foi possível excluir sua conta",
-      );
-      setConfirmandoExclusao(false);
+        "Não foi possível excluir sua conta";
+      setMensagem(mensagemErro);
+      setErroImpacto(mensagemErro);
     } finally {
       setExcluindo(false);
     }
+  }
+
+  async function abrirExclusaoDaConta() {
+    setConfirmandoExclusao(true);
+    setImpactoExclusao(null);
+    setErroImpacto("");
+    setCarregandoImpacto(true);
+
+    try {
+      const resposta = await api.get("/usuarios/me/exclusao-preview");
+      setImpactoExclusao(resposta.data);
+    } catch (erroRequisicao) {
+      setErroImpacto(
+        erroRequisicao.response?.data?.mensagem ||
+          "Não foi possível verificar os registros relacionados.",
+      );
+    } finally {
+      setCarregandoImpacto(false);
+    }
+  }
+
+  function fecharExclusaoDaConta() {
+    if (excluindo) return;
+    setConfirmandoExclusao(false);
+    setImpactoExclusao(null);
+    setCarregandoImpacto(false);
+    setErroImpacto("");
   }
 
   return (
@@ -177,7 +209,7 @@ function MinhaConta() {
           <button
             className="button-danger"
             type="button"
-            onClick={() => setConfirmandoExclusao(true)}
+            onClick={abrirExclusaoDaConta}
           >
             Excluir minha conta
           </button>
@@ -191,10 +223,16 @@ function MinhaConta() {
       <ConfirmacaoExclusao
         aberto={confirmandoExclusao}
         titulo="Excluir minha conta?"
-        mensagem="Todos os seus dados serão removidos permanentemente. Esta ação não poderá ser desfeita."
+        mensagem="Esta ação é permanente. Revise todos os dados vinculados que serão apagados antes de confirmar."
         confirmacaoExigida="EXCLUIR"
+        impacto={impactoExclusao}
+        impactoObrigatorio
+        carregandoImpacto={carregandoImpacto}
+        erroImpacto={erroImpacto}
         processando={excluindo}
-        onCancelar={() => setConfirmandoExclusao(false)}
+        rotuloConfirmar="Excluir minha conta e registros"
+        rotuloProcessando="Excluindo conta e registros..."
+        onCancelar={fecharExclusaoDaConta}
         onConfirmar={excluirMinhaConta}
       />
     </div>

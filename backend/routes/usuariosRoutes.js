@@ -4,6 +4,7 @@ const { somenteAdmin, exigirAutenticacaoRecente } = require("../middleware/auten
 const { responderCriacaoUsuario } = require("../controllers/usuariosController")
 const { excluirUsuarioComDados } = require("../services/usuarios");
 const { limparCookieRefresh } = require("../services/sessoes");
+const { obterImpactoExclusaoUsuario } = require("../services/impactoExclusao");
 const { normalizarPaginacao, responderPagina, validarCamposPermitidos } = require("../utils/validacoes");
 const { validarParametroId } = require("../middleware/validacao");
 const { registrarErro, registrarEvento } = require("../utils/log");
@@ -87,6 +88,22 @@ router.put("/usuarios/me", async (req, res) => {
   }
 });
 
+router.get("/usuarios/me/exclusao-preview", async (req, res) => {
+  try {
+    const impacto = await obterImpactoExclusaoUsuario(pool, req.usuario.id);
+    res.json(impacto);
+  } catch (erro) {
+    if (erro.status) {
+      return res.status(erro.status).json({ mensagem: erro.message });
+    }
+
+    registrarErro("usuario_exclusao_preview_erro", erro, req);
+    res.status(500).json({
+      mensagem: "Não foi possível verificar os registros relacionados",
+    });
+  }
+});
+
 router.delete("/usuarios/me", async (req, res) => {
   const campos = validarCamposPermitidos(req.body || {}, ["confirmacao"]);
   if (campos.erro) return res.status(400).json({ mensagem: campos.erro });
@@ -99,6 +116,10 @@ router.delete("/usuarios/me", async (req, res) => {
   try {
     await excluirUsuarioComDados(req.usuario.id);
     limparCookieRefresh(res);
+    registrarEvento("aviso", "conta_excluida_pelo_usuario", {
+      request_id: req.id,
+      usuario_id: req.usuario.id,
+    });
 
     res.json({ mensagem: "Sua conta foi excluída com sucesso" });
   } catch (erro) {
@@ -132,6 +153,33 @@ router.get("/usuarios/:id", somenteAdmin, async (req, res) => {
     res.status(500).json({ mensagem: "Erro ao buscar usuário" });
   }
 });
+
+router.get(
+  "/usuarios/:id/exclusao-preview",
+  somenteAdmin,
+  exigirAutenticacaoRecente(),
+  async (req, res) => {
+    if (Number(req.params.id) === Number(req.usuario.id)) {
+      return res.status(403).json({
+        mensagem: "O administrador não pode excluir a própria conta",
+      });
+    }
+
+    try {
+      const impacto = await obterImpactoExclusaoUsuario(pool, req.params.id);
+      res.json(impacto);
+    } catch (erro) {
+      if (erro.status) {
+        return res.status(erro.status).json({ mensagem: erro.message });
+      }
+
+      registrarErro("usuario_exclusao_preview_erro", erro, req);
+      res.status(500).json({
+        mensagem: "Não foi possível verificar os registros relacionados",
+      });
+    }
+  },
+);
 
 router.put("/usuarios/:id", somenteAdmin, async (req, res) => {
   try {

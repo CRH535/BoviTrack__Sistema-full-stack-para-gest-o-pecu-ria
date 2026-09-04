@@ -4,6 +4,7 @@ acesso
 add
 adicionar
 admin
+administradores
 agents
 agricultural
 agriculture
@@ -19,6 +20,7 @@ andamento
 animais
 animal
 animals
+answer
 antecipada
 api
 aplicar
@@ -137,6 +139,7 @@ csrf
 cultivated
 currency
 dados
+das
 dashboard
 data
 database
@@ -383,6 +386,7 @@ navigation
 ncia
 necessario
 neo
+nodes
 nome
 normalizado
 normalizar
@@ -407,6 +411,7 @@ origem
 origens
 out
 outbound
+outcome
 outputs
 outras
 overlay
@@ -463,6 +468,7 @@ properties
 property
 propriedade
 propriedades
+propriet
 protected
 proteger
 provider
@@ -555,8 +561,10 @@ sincronizar
 sistema
 situacao
 skill
+som
 somar
 somente
+source
 spawn
 spec
 sprout
