@@ -24,6 +24,7 @@
     "test:bezerros:integration": "node tests/calf-management-integration.js",
     "test:security": "node tests/security-hardening.js",
     "test:receitas": "node tests/receitas.js",
+    "test:clima": "node tests/clima.js",
     "test:deletion-impact": "node tests/deletion-impact.js",
     "start": "node server.js"
   },

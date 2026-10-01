@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import api from "../services/api";
 import { formatarDataSemFuso } from "../utils/datas";
 import IconeImagem from "../components/IconeImagem";
+import ClimaDashboard from "../components/ClimaDashboard";
 import { useBlackHoleTransition } from "../transitions/useBlackHoleTransition";
 
 const resumoInicial = {
@@ -216,6 +217,7 @@ function Dashboard() {
           </div>
         </Link>
       </section>
+      <ClimaDashboard />
     </div>
   );
 }
