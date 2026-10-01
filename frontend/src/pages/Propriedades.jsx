@@ -1,14 +1,21 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import api from "../services/api";
 import IconeImagem from "../components/IconeImagem";
 import ConfirmacaoExclusao from "../components/ConfirmacaoExclusao";
 import VoltarInicio from "../components/VoltarInicio";
+import ClimaPropriedade from "../components/ClimaPropriedade";
 import { useAuth } from "../auth/useAuth";
 
 function Propriedades() {
+  const [searchParams] = useSearchParams();
+  const climaSolicitado = Number(searchParams.get("clima"));
   const { usuario } = useAuth();
   const ehAdmin = usuario?.perfil === "admin";
   const [propriedades, setPropriedades] = useState([]);
+  const [climaAbertoId, setClimaAbertoId] = useState(
+    Number.isSafeInteger(climaSolicitado) && climaSolicitado > 0 ? climaSolicitado : null,
+  );
 
   const [nome, setNome] = useState("");
   const [cidade, setCidade] = useState("");
@@ -240,7 +247,7 @@ function Propriedades() {
 
       <div className="record-grid">
       {propriedades.map((propriedade) => (
-        <article className="record-card" key={propriedade.id}>
+        <article className={`record-card${climaAbertoId === propriedade.id ? " property-card-expanded" : ""}`} key={propriedade.id}>
           <span className="record-icon" aria-hidden="true">
             <IconeImagem nome="propriedades" className="record-icon-image" />
           </span>
@@ -270,6 +277,9 @@ function Propriedades() {
           )}
 
           <div className="record-actions">
+          <button className="button-secondary" type="button" aria-expanded={climaAbertoId === propriedade.id} onClick={() => setClimaAbertoId((atual) => atual === propriedade.id ? null : propriedade.id)}>
+            {climaAbertoId === propriedade.id ? "Ocultar clima" : "Ver clima"}
+          </button>
           <button className="button-secondary" type="button" onClick={() => editarPropriedade(propriedade)}>
             Editar
           </button>
@@ -282,6 +292,12 @@ function Propriedades() {
             Excluir
           </button>
           </div>
+          {climaAbertoId === propriedade.id && (
+            <section className="property-weather" aria-label={`Clima de ${propriedade.nome}`}>
+              <h4>Clima atual</h4>
+              <ClimaPropriedade key={`${propriedade.id}:${propriedade.nome}:${propriedade.cidade}:${propriedade.estado}`} propriedade={propriedade} />
+            </section>
+          )}
         </article>
       ))}
       </div>

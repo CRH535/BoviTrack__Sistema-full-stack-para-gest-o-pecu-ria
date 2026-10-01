@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import api from "../services/api";
+import PasswordInput from "../components/PasswordInput";
 
 function Cadastro() {
   const [nome, setNome] = useState("");
@@ -113,9 +114,8 @@ function Cadastro() {
           />
 
           <label htmlFor="cadastro-senha">Senha</label>
-          <input
+          <PasswordInput
             id="cadastro-senha"
-            type="password"
             value={senha}
             onChange={(evento) => setSenha(evento.target.value)}
             autoComplete="new-password"
@@ -124,9 +124,9 @@ function Cadastro() {
           />
 
           <label htmlFor="cadastro-confirmar-senha">Confirmar senha</label>
-          <input
+          <PasswordInput
             id="cadastro-confirmar-senha"
-            type="password"
+            rotulo="confirmar senha"
             value={confirmarSenha}
             onChange={(evento) => setConfirmarSenha(evento.target.value)}
             autoComplete="new-password"

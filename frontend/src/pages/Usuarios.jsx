@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ConfirmacaoExclusao from "../components/ConfirmacaoExclusao";
 import VoltarInicio from "../components/VoltarInicio";
 import api from "../services/api";
+import PasswordInput from "../components/PasswordInput";
 
 const formularioInicial = {
   nome: "",
@@ -237,10 +238,9 @@ function Usuarios() {
           {modo === "novo" && (
             <>
               <label htmlFor="usuario-senha">Senha</label>
-              <input
+              <PasswordInput
                 id="usuario-senha"
                 name="senha"
-                type="password"
                 value={formulario.senha}
                 onChange={atualizarCampo}
                 minLength="8"
@@ -249,10 +249,10 @@ function Usuarios() {
               />
 
               <label htmlFor="usuario-confirmar-senha">Confirmar senha</label>
-              <input
+              <PasswordInput
                 id="usuario-confirmar-senha"
                 name="confirmarSenha"
-                type="password"
+                rotulo="confirmar senha"
                 value={formulario.confirmarSenha}
                 onChange={atualizarCampo}
                 minLength="8"

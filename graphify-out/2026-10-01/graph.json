@@ -62,6 +62,54 @@
       "source_location": "L15"
     },
     {
+      "id": "frontend_src_app_app",
+      "label": "App()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "app()",
+      "source_file": "frontend/src/App.jsx",
+      "source_location": "L169"
+    },
+    {
+      "id": "frontend_src_components_iconeconfiguracoes_iconeconfiguracoes",
+      "label": "IconeConfiguracoes()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "iconeconfiguracoes()",
+      "source_file": "frontend/src/components/IconeConfiguracoes.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_transitions_blackholetransition_blackholetransition",
+      "label": "BlackHoleTransition()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "blackholetransition()",
+      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "frontend_src_components_transitions_blackholetransition_blackholetransition_concluirpelomarcador",
+      "label": "concluirPeloMarcador()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "concluirpelomarcador()",
+      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
+      "source_location": "L30"
+    },
+    {
       "id": "frontend_src_components_tutorial_tutorialdialog_obterelementosfocaveis",
       "label": "obterElementosFocaveis()",
       "_callable": true,
@@ -290,6 +338,42 @@
       "source_location": "L4"
     },
     {
+      "id": "frontend_src_transitions_blackholetransitionprovider_blackholetransitionprovider",
+      "label": "BlackHoleTransitionProvider()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "blackholetransitionprovider()",
+      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
+      "source_location": "L22"
+    },
+    {
+      "id": "frontend_src_transitions_blackholetransitionprovider_escopododestino",
+      "label": "escopoDoDestino()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "escopododestino()",
+      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
+      "source_location": "L12"
+    },
+    {
+      "id": "frontend_src_transitions_blackholetransitionprovider_normalizarcaminho",
+      "label": "normalizarCaminho()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "normalizarcaminho()",
+      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
+      "source_location": "L8"
+    },
+    {
       "id": "frontend_src_tutorial_tutorialprovider_clampstep",
       "label": "clampStep()",
       "_callable": true,
@@ -386,42 +470,6 @@
       "source_location": "L4"
     },
     {
-      "id": "frontend_src_components_iconeconfiguracoes_iconeconfiguracoes",
-      "label": "IconeConfiguracoes()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "App.jsx",
-      "file_type": "code",
-      "norm_label": "iconeconfiguracoes()",
-      "source_file": "frontend/src/components/IconeConfiguracoes.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_passwordinput_passwordinput",
-      "label": "PasswordInput()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "App.jsx",
-      "file_type": "code",
-      "norm_label": "passwordinput()",
-      "source_file": "frontend/src/components/PasswordInput.jsx",
-      "source_location": "L3"
-    },
-    {
-      "id": "frontend_src_components_passwordinput_passwordinput_alternarvisibilidade",
-      "label": "alternarVisibilidade()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "App.jsx",
-      "file_type": "code",
-      "norm_label": "alternarvisibilidade()",
-      "source_file": "frontend/src/components/PasswordInput.jsx",
-      "source_location": "L8"
-    },
-    {
       "id": "frontend_src_pages_cadastro_cadastro",
       "label": "Cadastro()",
       "_callable": true,
@@ -431,7 +479,7 @@
       "file_type": "code",
       "norm_label": "cadastro()",
       "source_file": "frontend/src/pages/Cadastro.jsx",
-      "source_location": "L7"
+      "source_location": "L6"
     },
     {
       "id": "frontend_src_pages_cadastro_cadastro_criarconta",
@@ -443,7 +491,7 @@
       "file_type": "code",
       "norm_label": "criarconta()",
       "source_file": "frontend/src/pages/Cadastro.jsx",
-      "source_location": "L21"
+      "source_location": "L20"
     },
     {
       "id": "frontend_src_pages_dashboard_dashboard",
@@ -479,7 +527,7 @@
       "file_type": "code",
       "norm_label": "login()",
       "source_file": "frontend/src/pages/Login.jsx",
-      "source_location": "L7"
+      "source_location": "L6"
     },
     {
       "id": "frontend_src_pages_login_login_entrar",
@@ -491,7 +539,79 @@
       "file_type": "code",
       "norm_label": "entrar()",
       "source_file": "frontend/src/pages/Login.jsx",
-      "source_location": "L31"
+      "source_location": "L30"
+    },
+    {
+      "id": "frontend_src_pages_minhaconta_minhaconta",
+      "label": "MinhaConta()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "App.jsx",
+      "file_type": "code",
+      "norm_label": "minhaconta()",
+      "source_file": "frontend/src/pages/MinhaConta.jsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "frontend_src_pages_minhaconta_minhaconta_abrirexclusaodaconta",
+      "label": "abrirExclusaoDaConta()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "App.jsx",
+      "file_type": "code",
+      "norm_label": "abrirexclusaodaconta()",
+      "source_file": "frontend/src/pages/MinhaConta.jsx",
+      "source_location": "L81"
+    },
+    {
+      "id": "frontend_src_pages_minhaconta_minhaconta_cancelaredicao",
+      "label": "cancelarEdicao()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "App.jsx",
+      "file_type": "code",
+      "norm_label": "cancelaredicao()",
+      "source_file": "frontend/src/pages/MinhaConta.jsx",
+      "source_location": "L23"
+    },
+    {
+      "id": "frontend_src_pages_minhaconta_minhaconta_excluirminhaconta",
+      "label": "excluirMinhaConta()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "App.jsx",
+      "file_type": "code",
+      "norm_label": "excluirminhaconta()",
+      "source_file": "frontend/src/pages/MinhaConta.jsx",
+      "source_location": "L52"
+    },
+    {
+      "id": "frontend_src_pages_minhaconta_minhaconta_fecharexclusaodaconta",
+      "label": "fecharExclusaoDaConta()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "App.jsx",
+      "file_type": "code",
+      "norm_label": "fecharexclusaodaconta()",
+      "source_file": "frontend/src/pages/MinhaConta.jsx",
+      "source_location": "L100"
+    },
+    {
+      "id": "frontend_src_pages_minhaconta_minhaconta_salvarconta",
+      "label": "salvarConta()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "App.jsx",
+      "file_type": "code",
+      "norm_label": "salvarconta()",
+      "source_file": "frontend/src/pages/MinhaConta.jsx",
+      "source_location": "L29"
     },
     {
       "id": "frontend_src_transitions_useblackholetransition_useblackholetransition",
@@ -506,12 +626,60 @@
       "source_location": "L4"
     },
     {
+      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao",
+      "label": "ConfirmacaoExclusao()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api",
+      "file_type": "code",
+      "norm_label": "confirmacaoexclusao()",
+      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao_cancelar",
+      "label": "cancelar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api",
+      "file_type": "code",
+      "norm_label": "cancelar()",
+      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
+      "source_location": "L42"
+    },
+    {
+      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao_confirmar",
+      "label": "confirmar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api",
+      "file_type": "code",
+      "norm_label": "confirmar()",
+      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
+      "source_location": "L49"
+    },
+    {
+      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao_fecharcomescape",
+      "label": "fecharComEscape()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api",
+      "file_type": "code",
+      "norm_label": "fecharcomescape()",
+      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
+      "source_location": "L23"
+    },
+    {
       "id": "frontend_src_components_iconeimagem_iconeimagem",
       "label": "IconeImagem()",
       "_callable": true,
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "iconeimagem()",
       "source_file": "frontend/src/components/IconeImagem.jsx",
@@ -523,23 +691,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "voltarinicio()",
       "source_file": "frontend/src/components/VoltarInicio.jsx",
       "source_location": "L3"
-    },
-    {
-      "id": "frontend_src_app_app",
-      "label": "App()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "AuthContext.jsx",
-      "file_type": "code",
-      "norm_label": "app()",
-      "source_file": "frontend/src/App.jsx",
-      "source_location": "L169"
     },
     {
       "id": "frontend_src_app_layout_sair",
@@ -547,7 +703,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "sair()",
       "source_file": "frontend/src/App.jsx",
@@ -559,7 +715,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "authprovider()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -571,7 +727,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "atualizarusuario()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -583,7 +739,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "avisaroutrasabas()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -595,7 +751,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "finalizarlogoutvisual()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -607,7 +763,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "login()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -619,7 +775,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "logout()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -631,7 +787,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "logouttodosdispositivos()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -643,35 +799,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "restaurarsessao()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
       "source_location": "L38"
-    },
-    {
-      "id": "frontend_src_components_transitions_blackholetransition_blackholetransition",
-      "label": "BlackHoleTransition()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "AuthContext.jsx",
-      "file_type": "code",
-      "norm_label": "blackholetransition()",
-      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
-      "source_location": "L16"
-    },
-    {
-      "id": "frontend_src_components_transitions_blackholetransition_blackholetransition_concluirpelomarcador",
-      "label": "concluirPeloMarcador()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "AuthContext.jsx",
-      "file_type": "code",
-      "norm_label": "concluirpelomarcador()",
-      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
-      "source_location": "L30"
     },
     {
       "id": "frontend_src_services_api_aguardar",
@@ -679,7 +811,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "aguardar()",
       "source_file": "frontend/src/services/api.js",
@@ -691,7 +823,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "definirlogoutemandamento()",
       "source_file": "frontend/src/services/api.js",
@@ -703,7 +835,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "definirtokenacesso()",
       "source_file": "frontend/src/services/api.js",
@@ -715,7 +847,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "executarrenovacao()",
       "source_file": "frontend/src/services/api.js",
@@ -727,7 +859,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "limpartokenacesso()",
       "source_file": "frontend/src/services/api.js",
@@ -739,7 +871,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "notificarsessaoencerrada()",
       "source_file": "frontend/src/services/api.js",
@@ -751,7 +883,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "obtertokenacesso()",
       "source_file": "frontend/src/services/api.js",
@@ -763,47 +895,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "renovarsessao()",
       "source_file": "frontend/src/services/api.js",
       "source_location": "L57"
-    },
-    {
-      "id": "frontend_src_transitions_blackholetransitionprovider_blackholetransitionprovider",
-      "label": "BlackHoleTransitionProvider()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "AuthContext.jsx",
-      "file_type": "code",
-      "norm_label": "blackholetransitionprovider()",
-      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
-      "source_location": "L22"
-    },
-    {
-      "id": "frontend_src_transitions_blackholetransitionprovider_escopododestino",
-      "label": "escopoDoDestino()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "AuthContext.jsx",
-      "file_type": "code",
-      "norm_label": "escopododestino()",
-      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
-      "source_location": "L12"
-    },
-    {
-      "id": "frontend_src_transitions_blackholetransitionprovider_normalizarcaminho",
-      "label": "normalizarCaminho()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "AuthContext.jsx",
-      "file_type": "code",
-      "norm_label": "normalizarcaminho()",
-      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
-      "source_location": "L8"
     },
     {
       "id": "backend_middleware_autenticacao_autenticar",
@@ -1219,7 +1315,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "normalizardadosanimal()",
       "source_file": "backend/routes/animaisRoutes.js",
@@ -1231,71 +1327,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "normalizardadosdespesa()",
       "source_file": "backend/routes/despesasRoutes.js",
       "source_location": "L10"
-    },
-    {
-      "id": "backend_routes_receitasroutes_normalizarfiltros",
-      "label": "normalizarFiltros()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "validacoes.js",
-      "file_type": "code",
-      "norm_label": "normalizarfiltros()",
-      "source_file": "backend/routes/receitasRoutes.js",
-      "source_location": "L59"
-    },
-    {
-      "id": "backend_routes_receitasroutes_normalizarreceita",
-      "label": "normalizarReceita()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "validacoes.js",
-      "file_type": "code",
-      "norm_label": "normalizarreceita()",
-      "source_file": "backend/routes/receitasRoutes.js",
-      "source_location": "L21"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes_normalizardadosvacinacao",
-      "label": "normalizarDadosVacinacao()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "validacoes.js",
-      "file_type": "code",
-      "norm_label": "normalizardadosvacinacao()",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
-      "source_location": "L10"
-    },
-    {
-      "id": "backend_utils_validacoes_converterid",
-      "label": "converterId()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "validacoes.js",
-      "file_type": "code",
-      "norm_label": "converterid()",
-      "source_file": "backend/utils/validacoes.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_utils_validacoes_normalizardatacalendario",
-      "label": "normalizarDataCalendario()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "validacoes.js",
-      "file_type": "code",
-      "norm_label": "normalizardatacalendario()",
-      "source_file": "backend/utils/validacoes.js",
-      "source_location": "L154"
     },
     {
       "id": "backend_utils_validacoes_normalizardatanascimento",
@@ -1303,23 +1339,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "normalizardatanascimento()",
       "source_file": "backend/utils/validacoes.js",
       "source_location": "L89"
-    },
-    {
-      "id": "backend_utils_validacoes_normalizardesmama",
-      "label": "normalizarDesmama()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "validacoes.js",
-      "file_type": "code",
-      "norm_label": "normalizardesmama()",
-      "source_file": "backend/utils/validacoes.js",
-      "source_location": "L270"
     },
     {
       "id": "backend_utils_validacoes_normalizarformapagamento",
@@ -1327,7 +1351,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "normalizarformapagamento()",
       "source_file": "backend/utils/validacoes.js",
@@ -1339,7 +1363,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "normalizarnumerobrinco()",
       "source_file": "backend/utils/validacoes.js",
@@ -1351,18 +1375,102 @@
       "_callable": true,
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "normalizarnumerofinito()",
       "source_file": "backend/utils/validacoes.js",
       "source_location": "L25"
     },
     {
+      "id": "backend_utils_validacoes_normalizartextoobrigatorio",
+      "label": "normalizarTextoObrigatorio()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 17,
+      "community_name": "animaisRoutes.js",
+      "file_type": "code",
+      "norm_label": "normalizartextoobrigatorio()",
+      "source_file": "backend/utils/validacoes.js",
+      "source_location": "L17"
+    },
+    {
+      "id": "backend_routes_receitasroutes_normalizarfiltros",
+      "label": "normalizarFiltros()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "validacoes.js",
+      "file_type": "code",
+      "norm_label": "normalizarfiltros()",
+      "source_file": "backend/routes/receitasRoutes.js",
+      "source_location": "L59"
+    },
+    {
+      "id": "backend_routes_receitasroutes_normalizarreceita",
+      "label": "normalizarReceita()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "validacoes.js",
+      "file_type": "code",
+      "norm_label": "normalizarreceita()",
+      "source_file": "backend/routes/receitasRoutes.js",
+      "source_location": "L21"
+    },
+    {
+      "id": "backend_routes_vacinacoesroutes_normalizardadosvacinacao",
+      "label": "normalizarDadosVacinacao()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "validacoes.js",
+      "file_type": "code",
+      "norm_label": "normalizardadosvacinacao()",
+      "source_file": "backend/routes/vacinacoesRoutes.js",
+      "source_location": "L10"
+    },
+    {
+      "id": "backend_utils_validacoes_converterid",
+      "label": "converterId()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "validacoes.js",
+      "file_type": "code",
+      "norm_label": "converterid()",
+      "source_file": "backend/utils/validacoes.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_utils_validacoes_normalizardatacalendario",
+      "label": "normalizarDataCalendario()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "validacoes.js",
+      "file_type": "code",
+      "norm_label": "normalizardatacalendario()",
+      "source_file": "backend/utils/validacoes.js",
+      "source_location": "L154"
+    },
+    {
+      "id": "backend_utils_validacoes_normalizardesmama",
+      "label": "normalizarDesmama()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "validacoes.js",
+      "file_type": "code",
+      "norm_label": "normalizardesmama()",
+      "source_file": "backend/utils/validacoes.js",
+      "source_location": "L270"
+    },
+    {
       "id": "backend_utils_validacoes_normalizarpesagem",
       "label": "normalizarPesagem()",
       "_callable": true,
       "_origin": "ast",
-      "community": 17,
+      "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "normalizarpesagem()",
@@ -1374,7 +1482,7 @@
       "label": "normalizarProducaoLeiteira()",
       "_callable": true,
       "_origin": "ast",
-      "community": 17,
+      "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "normalizarproducaoleiteira()",
@@ -1382,23 +1490,11 @@
       "source_location": "L178"
     },
     {
-      "id": "backend_utils_validacoes_normalizartextoobrigatorio",
-      "label": "normalizarTextoObrigatorio()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 17,
-      "community_name": "validacoes.js",
-      "file_type": "code",
-      "norm_label": "normalizartextoobrigatorio()",
-      "source_file": "backend/utils/validacoes.js",
-      "source_location": "L17"
-    },
-    {
       "id": "backend_utils_validacoes_normalizartextoopcional",
       "label": "normalizarTextoOpcional()",
       "_callable": true,
       "_origin": "ast",
-      "community": 17,
+      "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "normalizartextoopcional()",
@@ -1410,7 +1506,7 @@
       "label": "validarCamposPermitidos()",
       "_callable": true,
       "_origin": "ast",
-      "community": 17,
+      "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "validarcampospermitidos()",
@@ -1910,60 +2006,12 @@
       "source_location": "L172"
     },
     {
-      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao",
-      "label": "ConfirmacaoExclusao()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Lucros.jsx",
-      "file_type": "code",
-      "norm_label": "confirmacaoexclusao()",
-      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
-      "source_location": "L3"
-    },
-    {
-      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao_cancelar",
-      "label": "cancelar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Lucros.jsx",
-      "file_type": "code",
-      "norm_label": "cancelar()",
-      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
-      "source_location": "L42"
-    },
-    {
-      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao_confirmar",
-      "label": "confirmar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Lucros.jsx",
-      "file_type": "code",
-      "norm_label": "confirmar()",
-      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
-      "source_location": "L49"
-    },
-    {
-      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao_fecharcomescape",
-      "label": "fecharComEscape()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Lucros.jsx",
-      "file_type": "code",
-      "norm_label": "fecharcomescape()",
-      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
-      "source_location": "L23"
-    },
-    {
       "id": "frontend_src_components_confirmacaoexclusao_descreverregistro",
       "label": "descreverRegistro()",
       "_callable": true,
       "_origin": "ast",
       "community": 21,
-      "community_name": "Lucros.jsx",
+      "community_name": "ConfirmacaoExclusao.jsx",
       "file_type": "code",
       "norm_label": "descreverregistro()",
       "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
@@ -1975,7 +2023,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 21,
-      "community_name": "Lucros.jsx",
+      "community_name": "ConfirmacaoExclusao.jsx",
       "file_type": "code",
       "norm_label": "detalhesresumo()",
       "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
@@ -1987,7 +2035,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 21,
-      "community_name": "Lucros.jsx",
+      "community_name": "ConfirmacaoExclusao.jsx",
       "file_type": "code",
       "norm_label": "formatardata()",
       "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
@@ -1999,7 +2047,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 21,
-      "community_name": "Lucros.jsx",
+      "community_name": "ConfirmacaoExclusao.jsx",
       "file_type": "code",
       "norm_label": "resumoimpactoexclusao()",
       "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
@@ -2843,7 +2891,7 @@
       "file_type": "code",
       "norm_label": "usuarios()",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L14"
+      "source_location": "L13"
     },
     {
       "id": "frontend_src_pages_usuarios_usuarios_abriredicao",
@@ -2855,7 +2903,7 @@
       "file_type": "code",
       "norm_label": "abriredicao()",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L52"
+      "source_location": "L51"
     },
     {
       "id": "frontend_src_pages_usuarios_usuarios_abrirexclusaousuario",
@@ -2867,7 +2915,7 @@
       "file_type": "code",
       "norm_label": "abrirexclusaousuario()",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L162"
+      "source_location": "L161"
     },
     {
       "id": "frontend_src_pages_usuarios_usuarios_abrirnovousuario",
@@ -2879,7 +2927,7 @@
       "file_type": "code",
       "norm_label": "abrirnovousuario()",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L45"
+      "source_location": "L44"
     },
     {
       "id": "frontend_src_pages_usuarios_usuarios_alterarsituacao",
@@ -2891,7 +2939,7 @@
       "file_type": "code",
       "norm_label": "alterarsituacao()",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L119"
+      "source_location": "L118"
     },
     {
       "id": "frontend_src_pages_usuarios_usuarios_atualizarcampo",
@@ -2903,7 +2951,7 @@
       "file_type": "code",
       "norm_label": "atualizarcampo()",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L40"
+      "source_location": "L39"
     },
     {
       "id": "frontend_src_pages_usuarios_usuarios_carregarusuarios",
@@ -2915,7 +2963,7 @@
       "file_type": "code",
       "norm_label": "carregarusuarios()",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L31"
+      "source_location": "L30"
     },
     {
       "id": "frontend_src_pages_usuarios_usuarios_excluirusuario",
@@ -2927,7 +2975,7 @@
       "file_type": "code",
       "norm_label": "excluirusuario()",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L140"
+      "source_location": "L139"
     },
     {
       "id": "frontend_src_pages_usuarios_usuarios_fecharexclusaousuario",
@@ -2939,7 +2987,7 @@
       "file_type": "code",
       "norm_label": "fecharexclusaousuario()",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L183"
+      "source_location": "L182"
     },
     {
       "id": "frontend_src_pages_usuarios_usuarios_fecharformulario",
@@ -2951,7 +2999,7 @@
       "file_type": "code",
       "norm_label": "fecharformulario()",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L64"
+      "source_location": "L63"
     },
     {
       "id": "frontend_src_pages_usuarios_usuarios_salvarusuario",
@@ -2963,79 +3011,43 @@
       "file_type": "code",
       "norm_label": "salvarusuario()",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L70"
+      "source_location": "L69"
     },
     {
-      "id": "frontend_src_pages_minhaconta_minhaconta",
-      "label": "MinhaConta()",
+      "id": "backend_routes_pesagensroutes_serializarpesagens",
+      "label": "serializarPesagens()",
       "_callable": true,
       "_origin": "ast",
       "community": 34,
-      "community_name": "MinhaConta",
+      "community_name": "pesagensRoutes.js",
       "file_type": "code",
-      "norm_label": "minhaconta()",
-      "source_file": "frontend/src/pages/MinhaConta.jsx",
-      "source_location": "L8"
-    },
-    {
-      "id": "frontend_src_pages_minhaconta_minhaconta_abrirexclusaodaconta",
-      "label": "abrirExclusaoDaConta()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 34,
-      "community_name": "MinhaConta",
-      "file_type": "code",
-      "norm_label": "abrirexclusaodaconta()",
-      "source_file": "frontend/src/pages/MinhaConta.jsx",
-      "source_location": "L81"
-    },
-    {
-      "id": "frontend_src_pages_minhaconta_minhaconta_cancelaredicao",
-      "label": "cancelarEdicao()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 34,
-      "community_name": "MinhaConta",
-      "file_type": "code",
-      "norm_label": "cancelaredicao()",
-      "source_file": "frontend/src/pages/MinhaConta.jsx",
+      "norm_label": "serializarpesagens()",
+      "source_file": "backend/routes/pesagensRoutes.js",
       "source_location": "L23"
     },
     {
-      "id": "frontend_src_pages_minhaconta_minhaconta_excluirminhaconta",
-      "label": "excluirMinhaConta()",
+      "id": "backend_services_pesoatual_bloquearanimalparapeso",
+      "label": "bloquearAnimalParaPeso()",
       "_callable": true,
       "_origin": "ast",
       "community": 34,
-      "community_name": "MinhaConta",
+      "community_name": "pesagensRoutes.js",
       "file_type": "code",
-      "norm_label": "excluirminhaconta()",
-      "source_file": "frontend/src/pages/MinhaConta.jsx",
-      "source_location": "L52"
+      "norm_label": "bloquearanimalparapeso()",
+      "source_file": "backend/services/pesoAtual.js",
+      "source_location": "L1"
     },
     {
-      "id": "frontend_src_pages_minhaconta_minhaconta_fecharexclusaodaconta",
-      "label": "fecharExclusaoDaConta()",
+      "id": "backend_services_pesoatual_sincronizarpesoatual",
+      "label": "sincronizarPesoAtual()",
       "_callable": true,
       "_origin": "ast",
       "community": 34,
-      "community_name": "MinhaConta",
+      "community_name": "pesagensRoutes.js",
       "file_type": "code",
-      "norm_label": "fecharexclusaodaconta()",
-      "source_file": "frontend/src/pages/MinhaConta.jsx",
-      "source_location": "L100"
-    },
-    {
-      "id": "frontend_src_pages_minhaconta_minhaconta_salvarconta",
-      "label": "salvarConta()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 34,
-      "community_name": "MinhaConta",
-      "file_type": "code",
-      "norm_label": "salvarconta()",
-      "source_file": "frontend/src/pages/MinhaConta.jsx",
-      "source_location": "L29"
+      "norm_label": "sincronizarpesoatual()",
+      "source_file": "backend/services/pesoAtual.js",
+      "source_location": "L9"
     },
     {
       "id": "backend_middleware_validacao_validarparametroid",
@@ -3338,18 +3350,6 @@
       "source_location": "L40"
     },
     {
-      "id": "backend_routes_pesagensroutes_serializarpesagens",
-      "label": "serializarPesagens()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "desmamasRoutes.js",
-      "file_type": "code",
-      "norm_label": "serializarpesagens()",
-      "source_file": "backend/routes/pesagensRoutes.js",
-      "source_location": "L23"
-    },
-    {
       "id": "backend_routes_pesagensroutes_validarlote",
       "label": "validarLote()",
       "_callable": true,
@@ -3396,30 +3396,6 @@
       "norm_label": "buscarmaecompativel()",
       "source_file": "backend/services/acessoAnimais.js",
       "source_location": "L32"
-    },
-    {
-      "id": "backend_services_pesoatual_bloquearanimalparapeso",
-      "label": "bloquearAnimalParaPeso()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "desmamasRoutes.js",
-      "file_type": "code",
-      "norm_label": "bloquearanimalparapeso()",
-      "source_file": "backend/services/pesoAtual.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_services_pesoatual_sincronizarpesoatual",
-      "label": "sincronizarPesoAtual()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "desmamasRoutes.js",
-      "file_type": "code",
-      "norm_label": "sincronizarpesoatual()",
-      "source_file": "backend/services/pesoAtual.js",
-      "source_location": "L9"
     },
     {
       "id": "frontend_src_pages_propriedades_propriedades",
@@ -4375,7 +4351,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 82,
-      "community_name": "ClimaPropriedade.jsx",
+      "community_name": "Dashboard.jsx",
       "file_type": "code",
       "norm_label": "climadashboard()",
       "source_file": "frontend/src/components/ClimaDashboard.jsx",
@@ -4387,7 +4363,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 82,
-      "community_name": "ClimaPropriedade.jsx",
+      "community_name": "Dashboard.jsx",
       "file_type": "code",
       "norm_label": "climapropriedade()",
       "source_file": "frontend/src/components/ClimaPropriedade.jsx",
@@ -4399,7 +4375,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 82,
-      "community_name": "ClimaPropriedade.jsx",
+      "community_name": "Dashboard.jsx",
       "file_type": "code",
       "norm_label": "descreverclima()",
       "source_file": "frontend/src/utils/clima.js",
@@ -4411,7 +4387,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 82,
-      "community_name": "ClimaPropriedade.jsx",
+      "community_name": "Dashboard.jsx",
       "file_type": "code",
       "norm_label": "formatarmedida()",
       "source_file": "frontend/src/utils/clima.js",
@@ -4562,6 +4538,39 @@
       "source_location": "L30"
     },
     {
+      "id": "frontend_src_components_iconeconfiguracoes",
+      "label": "IconeConfiguracoes.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "iconeconfiguracoes.jsx",
+      "source_file": "frontend/src/components/IconeConfiguracoes.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_transitions_blackholetransition",
+      "label": "BlackHoleTransition.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "blackholetransition.jsx",
+      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_transitions_blackholetransition_particulas",
+      "label": "PARTICULAS",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "particulas",
+      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
+      "source_location": "L1"
+    },
+    {
       "id": "frontend_src_components_tutorial_tutorialdialog",
       "label": "TutorialDialog.jsx",
       "_origin": "ast",
@@ -4582,6 +4591,39 @@
       "norm_label": "tutorialoverlay.jsx",
       "source_file": "frontend/src/components/tutorial/TutorialOverlay.jsx",
       "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_main",
+      "label": "main.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "main.jsx",
+      "source_file": "frontend/src/main.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_configuracoes",
+      "label": "Configuracoes.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "configuracoes.jsx",
+      "source_file": "frontend/src/pages/Configuracoes.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_configuracoes_temas",
+      "label": "temas",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "temas",
+      "source_file": "frontend/src/pages/Configuracoes.jsx",
+      "source_location": "L6"
     },
     {
       "id": "frontend_src_preferences_preferences_context",
@@ -4669,6 +4711,39 @@
       "file_type": "code",
       "norm_label": "usepreferences.js",
       "source_file": "frontend/src/preferences/usePreferences.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_transitions_black_hole_transition_context",
+      "label": "black-hole-transition-context.js",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "black-hole-transition-context.js",
+      "source_file": "frontend/src/transitions/black-hole-transition-context.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_transitions_black_hole_transition_context_blackholetransitioncontext",
+      "label": "BlackHoleTransitionContext",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "blackholetransitioncontext",
+      "source_file": "frontend/src/transitions/black-hole-transition-context.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "frontend_src_transitions_blackholetransitionprovider",
+      "label": "BlackHoleTransitionProvider.jsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "PreferencesProvider.jsx",
+      "file_type": "code",
+      "norm_label": "blackholetransitionprovider.jsx",
+      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
       "source_location": "L1"
     },
     {
@@ -5035,28 +5110,6 @@
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_components_iconeconfiguracoes",
-      "label": "IconeConfiguracoes.jsx",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "App.jsx",
-      "file_type": "code",
-      "norm_label": "iconeconfiguracoes.jsx",
-      "source_file": "frontend/src/components/IconeConfiguracoes.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_passwordinput",
-      "label": "PasswordInput.jsx",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "App.jsx",
-      "file_type": "code",
-      "norm_label": "passwordinput.jsx",
-      "source_file": "frontend/src/components/PasswordInput.jsx",
-      "source_location": "L1"
-    },
-    {
       "id": "frontend_src_pages_cadastro",
       "label": "Cadastro.jsx",
       "_origin": "ast",
@@ -5068,50 +5121,6 @@
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_pages_configuracoes",
-      "label": "Configuracoes.jsx",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "App.jsx",
-      "file_type": "code",
-      "norm_label": "configuracoes.jsx",
-      "source_file": "frontend/src/pages/Configuracoes.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_pages_configuracoes_temas",
-      "label": "temas",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "App.jsx",
-      "file_type": "code",
-      "norm_label": "temas",
-      "source_file": "frontend/src/pages/Configuracoes.jsx",
-      "source_location": "L6"
-    },
-    {
-      "id": "frontend_src_pages_dashboard",
-      "label": "Dashboard.jsx",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "App.jsx",
-      "file_type": "code",
-      "norm_label": "dashboard.jsx",
-      "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_pages_dashboard_resumoinicial",
-      "label": "resumoInicial",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "App.jsx",
-      "file_type": "code",
-      "norm_label": "resumoinicial",
-      "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L9"
-    },
-    {
       "id": "frontend_src_pages_login",
       "label": "Login.jsx",
       "_origin": "ast",
@@ -5120,6 +5129,17 @@
       "file_type": "code",
       "norm_label": "login.jsx",
       "source_file": "frontend/src/pages/Login.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_minhaconta",
+      "label": "MinhaConta.jsx",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "App.jsx",
+      "file_type": "code",
+      "norm_label": "minhaconta.jsx",
+      "source_file": "frontend/src/pages/MinhaConta.jsx",
       "source_location": "L1"
     },
     {
@@ -5138,7 +5158,7 @@
       "label": "IconeImagem.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "iconeimagem.jsx",
       "source_file": "frontend/src/components/IconeImagem.jsx",
@@ -5149,7 +5169,7 @@
       "label": "icones",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "icones",
       "source_file": "frontend/src/components/IconeImagem.jsx",
@@ -5160,7 +5180,7 @@
       "label": "VoltarInicio.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "voltarinicio.jsx",
       "source_file": "frontend/src/components/VoltarInicio.jsx",
@@ -5171,7 +5191,7 @@
       "label": "Animais.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "animais.jsx",
       "source_file": "frontend/src/pages/Animais.jsx",
@@ -5182,7 +5202,7 @@
       "label": "Despesas.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "despesas.jsx",
       "source_file": "frontend/src/pages/Despesas.jsx",
@@ -5193,29 +5213,73 @@
       "label": "Lotes.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "lotes.jsx",
       "source_file": "frontend/src/pages/Lotes.jsx",
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_pages_minhaconta",
-      "label": "MinhaConta.jsx",
+      "id": "frontend_src_pages_lucros",
+      "label": "Lucros.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
-      "norm_label": "minhaconta.jsx",
-      "source_file": "frontend/src/pages/MinhaConta.jsx",
+      "norm_label": "lucros.jsx",
+      "source_file": "frontend/src/pages/Lucros.jsx",
       "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_lucros_categorias_sugeridas",
+      "label": "CATEGORIAS_SUGERIDAS",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api",
+      "file_type": "code",
+      "norm_label": "categorias_sugeridas",
+      "source_file": "frontend/src/pages/Lucros.jsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "frontend_src_pages_lucros_filtros_iniciais",
+      "label": "FILTROS_INICIAIS",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api",
+      "file_type": "code",
+      "norm_label": "filtros_iniciais",
+      "source_file": "frontend/src/pages/Lucros.jsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "frontend_src_pages_lucros_formas_recebimento",
+      "label": "FORMAS_RECEBIMENTO",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api",
+      "file_type": "code",
+      "norm_label": "formas_recebimento",
+      "source_file": "frontend/src/pages/Lucros.jsx",
+      "source_location": "L18"
+    },
+    {
+      "id": "frontend_src_pages_lucros_resumo_inicial",
+      "label": "RESUMO_INICIAL",
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api",
+      "file_type": "code",
+      "norm_label": "resumo_inicial",
+      "source_file": "frontend/src/pages/Lucros.jsx",
+      "source_location": "L19"
     },
     {
       "id": "frontend_src_pages_propriedades",
       "label": "Propriedades.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "propriedades.jsx",
       "source_file": "frontend/src/pages/Propriedades.jsx",
@@ -5226,7 +5290,7 @@
       "label": "Usuarios.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "usuarios.jsx",
       "source_file": "frontend/src/pages/Usuarios.jsx",
@@ -5237,18 +5301,18 @@
       "label": "formularioInicial",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "formularioinicial",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L7"
+      "source_location": "L6"
     },
     {
       "id": "frontend_src_pages_vacinacoes",
       "label": "Vacinacoes.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "vacinacoes.jsx",
       "source_file": "frontend/src/pages/Vacinacoes.jsx",
@@ -5259,21 +5323,10 @@
       "label": "Vacinas.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "vacinas.jsx",
       "source_file": "frontend/src/pages/Vacinas.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_services_api",
-      "label": "api.js",
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "api.js",
-      "file_type": "code",
-      "norm_label": "api.js",
-      "source_file": "frontend/src/services/api.js",
       "source_location": "L1"
     },
     {
@@ -5281,51 +5334,18 @@
       "label": "api",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "api",
       "source_file": "frontend/src/services/api.js",
       "source_location": "L11"
     },
     {
-      "id": "frontend_src_services_api_api_url",
-      "label": "API_URL",
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "api.js",
-      "file_type": "code",
-      "norm_label": "api_url",
-      "source_file": "frontend/src/services/api.js",
-      "source_location": "L3"
-    },
-    {
-      "id": "frontend_src_services_api_chaves_auth_legadas",
-      "label": "CHAVES_AUTH_LEGADAS",
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "api.js",
-      "file_type": "code",
-      "norm_label": "chaves_auth_legadas",
-      "source_file": "frontend/src/services/api.js",
-      "source_location": "L4"
-    },
-    {
-      "id": "frontend_src_services_api_rotas_sem_renovacao",
-      "label": "ROTAS_SEM_RENOVACAO",
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "api.js",
-      "file_type": "code",
-      "norm_label": "rotas_sem_renovacao",
-      "source_file": "frontend/src/services/api.js",
-      "source_location": "L5"
-    },
-    {
       "id": "frontend_src_auth_auth_context",
       "label": "auth-context.js",
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "auth-context.js",
       "source_file": "frontend/src/auth/auth-context.js",
@@ -5336,7 +5356,7 @@
       "label": "AuthContext",
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "authcontext",
       "source_file": "frontend/src/auth/auth-context.js",
@@ -5347,77 +5367,55 @@
       "label": "AuthContext.jsx",
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "authcontext.jsx",
       "source_file": "frontend/src/auth/AuthContext.jsx",
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_components_transitions_blackholetransition",
-      "label": "BlackHoleTransition.jsx",
+      "id": "frontend_src_services_api",
+      "label": "api.js",
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
-      "norm_label": "blackholetransition.jsx",
-      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
+      "norm_label": "api.js",
+      "source_file": "frontend/src/services/api.js",
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_components_transitions_blackholetransition_particulas",
-      "label": "PARTICULAS",
+      "id": "frontend_src_services_api_api_url",
+      "label": "API_URL",
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
-      "norm_label": "particulas",
-      "source_file": "frontend/src/components/transitions/BlackHoleTransition.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_main",
-      "label": "main.jsx",
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "AuthContext.jsx",
-      "file_type": "code",
-      "norm_label": "main.jsx",
-      "source_file": "frontend/src/main.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_transitions_black_hole_transition_context",
-      "label": "black-hole-transition-context.js",
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "AuthContext.jsx",
-      "file_type": "code",
-      "norm_label": "black-hole-transition-context.js",
-      "source_file": "frontend/src/transitions/black-hole-transition-context.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_transitions_black_hole_transition_context_blackholetransitioncontext",
-      "label": "BlackHoleTransitionContext",
-      "_origin": "ast",
-      "community": 12,
-      "community_name": "AuthContext.jsx",
-      "file_type": "code",
-      "norm_label": "blackholetransitioncontext",
-      "source_file": "frontend/src/transitions/black-hole-transition-context.js",
+      "norm_label": "api_url",
+      "source_file": "frontend/src/services/api.js",
       "source_location": "L3"
     },
     {
-      "id": "frontend_src_transitions_blackholetransitionprovider",
-      "label": "BlackHoleTransitionProvider.jsx",
+      "id": "frontend_src_services_api_chaves_auth_legadas",
+      "label": "CHAVES_AUTH_LEGADAS",
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
-      "norm_label": "blackholetransitionprovider.jsx",
-      "source_file": "frontend/src/transitions/BlackHoleTransitionProvider.jsx",
-      "source_location": "L1"
+      "norm_label": "chaves_auth_legadas",
+      "source_file": "frontend/src/services/api.js",
+      "source_location": "L4"
+    },
+    {
+      "id": "frontend_src_services_api_rotas_sem_renovacao",
+      "label": "ROTAS_SEM_RENOVACAO",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "api.js",
+      "file_type": "code",
+      "norm_label": "rotas_sem_renovacao",
+      "source_file": "frontend/src/services/api.js",
+      "source_location": "L5"
     },
     {
       "id": "backend_middleware_autenticacao",
@@ -6007,7 +6005,7 @@
       "label": "animaisRoutes.js",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "animaisroutes.js",
       "source_file": "backend/routes/animaisRoutes.js",
@@ -6018,7 +6016,7 @@
       "label": "{\r\n  converterId,\r\n  normalizarDataNascimento,\r\n  normalizarNumeroBrinco,\r\n  normalizarPaginacao,\r\n  responderPagina,\r\n  validarCamposPermitidos,\r\n  normalizarTextoObrigatorio,\r\n  normalizarTextoOpcional,\r\n  normalizarNumeroFinito,\r\n}",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "{\r\n  converterid,\r\n  normalizardatanascimento,\r\n  normalizarnumerobrinco,\r\n  normalizarpaginacao,\r\n  responderpagina,\r\n  validarcampospermitidos,\r\n  normalizartextoobrigatorio,\r\n  normalizartextoopcional,\r\n  normalizarnumerofinito,\r\n}",
       "source_file": "backend/routes/animaisRoutes.js",
@@ -6029,7 +6027,7 @@
       "label": "express",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "express",
       "source_file": "backend/routes/animaisRoutes.js",
@@ -6040,7 +6038,7 @@
       "label": "pool",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "pool",
       "source_file": "backend/routes/animaisRoutes.js",
@@ -6051,7 +6049,7 @@
       "label": "{ registrarErro }",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "{ registrarerro }",
       "source_file": "backend/routes/animaisRoutes.js",
@@ -6062,7 +6060,7 @@
       "label": "router",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "router",
       "source_file": "backend/routes/animaisRoutes.js",
@@ -6073,7 +6071,7 @@
       "label": "{ validarParametroId }",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "{ validarparametroid }",
       "source_file": "backend/routes/animaisRoutes.js",
@@ -6084,7 +6082,7 @@
       "label": "despesasRoutes.js",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "despesasroutes.js",
       "source_file": "backend/routes/despesasRoutes.js",
@@ -6095,7 +6093,7 @@
       "label": "express",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "express",
       "source_file": "backend/routes/despesasRoutes.js",
@@ -6106,7 +6104,7 @@
       "label": "{ normalizarFormaPagamento, normalizarPaginacao, responderPagina, validarCamposPermitidos, converterId, normalizarDataCalendario, normalizarTextoObrigatorio, normalizarNumeroFinito }",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "{ normalizarformapagamento, normalizarpaginacao, responderpagina, validarcampospermitidos, converterid, normalizardatacalendario, normalizartextoobrigatorio, normalizarnumerofinito }",
       "source_file": "backend/routes/despesasRoutes.js",
@@ -6117,7 +6115,7 @@
       "label": "pool",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "pool",
       "source_file": "backend/routes/despesasRoutes.js",
@@ -6128,7 +6126,7 @@
       "label": "{ registrarErro }",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "{ registrarerro }",
       "source_file": "backend/routes/despesasRoutes.js",
@@ -6139,7 +6137,7 @@
       "label": "router",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "router",
       "source_file": "backend/routes/despesasRoutes.js",
@@ -6150,17 +6148,94 @@
       "label": "{ validarParametroId }",
       "_origin": "ast",
       "community": 17,
-      "community_name": "validacoes.js",
+      "community_name": "animaisRoutes.js",
       "file_type": "code",
       "norm_label": "{ validarparametroid }",
       "source_file": "backend/routes/despesasRoutes.js",
       "source_location": "L4"
     },
     {
+      "id": "backend_routes_vacinacoesroutes",
+      "label": "vacinacoesRoutes.js",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "validacoes.js",
+      "file_type": "code",
+      "norm_label": "vacinacoesroutes.js",
+      "source_file": "backend/routes/vacinacoesRoutes.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_routes_vacinacoesroutes_express",
+      "label": "express",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "validacoes.js",
+      "file_type": "code",
+      "norm_label": "express",
+      "source_file": "backend/routes/vacinacoesRoutes.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_routes_vacinacoesroutes_normalizarpaginacao_responderpagina_validarcampospermitidos_converterid_normalizardatacalendario_normalizartextoopcional",
+      "label": "{ normalizarPaginacao, responderPagina, validarCamposPermitidos, converterId, normalizarDataCalendario, normalizarTextoOpcional }",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "validacoes.js",
+      "file_type": "code",
+      "norm_label": "{ normalizarpaginacao, responderpagina, validarcampospermitidos, converterid, normalizardatacalendario, normalizartextoopcional }",
+      "source_file": "backend/routes/vacinacoesRoutes.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "backend_routes_vacinacoesroutes_pool",
+      "label": "pool",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "validacoes.js",
+      "file_type": "code",
+      "norm_label": "pool",
+      "source_file": "backend/routes/vacinacoesRoutes.js",
+      "source_location": "L2"
+    },
+    {
+      "id": "backend_routes_vacinacoesroutes_registrarerro",
+      "label": "{ registrarErro }",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "validacoes.js",
+      "file_type": "code",
+      "norm_label": "{ registrarerro }",
+      "source_file": "backend/routes/vacinacoesRoutes.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "backend_routes_vacinacoesroutes_router",
+      "label": "router",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "validacoes.js",
+      "file_type": "code",
+      "norm_label": "router",
+      "source_file": "backend/routes/vacinacoesRoutes.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "backend_routes_vacinacoesroutes_validarparametroid",
+      "label": "{ validarParametroId }",
+      "_origin": "ast",
+      "community": 18,
+      "community_name": "validacoes.js",
+      "file_type": "code",
+      "norm_label": "{ validarparametroid }",
+      "source_file": "backend/routes/vacinacoesRoutes.js",
+      "source_location": "L4"
+    },
+    {
       "id": "backend_utils_validacoes",
       "label": "validacoes.js",
       "_origin": "ast",
-      "community": 17,
+      "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "validacoes.js",
@@ -6171,7 +6246,7 @@
       "id": "backend_utils_validacoes_metodos_pesagem",
       "label": "METODOS_PESAGEM",
       "_origin": "ast",
-      "community": 17,
+      "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "metodos_pesagem",
@@ -6182,7 +6257,7 @@
       "id": "backend_utils_validacoes_status_desmama",
       "label": "STATUS_DESMAMA",
       "_origin": "ast",
-      "community": 17,
+      "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "status_desmama",
@@ -6193,7 +6268,7 @@
       "id": "backend_utils_validacoes_tipos_desmama",
       "label": "TIPOS_DESMAMA",
       "_origin": "ast",
-      "community": 17,
+      "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "tipos_desmama",
@@ -6204,7 +6279,7 @@
       "id": "backend_utils_validacoes_tipos_pesagem",
       "label": "TIPOS_PESAGEM",
       "_origin": "ast",
-      "community": 17,
+      "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "tipos_pesagem",
@@ -6215,100 +6290,12 @@
       "id": "backend_utils_validacoes_turnos_ordenha",
       "label": "TURNOS_ORDENHA",
       "_origin": "ast",
-      "community": 17,
+      "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "turnos_ordenha",
       "source_file": "backend/utils/validacoes.js",
       "source_location": "L121"
-    },
-    {
-      "id": "backend_routes_producoesleiteirasroutes",
-      "label": "producoesLeiteirasRoutes.js",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "producoesLeiteirasRoutes.js",
-      "file_type": "code",
-      "norm_label": "producoesleiteirasroutes.js",
-      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_routes_producoesleiteirasroutes_buscaranimalpermitido",
-      "label": "{ buscarAnimalPermitido }",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "producoesLeiteirasRoutes.js",
-      "file_type": "code",
-      "norm_label": "{ buscaranimalpermitido }",
-      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
-      "source_location": "L3"
-    },
-    {
-      "id": "backend_routes_producoesleiteirasroutes_converterid_normalizardatacalendario_normalizarproducaoleiteira_normalizarpaginacao_responderpagina",
-      "label": "{\r\n  converterId,\r\n  normalizarDataCalendario,\r\n  normalizarProducaoLeiteira,\r\n  normalizarPaginacao,\r\n  responderPagina,\r\n}",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "producoesLeiteirasRoutes.js",
-      "file_type": "code",
-      "norm_label": "{\r\n  converterid,\r\n  normalizardatacalendario,\r\n  normalizarproducaoleiteira,\r\n  normalizarpaginacao,\r\n  responderpagina,\r\n}",
-      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
-      "source_location": "L4"
-    },
-    {
-      "id": "backend_routes_producoesleiteirasroutes_express",
-      "label": "express",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "producoesLeiteirasRoutes.js",
-      "file_type": "code",
-      "norm_label": "express",
-      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_routes_producoesleiteirasroutes_pool",
-      "label": "pool",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "producoesLeiteirasRoutes.js",
-      "file_type": "code",
-      "norm_label": "pool",
-      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
-      "source_location": "L2"
-    },
-    {
-      "id": "backend_routes_producoesleiteirasroutes_registrarerro",
-      "label": "{ registrarErro }",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "producoesLeiteirasRoutes.js",
-      "file_type": "code",
-      "norm_label": "{ registrarerro }",
-      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
-      "source_location": "L12"
-    },
-    {
-      "id": "backend_routes_producoesleiteirasroutes_router",
-      "label": "router",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "producoesLeiteirasRoutes.js",
-      "file_type": "code",
-      "norm_label": "router",
-      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
-      "source_location": "L14"
-    },
-    {
-      "id": "backend_routes_producoesleiteirasroutes_validarparametroid",
-      "label": "{ validarParametroId }",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "producoesLeiteirasRoutes.js",
-      "file_type": "code",
-      "norm_label": "{ validarparametroid }",
-      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
-      "source_location": "L11"
     },
     {
       "id": "backend_tests_auth_permissions",
@@ -6645,7 +6632,7 @@
       "label": "ConfirmacaoExclusao.jsx",
       "_origin": "ast",
       "community": 21,
-      "community_name": "Lucros.jsx",
+      "community_name": "ConfirmacaoExclusao.jsx",
       "file_type": "code",
       "norm_label": "confirmacaoexclusao.jsx",
       "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
@@ -6656,66 +6643,11 @@
       "label": "ROTULOS_RESUMO",
       "_origin": "ast",
       "community": 21,
-      "community_name": "Lucros.jsx",
+      "community_name": "ConfirmacaoExclusao.jsx",
       "file_type": "code",
       "norm_label": "rotulos_resumo",
       "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
       "source_location": "L129"
-    },
-    {
-      "id": "frontend_src_pages_lucros",
-      "label": "Lucros.jsx",
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Lucros.jsx",
-      "file_type": "code",
-      "norm_label": "lucros.jsx",
-      "source_file": "frontend/src/pages/Lucros.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_pages_lucros_categorias_sugeridas",
-      "label": "CATEGORIAS_SUGERIDAS",
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Lucros.jsx",
-      "file_type": "code",
-      "norm_label": "categorias_sugeridas",
-      "source_file": "frontend/src/pages/Lucros.jsx",
-      "source_location": "L8"
-    },
-    {
-      "id": "frontend_src_pages_lucros_filtros_iniciais",
-      "label": "FILTROS_INICIAIS",
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Lucros.jsx",
-      "file_type": "code",
-      "norm_label": "filtros_iniciais",
-      "source_file": "frontend/src/pages/Lucros.jsx",
-      "source_location": "L20"
-    },
-    {
-      "id": "frontend_src_pages_lucros_formas_recebimento",
-      "label": "FORMAS_RECEBIMENTO",
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Lucros.jsx",
-      "file_type": "code",
-      "norm_label": "formas_recebimento",
-      "source_file": "frontend/src/pages/Lucros.jsx",
-      "source_location": "L18"
-    },
-    {
-      "id": "frontend_src_pages_lucros_resumo_inicial",
-      "label": "RESUMO_INICIAL",
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "Lucros.jsx",
-      "file_type": "code",
-      "norm_label": "resumo_inicial",
-      "source_file": "frontend/src/pages/Lucros.jsx",
-      "source_location": "L19"
     },
     {
       "id": "backend_controllers_usuarioscontroller",
@@ -8076,6 +8008,127 @@
       "source_location": "L2"
     },
     {
+      "id": "backend_routes_pesagensroutes",
+      "label": "pesagensRoutes.js",
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "pesagensRoutes.js",
+      "file_type": "code",
+      "norm_label": "pesagensroutes.js",
+      "source_file": "backend/routes/pesagensRoutes.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_routes_pesagensroutes_bloquearanimalparapeso_sincronizarpesoatual",
+      "label": "{ bloquearAnimalParaPeso, sincronizarPesoAtual }",
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "pesagensRoutes.js",
+      "file_type": "code",
+      "norm_label": "{ bloquearanimalparapeso, sincronizarpesoatual }",
+      "source_file": "backend/routes/pesagensRoutes.js",
+      "source_location": "L9"
+    },
+    {
+      "id": "backend_routes_pesagensroutes_buscaranimalpermitido_buscarlotecompativel",
+      "label": "{\r\n  buscarAnimalPermitido,\r\n  buscarLoteCompativel,\r\n}",
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "pesagensRoutes.js",
+      "file_type": "code",
+      "norm_label": "{\r\n  buscaranimalpermitido,\r\n  buscarlotecompativel,\r\n}",
+      "source_file": "backend/routes/pesagensRoutes.js",
+      "source_location": "L4"
+    },
+    {
+      "id": "backend_routes_pesagensroutes_converterid_normalizardatacalendario_normalizarpesagem_normalizarpaginacao_responderpagina",
+      "label": "{\r\n  converterId,\r\n  normalizarDataCalendario,\r\n  normalizarPesagem,\r\n  normalizarPaginacao,\r\n  responderPagina,\r\n}",
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "pesagensRoutes.js",
+      "file_type": "code",
+      "norm_label": "{\r\n  converterid,\r\n  normalizardatacalendario,\r\n  normalizarpesagem,\r\n  normalizarpaginacao,\r\n  responderpagina,\r\n}",
+      "source_file": "backend/routes/pesagensRoutes.js",
+      "source_location": "L10"
+    },
+    {
+      "id": "backend_routes_pesagensroutes_express",
+      "label": "express",
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "pesagensRoutes.js",
+      "file_type": "code",
+      "norm_label": "express",
+      "source_file": "backend/routes/pesagensRoutes.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_routes_pesagensroutes_montarresumopesagens",
+      "label": "{ montarResumoPesagens }",
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "pesagensRoutes.js",
+      "file_type": "code",
+      "norm_label": "{ montarresumopesagens }",
+      "source_file": "backend/routes/pesagensRoutes.js",
+      "source_location": "L8"
+    },
+    {
+      "id": "backend_routes_pesagensroutes_pool",
+      "label": "pool",
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "pesagensRoutes.js",
+      "file_type": "code",
+      "norm_label": "pool",
+      "source_file": "backend/routes/pesagensRoutes.js",
+      "source_location": "L2"
+    },
+    {
+      "id": "backend_routes_pesagensroutes_registrarerro",
+      "label": "{ registrarErro }",
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "pesagensRoutes.js",
+      "file_type": "code",
+      "norm_label": "{ registrarerro }",
+      "source_file": "backend/routes/pesagensRoutes.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "backend_routes_pesagensroutes_router",
+      "label": "router",
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "pesagensRoutes.js",
+      "file_type": "code",
+      "norm_label": "router",
+      "source_file": "backend/routes/pesagensRoutes.js",
+      "source_location": "L19"
+    },
+    {
+      "id": "backend_routes_pesagensroutes_validarparametroid",
+      "label": "{ validarParametroId }",
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "pesagensRoutes.js",
+      "file_type": "code",
+      "norm_label": "{ validarparametroid }",
+      "source_file": "backend/routes/pesagensRoutes.js",
+      "source_location": "L17"
+    },
+    {
+      "id": "backend_services_pesoatual",
+      "label": "pesoAtual.js",
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "pesagensRoutes.js",
+      "file_type": "code",
+      "norm_label": "pesoatual.js",
+      "source_file": "backend/services/pesoAtual.js",
+      "source_location": "L1"
+    },
+    {
       "id": "backend_middleware_validacao",
       "label": "validacao.js",
       "_origin": "ast",
@@ -8183,83 +8236,6 @@
       "file_type": "code",
       "norm_label": "{ validarparametroid }",
       "source_file": "backend/routes/propriedadesRoutes.js",
-      "source_location": "L4"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes",
-      "label": "vacinacoesRoutes.js",
-      "_origin": "ast",
-      "community": 35,
-      "community_name": "propriedadesRoutes.js",
-      "file_type": "code",
-      "norm_label": "vacinacoesroutes.js",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes_express",
-      "label": "express",
-      "_origin": "ast",
-      "community": 35,
-      "community_name": "propriedadesRoutes.js",
-      "file_type": "code",
-      "norm_label": "express",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes_normalizarpaginacao_responderpagina_validarcampospermitidos_converterid_normalizardatacalendario_normalizartextoopcional",
-      "label": "{ normalizarPaginacao, responderPagina, validarCamposPermitidos, converterId, normalizarDataCalendario, normalizarTextoOpcional }",
-      "_origin": "ast",
-      "community": 35,
-      "community_name": "propriedadesRoutes.js",
-      "file_type": "code",
-      "norm_label": "{ normalizarpaginacao, responderpagina, validarcampospermitidos, converterid, normalizardatacalendario, normalizartextoopcional }",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
-      "source_location": "L3"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes_pool",
-      "label": "pool",
-      "_origin": "ast",
-      "community": 35,
-      "community_name": "propriedadesRoutes.js",
-      "file_type": "code",
-      "norm_label": "pool",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
-      "source_location": "L2"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes_registrarerro",
-      "label": "{ registrarErro }",
-      "_origin": "ast",
-      "community": 35,
-      "community_name": "propriedadesRoutes.js",
-      "file_type": "code",
-      "norm_label": "{ registrarerro }",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
-      "source_location": "L5"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes_router",
-      "label": "router",
-      "_origin": "ast",
-      "community": 35,
-      "community_name": "propriedadesRoutes.js",
-      "file_type": "code",
-      "norm_label": "router",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
-      "source_location": "L7"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes_validarparametroid",
-      "label": "{ validarParametroId }",
-      "_origin": "ast",
-      "community": 35,
-      "community_name": "propriedadesRoutes.js",
-      "file_type": "code",
-      "norm_label": "{ validarparametroid }",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
       "source_location": "L4"
     },
     {
@@ -8582,114 +8558,92 @@
       "source_location": "L18"
     },
     {
-      "id": "backend_routes_pesagensroutes",
-      "label": "pesagensRoutes.js",
+      "id": "backend_routes_producoesleiteirasroutes",
+      "label": "producoesLeiteirasRoutes.js",
       "_origin": "ast",
       "community": 4,
       "community_name": "desmamasRoutes.js",
       "file_type": "code",
-      "norm_label": "pesagensroutes.js",
-      "source_file": "backend/routes/pesagensRoutes.js",
+      "norm_label": "producoesleiteirasroutes.js",
+      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
       "source_location": "L1"
     },
     {
-      "id": "backend_routes_pesagensroutes_bloquearanimalparapeso_sincronizarpesoatual",
-      "label": "{ bloquearAnimalParaPeso, sincronizarPesoAtual }",
+      "id": "backend_routes_producoesleiteirasroutes_buscaranimalpermitido",
+      "label": "{ buscarAnimalPermitido }",
       "_origin": "ast",
       "community": 4,
       "community_name": "desmamasRoutes.js",
       "file_type": "code",
-      "norm_label": "{ bloquearanimalparapeso, sincronizarpesoatual }",
-      "source_file": "backend/routes/pesagensRoutes.js",
-      "source_location": "L9"
+      "norm_label": "{ buscaranimalpermitido }",
+      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
+      "source_location": "L3"
     },
     {
-      "id": "backend_routes_pesagensroutes_buscaranimalpermitido_buscarlotecompativel",
-      "label": "{\r\n  buscarAnimalPermitido,\r\n  buscarLoteCompativel,\r\n}",
+      "id": "backend_routes_producoesleiteirasroutes_converterid_normalizardatacalendario_normalizarproducaoleiteira_normalizarpaginacao_responderpagina",
+      "label": "{\r\n  converterId,\r\n  normalizarDataCalendario,\r\n  normalizarProducaoLeiteira,\r\n  normalizarPaginacao,\r\n  responderPagina,\r\n}",
       "_origin": "ast",
       "community": 4,
       "community_name": "desmamasRoutes.js",
       "file_type": "code",
-      "norm_label": "{\r\n  buscaranimalpermitido,\r\n  buscarlotecompativel,\r\n}",
-      "source_file": "backend/routes/pesagensRoutes.js",
+      "norm_label": "{\r\n  converterid,\r\n  normalizardatacalendario,\r\n  normalizarproducaoleiteira,\r\n  normalizarpaginacao,\r\n  responderpagina,\r\n}",
+      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
       "source_location": "L4"
     },
     {
-      "id": "backend_routes_pesagensroutes_converterid_normalizardatacalendario_normalizarpesagem_normalizarpaginacao_responderpagina",
-      "label": "{\r\n  converterId,\r\n  normalizarDataCalendario,\r\n  normalizarPesagem,\r\n  normalizarPaginacao,\r\n  responderPagina,\r\n}",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "desmamasRoutes.js",
-      "file_type": "code",
-      "norm_label": "{\r\n  converterid,\r\n  normalizardatacalendario,\r\n  normalizarpesagem,\r\n  normalizarpaginacao,\r\n  responderpagina,\r\n}",
-      "source_file": "backend/routes/pesagensRoutes.js",
-      "source_location": "L10"
-    },
-    {
-      "id": "backend_routes_pesagensroutes_express",
+      "id": "backend_routes_producoesleiteirasroutes_express",
       "label": "express",
       "_origin": "ast",
       "community": 4,
       "community_name": "desmamasRoutes.js",
       "file_type": "code",
       "norm_label": "express",
-      "source_file": "backend/routes/pesagensRoutes.js",
+      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
       "source_location": "L1"
     },
     {
-      "id": "backend_routes_pesagensroutes_montarresumopesagens",
-      "label": "{ montarResumoPesagens }",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "desmamasRoutes.js",
-      "file_type": "code",
-      "norm_label": "{ montarresumopesagens }",
-      "source_file": "backend/routes/pesagensRoutes.js",
-      "source_location": "L8"
-    },
-    {
-      "id": "backend_routes_pesagensroutes_pool",
+      "id": "backend_routes_producoesleiteirasroutes_pool",
       "label": "pool",
       "_origin": "ast",
       "community": 4,
       "community_name": "desmamasRoutes.js",
       "file_type": "code",
       "norm_label": "pool",
-      "source_file": "backend/routes/pesagensRoutes.js",
+      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
       "source_location": "L2"
     },
     {
-      "id": "backend_routes_pesagensroutes_registrarerro",
+      "id": "backend_routes_producoesleiteirasroutes_registrarerro",
       "label": "{ registrarErro }",
       "_origin": "ast",
       "community": 4,
       "community_name": "desmamasRoutes.js",
       "file_type": "code",
       "norm_label": "{ registrarerro }",
-      "source_file": "backend/routes/pesagensRoutes.js",
-      "source_location": "L3"
+      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
+      "source_location": "L12"
     },
     {
-      "id": "backend_routes_pesagensroutes_router",
+      "id": "backend_routes_producoesleiteirasroutes_router",
       "label": "router",
       "_origin": "ast",
       "community": 4,
       "community_name": "desmamasRoutes.js",
       "file_type": "code",
       "norm_label": "router",
-      "source_file": "backend/routes/pesagensRoutes.js",
-      "source_location": "L19"
+      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
+      "source_location": "L14"
     },
     {
-      "id": "backend_routes_pesagensroutes_validarparametroid",
+      "id": "backend_routes_producoesleiteirasroutes_validarparametroid",
       "label": "{ validarParametroId }",
       "_origin": "ast",
       "community": 4,
       "community_name": "desmamasRoutes.js",
       "file_type": "code",
       "norm_label": "{ validarparametroid }",
-      "source_file": "backend/routes/pesagensRoutes.js",
-      "source_location": "L17"
+      "source_file": "backend/routes/producoesLeiteirasRoutes.js",
+      "source_location": "L11"
     },
     {
       "id": "backend_services_acessoanimais",
@@ -8711,17 +8665,6 @@
       "file_type": "code",
       "norm_label": "pool",
       "source_file": "backend/services/acessoAnimais.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_services_pesoatual",
-      "label": "pesoAtual.js",
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "desmamasRoutes.js",
-      "file_type": "code",
-      "norm_label": "pesoatual.js",
-      "source_file": "backend/services/pesoAtual.js",
       "source_location": "L1"
     },
     {
@@ -10642,7 +10585,7 @@
       "label": "ClimaDashboard.jsx",
       "_origin": "ast",
       "community": 82,
-      "community_name": "ClimaPropriedade.jsx",
+      "community_name": "Dashboard.jsx",
       "file_type": "code",
       "norm_label": "climadashboard.jsx",
       "source_file": "frontend/src/components/ClimaDashboard.jsx",
@@ -10653,18 +10596,40 @@
       "label": "ClimaPropriedade.jsx",
       "_origin": "ast",
       "community": 82,
-      "community_name": "ClimaPropriedade.jsx",
+      "community_name": "Dashboard.jsx",
       "file_type": "code",
       "norm_label": "climapropriedade.jsx",
       "source_file": "frontend/src/components/ClimaPropriedade.jsx",
       "source_location": "L1"
     },
     {
+      "id": "frontend_src_pages_dashboard",
+      "label": "Dashboard.jsx",
+      "_origin": "ast",
+      "community": 82,
+      "community_name": "Dashboard.jsx",
+      "file_type": "code",
+      "norm_label": "dashboard.jsx",
+      "source_file": "frontend/src/pages/Dashboard.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_dashboard_resumoinicial",
+      "label": "resumoInicial",
+      "_origin": "ast",
+      "community": 82,
+      "community_name": "Dashboard.jsx",
+      "file_type": "code",
+      "norm_label": "resumoinicial",
+      "source_file": "frontend/src/pages/Dashboard.jsx",
+      "source_location": "L9"
+    },
+    {
       "id": "frontend_src_utils_clima",
       "label": "utils/clima.js",
       "_origin": "ast",
       "community": 82,
-      "community_name": "ClimaPropriedade.jsx",
+      "community_name": "Dashboard.jsx",
       "file_type": "code",
       "norm_label": "utils/clima.js",
       "source_file": "frontend/src/utils/clima.js",
@@ -10675,7 +10640,7 @@
       "label": "CONDICOES",
       "_origin": "ast",
       "community": 82,
-      "community_name": "ClimaPropriedade.jsx",
+      "community_name": "Dashboard.jsx",
       "file_type": "code",
       "norm_label": "condicoes",
       "source_file": "frontend/src/utils/clima.js",
@@ -10812,74 +10777,6 @@
       "norm_label": "crypto",
       "source_file": "backend/middleware/contextoRequisicao.js",
       "source_location": "L1"
-    },
-    {
-      "id": "graphify_out_memory_query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e",
-      "label": "query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login__cadastro_e.md",
-      "_origin": "ast",
-      "community": 87,
-      "community_name": "Q: Onde est\u00e3o os campos de senha de Login, Cadastro e usu\u00e1rios?",
-      "file_type": "document",
-      "frontmatter": {
-        "type": "query",
-        "date": "2026-10-01T20:08:22.259296+00:00",
-        "question": "Onde est\u00e3o os campos de senha de Login, Cadastro e usu\u00e1rios?",
-        "contributor": "graphify",
-        "outcome": "useful",
-        "source_nodes": "[&quot;Login()&quot;, &quot;MinhaConta.jsx&quot;, &quot;Usuarios.jsx&quot;]"
-      },
-      "node_kind": "page",
-      "norm_label": "query_20261001_200822_onde_estao_os_campos_de_senha_de_login__cadastro_e.md",
-      "source_file": "graphify-out/memory/query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login__cadastro_e.md",
-      "source_location": "L1"
-    },
-    {
-      "id": "graphify_out_memory_query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_answer",
-      "label": "Answer",
-      "_origin": "ast",
-      "community": 87,
-      "community_name": "Q: Onde est\u00e3o os campos de senha de Login, Cadastro e usu\u00e1rios?",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "answer",
-      "source_file": "graphify-out/memory/query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login__cadastro_e.md",
-      "source_location": "L12"
-    },
-    {
-      "id": "graphify_out_memory_query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_outcome",
-      "label": "Outcome",
-      "_origin": "ast",
-      "community": 87,
-      "community_name": "Q: Onde est\u00e3o os campos de senha de Login, Cadastro e usu\u00e1rios?",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "outcome",
-      "source_file": "graphify-out/memory/query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login__cadastro_e.md",
-      "source_location": "L16"
-    },
-    {
-      "id": "graphify_out_memory_query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_q_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_usu\u00e1rios",
-      "label": "Q: Onde est\u00e3o os campos de senha de Login, Cadastro e usu\u00e1rios?",
-      "_origin": "ast",
-      "community": 87,
-      "community_name": "Q: Onde est\u00e3o os campos de senha de Login, Cadastro e usu\u00e1rios?",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "q: onde estao os campos de senha de login, cadastro e usuarios?",
-      "source_file": "graphify-out/memory/query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login__cadastro_e.md",
-      "source_location": "L10"
-    },
-    {
-      "id": "graphify_out_memory_query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_source_nodes",
-      "label": "Source Nodes",
-      "_origin": "ast",
-      "community": 87,
-      "community_name": "Q: Onde est\u00e3o os campos de senha de Login, Cadastro e usu\u00e1rios?",
-      "file_type": "document",
-      "node_kind": "heading",
-      "norm_label": "source nodes",
-      "source_file": "graphify-out/memory/query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login__cadastro_e.md",
-      "source_location": "L20"
     },
     {
       "id": "backend_config_ambiente",
@@ -14989,7 +14886,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Cadastro.jsx",
-      "source_location": "L14",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -15277,7 +15174,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Login.jsx",
-      "source_location": "L16",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -15289,7 +15186,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Login.jsx",
-      "source_location": "L21",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -15469,7 +15366,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L132",
+      "source_location": "L131",
       "weight": 1.0
     },
     {
@@ -15481,7 +15378,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L152",
+      "source_location": "L151",
       "weight": 1.0
     },
     {
@@ -15493,7 +15390,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L110",
+      "source_location": "L109",
       "weight": 1.0
     },
     {
@@ -15505,7 +15402,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L111",
+      "source_location": "L110",
       "weight": 1.0
     },
     {
@@ -16333,7 +16230,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L119",
+      "source_location": "L118",
       "weight": 1.0
     },
     {
@@ -16345,7 +16242,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L162",
+      "source_location": "L161",
       "weight": 1.0
     },
     {
@@ -16357,7 +16254,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L31",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -16369,7 +16266,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L52",
+      "source_location": "L51",
       "weight": 1.0
     },
     {
@@ -19709,18 +19606,6 @@
       "weight": 1.0
     },
     {
-      "source": "frontend_src_pages_cadastro",
-      "target": "frontend_src_components_passwordinput_passwordinput",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "frontend/src/pages/Cadastro.jsx",
-      "source_location": "L5",
-      "weight": 1.0
-    },
-    {
       "source": "frontend_src_pages_configuracoes",
       "target": "frontend_src_components_iconeconfiguracoes_iconeconfiguracoes",
       "relation": "imports",
@@ -20033,18 +19918,6 @@
       "weight": 1.0
     },
     {
-      "source": "frontend_src_pages_login",
-      "target": "frontend_src_components_passwordinput_passwordinput",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "frontend/src/pages/Login.jsx",
-      "source_location": "L5",
-      "weight": 1.0
-    },
-    {
       "source": "frontend_src_pages_lotes",
       "target": "frontend_src_services_api_api",
       "relation": "imports",
@@ -20342,18 +20215,6 @@
       "context": "import",
       "source_file": "frontend/src/pages/Usuarios.jsx",
       "source_location": "L4",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_pages_usuarios",
-      "target": "frontend_src_components_passwordinput_passwordinput",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -22997,18 +22858,6 @@
       "weight": 1.0
     },
     {
-      "source": "frontend_src_pages_cadastro",
-      "target": "frontend_src_components_passwordinput",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "frontend/src/pages/Cadastro.jsx",
-      "source_location": "L5",
-      "weight": 1.0
-    },
-    {
       "source": "frontend_src_pages_configuracoes",
       "target": "frontend_src_components_iconeconfiguracoes",
       "relation": "imports_from",
@@ -23309,18 +23158,6 @@
       "weight": 1.0
     },
     {
-      "source": "frontend_src_pages_login",
-      "target": "frontend_src_components_passwordinput",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "frontend/src/pages/Login.jsx",
-      "source_location": "L5",
-      "weight": 1.0
-    },
-    {
       "source": "frontend_src_pages_lotes",
       "target": "frontend_src_services_api",
       "relation": "imports_from",
@@ -23618,18 +23455,6 @@
       "context": "import",
       "source_file": "frontend/src/pages/Usuarios.jsx",
       "source_location": "L4",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_pages_usuarios",
-      "target": "frontend_src_components_passwordinput",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -29570,28 +29395,6 @@
       "weight": 1.0
     },
     {
-      "source": "frontend_src_components_passwordinput",
-      "target": "frontend_src_components_passwordinput_passwordinput",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/src/components/PasswordInput.jsx",
-      "source_location": "L3",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_components_passwordinput_passwordinput",
-      "target": "frontend_src_components_passwordinput_passwordinput_alternarvisibilidade",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/src/components/PasswordInput.jsx",
-      "source_location": "L8",
-      "weight": 1.0
-    },
-    {
       "source": "frontend_src_components_registrofichanotice",
       "target": "frontend_src_components_registrofichanotice_registrofichanotice",
       "relation": "contains",
@@ -29775,7 +29578,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Cadastro.jsx",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -29786,7 +29589,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Cadastro.jsx",
-      "source_location": "L21",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -30105,7 +29908,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Login.jsx",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -30116,7 +29919,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Login.jsx",
-      "source_location": "L31",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -30446,7 +30249,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L14",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -30457,7 +30260,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -30468,7 +30271,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L140",
+      "source_location": "L139",
       "weight": 1.0
     },
     {
@@ -30479,7 +30282,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L183",
+      "source_location": "L182",
       "weight": 1.0
     },
     {
@@ -30490,7 +30293,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L40",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -30501,7 +30304,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L45",
+      "source_location": "L44",
       "weight": 1.0
     },
     {
@@ -30512,7 +30315,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L64",
+      "source_location": "L63",
       "weight": 1.0
     },
     {
@@ -30523,7 +30326,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Usuarios.jsx",
-      "source_location": "L70",
+      "source_location": "L69",
       "weight": 1.0
     },
     {
@@ -31172,50 +30975,6 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "graphify-out/memory/query_20260904_032135_quais_componentes_e_estilos_causam_overflow_e_sobr.md",
-      "source_location": "L20",
-      "weight": 1.0
-    },
-    {
-      "source": "graphify_out_memory_query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e",
-      "target": "graphify_out_memory_query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_q_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_usu\u00e1rios",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "graphify-out/memory/query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login__cadastro_e.md",
-      "source_location": "L10",
-      "weight": 1.0
-    },
-    {
-      "source": "graphify_out_memory_query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_q_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_usu\u00e1rios",
-      "target": "graphify_out_memory_query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_answer",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "graphify-out/memory/query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login__cadastro_e.md",
-      "source_location": "L12",
-      "weight": 1.0
-    },
-    {
-      "source": "graphify_out_memory_query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_q_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_usu\u00e1rios",
-      "target": "graphify_out_memory_query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_outcome",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "graphify-out/memory/query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login__cadastro_e.md",
-      "source_location": "L16",
-      "weight": 1.0
-    },
-    {
-      "source": "graphify_out_memory_query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_q_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_usu\u00e1rios",
-      "target": "graphify_out_memory_query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login_cadastro_e_source_nodes",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "graphify-out/memory/query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login__cadastro_e.md",
       "source_location": "L20",
       "weight": 1.0
     },
@@ -33266,5 +33025,5 @@
       "source_file": "backend/database/SEGURANCA_PRODUCAO.md"
     }
   ],
-  "built_at_commit": "8bbab9479c532824de875f324de6348902830531"
+  "built_at_commit": "cc259f7a85ba173250c975c5136ad0a54023fd9e"
 }

@@ -21,6 +21,7 @@ const pesagensRoutes = require("./routes/pesagensRoutes");
 const desmamasRoutes = require("./routes/desmamasRoutes");
 const despesasRoutes = require("./routes/despesasRoutes");
 const receitasRoutes = require("./routes/receitasRoutes");
+const climaRoutes = require("./routes/climaRoutes");
 
 const app = express();
 
@@ -66,6 +67,7 @@ app.use(pesagensRoutes);
 app.use(desmamasRoutes);
 app.use(despesasRoutes);
 app.use(receitasRoutes);
+app.use(climaRoutes);
 app.use(rotaNaoEncontrada);
 app.use(tratarErros);
 

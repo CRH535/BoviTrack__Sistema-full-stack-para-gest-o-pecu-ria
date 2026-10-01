@@ -558,10 +558,10 @@
     "semantic_hash": ""
   },
   "frontend/src/pages/Cadastro.jsx": {
-    "mtime": 1790885097.0302866,
-    "seen": 1790885319.298941,
-    "ast_hash": "b16ad667fab3c9aec7748b24364031c0",
-    "semantic_hash": ""
+    "mtime": 1787762374.0118074,
+    "seen": 1788268037.8811631,
+    "ast_hash": "18bbe03777326668ad42a32d1ceb233f",
+    "semantic_hash": "18bbe03777326668ad42a32d1ceb233f"
   },
   "frontend/src/pages/Configuracoes.jsx": {
     "mtime": 1788546149.9272888,
@@ -594,9 +594,9 @@
     "semantic_hash": ""
   },
   "frontend/src/pages/Login.jsx": {
-    "mtime": 1790885097.029287,
-    "seen": 1790885319.301038,
-    "ast_hash": "cff3131ffa6963c2c197da4ee22e94c4",
+    "mtime": 1788546149.9369166,
+    "seen": 1790884150.0239859,
+    "ast_hash": "3829f3bb697f18cf82c4c083737e5cb3",
     "semantic_hash": ""
   },
   "frontend/src/pages/Lotes.jsx": {
@@ -630,9 +630,9 @@
     "semantic_hash": ""
   },
   "frontend/src/pages/Usuarios.jsx": {
-    "mtime": 1790885097.032793,
-    "seen": 1790885319.3031352,
-    "ast_hash": "0600c1bd2e44603f7b9ff7f4157cebe6",
+    "mtime": 1788546149.9480479,
+    "seen": 1790884150.0240016,
+    "ast_hash": "619b746535a5b08348c52d6d1d0e5710",
     "semantic_hash": ""
   },
   "frontend/src/pages/Vacinacoes.jsx": {
@@ -987,18 +987,6 @@
     "mtime": 1790883900.838566,
     "seen": 1790884150.0240362,
     "ast_hash": "d34de32487ba5076b30df77d10aaf87e",
-    "semantic_hash": ""
-  },
-  "frontend/src/components/PasswordInput.jsx": {
-    "mtime": 1790885097.0262847,
-    "seen": 1790885319.29599,
-    "ast_hash": "afcc57c081e6dc4138412c77d1ccc6ad",
-    "semantic_hash": ""
-  },
-  "graphify-out/memory/query_20261001_200822_onde_est\u00e3o_os_campos_de_senha_de_login__cadastro_e.md": {
-    "mtime": 1790885302.25991,
-    "seen": 1790885319.3174582,
-    "ast_hash": "4b7ac19d543ba0ed520656470e05b1b2",
     "semantic_hash": ""
   }
 }
