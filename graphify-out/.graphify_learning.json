@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-01T20:02:49.592553+00:00",
+  "generated_at": "2026-10-01T20:23:54.647718+00:00",
   "nodes": {
     "backend_middleware_autenticacao_autenticar": {
       "code_fingerprint": "a0eae06bd3c179aed3de12c5bf051e9cf5b7474da5c63147c22ebb25262ab22f",
@@ -12,7 +12,7 @@
           "q": "Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
         }
       ],
-      "score": 0.527211771,
+      "score": 0.527033446,
       "source_file": "backend/middleware/autenticacao.js",
       "status": "tentative",
       "uses": 1
@@ -28,7 +28,7 @@
           "q": "Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
         }
       ],
-      "score": 0.527211771,
+      "score": 0.527033446,
       "source_file": "backend/routes/propriedadesRoutes.js",
       "status": "tentative",
       "uses": 1
@@ -44,7 +44,7 @@
           "q": "Quais componentes e estilos causam overflow e sobreposição no Dashboard do BoviTrack?"
         }
       ],
-      "score": 0.527346591,
+      "score": 0.527168221,
       "source_file": "frontend/src/App.jsx",
       "status": "tentative",
       "uses": 1
@@ -60,7 +60,7 @@
           "q": "Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
         }
       ],
-      "score": 0.527211771,
+      "score": 0.527033446,
       "source_file": "frontend/src/auth/useAuth.js",
       "status": "tentative",
       "uses": 1
@@ -76,7 +76,7 @@
           "q": "Quais componentes e estilos causam overflow e sobreposição no Dashboard do BoviTrack?"
         }
       ],
-      "score": 0.527346591,
+      "score": 0.527168221,
       "source_file": "frontend/src/components/GraficoPeso.jsx",
       "status": "tentative",
       "uses": 1
@@ -92,7 +92,7 @@
           "q": "Quais componentes e estilos causam overflow e sobreposição no Dashboard do BoviTrack?"
         }
       ],
-      "score": 0.527346591,
+      "score": 0.527168221,
       "source_file": "frontend/src/components/GraficoProducaoLeite.jsx",
       "status": "tentative",
       "uses": 1
@@ -108,7 +108,7 @@
           "q": "Quais componentes e estilos causam overflow e sobreposição no Dashboard do BoviTrack?"
         }
       ],
-      "score": 0.527346591,
+      "score": 0.527168221,
       "source_file": "frontend/src/components/IconeImagem.jsx",
       "status": "tentative",
       "uses": 1
@@ -124,8 +124,40 @@
           "q": "Quais componentes e estilos causam overflow e sobreposição no Dashboard do BoviTrack?"
         }
       ],
-      "score": 0.527346591,
+      "score": 0.527168221,
       "source_file": "frontend/src/pages/Dashboard.jsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "frontend_src_pages_login_login": {
+      "code_fingerprint": "3767dcb8112d8b516859cf4c37dd1ac44767e83f3cc183b98279f46d56dd29a6",
+      "label": "Login()",
+      "last": "2026-10-01T20:08:22.259296+00:00",
+      "provenance": [
+        {
+          "date": "2026-10-01T20:08:22.259296+00:00",
+          "outcome": "useful",
+          "q": "Onde estão os campos de senha de Login, Cadastro e usuários?"
+        }
+      ],
+      "score": 0.999750694,
+      "source_file": "frontend/src/pages/Login.jsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "frontend_src_pages_minhaconta": {
+      "code_fingerprint": "778a29f8eb86b7289ef8ee22a6810d86f910ffcd2d4ec136e90fab0409b559b9",
+      "label": "MinhaConta.jsx",
+      "last": "2026-10-01T20:08:22.259296+00:00",
+      "provenance": [
+        {
+          "date": "2026-10-01T20:08:22.259296+00:00",
+          "outcome": "useful",
+          "q": "Onde estão os campos de senha de Login, Cadastro e usuários?"
+        }
+      ],
+      "score": 0.999750694,
+      "source_file": "frontend/src/pages/MinhaConta.jsx",
       "status": "tentative",
       "uses": 1
     },
@@ -140,8 +172,24 @@
           "q": "Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
         }
       ],
-      "score": 0.527211771,
+      "score": 0.527033446,
       "source_file": "frontend/src/pages/Propriedades.jsx",
+      "status": "tentative",
+      "uses": 1
+    },
+    "frontend_src_pages_usuarios": {
+      "code_fingerprint": "ab6d68ace161b27eed005e5ca706620509e8fabb1d8d7a09b29731d0f6683f68",
+      "label": "Usuarios.jsx",
+      "last": "2026-10-01T20:08:22.259296+00:00",
+      "provenance": [
+        {
+          "date": "2026-10-01T20:08:22.259296+00:00",
+          "outcome": "useful",
+          "q": "Onde estão os campos de senha de Login, Cadastro e usuários?"
+        }
+      ],
+      "score": 0.999750694,
+      "source_file": "frontend/src/pages/Usuarios.jsx",
       "status": "tentative",
       "uses": 1
     }
