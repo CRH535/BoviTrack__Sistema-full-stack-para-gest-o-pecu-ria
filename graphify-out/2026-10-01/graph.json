@@ -49,6 +49,19 @@
   },
   "nodes": [
     {
+      "id": "backend_services_openmeteoservice_erroclima",
+      "label": "ErroClima",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "erroclima",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L15"
+    },
+    {
       "id": "frontend_src_app_app",
       "label": "App()",
       "_callable": true,
@@ -397,174 +410,6 @@
       "source_location": "L4"
     },
     {
-      "id": "backend_middleware_contextorequisicao_contextorequisicao",
-      "label": "contextoRequisicao()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "contextorequisicao()",
-      "source_file": "backend/middleware/contextoRequisicao.js",
-      "source_location": "L3"
-    },
-    {
-      "id": "backend_middleware_erros_rotanaoencontrada",
-      "label": "rotaNaoEncontrada()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "rotanaoencontrada()",
-      "source_file": "backend/middleware/erros.js",
-      "source_location": "L3"
-    },
-    {
-      "id": "backend_middleware_erros_tratarerros",
-      "label": "tratarErros()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "tratarerros()",
-      "source_file": "backend/middleware/erros.js",
-      "source_location": "L7"
-    },
-    {
-      "id": "backend_tests_calf_management_integration_confirmar",
-      "label": "confirmar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "confirmar()",
-      "source_file": "backend/tests/calf-management-integration.js",
-      "source_location": "L13"
-    },
-    {
-      "id": "backend_tests_calf_management_integration_executar",
-      "label": "executar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "executar()",
-      "source_file": "backend/tests/calf-management-integration.js",
-      "source_location": "L35"
-    },
-    {
-      "id": "backend_tests_calf_management_integration_limpar",
-      "label": "limpar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "limpar()",
-      "source_file": "backend/tests/calf-management-integration.js",
-      "source_location": "L27"
-    },
-    {
-      "id": "backend_tests_calf_management_integration_requisitar",
-      "label": "requisitar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "requisitar()",
-      "source_file": "backend/tests/calf-management-integration.js",
-      "source_location": "L19"
-    },
-    {
-      "id": "backend_tests_milk_production_confirmar",
-      "label": "confirmar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "confirmar()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L14"
-    },
-    {
-      "id": "backend_tests_milk_production_datanofuso",
-      "label": "dataNoFuso()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "datanofuso()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L43"
-    },
-    {
-      "id": "backend_tests_milk_production_executar",
-      "label": "executar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "executar()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L99"
-    },
-    {
-      "id": "backend_tests_milk_production_limpar",
-      "label": "limpar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "limpar()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L68"
-    },
-    {
-      "id": "backend_tests_milk_production_login",
-      "label": "login()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "login()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L36"
-    },
-    {
-      "id": "backend_tests_milk_production_requisitar",
-      "label": "requisitar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "requisitar()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L20"
-    },
-    {
-      "id": "backend_tests_milk_production_somardias",
-      "label": "somarDias()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "somardias()",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L57"
-    },
-    {
       "id": "frontend_src_app_layout",
       "label": "Layout()",
       "_callable": true,
@@ -658,7 +503,7 @@
       "file_type": "code",
       "norm_label": "dashboard()",
       "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L23"
+      "source_location": "L24"
     },
     {
       "id": "frontend_src_pages_dashboard_dashboard_carregardashboard",
@@ -670,7 +515,7 @@
       "file_type": "code",
       "norm_label": "carregardashboard()",
       "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L33"
+      "source_location": "L34"
     },
     {
       "id": "frontend_src_pages_login_login",
@@ -781,12 +626,60 @@
       "source_location": "L4"
     },
     {
+      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao",
+      "label": "ConfirmacaoExclusao()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api",
+      "file_type": "code",
+      "norm_label": "confirmacaoexclusao()",
+      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao_cancelar",
+      "label": "cancelar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api",
+      "file_type": "code",
+      "norm_label": "cancelar()",
+      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
+      "source_location": "L42"
+    },
+    {
+      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao_confirmar",
+      "label": "confirmar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api",
+      "file_type": "code",
+      "norm_label": "confirmar()",
+      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
+      "source_location": "L49"
+    },
+    {
+      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao_fecharcomescape",
+      "label": "fecharComEscape()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 11,
+      "community_name": "api",
+      "file_type": "code",
+      "norm_label": "fecharcomescape()",
+      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
+      "source_location": "L23"
+    },
+    {
       "id": "frontend_src_components_iconeimagem_iconeimagem",
       "label": "IconeImagem()",
       "_callable": true,
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "iconeimagem()",
       "source_file": "frontend/src/components/IconeImagem.jsx",
@@ -798,7 +691,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "voltarinicio()",
       "source_file": "frontend/src/components/VoltarInicio.jsx",
@@ -810,7 +703,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "sair()",
       "source_file": "frontend/src/App.jsx",
@@ -822,7 +715,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "authprovider()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -834,7 +727,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "atualizarusuario()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -846,7 +739,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "avisaroutrasabas()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -858,7 +751,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "finalizarlogoutvisual()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -870,7 +763,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "login()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -882,7 +775,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "logout()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -894,7 +787,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "logouttodosdispositivos()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -906,7 +799,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "restaurarsessao()",
       "source_file": "frontend/src/auth/AuthContext.jsx",
@@ -918,7 +811,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "aguardar()",
       "source_file": "frontend/src/services/api.js",
@@ -930,7 +823,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "definirlogoutemandamento()",
       "source_file": "frontend/src/services/api.js",
@@ -942,7 +835,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "definirtokenacesso()",
       "source_file": "frontend/src/services/api.js",
@@ -954,7 +847,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "executarrenovacao()",
       "source_file": "frontend/src/services/api.js",
@@ -966,7 +859,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "limpartokenacesso()",
       "source_file": "frontend/src/services/api.js",
@@ -978,7 +871,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "notificarsessaoencerrada()",
       "source_file": "frontend/src/services/api.js",
@@ -990,7 +883,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "obtertokenacesso()",
       "source_file": "frontend/src/services/api.js",
@@ -1002,7 +895,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "renovarsessao()",
       "source_file": "frontend/src/services/api.js",
@@ -1057,12 +950,120 @@
       "source_location": "L58"
     },
     {
+      "id": "frontend_src_components_controlepesagens_controlepesagens",
+      "label": "ControlePesagens()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "controlepesagens()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L35"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_controlepesagens_alterar",
+      "label": "alterar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "alterar()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L88"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_controlepesagens_carregar",
+      "label": "carregar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "carregar()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L52"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_controlepesagens_carregarinicial",
+      "label": "carregarInicial()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "carregarinicial()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L67"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_controlepesagens_confirmarexclusao",
+      "label": "confirmarExclusao()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "confirmarexclusao()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L131"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_controlepesagens_editar",
+      "label": "editar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "editar()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L99"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_controlepesagens_salvar",
+      "label": "salvar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "salvar()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L112"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_gmd",
+      "label": "gmd()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "gmd()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L29"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_kg",
+      "label": "kg()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "kg()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L23"
+    },
+    {
       "id": "frontend_src_components_graficopeso_graficopeso",
       "label": "GraficoPeso()",
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "graficopeso()",
       "source_file": "frontend/src/components/GraficoPeso.jsx",
@@ -1074,7 +1075,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "formatarlitros()",
       "source_file": "frontend/src/components/GraficoProducaoLeite.jsx",
@@ -1086,7 +1087,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "graficoproducaoleite()",
       "source_file": "frontend/src/components/GraficoProducaoLeite.jsx",
@@ -1098,7 +1099,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "calculardiasentredatas()",
       "source_file": "frontend/src/utils/datas.js",
@@ -1110,7 +1111,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "formatardatasemfuso()",
       "source_file": "frontend/src/utils/datas.js",
@@ -1230,7 +1231,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 16,
-      "community_name": "registrarEvento",
+      "community_name": "log.js",
       "file_type": "code",
       "norm_label": "criarconfiguracaocors()",
       "source_file": "backend/config/cors.js",
@@ -1242,7 +1243,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 16,
-      "community_name": "registrarEvento",
+      "community_name": "log.js",
       "file_type": "code",
       "norm_label": "normalizarorigem()",
       "source_file": "backend/config/cors.js",
@@ -1254,7 +1255,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 16,
-      "community_name": "registrarEvento",
+      "community_name": "log.js",
       "file_type": "code",
       "norm_label": "obterorigenspermitidas()",
       "source_file": "backend/config/cors.js",
@@ -1266,7 +1267,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 16,
-      "community_name": "registrarEvento",
+      "community_name": "log.js",
       "file_type": "code",
       "norm_label": "origemdoreferer()",
       "source_file": "backend/middleware/csrf.js",
@@ -1278,7 +1279,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 16,
-      "community_name": "registrarEvento",
+      "community_name": "log.js",
       "file_type": "code",
       "norm_label": "protegercontracsrf()",
       "source_file": "backend/middleware/csrf.js",
@@ -1290,7 +1291,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 16,
-      "community_name": "registrarEvento",
+      "community_name": "log.js",
       "file_type": "code",
       "norm_label": "registrarevento()",
       "source_file": "backend/utils/log.js",
@@ -1302,7 +1303,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 16,
-      "community_name": "registrarEvento",
+      "community_name": "log.js",
       "file_type": "code",
       "norm_label": "sanitizartexto()",
       "source_file": "backend/utils/log.js",
@@ -1393,30 +1394,6 @@
       "source_location": "L17"
     },
     {
-      "id": "backend_routes_receitasroutes_construirfiltro",
-      "label": "construirFiltro()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "validacoes.js",
-      "file_type": "code",
-      "norm_label": "construirfiltro()",
-      "source_file": "backend/routes/receitasRoutes.js",
-      "source_location": "L128"
-    },
-    {
-      "id": "backend_routes_receitasroutes_construirfiltro_adicionar",
-      "label": "adicionar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "validacoes.js",
-      "file_type": "code",
-      "norm_label": "adicionar()",
-      "source_file": "backend/routes/receitasRoutes.js",
-      "source_location": "L132"
-    },
-    {
       "id": "backend_routes_receitasroutes_normalizarfiltros",
       "label": "normalizarFiltros()",
       "_callable": true,
@@ -1439,18 +1416,6 @@
       "norm_label": "normalizarreceita()",
       "source_file": "backend/routes/receitasRoutes.js",
       "source_location": "L21"
-    },
-    {
-      "id": "backend_routes_receitasroutes_validaracessopropriedade",
-      "label": "validarAcessoPropriedade()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "validacoes.js",
-      "file_type": "code",
-      "norm_label": "validaracessopropriedade()",
-      "source_file": "backend/routes/receitasRoutes.js",
-      "source_location": "L160"
     },
     {
       "id": "backend_routes_vacinacoesroutes_normalizardadosvacinacao",
@@ -2041,54 +2006,6 @@
       "source_location": "L172"
     },
     {
-      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao",
-      "label": "ConfirmacaoExclusao()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "ConfirmacaoExclusao.jsx",
-      "file_type": "code",
-      "norm_label": "confirmacaoexclusao()",
-      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
-      "source_location": "L3"
-    },
-    {
-      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao_cancelar",
-      "label": "cancelar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "ConfirmacaoExclusao.jsx",
-      "file_type": "code",
-      "norm_label": "cancelar()",
-      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
-      "source_location": "L42"
-    },
-    {
-      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao_confirmar",
-      "label": "confirmar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "ConfirmacaoExclusao.jsx",
-      "file_type": "code",
-      "norm_label": "confirmar()",
-      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
-      "source_location": "L49"
-    },
-    {
-      "id": "frontend_src_components_confirmacaoexclusao_confirmacaoexclusao_fecharcomescape",
-      "label": "fecharComEscape()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 21,
-      "community_name": "ConfirmacaoExclusao.jsx",
-      "file_type": "code",
-      "norm_label": "fecharcomescape()",
-      "source_file": "frontend/src/components/ConfirmacaoExclusao.jsx",
-      "source_location": "L23"
-    },
-    {
       "id": "frontend_src_components_confirmacaoexclusao_descreverregistro",
       "label": "descreverRegistro()",
       "_callable": true,
@@ -2334,7 +2251,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 25,
-      "community_name": "rateLimit.js",
+      "community_name": "registrarErro",
       "file_type": "code",
       "norm_label": "limitarrequisicoes()",
       "source_file": "backend/middleware/rateLimit.js",
@@ -2346,7 +2263,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 25,
-      "community_name": "rateLimit.js",
+      "community_name": "registrarErro",
       "file_type": "code",
       "norm_label": "consumirlimite()",
       "source_file": "backend/services/limitesRequisicao.js",
@@ -2358,11 +2275,23 @@
       "_callable": true,
       "_origin": "ast",
       "community": 25,
-      "community_name": "rateLimit.js",
+      "community_name": "registrarErro",
       "file_type": "code",
       "norm_label": "hashchave()",
       "source_file": "backend/services/limitesRequisicao.js",
       "source_location": "L4"
+    },
+    {
+      "id": "backend_utils_log_registrarerro",
+      "label": "registrarErro()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 25,
+      "community_name": "registrarErro",
+      "file_type": "code",
+      "norm_label": "registrarerro()",
+      "source_file": "backend/utils/log.js",
+      "source_location": "L28"
     },
     {
       "id": "backend_services_calculospesagem_calculargmd",
@@ -3145,24 +3074,12 @@
       "source_location": "L14"
     },
     {
-      "id": "backend_utils_log_registrarerro",
-      "label": "registrarErro()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 36,
-      "community_name": "registrarErro",
-      "file_type": "code",
-      "norm_label": "registrarerro()",
-      "source_file": "backend/utils/log.js",
-      "source_location": "L28"
-    },
-    {
       "id": "backend_utils_validacoes_normalizarpaginacao",
       "label": "normalizarPaginacao()",
       "_callable": true,
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "normalizarpaginacao()",
       "source_file": "backend/utils/validacoes.js",
@@ -3174,7 +3091,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "responderpagina()",
       "source_file": "backend/utils/validacoes.js",
@@ -3490,7 +3407,7 @@
       "file_type": "code",
       "norm_label": "propriedades()",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L8"
+      "source_location": "L10"
     },
     {
       "id": "frontend_src_pages_propriedades_propriedades_abrirexclusao",
@@ -3502,7 +3419,7 @@
       "file_type": "code",
       "norm_label": "abrirexclusao()",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L88"
+      "source_location": "L95"
     },
     {
       "id": "frontend_src_pages_propriedades_propriedades_carregarpropriedades",
@@ -3514,7 +3431,7 @@
       "file_type": "code",
       "norm_label": "carregarpropriedades()",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L32"
+      "source_location": "L39"
     },
     {
       "id": "frontend_src_pages_propriedades_propriedades_editarpropriedade",
@@ -3526,7 +3443,7 @@
       "file_type": "code",
       "norm_label": "editarpropriedade()",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L80"
+      "source_location": "L87"
     },
     {
       "id": "frontend_src_pages_propriedades_propriedades_excluirpropriedade",
@@ -3538,7 +3455,7 @@
       "file_type": "code",
       "norm_label": "excluirpropriedade()",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L132"
+      "source_location": "L139"
     },
     {
       "id": "frontend_src_pages_propriedades_propriedades_fecharexclusao",
@@ -3550,7 +3467,7 @@
       "file_type": "code",
       "norm_label": "fecharexclusao()",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L121"
+      "source_location": "L128"
     },
     {
       "id": "frontend_src_pages_propriedades_propriedades_limparformulario",
@@ -3562,7 +3479,7 @@
       "file_type": "code",
       "norm_label": "limparformulario()",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L42"
+      "source_location": "L49"
     },
     {
       "id": "frontend_src_pages_propriedades_propriedades_salvarpropriedade",
@@ -3574,7 +3491,7 @@
       "file_type": "code",
       "norm_label": "salvarpropriedade()",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L50"
+      "source_location": "L57"
     },
     {
       "id": "frontend_src_pages_vacinas_vacinas",
@@ -3743,6 +3660,150 @@
       "norm_label": "executar()",
       "source_file": "backend/scripts/migrate-users.js",
       "source_location": "L7"
+    },
+    {
+      "id": "frontend_src_components_controledesmama_controledesmama",
+      "label": "ControleDesmama()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "FichaAnimal",
+      "file_type": "code",
+      "norm_label": "controledesmama()",
+      "source_file": "frontend/src/components/ControleDesmama.jsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "frontend_src_components_controledesmama_controledesmama_abrirconclusao",
+      "label": "abrirConclusao()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "FichaAnimal",
+      "file_type": "code",
+      "norm_label": "abrirconclusao()",
+      "source_file": "frontend/src/components/ControleDesmama.jsx",
+      "source_location": "L92"
+    },
+    {
+      "id": "frontend_src_components_controledesmama_controledesmama_alterar",
+      "label": "alterar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "FichaAnimal",
+      "file_type": "code",
+      "norm_label": "alterar()",
+      "source_file": "frontend/src/components/ControleDesmama.jsx",
+      "source_location": "L64"
+    },
+    {
+      "id": "frontend_src_components_controledesmama_controledesmama_alterarconclusao",
+      "label": "alterarConclusao()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "FichaAnimal",
+      "file_type": "code",
+      "norm_label": "alterarconclusao()",
+      "source_file": "frontend/src/components/ControleDesmama.jsx",
+      "source_location": "L65"
+    },
+    {
+      "id": "frontend_src_components_controledesmama_controledesmama_cancelar",
+      "label": "cancelar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "FichaAnimal",
+      "file_type": "code",
+      "norm_label": "cancelar()",
+      "source_file": "frontend/src/components/ControleDesmama.jsx",
+      "source_location": "L110"
+    },
+    {
+      "id": "frontend_src_components_controledesmama_controledesmama_carregar",
+      "label": "carregar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "FichaAnimal",
+      "file_type": "code",
+      "norm_label": "carregar()",
+      "source_file": "frontend/src/components/ControleDesmama.jsx",
+      "source_location": "L28"
+    },
+    {
+      "id": "frontend_src_components_controledesmama_controledesmama_carregarinicial",
+      "label": "carregarInicial()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "FichaAnimal",
+      "file_type": "code",
+      "norm_label": "carregarinicial()",
+      "source_file": "frontend/src/components/ControleDesmama.jsx",
+      "source_location": "L41"
+    },
+    {
+      "id": "frontend_src_components_controledesmama_controledesmama_concluir",
+      "label": "concluir()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "FichaAnimal",
+      "file_type": "code",
+      "norm_label": "concluir()",
+      "source_file": "frontend/src/components/ControleDesmama.jsx",
+      "source_location": "L97"
+    },
+    {
+      "id": "frontend_src_components_controledesmama_controledesmama_editar",
+      "label": "editar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "FichaAnimal",
+      "file_type": "code",
+      "norm_label": "editar()",
+      "source_file": "frontend/src/components/ControleDesmama.jsx",
+      "source_location": "L73"
+    },
+    {
+      "id": "frontend_src_components_controledesmama_controledesmama_planejar",
+      "label": "planejar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "FichaAnimal",
+      "file_type": "code",
+      "norm_label": "planejar()",
+      "source_file": "frontend/src/components/ControleDesmama.jsx",
+      "source_location": "L67"
+    },
+    {
+      "id": "frontend_src_components_controledesmama_controledesmama_salvar",
+      "label": "salvar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "FichaAnimal",
+      "file_type": "code",
+      "norm_label": "salvar()",
+      "source_file": "frontend/src/components/ControleDesmama.jsx",
+      "source_location": "L79"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_controlepesagens_novo",
+      "label": "novo()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "FichaAnimal",
+      "file_type": "code",
+      "norm_label": "novo()",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L92"
     },
     {
       "id": "frontend_src_pages_fichaanimal_fichaanimal",
@@ -3937,268 +3998,220 @@
       "source_location": "L30"
     },
     {
-      "id": "frontend_src_components_controlepesagens_controlepesagens",
-      "label": "ControlePesagens()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "ControlePesagens.jsx",
-      "file_type": "code",
-      "norm_label": "controlepesagens()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L35"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_controlepesagens_alterar",
-      "label": "alterar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "ControlePesagens.jsx",
-      "file_type": "code",
-      "norm_label": "alterar()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L88"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_controlepesagens_carregar",
-      "label": "carregar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "ControlePesagens.jsx",
-      "file_type": "code",
-      "norm_label": "carregar()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L52"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_controlepesagens_carregarinicial",
-      "label": "carregarInicial()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "ControlePesagens.jsx",
-      "file_type": "code",
-      "norm_label": "carregarinicial()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L67"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_controlepesagens_confirmarexclusao",
-      "label": "confirmarExclusao()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "ControlePesagens.jsx",
-      "file_type": "code",
-      "norm_label": "confirmarexclusao()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L131"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_controlepesagens_editar",
-      "label": "editar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "ControlePesagens.jsx",
-      "file_type": "code",
-      "norm_label": "editar()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L99"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_controlepesagens_salvar",
-      "label": "salvar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "ControlePesagens.jsx",
-      "file_type": "code",
-      "norm_label": "salvar()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L112"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_gmd",
-      "label": "gmd()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "ControlePesagens.jsx",
-      "file_type": "code",
-      "norm_label": "gmd()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L29"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_kg",
-      "label": "kg()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 78,
-      "community_name": "ControlePesagens.jsx",
-      "file_type": "code",
-      "norm_label": "kg()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L23"
-    },
-    {
-      "id": "frontend_src_components_controledesmama_controledesmama",
-      "label": "ControleDesmama()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 79,
-      "community_name": "ControleDesmama",
-      "file_type": "code",
-      "norm_label": "controledesmama()",
-      "source_file": "frontend/src/components/ControleDesmama.jsx",
-      "source_location": "L13"
-    },
-    {
-      "id": "frontend_src_components_controledesmama_controledesmama_abrirconclusao",
-      "label": "abrirConclusao()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 79,
-      "community_name": "ControleDesmama",
-      "file_type": "code",
-      "norm_label": "abrirconclusao()",
-      "source_file": "frontend/src/components/ControleDesmama.jsx",
-      "source_location": "L92"
-    },
-    {
-      "id": "frontend_src_components_controledesmama_controledesmama_alterar",
-      "label": "alterar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 79,
-      "community_name": "ControleDesmama",
-      "file_type": "code",
-      "norm_label": "alterar()",
-      "source_file": "frontend/src/components/ControleDesmama.jsx",
-      "source_location": "L64"
-    },
-    {
-      "id": "frontend_src_components_controledesmama_controledesmama_alterarconclusao",
-      "label": "alterarConclusao()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 79,
-      "community_name": "ControleDesmama",
-      "file_type": "code",
-      "norm_label": "alterarconclusao()",
-      "source_file": "frontend/src/components/ControleDesmama.jsx",
-      "source_location": "L65"
-    },
-    {
-      "id": "frontend_src_components_controledesmama_controledesmama_cancelar",
-      "label": "cancelar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 79,
-      "community_name": "ControleDesmama",
-      "file_type": "code",
-      "norm_label": "cancelar()",
-      "source_file": "frontend/src/components/ControleDesmama.jsx",
-      "source_location": "L110"
-    },
-    {
-      "id": "frontend_src_components_controledesmama_controledesmama_carregar",
-      "label": "carregar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 79,
-      "community_name": "ControleDesmama",
-      "file_type": "code",
-      "norm_label": "carregar()",
-      "source_file": "frontend/src/components/ControleDesmama.jsx",
-      "source_location": "L28"
-    },
-    {
-      "id": "frontend_src_components_controledesmama_controledesmama_carregarinicial",
-      "label": "carregarInicial()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 79,
-      "community_name": "ControleDesmama",
-      "file_type": "code",
-      "norm_label": "carregarinicial()",
-      "source_file": "frontend/src/components/ControleDesmama.jsx",
-      "source_location": "L41"
-    },
-    {
-      "id": "frontend_src_components_controledesmama_controledesmama_concluir",
-      "label": "concluir()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 79,
-      "community_name": "ControleDesmama",
-      "file_type": "code",
-      "norm_label": "concluir()",
-      "source_file": "frontend/src/components/ControleDesmama.jsx",
-      "source_location": "L97"
-    },
-    {
-      "id": "frontend_src_components_controledesmama_controledesmama_editar",
-      "label": "editar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 79,
-      "community_name": "ControleDesmama",
-      "file_type": "code",
-      "norm_label": "editar()",
-      "source_file": "frontend/src/components/ControleDesmama.jsx",
-      "source_location": "L73"
-    },
-    {
-      "id": "frontend_src_components_controledesmama_controledesmama_planejar",
-      "label": "planejar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 79,
-      "community_name": "ControleDesmama",
-      "file_type": "code",
-      "norm_label": "planejar()",
-      "source_file": "frontend/src/components/ControleDesmama.jsx",
-      "source_location": "L67"
-    },
-    {
-      "id": "frontend_src_components_controledesmama_controledesmama_salvar",
-      "label": "salvar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 79,
-      "community_name": "ControleDesmama",
-      "file_type": "code",
-      "norm_label": "salvar()",
-      "source_file": "frontend/src/components/ControleDesmama.jsx",
-      "source_location": "L79"
-    },
-    {
-      "id": "frontend_src_components_controlepesagens_controlepesagens_novo",
-      "label": "novo()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 79,
-      "community_name": "ControleDesmama",
-      "file_type": "code",
-      "norm_label": "novo()",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L92"
-    },
-    {
       "id": "frontend_src_utils_datas_obterdataatuallocal",
       "label": "obterDataAtualLocal()",
       "_callable": true,
       "_origin": "ast",
-      "community": 79,
-      "community_name": "ControleDesmama",
+      "community": 7,
+      "community_name": "FichaAnimal",
       "file_type": "code",
       "norm_label": "obterdataatuallocal()",
       "source_file": "frontend/src/utils/datas.js",
       "source_location": "L12"
+    },
+    {
+      "id": "backend_controllers_climacontroller_criarconsultarclima",
+      "label": "criarConsultarClima()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "criarconsultarclima()",
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L6"
+    },
+    {
+      "id": "backend_services_climaservice_criarclimaservice",
+      "label": "criarClimaService()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "criarclimaservice()",
+      "source_file": "backend/services/climaService.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "backend_services_climaservice_criarclimaservice_buscarclimadapropriedade",
+      "label": "buscarClimaDaPropriedade()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "buscarclimadapropriedade()",
+      "source_file": "backend/services/climaService.js",
+      "source_location": "L11"
+    },
+    {
+      "id": "backend_services_openmeteoservice_criaropenmeteoprovider",
+      "label": "criarOpenMeteoProvider()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "criaropenmeteoprovider()",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L29"
+    },
+    {
+      "id": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarcoordenadas",
+      "label": "buscarCoordenadas()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "buscarcoordenadas()",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L47"
+    },
+    {
+      "id": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarcoordenadas_consultar",
+      "label": "consultar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "consultar()",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L51"
+    },
+    {
+      "id": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarcoordenadas_encontrar",
+      "label": "encontrar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "encontrar()",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L62"
+    },
+    {
+      "id": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarprevisao",
+      "label": "buscarPrevisao()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "buscarprevisao()",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L76"
+    },
+    {
+      "id": "backend_services_openmeteoservice_criaropenmeteoprovider_obterjson",
+      "label": "obterJson()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "obterjson()",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L30"
+    },
+    {
+      "id": "backend_services_openmeteoservice_erroclima_constructor",
+      "label": ".constructor()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": ".constructor()",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L16"
+    },
+    {
+      "id": "backend_services_openmeteoservice_normalizar",
+      "label": "normalizar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "normalizar()",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L24"
+    },
+    {
+      "id": "backend_tests_clima_criarres",
+      "label": "criarRes()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "criarres()",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L22"
+    },
+    {
+      "id": "backend_tests_clima_executar",
+      "label": "executar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "executar()",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L30"
+    },
+    {
+      "id": "backend_tests_clima_resposta",
+      "label": "resposta()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "resposta()",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L18"
+    },
+    {
+      "id": "backend_routes_receitasroutes_construirfiltro",
+      "label": "construirFiltro()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "receitasRoutes.js",
+      "file_type": "code",
+      "norm_label": "construirfiltro()",
+      "source_file": "backend/routes/receitasRoutes.js",
+      "source_location": "L128"
+    },
+    {
+      "id": "backend_routes_receitasroutes_construirfiltro_adicionar",
+      "label": "adicionar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "receitasRoutes.js",
+      "file_type": "code",
+      "norm_label": "adicionar()",
+      "source_file": "backend/routes/receitasRoutes.js",
+      "source_location": "L132"
+    },
+    {
+      "id": "backend_routes_receitasroutes_validaracessopropriedade",
+      "label": "validarAcessoPropriedade()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "receitasRoutes.js",
+      "file_type": "code",
+      "norm_label": "validaracessopropriedade()",
+      "source_file": "backend/routes/receitasRoutes.js",
+      "source_location": "L160"
     },
     {
       "id": "backend_routes_authroutes_emailnormalizado",
@@ -4247,6 +4260,222 @@
       "norm_label": "primeiroip()",
       "source_file": "backend/utils/rede.js",
       "source_location": "L1"
+    },
+    {
+      "id": "backend_tests_milk_production_confirmar",
+      "label": "confirmar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 80,
+      "community_name": "milk-production.js",
+      "file_type": "code",
+      "norm_label": "confirmar()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L14"
+    },
+    {
+      "id": "backend_tests_milk_production_datanofuso",
+      "label": "dataNoFuso()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 80,
+      "community_name": "milk-production.js",
+      "file_type": "code",
+      "norm_label": "datanofuso()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L43"
+    },
+    {
+      "id": "backend_tests_milk_production_executar",
+      "label": "executar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 80,
+      "community_name": "milk-production.js",
+      "file_type": "code",
+      "norm_label": "executar()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L99"
+    },
+    {
+      "id": "backend_tests_milk_production_limpar",
+      "label": "limpar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 80,
+      "community_name": "milk-production.js",
+      "file_type": "code",
+      "norm_label": "limpar()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L68"
+    },
+    {
+      "id": "backend_tests_milk_production_login",
+      "label": "login()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 80,
+      "community_name": "milk-production.js",
+      "file_type": "code",
+      "norm_label": "login()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L36"
+    },
+    {
+      "id": "backend_tests_milk_production_requisitar",
+      "label": "requisitar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 80,
+      "community_name": "milk-production.js",
+      "file_type": "code",
+      "norm_label": "requisitar()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L20"
+    },
+    {
+      "id": "backend_tests_milk_production_somardias",
+      "label": "somarDias()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 80,
+      "community_name": "milk-production.js",
+      "file_type": "code",
+      "norm_label": "somardias()",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L57"
+    },
+    {
+      "id": "frontend_src_components_climadashboard_climadashboard",
+      "label": "ClimaDashboard()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 82,
+      "community_name": "Dashboard.jsx",
+      "file_type": "code",
+      "norm_label": "climadashboard()",
+      "source_file": "frontend/src/components/ClimaDashboard.jsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "frontend_src_components_climapropriedade_climapropriedade",
+      "label": "ClimaPropriedade()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 82,
+      "community_name": "Dashboard.jsx",
+      "file_type": "code",
+      "norm_label": "climapropriedade()",
+      "source_file": "frontend/src/components/ClimaPropriedade.jsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "frontend_src_utils_clima_descreverclima",
+      "label": "descreverClima()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 82,
+      "community_name": "Dashboard.jsx",
+      "file_type": "code",
+      "norm_label": "descreverclima()",
+      "source_file": "frontend/src/utils/clima.js",
+      "source_location": "L13"
+    },
+    {
+      "id": "frontend_src_utils_clima_formatarmedida",
+      "label": "formatarMedida()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 82,
+      "community_name": "Dashboard.jsx",
+      "file_type": "code",
+      "norm_label": "formatarmedida()",
+      "source_file": "frontend/src/utils/clima.js",
+      "source_location": "L18"
+    },
+    {
+      "id": "backend_tests_calf_management_integration_confirmar",
+      "label": "confirmar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 83,
+      "community_name": "calf-management-integration.js",
+      "file_type": "code",
+      "norm_label": "confirmar()",
+      "source_file": "backend/tests/calf-management-integration.js",
+      "source_location": "L13"
+    },
+    {
+      "id": "backend_tests_calf_management_integration_executar",
+      "label": "executar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 83,
+      "community_name": "calf-management-integration.js",
+      "file_type": "code",
+      "norm_label": "executar()",
+      "source_file": "backend/tests/calf-management-integration.js",
+      "source_location": "L35"
+    },
+    {
+      "id": "backend_tests_calf_management_integration_limpar",
+      "label": "limpar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 83,
+      "community_name": "calf-management-integration.js",
+      "file_type": "code",
+      "norm_label": "limpar()",
+      "source_file": "backend/tests/calf-management-integration.js",
+      "source_location": "L27"
+    },
+    {
+      "id": "backend_tests_calf_management_integration_requisitar",
+      "label": "requisitar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 83,
+      "community_name": "calf-management-integration.js",
+      "file_type": "code",
+      "norm_label": "requisitar()",
+      "source_file": "backend/tests/calf-management-integration.js",
+      "source_location": "L19"
+    },
+    {
+      "id": "backend_middleware_erros_rotanaoencontrada",
+      "label": "rotaNaoEncontrada()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 85,
+      "community_name": "erros.js",
+      "file_type": "code",
+      "norm_label": "rotanaoencontrada()",
+      "source_file": "backend/middleware/erros.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "backend_middleware_erros_tratarerros",
+      "label": "tratarErros()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 85,
+      "community_name": "erros.js",
+      "file_type": "code",
+      "norm_label": "tratarerros()",
+      "source_file": "backend/middleware/erros.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "backend_middleware_contextorequisicao_contextorequisicao",
+      "label": "contextoRequisicao()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 86,
+      "community_name": "contextoRequisicao.js",
+      "file_type": "code",
+      "norm_label": "contextorequisicao()",
+      "source_file": "backend/middleware/contextoRequisicao.js",
+      "source_location": "L3"
     },
     {
       "id": "backend_config_ambiente_duracaoemsegundos",
@@ -4606,17 +4835,6 @@
       "source_location": "L15"
     },
     {
-      "id": "backend_app_app",
-      "label": "app",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "app",
-      "source_file": "backend/app.js",
-      "source_location": "L25"
-    },
-    {
       "id": "backend_app_autenticar",
       "label": "{ autenticar }",
       "_origin": "ast",
@@ -4637,6 +4855,17 @@
       "norm_label": "authroutes",
       "source_file": "backend/app.js",
       "source_location": "L11"
+    },
+    {
+      "id": "backend_app_climaroutes",
+      "label": "climaRoutes",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "app.js",
+      "file_type": "code",
+      "norm_label": "climaroutes",
+      "source_file": "backend/app.js",
+      "source_location": "L24"
     },
     {
       "id": "backend_app_contextorequisicao",
@@ -4749,17 +4978,6 @@
       "source_location": "L20"
     },
     {
-      "id": "backend_app_pool",
-      "label": "pool",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "pool",
-      "source_file": "backend/app.js",
-      "source_location": "L6"
-    },
-    {
       "id": "backend_app_producoesleiteirasroutes",
       "label": "producoesLeiteirasRoutes",
       "_origin": "ast",
@@ -4837,149 +5055,6 @@
       "source_location": "L17"
     },
     {
-      "id": "backend_middleware_contextorequisicao",
-      "label": "contextoRequisicao.js",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "contextorequisicao.js",
-      "source_file": "backend/middleware/contextoRequisicao.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_middleware_contextorequisicao_crypto",
-      "label": "crypto",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "crypto",
-      "source_file": "backend/middleware/contextoRequisicao.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_middleware_erros",
-      "label": "erros.js",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "erros.js",
-      "source_file": "backend/middleware/erros.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_middleware_erros_registrarerro",
-      "label": "{ registrarErro }",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "{ registrarerro }",
-      "source_file": "backend/middleware/erros.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_server",
-      "label": "server.js",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "server.js",
-      "source_file": "backend/server.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_server_app_pool",
-      "label": "{ app, pool }",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "{ app, pool }",
-      "source_file": "backend/server.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_tests_calf_management_integration",
-      "label": "calf-management-integration.js",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "calf-management-integration.js",
-      "source_file": "backend/tests/calf-management-integration.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_tests_calf_management_integration_app_pool",
-      "label": "{ app, pool }",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "{ app, pool }",
-      "source_file": "backend/tests/calf-management-integration.js",
-      "source_location": "L4"
-    },
-    {
-      "id": "backend_tests_calf_management_integration_assert",
-      "label": "assert",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "assert",
-      "source_file": "backend/tests/calf-management-integration.js",
-      "source_location": "L3"
-    },
-    {
-      "id": "backend_tests_calf_management_integration_emails",
-      "label": "emails",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "emails",
-      "source_file": "backend/tests/calf-management-integration.js",
-      "source_location": "L7"
-    },
-    {
-      "id": "backend_tests_milk_production",
-      "label": "milk-production.js",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "milk-production.js",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_tests_milk_production_app_pool",
-      "label": "{ app, pool }",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "{ app, pool }",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L4"
-    },
-    {
-      "id": "backend_tests_milk_production_assert",
-      "label": "assert",
-      "_origin": "ast",
-      "community": 1,
-      "community_name": "app.js",
-      "file_type": "code",
-      "norm_label": "assert",
-      "source_file": "backend/tests/milk-production.js",
-      "source_location": "L3"
-    },
-    {
       "id": "frontend_src_app",
       "label": "App.jsx",
       "_origin": "ast",
@@ -5046,28 +5121,6 @@
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_pages_dashboard",
-      "label": "Dashboard.jsx",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "App.jsx",
-      "file_type": "code",
-      "norm_label": "dashboard.jsx",
-      "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_pages_dashboard_resumoinicial",
-      "label": "resumoInicial",
-      "_origin": "ast",
-      "community": 10,
-      "community_name": "App.jsx",
-      "file_type": "code",
-      "norm_label": "resumoinicial",
-      "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L8"
-    },
-    {
       "id": "frontend_src_pages_login",
       "label": "Login.jsx",
       "_origin": "ast",
@@ -5105,7 +5158,7 @@
       "label": "IconeImagem.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "iconeimagem.jsx",
       "source_file": "frontend/src/components/IconeImagem.jsx",
@@ -5116,7 +5169,7 @@
       "label": "icones",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "icones",
       "source_file": "frontend/src/components/IconeImagem.jsx",
@@ -5127,7 +5180,7 @@
       "label": "VoltarInicio.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "voltarinicio.jsx",
       "source_file": "frontend/src/components/VoltarInicio.jsx",
@@ -5138,7 +5191,7 @@
       "label": "Animais.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "animais.jsx",
       "source_file": "frontend/src/pages/Animais.jsx",
@@ -5149,7 +5202,7 @@
       "label": "Despesas.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "despesas.jsx",
       "source_file": "frontend/src/pages/Despesas.jsx",
@@ -5160,7 +5213,7 @@
       "label": "Lotes.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "lotes.jsx",
       "source_file": "frontend/src/pages/Lotes.jsx",
@@ -5171,7 +5224,7 @@
       "label": "Lucros.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "lucros.jsx",
       "source_file": "frontend/src/pages/Lucros.jsx",
@@ -5182,7 +5235,7 @@
       "label": "CATEGORIAS_SUGERIDAS",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "categorias_sugeridas",
       "source_file": "frontend/src/pages/Lucros.jsx",
@@ -5193,7 +5246,7 @@
       "label": "FILTROS_INICIAIS",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "filtros_iniciais",
       "source_file": "frontend/src/pages/Lucros.jsx",
@@ -5204,7 +5257,7 @@
       "label": "FORMAS_RECEBIMENTO",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "formas_recebimento",
       "source_file": "frontend/src/pages/Lucros.jsx",
@@ -5215,7 +5268,7 @@
       "label": "RESUMO_INICIAL",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "resumo_inicial",
       "source_file": "frontend/src/pages/Lucros.jsx",
@@ -5226,7 +5279,7 @@
       "label": "Propriedades.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "propriedades.jsx",
       "source_file": "frontend/src/pages/Propriedades.jsx",
@@ -5237,7 +5290,7 @@
       "label": "Usuarios.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "usuarios.jsx",
       "source_file": "frontend/src/pages/Usuarios.jsx",
@@ -5248,7 +5301,7 @@
       "label": "formularioInicial",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "formularioinicial",
       "source_file": "frontend/src/pages/Usuarios.jsx",
@@ -5259,7 +5312,7 @@
       "label": "Vacinacoes.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "vacinacoes.jsx",
       "source_file": "frontend/src/pages/Vacinacoes.jsx",
@@ -5270,21 +5323,10 @@
       "label": "Vacinas.jsx",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "vacinas.jsx",
       "source_file": "frontend/src/pages/Vacinas.jsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_services_api",
-      "label": "api.js",
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "api.js",
-      "file_type": "code",
-      "norm_label": "api.js",
-      "source_file": "frontend/src/services/api.js",
       "source_location": "L1"
     },
     {
@@ -5292,51 +5334,18 @@
       "label": "api",
       "_origin": "ast",
       "community": 11,
-      "community_name": "api.js",
+      "community_name": "api",
       "file_type": "code",
       "norm_label": "api",
       "source_file": "frontend/src/services/api.js",
       "source_location": "L11"
     },
     {
-      "id": "frontend_src_services_api_api_url",
-      "label": "API_URL",
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "api.js",
-      "file_type": "code",
-      "norm_label": "api_url",
-      "source_file": "frontend/src/services/api.js",
-      "source_location": "L3"
-    },
-    {
-      "id": "frontend_src_services_api_chaves_auth_legadas",
-      "label": "CHAVES_AUTH_LEGADAS",
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "api.js",
-      "file_type": "code",
-      "norm_label": "chaves_auth_legadas",
-      "source_file": "frontend/src/services/api.js",
-      "source_location": "L4"
-    },
-    {
-      "id": "frontend_src_services_api_rotas_sem_renovacao",
-      "label": "ROTAS_SEM_RENOVACAO",
-      "_origin": "ast",
-      "community": 11,
-      "community_name": "api.js",
-      "file_type": "code",
-      "norm_label": "rotas_sem_renovacao",
-      "source_file": "frontend/src/services/api.js",
-      "source_location": "L5"
-    },
-    {
       "id": "frontend_src_auth_auth_context",
       "label": "auth-context.js",
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "auth-context.js",
       "source_file": "frontend/src/auth/auth-context.js",
@@ -5347,7 +5356,7 @@
       "label": "AuthContext",
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "authcontext",
       "source_file": "frontend/src/auth/auth-context.js",
@@ -5358,11 +5367,55 @@
       "label": "AuthContext.jsx",
       "_origin": "ast",
       "community": 12,
-      "community_name": "AuthContext.jsx",
+      "community_name": "api.js",
       "file_type": "code",
       "norm_label": "authcontext.jsx",
       "source_file": "frontend/src/auth/AuthContext.jsx",
       "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_services_api",
+      "label": "api.js",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "api.js",
+      "file_type": "code",
+      "norm_label": "api.js",
+      "source_file": "frontend/src/services/api.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_services_api_api_url",
+      "label": "API_URL",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "api.js",
+      "file_type": "code",
+      "norm_label": "api_url",
+      "source_file": "frontend/src/services/api.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "frontend_src_services_api_chaves_auth_legadas",
+      "label": "CHAVES_AUTH_LEGADAS",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "api.js",
+      "file_type": "code",
+      "norm_label": "chaves_auth_legadas",
+      "source_file": "frontend/src/services/api.js",
+      "source_location": "L4"
+    },
+    {
+      "id": "frontend_src_services_api_rotas_sem_renovacao",
+      "label": "ROTAS_SEM_RENOVACAO",
+      "_origin": "ast",
+      "community": 12,
+      "community_name": "api.js",
+      "file_type": "code",
+      "norm_label": "rotas_sem_renovacao",
+      "source_file": "frontend/src/services/api.js",
+      "source_location": "L5"
     },
     {
       "id": "backend_middleware_autenticacao",
@@ -5545,7 +5598,7 @@
       "label": "ControleDesmama.jsx",
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "controledesmama.jsx",
       "source_file": "frontend/src/components/ControleDesmama.jsx",
@@ -5556,7 +5609,7 @@
       "label": "ROTULOS_TIPO",
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "rotulos_tipo",
       "source_file": "frontend/src/components/ControleDesmama.jsx",
@@ -5567,7 +5620,7 @@
       "label": "STATUS",
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "status",
       "source_file": "frontend/src/components/ControleDesmama.jsx",
@@ -5578,18 +5631,73 @@
       "label": "TIPOS",
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "tipos",
       "source_file": "frontend/src/components/ControleDesmama.jsx",
       "source_location": "L5"
     },
     {
+      "id": "frontend_src_components_controlepesagens",
+      "label": "ControlePesagens.jsx",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "controlepesagens.jsx",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_metodos",
+      "label": "METODOS",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "metodos",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L12"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_resumo_vazio",
+      "label": "RESUMO_VAZIO",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "resumo_vazio",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L17"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_rotulos",
+      "label": "ROTULOS",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "rotulos",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "frontend_src_components_controlepesagens_tipos",
+      "label": "TIPOS",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "formatarDataSemFuso",
+      "file_type": "code",
+      "norm_label": "tipos",
+      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "source_location": "L7"
+    },
+    {
       "id": "frontend_src_components_graficopeso",
       "label": "GraficoPeso.jsx",
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "graficopeso.jsx",
       "source_file": "frontend/src/components/GraficoPeso.jsx",
@@ -5600,7 +5708,7 @@
       "label": "margem",
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "margem",
       "source_file": "frontend/src/components/GraficoPeso.jsx",
@@ -5611,7 +5719,7 @@
       "label": "GraficoProducaoLeite.jsx",
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "graficoproducaoleite.jsx",
       "source_file": "frontend/src/components/GraficoProducaoLeite.jsx",
@@ -5622,7 +5730,7 @@
       "label": "margem",
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "margem",
       "source_file": "frontend/src/components/GraficoProducaoLeite.jsx",
@@ -5633,7 +5741,7 @@
       "label": "FichaAnimal.jsx",
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "fichaanimal.jsx",
       "source_file": "frontend/src/pages/FichaAnimal.jsx",
@@ -5644,7 +5752,7 @@
       "label": "RESUMO_INICIAL",
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "resumo_inicial",
       "source_file": "frontend/src/pages/FichaAnimal.jsx",
@@ -5655,7 +5763,7 @@
       "label": "ROTULOS_TURNO",
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "rotulos_turno",
       "source_file": "frontend/src/pages/FichaAnimal.jsx",
@@ -5666,7 +5774,7 @@
       "label": "TURNOS",
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "turnos",
       "source_file": "frontend/src/pages/FichaAnimal.jsx",
@@ -5677,7 +5785,7 @@
       "label": "datas.js",
       "_origin": "ast",
       "community": 14,
-      "community_name": "FichaAnimal.jsx",
+      "community_name": "formatarDataSemFuso",
       "file_type": "code",
       "norm_label": "datas.js",
       "source_file": "frontend/src/utils/datas.js",
@@ -5787,7 +5895,7 @@
       "label": "cors.js",
       "_origin": "ast",
       "community": 16,
-      "community_name": "registrarEvento",
+      "community_name": "log.js",
       "file_type": "code",
       "norm_label": "cors.js",
       "source_file": "backend/config/cors.js",
@@ -5798,7 +5906,7 @@
       "label": "csrf.js",
       "_origin": "ast",
       "community": 16,
-      "community_name": "registrarEvento",
+      "community_name": "log.js",
       "file_type": "code",
       "norm_label": "csrf.js",
       "source_file": "backend/middleware/csrf.js",
@@ -5806,12 +5914,12 @@
     },
     {
       "id": "backend_middleware_csrf_normalizarorigem_obterorigenspermitidas",
-      "label": "{\n  normalizarOrigem,\n  obterOrigensPermitidas,\n}",
+      "label": "{\r\n  normalizarOrigem,\r\n  obterOrigensPermitidas,\r\n}",
       "_origin": "ast",
       "community": 16,
-      "community_name": "registrarEvento",
+      "community_name": "log.js",
       "file_type": "code",
-      "norm_label": "{\n  normalizarorigem,\n  obterorigenspermitidas,\n}",
+      "norm_label": "{\r\n  normalizarorigem,\r\n  obterorigenspermitidas,\r\n}",
       "source_file": "backend/middleware/csrf.js",
       "source_location": "L1"
     },
@@ -5820,11 +5928,77 @@
       "label": "{ registrarEvento }",
       "_origin": "ast",
       "community": 16,
-      "community_name": "registrarEvento",
+      "community_name": "log.js",
       "file_type": "code",
       "norm_label": "{ registrarevento }",
       "source_file": "backend/middleware/csrf.js",
       "source_location": "L5"
+    },
+    {
+      "id": "backend_routes_dashboardroutes",
+      "label": "dashboardRoutes.js",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "log.js",
+      "file_type": "code",
+      "norm_label": "dashboardroutes.js",
+      "source_file": "backend/routes/dashboardRoutes.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_routes_dashboardroutes_express",
+      "label": "express",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "log.js",
+      "file_type": "code",
+      "norm_label": "express",
+      "source_file": "backend/routes/dashboardRoutes.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_routes_dashboardroutes_pool",
+      "label": "pool",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "log.js",
+      "file_type": "code",
+      "norm_label": "pool",
+      "source_file": "backend/routes/dashboardRoutes.js",
+      "source_location": "L2"
+    },
+    {
+      "id": "backend_routes_dashboardroutes_registrarerro_registrarevento",
+      "label": "{ registrarErro, registrarEvento }",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "log.js",
+      "file_type": "code",
+      "norm_label": "{ registrarerro, registrarevento }",
+      "source_file": "backend/routes/dashboardRoutes.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "backend_routes_dashboardroutes_router",
+      "label": "router",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "log.js",
+      "file_type": "code",
+      "norm_label": "router",
+      "source_file": "backend/routes/dashboardRoutes.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "backend_utils_log",
+      "label": "log.js",
+      "_origin": "ast",
+      "community": 16,
+      "community_name": "log.js",
+      "file_type": "code",
+      "norm_label": "log.js",
+      "source_file": "backend/utils/log.js",
+      "source_location": "L1"
     },
     {
       "id": "backend_routes_animaisroutes",
@@ -5839,12 +6013,12 @@
     },
     {
       "id": "backend_routes_animaisroutes_converterid_normalizardatanascimento_normalizarnumerobrinco_normalizarpaginacao_responderpagina_validarcampospermitidos_normalizartextoobrigatorio_normalizartextoopcional_normalizarnumerofinito",
-      "label": "{\n  converterId,\n  normalizarDataNascimento,\n  normalizarNumeroBrinco,\n  normalizarPaginacao,\n  responderPagina,\n  validarCamposPermitidos,\n  normalizarTextoObrigatorio,\n  normalizarTextoOpcional,\n  normalizarNumeroFinito,\n}",
+      "label": "{\r\n  converterId,\r\n  normalizarDataNascimento,\r\n  normalizarNumeroBrinco,\r\n  normalizarPaginacao,\r\n  responderPagina,\r\n  validarCamposPermitidos,\r\n  normalizarTextoObrigatorio,\r\n  normalizarTextoOpcional,\r\n  normalizarNumeroFinito,\r\n}",
       "_origin": "ast",
       "community": 17,
       "community_name": "animaisRoutes.js",
       "file_type": "code",
-      "norm_label": "{\n  converterid,\n  normalizardatanascimento,\n  normalizarnumerobrinco,\n  normalizarpaginacao,\n  responderpagina,\n  validarcampospermitidos,\n  normalizartextoobrigatorio,\n  normalizartextoopcional,\n  normalizarnumerofinito,\n}",
+      "norm_label": "{\r\n  converterid,\r\n  normalizardatanascimento,\r\n  normalizarnumerobrinco,\r\n  normalizarpaginacao,\r\n  responderpagina,\r\n  validarcampospermitidos,\r\n  normalizartextoobrigatorio,\r\n  normalizartextoopcional,\r\n  normalizarnumerofinito,\r\n}",
       "source_file": "backend/routes/animaisRoutes.js",
       "source_location": "L3"
     },
@@ -5981,92 +6155,81 @@
       "source_location": "L4"
     },
     {
-      "id": "backend_routes_receitasroutes",
-      "label": "receitasRoutes.js",
+      "id": "backend_routes_vacinacoesroutes",
+      "label": "vacinacoesRoutes.js",
       "_origin": "ast",
       "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
-      "norm_label": "receitasroutes.js",
-      "source_file": "backend/routes/receitasRoutes.js",
+      "norm_label": "vacinacoesroutes.js",
+      "source_file": "backend/routes/vacinacoesRoutes.js",
       "source_location": "L1"
     },
     {
-      "id": "backend_routes_receitasroutes_converterid_normalizardatacalendario_normalizarnumerofinito_normalizarpaginacao_normalizartextoobrigatorio_normalizartextoopcional_responderpagina_validarcampospermitidos",
-      "label": "{\n  converterId,\n  normalizarDataCalendario,\n  normalizarNumeroFinito,\n  normalizarPaginacao,\n  normalizarTextoObrigatorio,\n  normalizarTextoOpcional,\n  responderPagina,\n  validarCamposPermitidos,\n}",
-      "_origin": "ast",
-      "community": 18,
-      "community_name": "validacoes.js",
-      "file_type": "code",
-      "norm_label": "{\n  converterid,\n  normalizardatacalendario,\n  normalizarnumerofinito,\n  normalizarpaginacao,\n  normalizartextoobrigatorio,\n  normalizartextoopcional,\n  responderpagina,\n  validarcampospermitidos,\n}",
-      "source_file": "backend/routes/receitasRoutes.js",
-      "source_location": "L5"
-    },
-    {
-      "id": "backend_routes_receitasroutes_express",
+      "id": "backend_routes_vacinacoesroutes_express",
       "label": "express",
       "_origin": "ast",
       "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "express",
-      "source_file": "backend/routes/receitasRoutes.js",
+      "source_file": "backend/routes/vacinacoesRoutes.js",
       "source_location": "L1"
     },
     {
-      "id": "backend_routes_receitasroutes_periodos",
-      "label": "PERIODOS",
+      "id": "backend_routes_vacinacoesroutes_normalizarpaginacao_responderpagina_validarcampospermitidos_converterid_normalizardatacalendario_normalizartextoopcional",
+      "label": "{ normalizarPaginacao, responderPagina, validarCamposPermitidos, converterId, normalizarDataCalendario, normalizarTextoOpcional }",
       "_origin": "ast",
       "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
-      "norm_label": "periodos",
-      "source_file": "backend/routes/receitasRoutes.js",
-      "source_location": "L17"
+      "norm_label": "{ normalizarpaginacao, responderpagina, validarcampospermitidos, converterid, normalizardatacalendario, normalizartextoopcional }",
+      "source_file": "backend/routes/vacinacoesRoutes.js",
+      "source_location": "L3"
     },
     {
-      "id": "backend_routes_receitasroutes_pool",
+      "id": "backend_routes_vacinacoesroutes_pool",
       "label": "pool",
       "_origin": "ast",
       "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "pool",
-      "source_file": "backend/routes/receitasRoutes.js",
+      "source_file": "backend/routes/vacinacoesRoutes.js",
       "source_location": "L2"
     },
     {
-      "id": "backend_routes_receitasroutes_registrarerro",
+      "id": "backend_routes_vacinacoesroutes_registrarerro",
       "label": "{ registrarErro }",
       "_origin": "ast",
       "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "{ registrarerro }",
-      "source_file": "backend/routes/receitasRoutes.js",
-      "source_location": "L4"
+      "source_file": "backend/routes/vacinacoesRoutes.js",
+      "source_location": "L5"
     },
     {
-      "id": "backend_routes_receitasroutes_router",
+      "id": "backend_routes_vacinacoesroutes_router",
       "label": "router",
       "_origin": "ast",
       "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "router",
-      "source_file": "backend/routes/receitasRoutes.js",
-      "source_location": "L16"
+      "source_file": "backend/routes/vacinacoesRoutes.js",
+      "source_location": "L7"
     },
     {
-      "id": "backend_routes_receitasroutes_validarparametroid",
+      "id": "backend_routes_vacinacoesroutes_validarparametroid",
       "label": "{ validarParametroId }",
       "_origin": "ast",
       "community": 18,
       "community_name": "validacoes.js",
       "file_type": "code",
       "norm_label": "{ validarparametroid }",
-      "source_file": "backend/routes/receitasRoutes.js",
-      "source_location": "L3"
+      "source_file": "backend/routes/vacinacoesRoutes.js",
+      "source_location": "L4"
     },
     {
       "id": "backend_utils_validacoes",
@@ -6301,12 +6464,12 @@
     },
     {
       "id": "backend_scripts_migrate_to_supabase_criarconfiguracaolegada_criarconfiguracaoporurl",
-      "label": "{\n  criarConfiguracaoLegada,\n  criarConfiguracaoPorUrl,\n}",
+      "label": "{\r\n  criarConfiguracaoLegada,\r\n  criarConfiguracaoPorUrl,\r\n}",
       "_origin": "ast",
       "community": 2,
       "community_name": "migrate-to-supabase.js",
       "file_type": "code",
-      "norm_label": "{\n  criarconfiguracaolegada,\n  criarconfiguracaoporurl,\n}",
+      "norm_label": "{\r\n  criarconfiguracaolegada,\r\n  criarconfiguracaoporurl,\r\n}",
       "source_file": "backend/scripts/migrate-to-supabase.js",
       "source_location": "L7"
     },
@@ -6433,12 +6596,12 @@
     },
     {
       "id": "backend_services_sessoes_audience_expiracaoacesso_issuer",
-      "label": "{\n  audience,\n  expiracaoAcesso,\n  issuer,\n}",
+      "label": "{\r\n  audience,\r\n  expiracaoAcesso,\r\n  issuer,\r\n}",
       "_origin": "ast",
       "community": 20,
       "community_name": "sessoes.js",
       "file_type": "code",
-      "norm_label": "{\n  audience,\n  expiracaoacesso,\n  issuer,\n}",
+      "norm_label": "{\r\n  audience,\r\n  expiracaoacesso,\r\n  issuer,\r\n}",
       "source_file": "backend/services/sessoes.js",
       "source_location": "L3"
     },
@@ -6872,7 +7035,7 @@
       "label": "rateLimit.js",
       "_origin": "ast",
       "community": 25,
-      "community_name": "rateLimit.js",
+      "community_name": "registrarErro",
       "file_type": "code",
       "norm_label": "ratelimit.js",
       "source_file": "backend/middleware/rateLimit.js",
@@ -6883,7 +7046,7 @@
       "label": "{ consumirLimite }",
       "_origin": "ast",
       "community": 25,
-      "community_name": "rateLimit.js",
+      "community_name": "registrarErro",
       "file_type": "code",
       "norm_label": "{ consumirlimite }",
       "source_file": "backend/middleware/rateLimit.js",
@@ -6894,7 +7057,7 @@
       "label": "{ registrarErro, registrarEvento }",
       "_origin": "ast",
       "community": 25,
-      "community_name": "rateLimit.js",
+      "community_name": "registrarErro",
       "file_type": "code",
       "norm_label": "{ registrarerro, registrarevento }",
       "source_file": "backend/middleware/rateLimit.js",
@@ -6905,7 +7068,7 @@
       "label": "limitesRequisicao.js",
       "_origin": "ast",
       "community": 25,
-      "community_name": "rateLimit.js",
+      "community_name": "registrarErro",
       "file_type": "code",
       "norm_label": "limitesrequisicao.js",
       "source_file": "backend/services/limitesRequisicao.js",
@@ -6916,7 +7079,7 @@
       "label": "crypto",
       "_origin": "ast",
       "community": 25,
-      "community_name": "rateLimit.js",
+      "community_name": "registrarErro",
       "file_type": "code",
       "norm_label": "crypto",
       "source_file": "backend/services/limitesRequisicao.js",
@@ -6927,7 +7090,7 @@
       "label": "pool",
       "_origin": "ast",
       "community": 25,
-      "community_name": "rateLimit.js",
+      "community_name": "registrarErro",
       "file_type": "code",
       "norm_label": "pool",
       "source_file": "backend/services/limitesRequisicao.js",
@@ -6968,12 +7131,12 @@
     },
     {
       "id": "backend_tests_calf_management_calculargmd_calcularidadeemdias_calcularp205_montarresumopesagens",
-      "label": "{\n  calcularGMD,\n  calcularIdadeEmDias,\n  calcularP205,\n  montarResumoPesagens,\n}",
+      "label": "{\r\n  calcularGMD,\r\n  calcularIdadeEmDias,\r\n  calcularP205,\r\n  montarResumoPesagens,\r\n}",
       "_origin": "ast",
       "community": 26,
       "community_name": "calf-management.js",
       "file_type": "code",
-      "norm_label": "{\n  calculargmd,\n  calcularidadeemdias,\n  calcularp205,\n  montarresumopesagens,\n}",
+      "norm_label": "{\r\n  calculargmd,\r\n  calcularidadeemdias,\r\n  calcularp205,\r\n  montarresumopesagens,\r\n}",
       "source_file": "backend/tests/calf-management.js",
       "source_location": "L2"
     },
@@ -7001,12 +7164,12 @@
     },
     {
       "id": "backend_scripts_check_deletion_integrity_obterimpactoexclusaopropriedade_obterimpactoexclusaousuario",
-      "label": "{\n  obterImpactoExclusaoPropriedade,\n  obterImpactoExclusaoUsuario,\n}",
+      "label": "{\r\n  obterImpactoExclusaoPropriedade,\r\n  obterImpactoExclusaoUsuario,\r\n}",
       "_origin": "ast",
       "community": 27,
       "community_name": "impactoExclusao.js",
       "file_type": "code",
-      "norm_label": "{\n  obterimpactoexclusaopropriedade,\n  obterimpactoexclusaousuario,\n}",
+      "norm_label": "{\r\n  obterimpactoexclusaopropriedade,\r\n  obterimpactoexclusaousuario,\r\n}",
       "source_file": "backend/scripts/check-deletion-integrity.js",
       "source_location": "L4"
     },
@@ -7292,7 +7455,7 @@
       "file_type": "code",
       "norm_label": "author",
       "source_file": "backend/package.json",
-      "source_location": "L31"
+      "source_location": "L32"
     },
     {
       "id": "backend_package_dependencies",
@@ -7303,7 +7466,7 @@
       "file_type": "code",
       "norm_label": "dependencies",
       "source_file": "backend/package.json",
-      "source_location": "L34"
+      "source_location": "L35"
     },
     {
       "id": "backend_package_dependencies_bcryptjs",
@@ -7314,7 +7477,7 @@
       "file_type": "code",
       "norm_label": "bcryptjs",
       "source_file": "backend/package.json",
-      "source_location": "L35"
+      "source_location": "L36"
     },
     {
       "id": "backend_package_dependencies_cors",
@@ -7325,7 +7488,7 @@
       "file_type": "code",
       "norm_label": "cors",
       "source_file": "backend/package.json",
-      "source_location": "L36"
+      "source_location": "L37"
     },
     {
       "id": "backend_package_dependencies_dotenv",
@@ -7336,7 +7499,7 @@
       "file_type": "code",
       "norm_label": "dotenv",
       "source_file": "backend/package.json",
-      "source_location": "L37"
+      "source_location": "L38"
     },
     {
       "id": "backend_package_dependencies_express",
@@ -7347,7 +7510,7 @@
       "file_type": "code",
       "norm_label": "express",
       "source_file": "backend/package.json",
-      "source_location": "L38"
+      "source_location": "L39"
     },
     {
       "id": "backend_package_dependencies_helmet",
@@ -7358,7 +7521,7 @@
       "file_type": "code",
       "norm_label": "helmet",
       "source_file": "backend/package.json",
-      "source_location": "L39"
+      "source_location": "L40"
     },
     {
       "id": "backend_package_dependencies_jsonwebtoken",
@@ -7369,7 +7532,7 @@
       "file_type": "code",
       "norm_label": "jsonwebtoken",
       "source_file": "backend/package.json",
-      "source_location": "L40"
+      "source_location": "L41"
     },
     {
       "id": "backend_package_dependencies_pg",
@@ -7380,7 +7543,7 @@
       "file_type": "code",
       "norm_label": "pg",
       "source_file": "backend/package.json",
-      "source_location": "L41"
+      "source_location": "L42"
     },
     {
       "id": "backend_package_description",
@@ -7402,7 +7565,7 @@
       "file_type": "code",
       "norm_label": "keywords",
       "source_file": "backend/package.json",
-      "source_location": "L30"
+      "source_location": "L31"
     },
     {
       "id": "backend_package_license",
@@ -7413,7 +7576,7 @@
       "file_type": "code",
       "norm_label": "license",
       "source_file": "backend/package.json",
-      "source_location": "L32"
+      "source_location": "L33"
     },
     {
       "id": "backend_package_main",
@@ -7611,7 +7774,7 @@
       "file_type": "code",
       "norm_label": "start",
       "source_file": "backend/package.json",
-      "source_location": "L28"
+      "source_location": "L29"
     },
     {
       "id": "backend_package_scripts_test",
@@ -7647,6 +7810,17 @@
       "source_location": "L24"
     },
     {
+      "id": "backend_package_scripts_test_clima",
+      "label": "test:clima",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "scripts",
+      "file_type": "code",
+      "norm_label": "test:clima",
+      "source_file": "backend/package.json",
+      "source_location": "L27"
+    },
+    {
       "id": "backend_package_scripts_test_deletion_impact",
       "label": "test:deletion-impact",
       "_origin": "ast",
@@ -7655,7 +7829,7 @@
       "file_type": "code",
       "norm_label": "test:deletion-impact",
       "source_file": "backend/package.json",
-      "source_location": "L27"
+      "source_location": "L28"
     },
     {
       "id": "backend_package_scripts_test_milk",
@@ -7699,7 +7873,7 @@
       "file_type": "code",
       "norm_label": "type",
       "source_file": "backend/package.json",
-      "source_location": "L33"
+      "source_location": "L34"
     },
     {
       "id": "backend_package_version",
@@ -7721,7 +7895,7 @@
       "file_type": "concept",
       "norm_label": "bcryptjs",
       "source_file": "backend/package.json",
-      "source_location": "L35"
+      "source_location": "L36"
     },
     {
       "id": "cors",
@@ -7732,7 +7906,7 @@
       "file_type": "concept",
       "norm_label": "cors",
       "source_file": "backend/package.json",
-      "source_location": "L36"
+      "source_location": "L37"
     },
     {
       "id": "dotenv",
@@ -7743,7 +7917,7 @@
       "file_type": "concept",
       "norm_label": "dotenv",
       "source_file": "backend/package.json",
-      "source_location": "L37"
+      "source_location": "L38"
     },
     {
       "id": "express",
@@ -7754,7 +7928,7 @@
       "file_type": "concept",
       "norm_label": "express",
       "source_file": "backend/package.json",
-      "source_location": "L38"
+      "source_location": "L39"
     },
     {
       "id": "helmet",
@@ -7765,7 +7939,7 @@
       "file_type": "concept",
       "norm_label": "helmet",
       "source_file": "backend/package.json",
-      "source_location": "L39"
+      "source_location": "L40"
     },
     {
       "id": "jsonwebtoken",
@@ -7776,7 +7950,7 @@
       "file_type": "concept",
       "norm_label": "jsonwebtoken",
       "source_file": "backend/package.json",
-      "source_location": "L40"
+      "source_location": "L41"
     },
     {
       "id": "pg",
@@ -7787,7 +7961,7 @@
       "file_type": "concept",
       "norm_label": "pg",
       "source_file": "backend/package.json",
-      "source_location": "L41"
+      "source_location": "L42"
     },
     {
       "id": "backend_tests_receitas",
@@ -7857,23 +8031,23 @@
     },
     {
       "id": "backend_routes_pesagensroutes_buscaranimalpermitido_buscarlotecompativel",
-      "label": "{\n  buscarAnimalPermitido,\n  buscarLoteCompativel,\n}",
+      "label": "{\r\n  buscarAnimalPermitido,\r\n  buscarLoteCompativel,\r\n}",
       "_origin": "ast",
       "community": 34,
       "community_name": "pesagensRoutes.js",
       "file_type": "code",
-      "norm_label": "{\n  buscaranimalpermitido,\n  buscarlotecompativel,\n}",
+      "norm_label": "{\r\n  buscaranimalpermitido,\r\n  buscarlotecompativel,\r\n}",
       "source_file": "backend/routes/pesagensRoutes.js",
       "source_location": "L4"
     },
     {
       "id": "backend_routes_pesagensroutes_converterid_normalizardatacalendario_normalizarpesagem_normalizarpaginacao_responderpagina",
-      "label": "{\n  converterId,\n  normalizarDataCalendario,\n  normalizarPesagem,\n  normalizarPaginacao,\n  responderPagina,\n}",
+      "label": "{\r\n  converterId,\r\n  normalizarDataCalendario,\r\n  normalizarPesagem,\r\n  normalizarPaginacao,\r\n  responderPagina,\r\n}",
       "_origin": "ast",
       "community": 34,
       "community_name": "pesagensRoutes.js",
       "file_type": "code",
-      "norm_label": "{\n  converterid,\n  normalizardatacalendario,\n  normalizarpesagem,\n  normalizarpaginacao,\n  responderpagina,\n}",
+      "norm_label": "{\r\n  converterid,\r\n  normalizardatacalendario,\r\n  normalizarpesagem,\r\n  normalizarpaginacao,\r\n  responderpagina,\r\n}",
       "source_file": "backend/routes/pesagensRoutes.js",
       "source_location": "L10"
     },
@@ -7989,12 +8163,12 @@
     },
     {
       "id": "backend_routes_propriedadesroutes_excluirpropriedadecomdados_obterimpactoexclusaopropriedade",
-      "label": "{\n  excluirPropriedadeComDados,\n  obterImpactoExclusaoPropriedade,\n}",
+      "label": "{\r\n  excluirPropriedadeComDados,\r\n  obterImpactoExclusaoPropriedade,\r\n}",
       "_origin": "ast",
       "community": 35,
       "community_name": "propriedadesRoutes.js",
       "file_type": "code",
-      "norm_label": "{\n  excluirpropriedadecomdados,\n  obterimpactoexclusaopropriedade,\n}",
+      "norm_label": "{\r\n  excluirpropriedadecomdados,\r\n  obterimpactoexclusaopropriedade,\r\n}",
       "source_file": "backend/routes/propriedadesRoutes.js",
       "source_location": "L6"
     },
@@ -8069,7 +8243,7 @@
       "label": "lotesRoutes.js",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "lotesroutes.js",
       "source_file": "backend/routes/lotesRoutes.js",
@@ -8080,7 +8254,7 @@
       "label": "{ converterId, normalizarPaginacao, responderPagina, validarCamposPermitidos, normalizarTextoObrigatorio, normalizarTextoOpcional }",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "{ converterid, normalizarpaginacao, responderpagina, validarcampospermitidos, normalizartextoobrigatorio, normalizartextoopcional }",
       "source_file": "backend/routes/lotesRoutes.js",
@@ -8091,7 +8265,7 @@
       "label": "express",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "express",
       "source_file": "backend/routes/lotesRoutes.js",
@@ -8102,7 +8276,7 @@
       "label": "pool",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "pool",
       "source_file": "backend/routes/lotesRoutes.js",
@@ -8113,7 +8287,7 @@
       "label": "{ registrarErro }",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "{ registrarerro }",
       "source_file": "backend/routes/lotesRoutes.js",
@@ -8124,7 +8298,7 @@
       "label": "router",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "router",
       "source_file": "backend/routes/lotesRoutes.js",
@@ -8135,87 +8309,10 @@
       "label": "{ validarParametroId }",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "{ validarparametroid }",
       "source_file": "backend/routes/lotesRoutes.js",
-      "source_location": "L4"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes",
-      "label": "vacinacoesRoutes.js",
-      "_origin": "ast",
-      "community": 36,
-      "community_name": "registrarErro",
-      "file_type": "code",
-      "norm_label": "vacinacoesroutes.js",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes_express",
-      "label": "express",
-      "_origin": "ast",
-      "community": 36,
-      "community_name": "registrarErro",
-      "file_type": "code",
-      "norm_label": "express",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
-      "source_location": "L1"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes_normalizarpaginacao_responderpagina_validarcampospermitidos_converterid_normalizardatacalendario_normalizartextoopcional",
-      "label": "{ normalizarPaginacao, responderPagina, validarCamposPermitidos, converterId, normalizarDataCalendario, normalizarTextoOpcional }",
-      "_origin": "ast",
-      "community": 36,
-      "community_name": "registrarErro",
-      "file_type": "code",
-      "norm_label": "{ normalizarpaginacao, responderpagina, validarcampospermitidos, converterid, normalizardatacalendario, normalizartextoopcional }",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
-      "source_location": "L3"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes_pool",
-      "label": "pool",
-      "_origin": "ast",
-      "community": 36,
-      "community_name": "registrarErro",
-      "file_type": "code",
-      "norm_label": "pool",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
-      "source_location": "L2"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes_registrarerro",
-      "label": "{ registrarErro }",
-      "_origin": "ast",
-      "community": 36,
-      "community_name": "registrarErro",
-      "file_type": "code",
-      "norm_label": "{ registrarerro }",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
-      "source_location": "L5"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes_router",
-      "label": "router",
-      "_origin": "ast",
-      "community": 36,
-      "community_name": "registrarErro",
-      "file_type": "code",
-      "norm_label": "router",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
-      "source_location": "L7"
-    },
-    {
-      "id": "backend_routes_vacinacoesroutes_validarparametroid",
-      "label": "{ validarParametroId }",
-      "_origin": "ast",
-      "community": 36,
-      "community_name": "registrarErro",
-      "file_type": "code",
-      "norm_label": "{ validarparametroid }",
-      "source_file": "backend/routes/vacinacoesRoutes.js",
       "source_location": "L4"
     },
     {
@@ -8223,7 +8320,7 @@
       "label": "vacinasRoutes.js",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "vacinasroutes.js",
       "source_file": "backend/routes/vacinasRoutes.js",
@@ -8234,7 +8331,7 @@
       "label": "express",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "express",
       "source_file": "backend/routes/vacinasRoutes.js",
@@ -8245,7 +8342,7 @@
       "label": "{ normalizarPaginacao, responderPagina, validarCamposPermitidos, normalizarTextoObrigatorio, normalizarTextoOpcional }",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "{ normalizarpaginacao, responderpagina, validarcampospermitidos, normalizartextoobrigatorio, normalizartextoopcional }",
       "source_file": "backend/routes/vacinasRoutes.js",
@@ -8256,7 +8353,7 @@
       "label": "pool",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "pool",
       "source_file": "backend/routes/vacinasRoutes.js",
@@ -8267,7 +8364,7 @@
       "label": "{ registrarErro }",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "{ registrarerro }",
       "source_file": "backend/routes/vacinasRoutes.js",
@@ -8278,7 +8375,7 @@
       "label": "router",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "router",
       "source_file": "backend/routes/vacinasRoutes.js",
@@ -8289,22 +8386,11 @@
       "label": "{ validarParametroId }",
       "_origin": "ast",
       "community": 36,
-      "community_name": "registrarErro",
+      "community_name": "lotesRoutes.js",
       "file_type": "code",
       "norm_label": "{ validarparametroid }",
       "source_file": "backend/routes/vacinasRoutes.js",
       "source_location": "L4"
-    },
-    {
-      "id": "backend_utils_log",
-      "label": "log.js",
-      "_origin": "ast",
-      "community": 36,
-      "community_name": "registrarErro",
-      "file_type": "code",
-      "norm_label": "log.js",
-      "source_file": "backend/utils/log.js",
-      "source_location": "L1"
     },
     {
       "id": "backend_database_pool",
@@ -8385,23 +8471,23 @@
     },
     {
       "id": "backend_routes_desmamasroutes_buscaranimalpermitido_buscarlotecompativel_buscarmaecompativel",
-      "label": "{\n  buscarAnimalPermitido,\n  buscarLoteCompativel,\n  buscarMaeCompativel,\n}",
+      "label": "{\r\n  buscarAnimalPermitido,\r\n  buscarLoteCompativel,\r\n  buscarMaeCompativel,\r\n}",
       "_origin": "ast",
       "community": 4,
       "community_name": "desmamasRoutes.js",
       "file_type": "code",
-      "norm_label": "{\n  buscaranimalpermitido,\n  buscarlotecompativel,\n  buscarmaecompativel,\n}",
+      "norm_label": "{\r\n  buscaranimalpermitido,\r\n  buscarlotecompativel,\r\n  buscarmaecompativel,\r\n}",
       "source_file": "backend/routes/desmamasRoutes.js",
       "source_location": "L4"
     },
     {
       "id": "backend_routes_desmamasroutes_converterid_normalizardatacalendario_normalizardesmama_normalizarpaginacao_responderpagina_validarcampospermitidos_normalizartextoopcional",
-      "label": "{\n  converterId,\n  normalizarDataCalendario,\n  normalizarDesmama,\n  normalizarPaginacao,\n  responderPagina,\n  validarCamposPermitidos,\n  normalizarTextoOpcional,\n}",
+      "label": "{\r\n  converterId,\r\n  normalizarDataCalendario,\r\n  normalizarDesmama,\r\n  normalizarPaginacao,\r\n  responderPagina,\r\n  validarCamposPermitidos,\r\n  normalizarTextoOpcional,\r\n}",
       "_origin": "ast",
       "community": 4,
       "community_name": "desmamasRoutes.js",
       "file_type": "code",
-      "norm_label": "{\n  converterid,\n  normalizardatacalendario,\n  normalizardesmama,\n  normalizarpaginacao,\n  responderpagina,\n  validarcampospermitidos,\n  normalizartextoopcional,\n}",
+      "norm_label": "{\r\n  converterid,\r\n  normalizardatacalendario,\r\n  normalizardesmama,\r\n  normalizarpaginacao,\r\n  responderpagina,\r\n  validarcampospermitidos,\r\n  normalizartextoopcional,\r\n}",
       "source_file": "backend/routes/desmamasRoutes.js",
       "source_location": "L9"
     },
@@ -8495,12 +8581,12 @@
     },
     {
       "id": "backend_routes_producoesleiteirasroutes_converterid_normalizardatacalendario_normalizarproducaoleiteira_normalizarpaginacao_responderpagina",
-      "label": "{\n  converterId,\n  normalizarDataCalendario,\n  normalizarProducaoLeiteira,\n  normalizarPaginacao,\n  responderPagina,\n}",
+      "label": "{\r\n  converterId,\r\n  normalizarDataCalendario,\r\n  normalizarProducaoLeiteira,\r\n  normalizarPaginacao,\r\n  responderPagina,\r\n}",
       "_origin": "ast",
       "community": 4,
       "community_name": "desmamasRoutes.js",
       "file_type": "code",
-      "norm_label": "{\n  converterid,\n  normalizardatacalendario,\n  normalizarproducaoleiteira,\n  normalizarpaginacao,\n  responderpagina,\n}",
+      "norm_label": "{\r\n  converterid,\r\n  normalizardatacalendario,\r\n  normalizarproducaoleiteira,\r\n  normalizarpaginacao,\r\n  responderpagina,\r\n}",
       "source_file": "backend/routes/producoesLeiteirasRoutes.js",
       "source_location": "L4"
     },
@@ -9844,59 +9930,345 @@
       "source_location": "L20"
     },
     {
-      "id": "frontend_src_components_controlepesagens",
-      "label": "ControlePesagens.jsx",
+      "id": "backend_controllers_climacontroller",
+      "label": "climaController.js",
       "_origin": "ast",
       "community": 78,
-      "community_name": "ControlePesagens.jsx",
+      "community_name": "tests/clima.js",
       "file_type": "code",
-      "norm_label": "controlepesagens.jsx",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "norm_label": "climacontroller.js",
+      "source_file": "backend/controllers/climaController.js",
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_components_controlepesagens_metodos",
-      "label": "METODOS",
+      "id": "backend_controllers_climacontroller_climaservice",
+      "label": "climaService",
       "_origin": "ast",
       "community": 78,
-      "community_name": "ControlePesagens.jsx",
+      "community_name": "tests/clima.js",
       "file_type": "code",
-      "norm_label": "metodos",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L12"
+      "norm_label": "climaservice",
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L2"
     },
     {
-      "id": "frontend_src_components_controlepesagens_resumo_vazio",
-      "label": "RESUMO_VAZIO",
+      "id": "backend_controllers_climacontroller_erroclima",
+      "label": "{ ErroClima }",
       "_origin": "ast",
       "community": 78,
-      "community_name": "ControlePesagens.jsx",
+      "community_name": "tests/clima.js",
       "file_type": "code",
-      "norm_label": "resumo_vazio",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "norm_label": "{ erroclima }",
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "backend_controllers_climacontroller_pool",
+      "label": "pool",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "pool",
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_controllers_climacontroller_registrarerro",
+      "label": "{ registrarErro }",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "{ registrarerro }",
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L4"
+    },
+    {
+      "id": "backend_routes_climaroutes",
+      "label": "climaRoutes.js",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "climaroutes.js",
+      "source_file": "backend/routes/climaRoutes.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_routes_climaroutes_consultarclima",
+      "label": "{ consultarClima }",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "{ consultarclima }",
+      "source_file": "backend/routes/climaRoutes.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "backend_routes_climaroutes_express",
+      "label": "express",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "express",
+      "source_file": "backend/routes/climaRoutes.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_routes_climaroutes_router",
+      "label": "router",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "router",
+      "source_file": "backend/routes/climaRoutes.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "backend_routes_climaroutes_validarparametroid",
+      "label": "{ validarParametroId }",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "{ validarparametroid }",
+      "source_file": "backend/routes/climaRoutes.js",
+      "source_location": "L2"
+    },
+    {
+      "id": "backend_services_climaservice",
+      "label": "climaService.js",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "climaservice.js",
+      "source_file": "backend/services/climaService.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_services_climaservice_climaservice",
+      "label": "climaService",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "climaservice",
+      "source_file": "backend/services/climaService.js",
+      "source_location": "L74"
+    },
+    {
+      "id": "backend_services_climaservice_criaropenmeteoprovider",
+      "label": "{ criarOpenMeteoProvider }",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "{ criaropenmeteoprovider }",
+      "source_file": "backend/services/climaService.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_services_climaservice_limiares_alerta",
+      "label": "LIMIARES_ALERTA",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "limiares_alerta",
+      "source_file": "backend/services/climaService.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "backend_services_openmeteoservice",
+      "label": "openMeteoService.js",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "openmeteoservice.js",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_services_openmeteoservice_estados",
+      "label": "ESTADOS",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "estados",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "backend_tests_clima",
+      "label": "tests/clima.js",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "tests/clima.js",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_tests_clima_assert",
+      "label": "assert",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "assert",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_tests_clima_criarclimaservice",
+      "label": "{ criarClimaService }",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "{ criarclimaservice }",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L6"
+    },
+    {
+      "id": "backend_tests_clima_criarconsultarclima",
+      "label": "{ criarConsultarClima }",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "{ criarconsultarclima }",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "backend_tests_clima_criaropenmeteoprovider_erroclima",
+      "label": "{ criarOpenMeteoProvider, ErroClima }",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "{ criaropenmeteoprovider, erroclima }",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "backend_tests_clima_previsao",
+      "label": "previsao",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "previsao",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L10"
+    },
+    {
+      "id": "backend_tests_clima_propriedade",
+      "label": "propriedade",
+      "_origin": "ast",
+      "community": 78,
+      "community_name": "tests/clima.js",
+      "file_type": "code",
+      "norm_label": "propriedade",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L9"
+    },
+    {
+      "id": "backend_routes_receitasroutes",
+      "label": "receitasRoutes.js",
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "receitasRoutes.js",
+      "file_type": "code",
+      "norm_label": "receitasroutes.js",
+      "source_file": "backend/routes/receitasRoutes.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_routes_receitasroutes_converterid_normalizardatacalendario_normalizarnumerofinito_normalizarpaginacao_normalizartextoobrigatorio_normalizartextoopcional_responderpagina_validarcampospermitidos",
+      "label": "{\r\n  converterId,\r\n  normalizarDataCalendario,\r\n  normalizarNumeroFinito,\r\n  normalizarPaginacao,\r\n  normalizarTextoObrigatorio,\r\n  normalizarTextoOpcional,\r\n  responderPagina,\r\n  validarCamposPermitidos,\r\n}",
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "receitasRoutes.js",
+      "file_type": "code",
+      "norm_label": "{\r\n  converterid,\r\n  normalizardatacalendario,\r\n  normalizarnumerofinito,\r\n  normalizarpaginacao,\r\n  normalizartextoobrigatorio,\r\n  normalizartextoopcional,\r\n  responderpagina,\r\n  validarcampospermitidos,\r\n}",
+      "source_file": "backend/routes/receitasRoutes.js",
+      "source_location": "L5"
+    },
+    {
+      "id": "backend_routes_receitasroutes_express",
+      "label": "express",
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "receitasRoutes.js",
+      "file_type": "code",
+      "norm_label": "express",
+      "source_file": "backend/routes/receitasRoutes.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_routes_receitasroutes_periodos",
+      "label": "PERIODOS",
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "receitasRoutes.js",
+      "file_type": "code",
+      "norm_label": "periodos",
+      "source_file": "backend/routes/receitasRoutes.js",
       "source_location": "L17"
     },
     {
-      "id": "frontend_src_components_controlepesagens_rotulos",
-      "label": "ROTULOS",
+      "id": "backend_routes_receitasroutes_pool",
+      "label": "pool",
       "_origin": "ast",
-      "community": 78,
-      "community_name": "ControlePesagens.jsx",
+      "community": 79,
+      "community_name": "receitasRoutes.js",
       "file_type": "code",
-      "norm_label": "rotulos",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
+      "norm_label": "pool",
+      "source_file": "backend/routes/receitasRoutes.js",
+      "source_location": "L2"
+    },
+    {
+      "id": "backend_routes_receitasroutes_registrarerro",
+      "label": "{ registrarErro }",
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "receitasRoutes.js",
+      "file_type": "code",
+      "norm_label": "{ registrarerro }",
+      "source_file": "backend/routes/receitasRoutes.js",
+      "source_location": "L4"
+    },
+    {
+      "id": "backend_routes_receitasroutes_router",
+      "label": "router",
+      "_origin": "ast",
+      "community": 79,
+      "community_name": "receitasRoutes.js",
+      "file_type": "code",
+      "norm_label": "router",
+      "source_file": "backend/routes/receitasRoutes.js",
       "source_location": "L16"
     },
     {
-      "id": "frontend_src_components_controlepesagens_tipos",
-      "label": "TIPOS",
+      "id": "backend_routes_receitasroutes_validarparametroid",
+      "label": "{ validarParametroId }",
       "_origin": "ast",
-      "community": 78,
-      "community_name": "ControlePesagens.jsx",
+      "community": 79,
+      "community_name": "receitasRoutes.js",
       "file_type": "code",
-      "norm_label": "tipos",
-      "source_file": "frontend/src/components/ControlePesagens.jsx",
-      "source_location": "L7"
+      "norm_label": "{ validarparametroid }",
+      "source_file": "backend/routes/receitasRoutes.js",
+      "source_location": "L3"
     },
     {
       "id": "backend_routes_authroutes",
@@ -9944,12 +10316,12 @@
     },
     {
       "id": "backend_routes_authroutes_criarsessaorefresh_criartokenacesso_definircookierefresh_encerrarsessaorefresh_encerrartodassessoes_lerrefreshtoken_limparcookierefresh_renovarsessaorefresh",
-      "label": "{\n  criarSessaoRefresh,\n  criarTokenAcesso,\n  definirCookieRefresh,\n  encerrarSessaoRefresh,\n  encerrarTodasSessoes,\n  lerRefreshToken,\n  limparCookieRefresh,\n  renovarSessaoRefresh,\n}",
+      "label": "{\r\n  criarSessaoRefresh,\r\n  criarTokenAcesso,\r\n  definirCookieRefresh,\r\n  encerrarSessaoRefresh,\r\n  encerrarTodasSessoes,\r\n  lerRefreshToken,\r\n  limparCookieRefresh,\r\n  renovarSessaoRefresh,\r\n}",
       "_origin": "ast",
       "community": 8,
       "community_name": "authRoutes.js",
       "file_type": "code",
-      "norm_label": "{\n  criarsessaorefresh,\n  criartokenacesso,\n  definircookierefresh,\n  encerrarsessaorefresh,\n  encerrartodassessoes,\n  lerrefreshtoken,\n  limparcookierefresh,\n  renovarsessaorefresh,\n}",
+      "norm_label": "{\r\n  criarsessaorefresh,\r\n  criartokenacesso,\r\n  definircookierefresh,\r\n  encerrarsessaorefresh,\r\n  encerrartodassessoes,\r\n  lerrefreshtoken,\r\n  limparcookierefresh,\r\n  renovarsessaorefresh,\r\n}",
       "source_file": "backend/routes/authRoutes.js",
       "source_location": "L8"
     },
@@ -10108,59 +10480,37 @@
       "source_location": "L1"
     },
     {
-      "id": "backend_routes_dashboardroutes",
-      "label": "dashboardRoutes.js",
+      "id": "backend_tests_milk_production",
+      "label": "milk-production.js",
       "_origin": "ast",
       "community": 80,
-      "community_name": "dashboardRoutes.js",
+      "community_name": "milk-production.js",
       "file_type": "code",
-      "norm_label": "dashboardroutes.js",
-      "source_file": "backend/routes/dashboardRoutes.js",
+      "norm_label": "milk-production.js",
+      "source_file": "backend/tests/milk-production.js",
       "source_location": "L1"
     },
     {
-      "id": "backend_routes_dashboardroutes_express",
-      "label": "express",
+      "id": "backend_tests_milk_production_app_pool",
+      "label": "{ app, pool }",
       "_origin": "ast",
       "community": 80,
-      "community_name": "dashboardRoutes.js",
+      "community_name": "milk-production.js",
       "file_type": "code",
-      "norm_label": "express",
-      "source_file": "backend/routes/dashboardRoutes.js",
-      "source_location": "L1"
+      "norm_label": "{ app, pool }",
+      "source_file": "backend/tests/milk-production.js",
+      "source_location": "L4"
     },
     {
-      "id": "backend_routes_dashboardroutes_pool",
-      "label": "pool",
+      "id": "backend_tests_milk_production_assert",
+      "label": "assert",
       "_origin": "ast",
       "community": 80,
-      "community_name": "dashboardRoutes.js",
+      "community_name": "milk-production.js",
       "file_type": "code",
-      "norm_label": "pool",
-      "source_file": "backend/routes/dashboardRoutes.js",
-      "source_location": "L2"
-    },
-    {
-      "id": "backend_routes_dashboardroutes_registrarerro_registrarevento",
-      "label": "{ registrarErro, registrarEvento }",
-      "_origin": "ast",
-      "community": 80,
-      "community_name": "dashboardRoutes.js",
-      "file_type": "code",
-      "norm_label": "{ registrarerro, registrarevento }",
-      "source_file": "backend/routes/dashboardRoutes.js",
+      "norm_label": "assert",
+      "source_file": "backend/tests/milk-production.js",
       "source_location": "L3"
-    },
-    {
-      "id": "backend_routes_dashboardroutes_router",
-      "label": "router",
-      "_origin": "ast",
-      "community": 80,
-      "community_name": "dashboardRoutes.js",
-      "file_type": "code",
-      "norm_label": "router",
-      "source_file": "backend/routes/dashboardRoutes.js",
-      "source_location": "L5"
     },
     {
       "id": "graphify_out_memory_query_20260904_032135_quais_componentes_e_estilos_causam_overflow_e_sobr",
@@ -10229,6 +10579,204 @@
       "norm_label": "source nodes",
       "source_file": "graphify-out/memory/query_20260904_032135_quais_componentes_e_estilos_causam_overflow_e_sobr.md",
       "source_location": "L20"
+    },
+    {
+      "id": "frontend_src_components_climadashboard",
+      "label": "ClimaDashboard.jsx",
+      "_origin": "ast",
+      "community": 82,
+      "community_name": "Dashboard.jsx",
+      "file_type": "code",
+      "norm_label": "climadashboard.jsx",
+      "source_file": "frontend/src/components/ClimaDashboard.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_climapropriedade",
+      "label": "ClimaPropriedade.jsx",
+      "_origin": "ast",
+      "community": 82,
+      "community_name": "Dashboard.jsx",
+      "file_type": "code",
+      "norm_label": "climapropriedade.jsx",
+      "source_file": "frontend/src/components/ClimaPropriedade.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_dashboard",
+      "label": "Dashboard.jsx",
+      "_origin": "ast",
+      "community": 82,
+      "community_name": "Dashboard.jsx",
+      "file_type": "code",
+      "norm_label": "dashboard.jsx",
+      "source_file": "frontend/src/pages/Dashboard.jsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_pages_dashboard_resumoinicial",
+      "label": "resumoInicial",
+      "_origin": "ast",
+      "community": 82,
+      "community_name": "Dashboard.jsx",
+      "file_type": "code",
+      "norm_label": "resumoinicial",
+      "source_file": "frontend/src/pages/Dashboard.jsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "frontend_src_utils_clima",
+      "label": "utils/clima.js",
+      "_origin": "ast",
+      "community": 82,
+      "community_name": "Dashboard.jsx",
+      "file_type": "code",
+      "norm_label": "utils/clima.js",
+      "source_file": "frontend/src/utils/clima.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_utils_clima_condicoes",
+      "label": "CONDICOES",
+      "_origin": "ast",
+      "community": 82,
+      "community_name": "Dashboard.jsx",
+      "file_type": "code",
+      "norm_label": "condicoes",
+      "source_file": "frontend/src/utils/clima.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_tests_calf_management_integration",
+      "label": "calf-management-integration.js",
+      "_origin": "ast",
+      "community": 83,
+      "community_name": "calf-management-integration.js",
+      "file_type": "code",
+      "norm_label": "calf-management-integration.js",
+      "source_file": "backend/tests/calf-management-integration.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_tests_calf_management_integration_app_pool",
+      "label": "{ app, pool }",
+      "_origin": "ast",
+      "community": 83,
+      "community_name": "calf-management-integration.js",
+      "file_type": "code",
+      "norm_label": "{ app, pool }",
+      "source_file": "backend/tests/calf-management-integration.js",
+      "source_location": "L4"
+    },
+    {
+      "id": "backend_tests_calf_management_integration_assert",
+      "label": "assert",
+      "_origin": "ast",
+      "community": 83,
+      "community_name": "calf-management-integration.js",
+      "file_type": "code",
+      "norm_label": "assert",
+      "source_file": "backend/tests/calf-management-integration.js",
+      "source_location": "L3"
+    },
+    {
+      "id": "backend_tests_calf_management_integration_emails",
+      "label": "emails",
+      "_origin": "ast",
+      "community": 83,
+      "community_name": "calf-management-integration.js",
+      "file_type": "code",
+      "norm_label": "emails",
+      "source_file": "backend/tests/calf-management-integration.js",
+      "source_location": "L7"
+    },
+    {
+      "id": "backend_app_app",
+      "label": "app",
+      "_origin": "ast",
+      "community": 84,
+      "community_name": "server.js",
+      "file_type": "code",
+      "norm_label": "app",
+      "source_file": "backend/app.js",
+      "source_location": "L26"
+    },
+    {
+      "id": "backend_app_pool",
+      "label": "pool",
+      "_origin": "ast",
+      "community": 84,
+      "community_name": "server.js",
+      "file_type": "code",
+      "norm_label": "pool",
+      "source_file": "backend/app.js",
+      "source_location": "L6"
+    },
+    {
+      "id": "backend_server",
+      "label": "server.js",
+      "_origin": "ast",
+      "community": 84,
+      "community_name": "server.js",
+      "file_type": "code",
+      "norm_label": "server.js",
+      "source_file": "backend/server.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_server_app_pool",
+      "label": "{ app, pool }",
+      "_origin": "ast",
+      "community": 84,
+      "community_name": "server.js",
+      "file_type": "code",
+      "norm_label": "{ app, pool }",
+      "source_file": "backend/server.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_middleware_erros",
+      "label": "erros.js",
+      "_origin": "ast",
+      "community": 85,
+      "community_name": "erros.js",
+      "file_type": "code",
+      "norm_label": "erros.js",
+      "source_file": "backend/middleware/erros.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_middleware_erros_registrarerro",
+      "label": "{ registrarErro }",
+      "_origin": "ast",
+      "community": 85,
+      "community_name": "erros.js",
+      "file_type": "code",
+      "norm_label": "{ registrarerro }",
+      "source_file": "backend/middleware/erros.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_middleware_contextorequisicao",
+      "label": "contextoRequisicao.js",
+      "_origin": "ast",
+      "community": 86,
+      "community_name": "contextoRequisicao.js",
+      "file_type": "code",
+      "norm_label": "contextorequisicao.js",
+      "source_file": "backend/middleware/contextoRequisicao.js",
+      "source_location": "L1"
+    },
+    {
+      "id": "backend_middleware_contextorequisicao_crypto",
+      "label": "crypto",
+      "_origin": "ast",
+      "community": 86,
+      "community_name": "contextoRequisicao.js",
+      "file_type": "code",
+      "norm_label": "crypto",
+      "source_file": "backend/middleware/contextoRequisicao.js",
+      "source_location": "L1"
     },
     {
       "id": "backend_config_ambiente",
@@ -10320,12 +10868,12 @@
     },
     {
       "id": "backend_tests_security_hardening_converterid_normalizardatacalendario_normalizarpaginacao_validarcampospermitidos",
-      "label": "{\n  converterId,\n  normalizarDataCalendario,\n  normalizarPaginacao,\n  validarCamposPermitidos,\n}",
+      "label": "{\r\n  converterId,\r\n  normalizarDataCalendario,\r\n  normalizarPaginacao,\r\n  validarCamposPermitidos,\r\n}",
       "_origin": "ast",
       "community": 9,
       "community_name": "security-hardening.js",
       "file_type": "code",
-      "norm_label": "{\n  converterid,\n  normalizardatacalendario,\n  normalizarpaginacao,\n  validarcampospermitidos,\n}",
+      "norm_label": "{\r\n  converterid,\r\n  normalizardatacalendario,\r\n  normalizarpaginacao,\r\n  validarcampospermitidos,\r\n}",
       "source_file": "backend/tests/security-hardening.js",
       "source_location": "L22"
     },
@@ -10342,12 +10890,12 @@
     },
     {
       "id": "backend_tests_security_hardening_encerrartodassessoes_lerrefreshtoken_renovarsessaorefresh_verificartokenacesso",
-      "label": "{\n  encerrarTodasSessoes,\n  lerRefreshToken,\n  renovarSessaoRefresh,\n  verificarTokenAcesso,\n}",
+      "label": "{\r\n  encerrarTodasSessoes,\r\n  lerRefreshToken,\r\n  renovarSessaoRefresh,\r\n  verificarTokenAcesso,\r\n}",
       "_origin": "ast",
       "community": 9,
       "community_name": "security-hardening.js",
       "file_type": "code",
-      "norm_label": "{\n  encerrartodassessoes,\n  lerrefreshtoken,\n  renovarsessaorefresh,\n  verificartokenacesso,\n}",
+      "norm_label": "{\r\n  encerrartodassessoes,\r\n  lerrefreshtoken,\r\n  renovarsessaorefresh,\r\n  verificartokenacesso,\r\n}",
       "source_file": "backend/tests/security-hardening.js",
       "source_location": "L15"
     },
@@ -11822,6 +12370,18 @@
       "weight": 1.0
     },
     {
+      "source": "backend_controllers_climacontroller_criarconsultarclima",
+      "target": "backend_utils_log_registrarerro",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
       "source": "backend_controllers_usuarioscontroller_respondercriacaousuario",
       "target": "backend_utils_log_registrarevento",
       "relation": "calls",
@@ -13070,6 +13630,90 @@
       "weight": 1.0
     },
     {
+      "source": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarcoordenadas",
+      "target": "backend_services_openmeteoservice_erroclima",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L49",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarcoordenadas",
+      "target": "backend_services_openmeteoservice_normalizar",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L61",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarcoordenadas_consultar",
+      "target": "backend_services_openmeteoservice_criaropenmeteoprovider_obterjson",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L57",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarcoordenadas_encontrar",
+      "target": "backend_services_openmeteoservice_normalizar",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L64",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarprevisao",
+      "target": "backend_services_openmeteoservice_criaropenmeteoprovider_obterjson",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarprevisao",
+      "target": "backend_services_openmeteoservice_erroclima",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L86",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice_criaropenmeteoprovider_obterjson",
+      "target": "backend_services_openmeteoservice_erroclima",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
       "source": "backend_services_pesoatual_sincronizarpesoatual",
       "target": "backend_services_pesoatual_bloquearanimalparapeso",
       "relation": "calls",
@@ -13319,6 +13963,66 @@
       "context": "call",
       "source_file": "backend/tests/calf-management-integration.js",
       "source_location": "L46",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima_executar",
+      "target": "backend_services_openmeteoservice_criaropenmeteoprovider",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L32",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima_executar",
+      "target": "backend_tests_clima_resposta",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L37",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima_executar",
+      "target": "backend_services_climaservice_criarclimaservice",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L47",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima_executar",
+      "target": "backend_controllers_climacontroller_criarconsultarclima",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L80",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima_executar",
+      "target": "backend_tests_clima_criarres",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L84",
       "weight": 1.0
     },
     {
@@ -13778,6 +14482,42 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_components_climapropriedade_climapropriedade",
+      "target": "frontend_src_utils_clima_descreverclima",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/ClimaPropriedade.jsx",
+      "source_location": "L31",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_climapropriedade_climapropriedade",
+      "target": "frontend_src_utils_clima_formatarmedida",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/ClimaPropriedade.jsx",
+      "source_location": "L50",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_climapropriedade_climapropriedade",
+      "target": "frontend_src_utils_datas_formatardatasemfuso",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/ClimaPropriedade.jsx",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_src_components_confirmacaoexclusao_descreverregistro",
       "target": "frontend_src_components_confirmacaoexclusao_detalhesresumo",
       "relation": "calls",
@@ -14182,7 +14922,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L211",
+      "source_location": "L212",
       "weight": 1.0
     },
     {
@@ -14194,7 +14934,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -14578,7 +15318,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L9",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -14590,7 +15330,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L145",
+      "source_location": "L152",
       "weight": 1.0
     },
     {
@@ -14602,7 +15342,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L69",
+      "source_location": "L76",
       "weight": 1.0
     },
     {
@@ -14614,7 +15354,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L70",
+      "source_location": "L77",
       "weight": 1.0
     },
     {
@@ -14942,6 +15682,30 @@
       "weight": 1.0
     },
     {
+      "source": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarcoordenadas",
+      "target": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarcoordenadas_consultar",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L51",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarcoordenadas",
+      "target": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarcoordenadas_encontrar",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L62",
+      "weight": 1.0
+    },
+    {
       "source": "backend_tests_auth_permissions_executar",
       "target": "backend_tests_auth_permissions_executar_criarconjunto",
       "relation": "contains",
@@ -15130,7 +15894,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0
     },
     {
@@ -15430,7 +16194,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L32",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -15442,7 +16206,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L80",
+      "source_location": "L87",
       "weight": 1.0
     },
     {
@@ -15454,7 +16218,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L88",
+      "source_location": "L95",
       "weight": 1.0
     },
     {
@@ -15662,6 +16426,30 @@
       "weight": 1.0
     },
     {
+      "source": "backend_controllers_climacontroller",
+      "target": "backend_services_openmeteoservice_erroclima",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_controllers_climacontroller",
+      "target": "backend_utils_log_registrarerro",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
       "source": "backend_controllers_usuarioscontroller",
       "target": "backend_services_usuarios_criarusuariocomum",
       "relation": "imports",
@@ -15838,7 +16626,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "backend/package.json",
-      "source_location": "L35",
+      "source_location": "L36",
       "weight": 1.0
     },
     {
@@ -15850,7 +16638,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "backend/package.json",
-      "source_location": "L36",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -15862,7 +16650,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "backend/package.json",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1.0
     },
     {
@@ -15874,7 +16662,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "backend/package.json",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -15886,7 +16674,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "backend/package.json",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -15898,7 +16686,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "backend/package.json",
-      "source_location": "L40",
+      "source_location": "L41",
       "weight": 1.0
     },
     {
@@ -15910,7 +16698,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "backend/package.json",
-      "source_location": "L41",
+      "source_location": "L42",
       "weight": 1.0
     },
     {
@@ -16247,6 +17035,18 @@
       "context": "import",
       "source_file": "backend/routes/authRoutes.js",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_routes_climaroutes",
+      "target": "backend_middleware_validacao_validarparametroid",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/routes/climaRoutes.js",
+      "source_location": "L2",
       "weight": 1.0
     },
     {
@@ -17546,6 +18346,18 @@
       "weight": 1.0
     },
     {
+      "source": "backend_services_climaservice",
+      "target": "backend_services_openmeteoservice_criaropenmeteoprovider",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/services/climaService.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "backend_services_usuarios",
       "target": "backend_services_impactoexclusao_excluirusuariocomdados",
       "relation": "imports",
@@ -17627,6 +18439,54 @@
       "context": "import",
       "source_file": "backend/tests/calf-management.js",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_services_openmeteoservice_criaropenmeteoprovider",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_services_openmeteoservice_erroclima",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_services_climaservice_criarclimaservice",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_controllers_climacontroller_criarconsultarclima",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -18410,6 +19270,78 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_components_climadashboard",
+      "target": "frontend_src_services_api_api",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/ClimaDashboard.jsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_climadashboard",
+      "target": "frontend_src_components_climapropriedade_climapropriedade",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/ClimaDashboard.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_climapropriedade",
+      "target": "frontend_src_services_api_api",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/ClimaPropriedade.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_climapropriedade",
+      "target": "frontend_src_utils_datas_formatardatasemfuso",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/ClimaPropriedade.jsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_climapropriedade",
+      "target": "frontend_src_utils_clima_descreverclima",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/ClimaPropriedade.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_climapropriedade",
+      "target": "frontend_src_utils_clima_formatarmedida",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/ClimaPropriedade.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_src_components_controledesmama",
       "target": "frontend_src_services_api_api",
       "relation": "imports",
@@ -18759,7 +19691,7 @@
     },
     {
       "source": "frontend_src_pages_dashboard",
-      "target": "frontend_src_transitions_useblackholetransition_useblackholetransition",
+      "target": "frontend_src_components_climadashboard_climadashboard",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -18767,6 +19699,18 @@
       "context": "import",
       "source_file": "frontend/src/pages/Dashboard.jsx",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard",
+      "target": "frontend_src_transitions_useblackholetransition_useblackholetransition",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/Dashboard.jsx",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -19174,7 +20118,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L2",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -19186,7 +20130,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -19198,7 +20142,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L4",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -19210,7 +20154,19 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L5",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_propriedades",
+      "target": "frontend_src_components_climapropriedade_climapropriedade",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/Propriedades.jsx",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -19222,7 +20178,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -19659,6 +20615,18 @@
     },
     {
       "source": "backend_app",
+      "target": "backend_routes_climaroutes",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/app.js",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app",
       "target": "backend_database_pool",
       "relation": "imports_from",
       "_origin": "ast",
@@ -19703,6 +20671,54 @@
       "context": "import",
       "source_file": "backend/app.js",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_controllers_climacontroller",
+      "target": "backend_database_pool",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_controllers_climacontroller",
+      "target": "backend_services_climaservice",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_controllers_climacontroller",
+      "target": "backend_services_openmeteoservice",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_controllers_climacontroller",
+      "target": "backend_utils_log",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -20015,6 +21031,30 @@
       "context": "import",
       "source_file": "backend/routes/authRoutes.js",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_routes_climaroutes",
+      "target": "backend_middleware_validacao",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/routes/climaRoutes.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_routes_climaroutes",
+      "target": "backend_controllers_climacontroller",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/routes/climaRoutes.js",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -20870,6 +21910,18 @@
       "weight": 1.0
     },
     {
+      "source": "backend_services_climaservice",
+      "target": "backend_services_openmeteoservice",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/services/climaService.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
       "source": "backend_services_impactoexclusao",
       "target": "backend_database_pool",
       "relation": "imports_from",
@@ -20975,6 +22027,42 @@
       "context": "import",
       "source_file": "backend/tests/calf-management-integration.js",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_services_openmeteoservice",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_services_climaservice",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_controllers_climacontroller",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -21494,6 +22582,66 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_components_climadashboard",
+      "target": "frontend_src_services_api",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/ClimaDashboard.jsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_climadashboard",
+      "target": "frontend_src_components_climapropriedade",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/ClimaDashboard.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_climapropriedade",
+      "target": "frontend_src_services_api",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/ClimaPropriedade.jsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_climapropriedade",
+      "target": "frontend_src_utils_datas",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/ClimaPropriedade.jsx",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_climapropriedade",
+      "target": "frontend_src_utils_clima",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/ClimaPropriedade.jsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_src_components_controledesmama",
       "target": "frontend_src_services_api",
       "relation": "imports_from",
@@ -21795,7 +22943,7 @@
     },
     {
       "source": "frontend_src_pages_dashboard",
-      "target": "frontend_src_transitions_useblackholetransition",
+      "target": "frontend_src_components_climadashboard",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -21803,6 +22951,18 @@
       "context": "import",
       "source_file": "frontend/src/pages/Dashboard.jsx",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_dashboard",
+      "target": "frontend_src_transitions_useblackholetransition",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/Dashboard.jsx",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -22198,7 +23358,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L2",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -22210,7 +23370,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -22222,7 +23382,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L4",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -22234,7 +23394,19 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L5",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_pages_propriedades",
+      "target": "frontend_src_components_climapropriedade",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/pages/Propriedades.jsx",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -22246,7 +23418,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L6",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -22680,13 +23852,24 @@
     },
     {
       "source": "backend_app",
+      "target": "backend_app_climaroutes",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/app.js",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_app",
       "target": "backend_app_app",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/app.js",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -22797,6 +23980,50 @@
       "confidence_score": 1.0,
       "source_file": "backend/config/ambiente.js",
       "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_controllers_climacontroller",
+      "target": "backend_controllers_climacontroller_pool",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_controllers_climacontroller",
+      "target": "backend_controllers_climacontroller_climaservice",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_controllers_climacontroller",
+      "target": "backend_controllers_climacontroller_erroclima",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_controllers_climacontroller",
+      "target": "backend_controllers_climacontroller_registrarerro",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -23071,7 +24298,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/package.json",
-      "source_location": "L30",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -23082,7 +24309,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/package.json",
-      "source_location": "L31",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -23093,7 +24320,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/package.json",
-      "source_location": "L32",
+      "source_location": "L33",
       "weight": 1.0
     },
     {
@@ -23104,7 +24331,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/package.json",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0
     },
     {
@@ -23115,7 +24342,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/package.json",
-      "source_location": "L34",
+      "source_location": "L35",
       "weight": 1.0
     },
     {
@@ -23159,7 +24386,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/package.json",
-      "source_location": "L35",
+      "source_location": "L36",
       "weight": 1.0
     },
     {
@@ -23170,7 +24397,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/package.json",
-      "source_location": "L36",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -23181,7 +24408,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/package.json",
-      "source_location": "L37",
+      "source_location": "L38",
       "weight": 1.0
     },
     {
@@ -23192,7 +24419,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/package.json",
-      "source_location": "L38",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -23203,7 +24430,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/package.json",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -23214,7 +24441,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/package.json",
-      "source_location": "L40",
+      "source_location": "L41",
       "weight": 1.0
     },
     {
@@ -23225,7 +24452,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/package.json",
-      "source_location": "L41",
+      "source_location": "L42",
       "weight": 1.0
     },
     {
@@ -23417,7 +24644,7 @@
     },
     {
       "source": "backend_package_scripts",
-      "target": "backend_package_scripts_test_deletion_impact",
+      "target": "backend_package_scripts_test_clima",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -23428,13 +24655,24 @@
     },
     {
       "source": "backend_package_scripts",
-      "target": "backend_package_scripts_start",
+      "target": "backend_package_scripts_test_deletion_impact",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "backend/package.json",
       "source_location": "L28",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_package_scripts",
+      "target": "backend_package_scripts_start",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/package.json",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -23743,6 +24981,50 @@
       "confidence_score": 1.0,
       "source_file": "backend/routes/authRoutes.js",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_routes_climaroutes",
+      "target": "backend_routes_climaroutes_express",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/routes/climaRoutes.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_routes_climaroutes",
+      "target": "backend_routes_climaroutes_validarparametroid",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/routes/climaRoutes.js",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_routes_climaroutes",
+      "target": "backend_routes_climaroutes_consultarclima",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/routes/climaRoutes.js",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_routes_climaroutes",
+      "target": "backend_routes_climaroutes_router",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/routes/climaRoutes.js",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -25627,6 +26909,39 @@
       "weight": 1.0
     },
     {
+      "source": "backend_services_climaservice",
+      "target": "backend_services_climaservice_criaropenmeteoprovider",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/services/climaService.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_climaservice",
+      "target": "backend_services_climaservice_limiares_alerta",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/services/climaService.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_climaservice",
+      "target": "backend_services_climaservice_climaservice",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/services/climaService.js",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
       "source": "backend_services_impactoexclusao",
       "target": "backend_services_impactoexclusao_pool",
       "relation": "contains",
@@ -25767,6 +27082,50 @@
       "confidence_score": 1.0,
       "source_file": "backend/services/limitesRequisicao.js",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice",
+      "target": "backend_services_openmeteoservice_erroclima",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice",
+      "target": "backend_services_openmeteoservice_normalizar",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice",
+      "target": "backend_services_openmeteoservice_estados",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice_criaropenmeteoprovider",
+      "target": "backend_services_openmeteoservice_criaropenmeteoprovider_obterjson",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -26097,6 +27456,105 @@
       "confidence_score": 1.0,
       "source_file": "backend/tests/calf-management-integration.js",
       "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_tests_clima_assert",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_tests_clima_previsao",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_tests_clima_resposta",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_tests_clima_criarres",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L22",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_tests_clima_executar",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_tests_clima_criaropenmeteoprovider_erroclima",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_tests_clima_criarclimaservice",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_tests_clima_criarconsultarclima",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_tests_clima",
+      "target": "backend_tests_clima_propriedade",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/tests/clima.js",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -27530,6 +28988,28 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_components_climadashboard",
+      "target": "frontend_src_components_climadashboard_climadashboard",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/ClimaDashboard.jsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_climapropriedade",
+      "target": "frontend_src_components_climapropriedade_climapropriedade",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/ClimaPropriedade.jsx",
+      "source_location": "L6",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_src_components_confirmacaoexclusao",
       "target": "frontend_src_components_confirmacaoexclusao_rotulos_resumo",
       "relation": "contains",
@@ -28142,7 +29622,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -28153,7 +29633,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Dashboard.jsx",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -28714,7 +30194,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L8",
+      "source_location": "L10",
       "weight": 1.0
     },
     {
@@ -28725,7 +30205,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L121",
+      "source_location": "L128",
       "weight": 1.0
     },
     {
@@ -28736,7 +30216,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L132",
+      "source_location": "L139",
       "weight": 1.0
     },
     {
@@ -28747,7 +30227,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L42",
+      "source_location": "L49",
       "weight": 1.0
     },
     {
@@ -28758,7 +30238,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/pages/Propriedades.jsx",
-      "source_location": "L50",
+      "source_location": "L57",
       "weight": 1.0
     },
     {
@@ -29312,6 +30792,39 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_utils_clima",
+      "target": "frontend_src_utils_clima_condicoes",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/utils/clima.js",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_utils_clima",
+      "target": "frontend_src_utils_clima_descreverclima",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/utils/clima.js",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_utils_clima",
+      "target": "frontend_src_utils_clima_formatarmedida",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/utils/clima.js",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_src_utils_datas",
       "target": "frontend_src_utils_datas_formatardatasemfuso",
       "relation": "contains",
@@ -29463,6 +30976,17 @@
       "confidence_score": 1.0,
       "source_file": "graphify-out/memory/query_20260904_032135_quais_componentes_e_estilos_causam_overflow_e_sobr.md",
       "source_location": "L20",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice_erroclima",
+      "target": "backend_services_openmeteoservice_erroclima_constructor",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -29679,6 +31203,18 @@
       "context": "collection",
       "source_file": "backend/config/cors.js",
       "source_location": "L45",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_controllers_climacontroller",
+      "target": "backend_controllers_climacontroller_criarconsultarclima",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "backend/controllers/climaController.js",
+      "source_location": "L39",
       "weight": 1.0
     },
     {
@@ -29934,6 +31470,30 @@
       "weight": 1.0
     },
     {
+      "source": "backend_services_climaservice",
+      "target": "backend_services_climaservice_criarclimaservice",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "backend/services/climaService.js",
+      "source_location": "L75",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_climaservice_criarclimaservice",
+      "target": "backend_services_climaservice_criarclimaservice_buscarclimadapropriedade",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "backend/services/climaService.js",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
       "source": "backend_services_impactoexclusao",
       "target": "backend_services_impactoexclusao_excluirpropriedadecomdados",
       "relation": "indirect_call",
@@ -30003,6 +31563,42 @@
       "context": "collection",
       "source_file": "backend/services/limitesRequisicao.js",
       "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice",
+      "target": "backend_services_openmeteoservice_criaropenmeteoprovider",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L94",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice_criaropenmeteoprovider",
+      "target": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarcoordenadas",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "backend_services_openmeteoservice_criaropenmeteoprovider",
+      "target": "backend_services_openmeteoservice_criaropenmeteoprovider_buscarprevisao",
+      "relation": "indirect_call",
+      "_origin": "ast",
+      "confidence": "INFERRED",
+      "confidence_score": 0.85,
+      "context": "collection",
+      "source_file": "backend/services/openMeteoService.js",
+      "source_location": "L91",
       "weight": 1.0
     },
     {
@@ -31429,5 +33025,5 @@
       "source_file": "backend/database/SEGURANCA_PRODUCAO.md"
     }
   ],
-  "built_at_commit": "8cf80819ce61e994354eb99fed8f1f3367736f1c"
+  "built_at_commit": "cc259f7a85ba173250c975c5136ad0a54023fd9e"
 }

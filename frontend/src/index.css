@@ -276,6 +276,34 @@ textarea:focus {
   outline: none;
 }
 
+.password-field { position: relative; width: 100%; min-width: 0; }
+.password-field input { padding-right: 54px; }
+.password-field .password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  min-height: 40px;
+  margin: 0;
+  padding: 9px;
+  place-items: center;
+  border: 0;
+  color: var(--text-muted);
+  background: transparent;
+  box-shadow: none;
+  transform: translateY(-50%);
+}
+.password-field .password-toggle svg { width: 21px; height: 21px; }
+.password-field .password-toggle:hover:not(:disabled) {
+  border-color: transparent;
+  color: var(--text);
+  background: var(--surface-soft);
+  box-shadow: none;
+  transform: translateY(-50%);
+}
+
 label {
   display: inline-block;
   margin-bottom: 7px;

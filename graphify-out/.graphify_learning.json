@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-09-04T03:33:52.108963+00:00",
+  "generated_at": "2026-10-01T20:02:49.592553+00:00",
   "nodes": {
     "backend_middleware_autenticacao_autenticar": {
-      "code_fingerprint": "ea0eb1988c506c73fc3128d82308dd82a7f6cafd71b1292904613c3cb8500a88",
+      "code_fingerprint": "a0eae06bd3c179aed3de12c5bf051e9cf5b7474da5c63147c22ebb25262ab22f",
       "label": "autenticar()",
       "last": "2026-09-04T03:05:39.620343+00:00",
       "provenance": [
@@ -12,13 +12,13 @@
           "q": "Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
         }
       ],
-      "score": 0.999547501,
+      "score": 0.527211771,
       "source_file": "backend/middleware/autenticacao.js",
       "status": "tentative",
       "uses": 1
     },
     "backend_routes_propriedadesroutes": {
-      "code_fingerprint": "5bbef938eb51f828458487fd3047c76c0fc9d2eaf56fd08afcd7267fb6e15de2",
+      "code_fingerprint": "8e2667e265d1eeb4e0d61e1118d4b926515add7bf3747c5f0a34083cb0aa2acc",
       "label": "propriedadesRoutes.js",
       "last": "2026-09-04T03:05:39.620343+00:00",
       "provenance": [
@@ -28,13 +28,13 @@
           "q": "Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
         }
       ],
-      "score": 0.999547501,
+      "score": 0.527211771,
       "source_file": "backend/routes/propriedadesRoutes.js",
       "status": "tentative",
       "uses": 1
     },
     "frontend_src_app_layout": {
-      "code_fingerprint": "3de6b37078e491c45714b46262da64aa8848521920aeb21578f4eaf49c80340d",
+      "code_fingerprint": "d050b8848f94e96e250a2af75b37074c63f6b9a3efee8c4412d69e3cc87d4424",
       "label": "Layout()",
       "last": "2026-09-04T03:21:35.768036+00:00",
       "provenance": [
@@ -44,7 +44,7 @@
           "q": "Quais componentes e estilos causam overflow e sobreposição no Dashboard do BoviTrack?"
         }
       ],
-      "score": 0.999803109,
+      "score": 0.527346591,
       "source_file": "frontend/src/App.jsx",
       "status": "tentative",
       "uses": 1
@@ -60,13 +60,13 @@
           "q": "Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
         }
       ],
-      "score": 0.999547501,
+      "score": 0.527211771,
       "source_file": "frontend/src/auth/useAuth.js",
       "status": "tentative",
       "uses": 1
     },
     "frontend_src_components_graficopeso_graficopeso": {
-      "code_fingerprint": "6e1d3f598b42834755ac8fe831d3e799835333c97cc371eeecbbaae6285e9500",
+      "code_fingerprint": "75c1d447bd0e98f0967990fd09c5dddc47d21bf8cbb99d2591ad46d483a8ca2f",
       "label": "GraficoPeso()",
       "last": "2026-09-04T03:21:35.768036+00:00",
       "provenance": [
@@ -76,7 +76,7 @@
           "q": "Quais componentes e estilos causam overflow e sobreposição no Dashboard do BoviTrack?"
         }
       ],
-      "score": 0.999803109,
+      "score": 0.527346591,
       "source_file": "frontend/src/components/GraficoPeso.jsx",
       "status": "tentative",
       "uses": 1
@@ -92,7 +92,7 @@
           "q": "Quais componentes e estilos causam overflow e sobreposição no Dashboard do BoviTrack?"
         }
       ],
-      "score": 0.999803109,
+      "score": 0.527346591,
       "source_file": "frontend/src/components/GraficoProducaoLeite.jsx",
       "status": "tentative",
       "uses": 1
@@ -108,13 +108,13 @@
           "q": "Quais componentes e estilos causam overflow e sobreposição no Dashboard do BoviTrack?"
         }
       ],
-      "score": 0.999803109,
+      "score": 0.527346591,
       "source_file": "frontend/src/components/IconeImagem.jsx",
       "status": "tentative",
       "uses": 1
     },
     "frontend_src_pages_dashboard_dashboard": {
-      "code_fingerprint": "eed78ecc093f06013368742b1759232e7fbd4eda725a5914153456d2a0d56fc1",
+      "code_fingerprint": "548e0fa98ae05ee086fd7792274846b520c5a9923e10aa44acef0f4fb6732bb1",
       "label": "Dashboard()",
       "last": "2026-09-04T03:21:35.768036+00:00",
       "provenance": [
@@ -124,13 +124,13 @@
           "q": "Quais componentes e estilos causam overflow e sobreposição no Dashboard do BoviTrack?"
         }
       ],
-      "score": 0.999803109,
+      "score": 0.527346591,
       "source_file": "frontend/src/pages/Dashboard.jsx",
       "status": "tentative",
       "uses": 1
     },
     "frontend_src_pages_propriedades_propriedades": {
-      "code_fingerprint": "25310a2ee5bf5df2e25ef77455c5af5a0a5260d6735b3a61d977ad4f0cc879e3",
+      "code_fingerprint": "86fae2e6a0bf52fc751f99d04ff520f75be3e0ff4bb57ff1d4466cb65259bc24",
       "label": "Propriedades()",
       "last": "2026-09-04T03:05:39.620343+00:00",
       "provenance": [
@@ -140,7 +140,7 @@
           "q": "Como adicionar o proprietário das propriedades somente para administradores no BoviTrack?"
         }
       ],
-      "score": 0.999547501,
+      "score": 0.527211771,
       "source_file": "frontend/src/pages/Propriedades.jsx",
       "status": "tentative",
       "uses": 1

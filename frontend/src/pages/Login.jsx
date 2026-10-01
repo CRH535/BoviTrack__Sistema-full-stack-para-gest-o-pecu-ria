@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../auth/useAuth";
 import { useBlackHoleTransition } from "../transitions/useBlackHoleTransition";
+import PasswordInput from "../components/PasswordInput";
 
 function Login() {
   const location = useLocation();
@@ -82,9 +83,8 @@ function Login() {
           />
 
           <label htmlFor="senha">Senha</label>
-          <input
+          <PasswordInput
             id="senha"
-            type="password"
             value={senha}
             onChange={(evento) => setSenha(evento.target.value)}
             autoComplete="current-password"
